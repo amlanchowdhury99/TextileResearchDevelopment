@@ -7,114 +7,102 @@
 <h2>Fabric Entry Form</h2>
 <h4 id="id1" style="color:purple"></h4>
 
-@using (Ajax.BeginForm("Create", "Fabric", new AjaxOptions
-{
-    HttpMethod = "POST",
-    UpdateTargetId = "id1",
-    LoadingElementId = "LoadingImage",
-    OnSuccess = "onSuccess_Message",
-    OnFailure = "onFailure_Message"
+@Html.AntiForgeryToken()
+<hr />
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-}))
-{
-    @Html.AntiForgeryToken()
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <form class="row">
-        <div class="form-group row">
-            <div class="col-md-2">@Html.LabelFor(m => m.BuyerName)</div>
-            <div class="col-md-4">
-                @Html.TextBoxFor(m => m.BuyerName, new { @class = "form-control", @placeholder = "Buyer Name" })
-                @Html.ValidationMessageFor(m => m.BuyerName, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-md-2">@Html.LabelFor(m => m.FabricType)</div>
-            <div class="col-md-4">
-                @Html.TextBoxFor(m => m.FabricType, new { @class = "form-control", @placeholder = "Fabric Type" })
-                @Html.ValidationMessageFor(m => m.FabricType, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<div class="form-group">
 
-        <div class="form-group row">
-            <div class="col-md-2">@Html.LabelFor(m => m.OrderNo)</div>
-            <div class="col-md-4">
-                @Html.TextBoxFor(m => m.OrderNo, new { @class = "form-control", @placeholder = "Order Number" })
-                @Html.ValidationMessageFor(m => m.OrderNo, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-md-2">@Html.LabelFor(m => m.Color)</div>
-            <div class="col-md-4">
-                @Html.TextBoxFor(m => m.Color, new { @class = "form-control", @placeholder = "Color" })
-                @Html.ValidationMessageFor(m => m.Color, "", new { @class = "text-danger" })
-            </div>
-        </div>
+</div>
 
-        <div class="form-group row">
-            <div class="col-md-2">@Html.LabelFor(m => m.Note)</div>
-            <div class="col-md-4">
-                @Html.TextBoxFor(m => m.Note, new { @class = "form-control", @placeholder = "Sp Note" })
-                @Html.ValidationMessageFor(m => m.Note, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-md-2">@Html.LabelFor(m => m.Width)</div>
-            <div class="col-md-4">
-                @Html.TextBoxFor(m => m.Width, new { @class = "form-control", @placeholder = "Width" })
-                @Html.ValidationMessageFor(m => m.Width, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-md-2">@Html.LabelFor(m => m.GSM)</div>
-            <div class="col-md-4">
-                @Html.TextBoxFor(m => m.GSM, new { @class = "form-control", @placeholder = "GSM", @type = "number" })
-                @Html.ValidationMessageFor(m => m.GSM, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-md-2">@Html.LabelFor(m => m.Status)</div>
-            <div class="col-md-4">
-                @Html.TextBoxFor(m => m.Status, new { @class = "form-control", @placeholder = "LabDip Status" })
-                @Html.ValidationMessageFor(m => m.Status, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-md-2">@Html.LabelFor(m => m.ChallanNo)</div>
-            <div class="col-md-4">
-                @Html.TextBoxFor(m => m.ChallanNo, new { @class = "form-control", @placeholder = "Challan Number" })
-                @Html.ValidationMessageFor(m => m.ChallanNo, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-md-2">@Html.LabelFor(m => m.DeliverQty)</div>
-            <div class="col-md-4">
-                @Html.TextBoxFor(m => m.DeliverQty, new { @class = "form-control", @placeholder = "Deliver Quantity", @type = "number" })
-                @Html.ValidationMessageFor(m => m.DeliverQty, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-md-2">@Html.LabelFor(m => m.DeliveryDate)</div>
-            <div class="col-md-4">
-                @Html.TextBoxFor(m => m.DeliveryDate, new { @class = "form-control", @placeholder = "Delivery Date", @type = "date" })
-                @Html.ValidationMessageFor(m => m.DeliveryDate, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-md-2"></div>
-            <div class="col-md-4">
+<div class="container">
+    <form class=" form-group form-inline">
+        <div class="form-group">
+            <label for="exampleInputName2" class="control-label col-md-2">Name</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control col-md-2" id="exampleInputEmail2" placeholder="jane.doe@example.com">
             </div>
         </div>
         <div class="form-group">
-            <div class="row">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+            </div>
+        </div>
+    </form>
+    <form class=" form-group form-inline">
+        <div class="form-group">
+            <label for="exampleInputName2" class="control-label col-md-2">Name</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control col-md-2" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+            </div>
+        </div>
+    </form>
+    <form class=" form-group form-inline">
+        <div class="form-group">
+            <label for="exampleInputName2" class="control-label col-md-2">Name</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control col-md-2" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+            </div>
+        </div>
+    </form>
+    <form class=" form-group form-inline">
+        <div class="form-group">
+            <label for="exampleInputName2" class="control-label col-md-2">Name</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control col-md-2" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
             </div>
         </div>
     </form>
 
-    <div id="LoadingImage" style="display:none">Loading...</div>
-    <div id="onSuccess_Message"></div>
-    <div id="onFailure_Message"></div>
-
-}
-
-
+</div>
 
 <script type="text/javascript">
-    $(function () {
-        $('.date-picker').datepicker();
-    })
+    function submit() {
+        var data = {
+            Id: $('#Id').val(),
+            Name: $('#Name').val(),
+            Addon: $('#Addon').is(':checked')
+        };
+
+        $.post("/Fabric/Create", { sm: data }, function () { alert('Successfully Saved!') });
+    }
 </script>
 
 @section Scripts {
