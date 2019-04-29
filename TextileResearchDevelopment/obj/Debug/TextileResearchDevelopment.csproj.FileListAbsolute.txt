@@ -69,8 +69,8 @@ G:\Projects\TextileResearchDevelopment\TextileResearchDevelopment\bin\System.Web
 G:\Projects\TextileResearchDevelopment\TextileResearchDevelopment\bin\Newtonsoft.Json.xml
 G:\Projects\TextileResearchDevelopment\TextileResearchDevelopment\bin\Antlr3.Runtime.pdb
 G:\Projects\TextileResearchDevelopment\TextileResearchDevelopment\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-G:\Projects\TextileResearchDevelopment\TextileResearchDevelopment\obj\Debug\TextileResearchDevelopment.csprojAssemblyReference.cache
 G:\Projects\TextileResearchDevelopment\TextileResearchDevelopment\obj\Debug\TextileResearchDevelopment.csproj.CoreCompileInputs.cache
 G:\Projects\TextileResearchDevelopment\TextileResearchDevelopment\obj\Debug\TextileResearchDevelopment.csproj.CopyComplete
 G:\Projects\TextileResearchDevelopment\TextileResearchDevelopment\obj\Debug\TextileResearchDevelopment.dll
 G:\Projects\TextileResearchDevelopment\TextileResearchDevelopment\obj\Debug\TextileResearchDevelopment.pdb
+G:\Projects\TextileResearchDevelopment\TextileResearchDevelopment\obj\Debug\TextileResearchDevelopment.csprojAssemblyReference.cache

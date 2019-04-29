@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TextileResearchDevelopment.Models;
 
 namespace TextileResearchDevelopment.Controllers
 {
@@ -28,7 +29,7 @@ namespace TextileResearchDevelopment.Controllers
 
         // POST: Fabric/Create
         [HttpPost]
-        public ActionResult Create(Models.Fabric fabric)
+        public ActionResult Create(Fabric fabric)
         {
             try
             {

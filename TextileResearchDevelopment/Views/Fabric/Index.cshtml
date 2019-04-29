@@ -1,110 +1,169 @@
 ﻿@model TextileResearchDevelopment.Models.Fabric
-@*@{
-        ViewBag.Title = "Index";
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }*@
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
+    <style>
+    .btn {
+        padding: 10px 20px;
+        font-size: 15px;
+        border-radius: 10px;
+    }
+
+  </style>
+
+</head>
 
 <h2>Fabric Entry Form</h2>
-<h4 id="id1" style="color:purple"></h4>
 
 @Html.AntiForgeryToken()
 <hr />
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-<div class="form-group">
-
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Create Fabric Order</h5>
+            </div>
+            <div class="panel-body">
+                <div class=" form-group form-inline">
+                    <div class="form-group">
+                        <label for="exampleInputName2" class="control-label col-md-2">Name</label>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control col-md-2" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group form-inline">
+                    <div class="form-group">
+                        <label for="exampleInputName2" class="control-label col-md-2">Name</label>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control col-md-2" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group form-inline">
+                    <div class="form-group">
+                        <label for="exampleInputName2" class="control-label col-md-2">Name</label>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control col-md-2" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group form-inline">
+                    <div class="form-group">
+                        <label for="exampleInputName2" class="control-label col-md-2">Name</label>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control col-md-2" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+                        </div>
+                    </div>
+                    <div class="form-group" style="        text-align: center;">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-10">
+                            <button type="button" class="btn btn-warning btn-md" onclick="window.location.href='@Url.Action("Index")';"><i class="icon-circle-left2 position-left"></i> Reset</button>
+                            <button type="submit" class="btn btn-primary btn-md"><i class="icon-add position-left"></i>Save</button>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="container">
-    <form class=" form-group form-inline">
-        <div class="form-group">
-            <label for="exampleInputName2" class="control-label col-md-2">Name</label>
-            <div class="col-md-2">
-                <input type="text" class="form-control col-md-2" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
-            <div class="col-md-2">
-                <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
-            <div class="col-md-2">
-                <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-            </div>
-        </div>
-    </form>
-    <form class=" form-group form-inline">
-        <div class="form-group">
-            <label for="exampleInputName2" class="control-label col-md-2">Name</label>
-            <div class="col-md-2">
-                <input type="text" class="form-control col-md-2" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
-            <div class="col-md-2">
-                <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
-            <div class="col-md-2">
-                <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-            </div>
-        </div>
-    </form>
-    <form class=" form-group form-inline">
-        <div class="form-group">
-            <label for="exampleInputName2" class="control-label col-md-2">Name</label>
-            <div class="col-md-2">
-                <input type="text" class="form-control col-md-2" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
-            <div class="col-md-2">
-                <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
-            <div class="col-md-2">
-                <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-            </div>
-        </div>
-    </form>
-    <form class=" form-group form-inline">
-        <div class="form-group">
-            <label for="exampleInputName2" class="control-label col-md-2">Name</label>
-            <div class="col-md-2">
-                <input type="text" class="form-control col-md-2" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
-            <div class="col-md-2">
-                <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-            </div>
-        </div>
-    </form>
+<table id="example" class="display" style="        width: 100%">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Office</th>
+            <th>Age</th>
+            <th>Start date</th>
+            <th>Salary</th>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Office</th>
+            <th>Age</th>
+            <th>Start date</th>
+            <th>Salary</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Tiger Nixon</td>
+            <td>System Architect</td>
+            <td>Edinburgh</td>
+            <td>61</td>
+            <td>2011/04/25</td>
+            <td>$320,800</td>
+            <td>Tiger Nixon</td>
+            <td>System Arcasdasdasdasdasdasdasdasdasdsadasdhitect</td>
+            <td>Edinburgh</td>
+            <td>61</td>
+            <td>2011/04/25</td>
+            <td>$320,800</td>
+        </tr>
+    </tbody>
+</table>
 
-</div>
-
-<script type="text/javascript">
-    function submit() {
-        var data = {
-            Id: $('#Id').val(),
-            Name: $('#Name').val(),
-            Addon: $('#Addon').is(':checked')
-        };
-
-        $.post("/Fabric/Create", { sm: data }, function () { alert('Successfully Saved!') });
-    }
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable({
+            "scrollY": true,
+            "scrollX": true
+        });
+        //    $.post("/Fabric/Create", { sm: data }, function () { alert('Successfully Saved!') });
+        //}
+    });
 </script>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+@*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@

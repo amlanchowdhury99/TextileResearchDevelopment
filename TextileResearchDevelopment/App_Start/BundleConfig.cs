@@ -22,8 +22,16 @@ namespace TextileResearchDevelopment
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
+            //bundles.Add(new ScriptBundle("~/bundles/popper").Include(
+            //          "~/Scripts/popper.min.js"));
+
+            //bundles.Add(new ScriptBundle("~/bundles/mdb").Include(
+            //          "~/Scripts/mdb.min.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/jquery.dataTables.min.css",
+                      //"~/Content/Custom.css",
                       "~/Content/site.css"));
         }
     }
