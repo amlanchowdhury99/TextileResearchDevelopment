@@ -5,16 +5,20 @@
 }
 
 <head>
-    <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
 
     <style>
-    .btn {
-        padding: 10px 20px;
-        font-size: 15px;
-        border-radius: 10px;
-    }
+        .btn {
+            padding: 10px 20px;
+            font-size: 15px;
+            border-radius: 5px;
+        }
 
-  </style>
+        tfoot input {
+            width: 100%;
+            padding: 3px;
+            box-sizing: border-box;
+        }
+    </style>
 
 </head>
 
@@ -24,143 +28,194 @@
 <hr />
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="panel panel-default ">
-            <div class="panel-heading">
-                <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Create Fabric Order</h5>
+<form class="row">
+    <div class="panel panel-default ">
+        <div class="panel-heading">
+            <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Create Fabric Order</h5>
+        </div>
+        <div class="panel-body">
+            <div class=" form-group">
+                <div class="form-group col-xs-4 form-inline">
+                    <label for="BuyerName" class="control-label" style="width:35%;">Buyer Name</label>
+                    <div style=" display: inline;">
+                        <input type="text" class="form-control" style="width:60%;" id="BuyerName" placeholder="Buyer Name" required autofocus>
+                    </div>
+                </div>
+                <div class="form-group col-xs-4 form-inline">
+                    <label for="FabricType" class="control-label" style="width:35%;">Sample Type</label>
+                    <div style="display: inline;">
+                        <input type="text" class="form-control" style="width:60%;" id="FabricType" placeholder="Sample Type" required autofocus>
+                    </div>
+                </div>
+                <div class="form-group col-xs-4 form-inline">
+                    <label for="OrderNo" class="control-label" style="width:35%;">Order No</label>
+                    <div style="display: inline;">
+                        <input type="text" class="form-control" id="OrderNo" style="width:60%;" placeholder="Order No" required autofocus>
+                    </div>
+                </div>
             </div>
-            <div class="panel-body">
-                <div class=" form-group form-inline">
-                    <div class="form-group">
-                        <label for="exampleInputName2" class="control-label col-md-2">Name</label>
-                        <div class="col-md-2">
-                            <input type="text" class="form-control col-md-2" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
-                        <div class="col-md-2">
-                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
-                        <div class="col-md-2">
-                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-                        </div>
+            <div class=" form-group">
+                <div class="form-group col-xs-4 form-inline">
+                    <label for="Color" class="control-label" style="width:35%;">Color</label>
+                    <div style="display: inline;">
+                        <input type="text" class="form-control" style="width:60%;" id="Color" placeholder="Color" required autofocus>
                     </div>
                 </div>
-                <div class=" form-group form-inline">
-                    <div class="form-group">
-                        <label for="exampleInputName2" class="control-label col-md-2">Name</label>
-                        <div class="col-md-2">
-                            <input type="text" class="form-control col-md-2" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
-                        <div class="col-md-2">
-                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
-                        <div class="col-md-2">
-                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-                        </div>
+                <div class="form-group col-xs-4 form-inline">
+                    <label for="Note" class="control-label" style="width:35%;">Sp Note</label>
+                    <div style="display: inline;">
+                        <input type="text" class="form-control" style="width:60%;" id="Note" placeholder="Sp Note">
                     </div>
                 </div>
-                <div class=" form-group form-inline">
-                    <div class="form-group">
-                        <label for="exampleInputName2" class="control-label col-md-2">Name</label>
-                        <div class="col-md-2">
-                            <input type="text" class="form-control col-md-2" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
-                        <div class="col-md-2">
-                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
-                        <div class="col-md-2">
-                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-                        </div>
+                <div class="form-group col-xs-4 form-inline">
+                    <label for="Width" class="control-label" style="width:35%;">Required Width</label>
+                    <div style="display: inline;">
+                        <input type="text" class="form-control" style="width:60%;" id="Width" placeholder="Required Width" required autofocus>
                     </div>
                 </div>
-                <div class=" form-group form-inline">
-                    <div class="form-group">
-                        <label for="exampleInputName2" class="control-label col-md-2">Name</label>
-                        <div class="col-md-2">
-                            <input type="text" class="form-control col-md-2" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail2" class="control-label col-md-2">Email</label>
-                        <div class="col-md-2">
-                            <input type="text" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
-                        </div>
-                    </div>
-                    <div class="form-group" style="        text-align: center;">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-10">
-                            <button type="button" class="btn btn-warning btn-md" onclick="window.location.href='@Url.Action("Index")';"><i class="icon-circle-left2 position-left"></i> Reset</button>
-                            <button type="submit" class="btn btn-primary btn-md"><i class="icon-add position-left"></i>Save</button>
-                        </div>
+            </div>
+            <div class=" form-group">
+                <div class="form-group col-xs-4 form-inline">
+                    <label for="GSM" class="control-label" style="width:35%;">Required Width</label>
+                    <div style="display: inline;">
+                        <input type="text" class="form-control" style="width:60%;" id="GSM" placeholder="Required Width" required autofocus>
                     </div>
                 </div>
-                
+                <div class="form-group col-xs-4 form-inline">
+                    <label for="GSM" class="control-label" style="width:35%;">LabDip Status</label>
+                    <div style="display: inline;">
+                        <input type="text" class="form-control" style="width:60%;" id="GSM" placeholder="LabDip Status" required autofocus>
+                    </div>
+                </div>
+                <div class="form-group col-xs-4 form-inline">
+                    <label for="ChallanNo" class="control-label" style="width:35%;">Challan No</label>
+                    <div style="display: inline;">
+                        <input type="text" class="form-control" style="width:60%;" id="ChallanNo" placeholder="Challan No" required autofocus>
+                    </div>
+                </div>
+            </div>
+            <div class=" form-group">
+                <div class="form-group col-xs-4 form-inline">
+                    <label for="DeliveryQty" class="control-label" style="width:35%;">Delivery Quatity</label>
+                    <div style="display: inline;">
+                        <input type="text" class="form-control" style="width:60%;" id="DeliveryQty" placeholder="Delivery Quatity" required autofocus>
+                    </div>
+                </div>
+                <div class="form-group col-xs-4 form-inline">
+                    <label for="DeliveryDate" class="control-label" style="width:35%;">Delivery Date</label>
+                    <div style="display: inline;">
+                        <input type="text" class="form-control" style="width:60%;" id="DeliveryDate" placeholder="Delivery Date" required autofocus>
+                    </div>
+                </div>
+                <div class="form-group col-xs-4 form-inline">
+                    <button type="button" class="btn btn-warning btn-sm" style="width:35%;">Reset</button>
+                    <div style="display: inline;">
+                        <button type="submit" class="btn btn-primary btn-sm" style="width:60%;">Save</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    @*<div class="valid-tooltip">Good! Your email address looks valid.</div>*@
+    <table id="fabricTable" class="stripe hover order-column" style="        width: 100%">
+        <thead>
+            <tr>
+                <th>BuyerName</th>
+                <th>FabricType</th>
+                <th>OrderNo</th>
+                <th>Color</th>
+                <th>Note</th>
+                <th>Width</th>
+                <th>GSM</th>
+                <th>Status</th>
+                <th>ChallanNo</th>
+                <th>DeliverQty</th>
+                <th>DeliveryDate</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>BuyerName</th>
+                <th>FabricType</th>
+                <th>OrderNo</th>
+                <th>Color</th>
+                <th>Note</th>
+                <th>Width</th>
+                <th>GSM</th>
+                <th>Status</th>
+                <th>ChallanNo</th>
+                <th>DeliverQty</th>
+                <th>DeliveryDate</th>
+            </tr>
+        </tfoot>
+    </table>
+</form>
 
-<table id="example" class="display" style="        width: 100%">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Office</th>
-            <th>Age</th>
-            <th>Start date</th>
-            <th>Salary</th>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Office</th>
-            <th>Age</th>
-            <th>Start date</th>
-            <th>Salary</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Tiger Nixon</td>
-            <td>System Architect</td>
-            <td>Edinburgh</td>
-            <td>61</td>
-            <td>2011/04/25</td>
-            <td>$320,800</td>
-            <td>Tiger Nixon</td>
-            <td>System Arcasdasdasdasdasdasdasdasdasdsadasdhitect</td>
-            <td>Edinburgh</td>
-            <td>61</td>
-            <td>2011/04/25</td>
-            <td>$320,800</td>
-        </tr>
-    </tbody>
-</table>
+
 
 <script>
     $(document).ready(function () {
-        $('#example').DataTable({
-            "scrollY": true,
-            "scrollX": true
+
+        // Setup - add a text input to each footer cell
+        $('#fabricTable tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="Search" />');
         });
-        //    $.post("/Fabric/Create", { sm: data }, function () { alert('Successfully Saved!') });
-        //}
+
+        // DataTable
+        var table = $('#fabricTable').DataTable({
+            "ajax":
+            {
+                "url": "/Fabric/GetData",
+                "type": "GET",
+                "dataType": "JSON"
+            },
+            "scrollY": true,
+            "scrollX": true,
+            "Sorting": true,
+            "searching": true,
+            "columns": [
+                { "data": "BuyerName" },
+                { "data": "FabricType" },
+                { "data": "OrderNo" },
+                { "data": "Color" },
+                { "data": "Note" },
+                { "data": "Width" },
+                { "data": "GSM" },
+                { "data": "Status" },
+                { "data": "ChallanNo" },
+                { "data": "DeliverQty" },
+                {
+                    data: "DeliveryDate",
+                    render: function (data, type, row) {
+                        return moment(data).format("DD/MM/YYYY");
+                    }
+                }
+            ]
+        });
+
+        $('#fabricTable tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+
+        // Apply the search
+        table.columns().every(function () {
+            var that = this;
+
+            $('input', this.footer()).on('keyup change', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
     });
 </script>
 

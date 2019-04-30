@@ -150,7 +150,10 @@ namespace TextileResearchDevelopment.DataAccessLayer
             }
             finally
             {
-                connection.Close();
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
             }
             return mr;
         }
@@ -193,7 +196,13 @@ namespace TextileResearchDevelopment.DataAccessLayer
             {
                 return false;
             }
-
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
         }
 
         public static bool GetNumberForRows(string query)
@@ -238,7 +247,13 @@ namespace TextileResearchDevelopment.DataAccessLayer
             {
                 return false;
             }
-
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
         }
 
         public static SqlDataReader GetFromDB(string query)
@@ -260,7 +275,6 @@ namespace TextileResearchDevelopment.DataAccessLayer
             {
                 return reader;
             }
-
         }
 
     }
