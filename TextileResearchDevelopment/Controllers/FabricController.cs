@@ -8,6 +8,8 @@ using TextileResearchDevelopment.BLL;
 using System.Web.Services;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace TextileResearchDevelopment.Controllers
 {
@@ -31,19 +33,17 @@ namespace TextileResearchDevelopment.Controllers
             return View();
         }
 
-        // POST: Fabric/Create
         [HttpPost]
         public ActionResult Create(Fabric fabric)
         {
             try
             {
-                // TODO: Add insert logic here
-
                 if (ModelState.IsValid)
                 {
-                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                    sb.Append("ID: " + fabric.Id + "<br />");
-                    return Content(sb.ToString());
+                    if (FabricBLL.AddItem(fabric))
+                    {
+
+                    }
                 }
                 else
                 {

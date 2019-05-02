@@ -24,7 +24,8 @@ namespace TextileResearchDevelopment
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/bootstrap-datetimepicker.min.js"));
 
             //bundles.Add(new ScriptBundle("~/bundles/popper").Include(
             //          "~/Scripts/popper.min.js"));
@@ -36,7 +37,8 @@ namespace TextileResearchDevelopment
                       "~/Content/bootstrap.css",
                       "~/Content/jquery.dataTables.min.css",
                       //"~/Content/Custom.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/bootstrap-datetimepicker.min.css"));
         }
     }
 }

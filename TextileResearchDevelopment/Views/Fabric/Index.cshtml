@@ -76,15 +76,15 @@
             </div>
             <div class=" form-group">
                 <div class="form-group col-xs-4 form-inline">
-                    <label for="GSM" class="control-label" style="width:35%;">Required Width</label>
+                    <label for="GSM" class="control-label" style="width:35%;">Required GSM</label>
                     <div style="display: inline;">
-                        <input type="text" class="form-control" style="width:60%;" id="GSM" placeholder="Required Width" required autofocus>
+                        <input type="number" class="form-control" style="width:60%;" id="GSM" min="0" step="1" data-bind="value:GSM" placeholder="Required GSM" required autofocus>
                     </div>
                 </div>
                 <div class="form-group col-xs-4 form-inline">
-                    <label for="GSM" class="control-label" style="width:35%;">LabDip Status</label>
+                    <label for="Status" class="control-label" style="width:35%;">LabDip Status</label>
                     <div style="display: inline;">
-                        <input type="text" class="form-control" style="width:60%;" id="GSM" placeholder="LabDip Status" required autofocus>
+                        <input type="text" class="form-control" style="width:60%;" id="Status" placeholder="LabDip Status" required autofocus>
                     </div>
                 </div>
                 <div class="form-group col-xs-4 form-inline">
@@ -98,28 +98,32 @@
                 <div class="form-group col-xs-4 form-inline">
                     <label for="DeliveryQty" class="control-label" style="width:35%;">Delivery Quatity</label>
                     <div style="display: inline;">
-                        <input type="text" class="form-control" style="width:60%;" id="DeliveryQty" placeholder="Delivery Quatity" required autofocus>
+                        <input type="number" class="form-control" style="width:60%;" id="DeliveryQty" min="0" step="1" data-bind="value:DeliveryQty" placeholder="Delivery Quatity" required autofocus>
                     </div>
                 </div>
                 <div class="form-group col-xs-4 form-inline">
                     <label for="DeliveryDate" class="control-label" style="width:35%;">Delivery Date</label>
-                    <div style="display: inline;">
-                        <input type="text" class="form-control" style="width:60%;" id="DeliveryDate" placeholder="Delivery Date" required autofocus>
+                    <div class='input-group date' id='DeliveryDate' style="width:60%;">
+                        <input type='text' class="form-control" placeholder="Delivey Date" required autofocus />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
                     </div>
                 </div>
                 <div class="form-group col-xs-4 form-inline">
                     <button type="button" class="btn btn-warning btn-sm" style="width:35%;">Reset</button>
                     <div style="display: inline;">
-                        <button type="submit" class="btn btn-primary btn-sm" style="width:60%;">Save</button>
+                        <button type="submit" id="saveBtn" class="btn btn-primary btn-sm" style="width:60%;">Save</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     @*<div class="valid-tooltip">Good! Your email address looks valid.</div>*@
-    <table id="fabricTable" class="stripe hover order-column" style="        width: 100%">
+    <table id="fabricTable" class="stripe hover order-column" style="width: 100%">
         <thead>
             <tr>
+                <th></th>
                 <th>BuyerName</th>
                 <th>FabricType</th>
                 <th>OrderNo</th>
@@ -135,6 +139,7 @@
         </thead>
         <tfoot>
             <tr>
+                <th></th>
                 <th>BuyerName</th>
                 <th>FabricType</th>
                 <th>OrderNo</th>
@@ -154,7 +159,13 @@
 
 
 <script>
+    var i = 1;
     $(document).ready(function () {
+
+        $('#DeliveryDate').datetimepicker({
+            defaultDate: new Date(),
+            format: 'DD/MM/YYYY HH:mm'
+        });
 
         // Setup - add a text input to each footer cell
         $('#fabricTable tfoot th').each(function () {
@@ -174,7 +185,19 @@
             "scrollX": true,
             "Sorting": true,
             "searching": true,
+
+            "columnDefs": [{
+                "searchable": false,
+                "orderable": false,
+                "targets": 0
+            }],
+
             "columns": [
+                {
+                    "render": function (data, type, full, meta) {
+                        return i++;
+                    }
+                },
                 { "data": "BuyerName" },
                 { "data": "FabricType" },
                 { "data": "OrderNo" },
@@ -216,6 +239,52 @@
                 }
             });
         });
+
+        $('#saveBtn').on('click', function (event) {
+            event.preventDefault();
+
+            var fabricObj = {
+                'BuyrName': $("#BuyerName").val(),
+                'FabricType': $("#FabricType").val(),
+                'OrderNo': $("#OrderNo").val(),
+                'Color': $("#Color").val(),
+                'Note': $("#Note").val(),
+                'Width': $("#Width").val(),
+                'GSM': $("#GSM").val(),
+                'Status': $("#Status").val(),
+                'ChallanNo': $("#ChallanNo").val(),
+                'DeliveryQty': $("#DeliveryQty").val(),
+                'DeliveryDate': $("#DeliveryDate").val().toString()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Fabric/Create",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(fabricObj),
+                success: function (response) {
+                    var jsonObject = JSON.parse(response.data);
+                    var result = jsonObject.map(function (item) {
+                        var result = [];
+                        result.push(item.Id);
+                        result.push(item.Name);
+                        result.push(item.Description);
+                        result.push(item.Image);
+                        result.push(item.Parent);
+                        result.push(item.Location);
+                        result.push("");
+                        return result;
+                    });
+                    myTable.rows.add(result);
+                    myTable.draw();
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        });
+
     });
 </script>
 

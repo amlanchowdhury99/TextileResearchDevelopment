@@ -57,5 +57,48 @@ namespace TextileResearchDevelopment.BLL
             return fabrics;
         }
 
+        public static Boolean AddItem(Fabric fabric)
+        {
+            try
+            {
+                string query = "INSERT INTO Fabric (BuyerName, FabricType, OrderNo, Color, Note, Width, GSM, LabdipStatus, ChallanNo, DeliveryQty, DeliveryDate, Barcode) VALUES()";
+
+                fabrics = new List<Fabric>();
+                string query = "SELECT * FROM Fabric";
+                SqlDataReader reader = DBGateway.GetFromDB(query);
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        //Fabric fabric = new Fabric();
+                        fabric.BuyerName = reader["BuyerName"].ToString();
+                        fabric.FabricType = Convert.ToInt32(reader["FabricType"]);
+                        fabric.OrderNo = reader["OrderNo"].ToString();
+                        fabric.Color = reader["Color"].ToString();
+                        fabric.Note = reader["Note"].ToString();
+                        fabric.Width = reader["Width"].ToString();
+                        fabric.GSM = Convert.ToInt32(reader["GSM"]);
+                        fabric.Status = reader["LabdipStatus"].ToString();
+                        fabric.DeliverQty = Convert.ToDecimal(reader["DeliveryQty"]);
+                        fabric.DeliveryDate = Convert.ToDateTime(reader["DeliveryDate"]);
+
+                        fabrics.Add(fabric);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+
+            return fabrics;
+        }
     }
 }
