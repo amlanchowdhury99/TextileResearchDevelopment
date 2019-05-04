@@ -36,24 +36,38 @@ namespace TextileResearchDevelopment.Controllers
         [HttpPost]
         public ActionResult Create(Fabric fabric)
         {
+            Boolean Result = false;
             try
             {
                 if (ModelState.IsValid)
                 {
-                    if (FabricBLL.AddItem(fabric))
+                    fabric.BarCode = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + FabricBLL.GetSerial((DateTime.Now.Year + DateTime.Now.Month + DateTime.Now.Day).ToString());
+                    if(fabric.Id == 0)
                     {
-
+                        int Id = FabricBLL.AddItem(fabric);
+                        if (Id > 0)
+                        {
+                            fabric.Id = Id;
+                            Result = true;
+                        }
+                        else
+                        {
+                            Result = false;
+                        }
                     }
+                    
                 }
-                else
+                if (Result)
                 {
-                    return View("Index");
+                    return Json(new { data = fabric }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch
             {
                 return View();
             }
+
+            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Fabric/Edit/5

@@ -104,7 +104,7 @@
                 <div class="form-group col-xs-4 form-inline">
                     <label for="DeliveryDate" class="control-label" style="width:35%;">Delivery Date</label>
                     <div class='input-group date' id='DeliveryDate' style="width:60%;">
-                        <input type='text' class="form-control" placeholder="Delivey Date" required autofocus />
+                        <input type='text' class="form-control" id="DeliveryDateText" placeholder="Delivey Date" required autofocus />
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
@@ -124,6 +124,7 @@
         <thead>
             <tr>
                 <th></th>
+                <th>Id</th>
                 <th>BuyerName</th>
                 <th>FabricType</th>
                 <th>OrderNo</th>
@@ -140,6 +141,7 @@
         <tfoot>
             <tr>
                 <th></th>
+                <th>Id</th>
                 <th>BuyerName</th>
                 <th>FabricType</th>
                 <th>OrderNo</th>
@@ -186,17 +188,27 @@
             "Sorting": true,
             "searching": true,
 
-            "columnDefs": [{
-                "searchable": false,
-                "orderable": false,
-                "targets": 0
-            }],
+            "columnDefs": [
+                {
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": [0]
+                },
+                {
+                    "targets": [1],
+                    "visible": false,
+                    "searchable": false
+                }
+            ],
 
             "columns": [
                 {
                     "render": function (data, type, full, meta) {
-                        return i++;
+                        return table.data().count();
                     }
+                },
+                {
+                    "data": "Id"
                 },
                 { "data": "BuyerName" },
                 { "data": "FabricType" },
@@ -242,9 +254,9 @@
 
         $('#saveBtn').on('click', function (event) {
             event.preventDefault();
-
             var fabricObj = {
-                'BuyrName': $("#BuyerName").val(),
+                'Id': '0',
+                'BuyerName': $("#BuyerName").val(),
                 'FabricType': $("#FabricType").val(),
                 'OrderNo': $("#OrderNo").val(),
                 'Color': $("#Color").val(),
@@ -254,7 +266,7 @@
                 'Status': $("#Status").val(),
                 'ChallanNo': $("#ChallanNo").val(),
                 'DeliveryQty': $("#DeliveryQty").val(),
-                'DeliveryDate': $("#DeliveryDate").val().toString()
+                'DeliveryDate': $("#DeliveryDateText").val().toString()
             };
 
             $.ajax({
@@ -264,26 +276,38 @@
                 dataType: "json",
                 data: JSON.stringify(fabricObj),
                 success: function (response) {
-                    var jsonObject = JSON.parse(response.data);
-                    var result = jsonObject.map(function (item) {
-                        var result = [];
-                        result.push(item.Id);
-                        result.push(item.Name);
-                        result.push(item.Description);
-                        result.push(item.Image);
-                        result.push(item.Parent);
-                        result.push(item.Location);
-                        result.push("");
-                        return result;
-                    });
-                    myTable.rows.add(result);
-                    myTable.draw();
+                    if (response.data != "" && response.data != null)
+                    {
+                        table.row.add(response.data);
+                        table.draw();
+                        Reset();
+                    }
+                    else
+                    {
+
+                    }
+
                 },
                 failure: function () {
                     $("#tblItems").append(" Error when fetching data please contact administrator");
                 }
             });
         });
+
+        function Reset()
+        {
+            $("#BuyerName").val("");
+            $("#FabricType").val("");
+            $("#OrderNo").val("");
+            $("#Color").val("");
+            $("#Note").val("");
+            $("#Width").val("");
+            $("#GSM").val("");
+            $("#Status").val("");
+            $("#ChallanNo").val("");
+            $("#DeliveryQty").val("");
+            $("#DeliveryDateText").val("");
+        }
 
     });
 </script>

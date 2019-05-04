@@ -50,7 +50,7 @@ namespace TextileResearchDevelopment.Models
             get; set;
         }
 
-
+        public string BarCode { get; set; }
 
     }
 }
