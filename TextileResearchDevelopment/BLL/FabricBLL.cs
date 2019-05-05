@@ -35,8 +35,9 @@ namespace TextileResearchDevelopment.BLL
                         fabric.Note = reader["Note"].ToString();
                         fabric.Width = reader["Width"].ToString();
                         fabric.GSM = Convert.ToInt32(reader["GSM"]);
+                        fabric.ChallanNo = reader["ChallanNo"].ToString();
                         fabric.Status = reader["LabdipStatus"].ToString();
-                        fabric.DeliverQty = Convert.ToDecimal(reader["DeliveryQty"]);
+                        fabric.DeliveryQty = Convert.ToDecimal(reader["DeliveryQty"]);
                         fabric.DeliveryDate = Convert.ToDateTime(reader["DeliveryDate"]);
 
                         fabrics.Add(fabric);
@@ -93,7 +94,7 @@ namespace TextileResearchDevelopment.BLL
             int Id = -1;
             try
             {
-                string query = "INSERT INTO Fabric (BuyerName, FabricType, OrderNo, Color, Note, Width, GSM, LabdipStatus, ChallanNo, DeliveryQty, DeliveryDate, Barcode) VALUES('"+fabric.BuyerName+"','"+fabric.FabricType+"','"+fabric.OrderNo+"','"+fabric.Color+"','"+fabric.Note+"','"+fabric.Width+"',"+fabric.GSM+",'"+fabric.Status+"','"+fabric.ChallanNo+"',"+fabric.DeliverQty+",'"+fabric.DeliveryDate+"','"+fabric.BarCode+"')";
+                string query = "INSERT INTO Fabric (BuyerName, FabricType, OrderNo, Color, Note, Width, GSM, LabdipStatus, ChallanNo, DeliveryQty, DeliveryDate, Barcode) VALUES('"+fabric.BuyerName+"','"+fabric.FabricType+"','"+fabric.OrderNo+"','"+fabric.Color+"','"+fabric.Note+"','"+fabric.Width+"',"+fabric.GSM+",'"+fabric.Status+"','"+fabric.ChallanNo+"',"+fabric.DeliveryQty+",'"+ fabric.DeliveryDate.ToString("yyyy-MM-dd")+"','"+fabric.BarCode+"')";
                 if(DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT TOP 1 (Id) AS Id FROM Fabric order by Id desc";

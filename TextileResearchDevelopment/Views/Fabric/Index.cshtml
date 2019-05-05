@@ -38,13 +38,47 @@
                 <div class="form-group col-xs-4 form-inline">
                     <label for="BuyerName" class="control-label" style="width:35%;">Buyer Name</label>
                     <div style=" display: inline;">
-                        <input type="text" class="form-control" style="width:60%;" id="BuyerName" placeholder="Buyer Name" required autofocus>
+                        @*<input type="text" class="form-control" style="width:50%;" id="BuyerName" placeholder="Buyer Name" required autofocus>*@
+                        <div class="dropdown" style="width:50%; display:inline-block;">
+                            <button class="btn-sm btn-success dropdown-toggle" style="width:100%;" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Dropdown
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li><a href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn-sm btn-info" style="width:10%;display:inline">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </a>
                     </div>
                 </div>
                 <div class="form-group col-xs-4 form-inline">
                     <label for="FabricType" class="control-label" style="width:35%;">Sample Type</label>
                     <div style="display: inline;">
-                        <input type="text" class="form-control" style="width:60%;" id="FabricType" placeholder="Sample Type" required autofocus>
+                        @*<input type="text" class="form-control" style="width:50%;" id="FabricType" placeholder="Sample Type" required autofocus>*@
+                        <div class="dropdown" style="width:50%; display:inline-block;">
+                            <button class="btn-sm btn-success dropdown-toggle" style="width:100%;" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Dropdown
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li><a href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+                        <a href="#" class="btn-sm btn-info" style="width:10%;">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </a>
                     </div>
                 </div>
                 <div class="form-group col-xs-4 form-inline">
@@ -111,7 +145,7 @@
                     </div>
                 </div>
                 <div class="form-group col-xs-4 form-inline">
-                    <button type="button" class="btn btn-warning btn-sm" style="width:35%;">Reset</button>
+                    <button class="btn btn-warning btn-sm" style="width:35%;" id="resetBtn">Reset</button>
                     <div style="display: inline;">
                         <button type="submit" id="saveBtn" class="btn btn-primary btn-sm" style="width:60%;">Save</button>
                     </div>
@@ -134,7 +168,7 @@
                 <th>GSM</th>
                 <th>Status</th>
                 <th>ChallanNo</th>
-                <th>DeliverQty</th>
+                <th>DeliveryQty</th>
                 <th>DeliveryDate</th>
             </tr>
         </thead>
@@ -151,7 +185,7 @@
                 <th>GSM</th>
                 <th>Status</th>
                 <th>ChallanNo</th>
-                <th>DeliverQty</th>
+                <th>DeliveryQty</th>
                 <th>DeliveryDate</th>
             </tr>
         </tfoot>
@@ -161,12 +195,12 @@
 
 
 <script>
-    var i = 1;
+
     $(document).ready(function () {
 
         $('#DeliveryDate').datetimepicker({
             defaultDate: new Date(),
-            format: 'DD/MM/YYYY HH:mm'
+            format: 'DD/MM/YYYY'
         });
 
         // Setup - add a text input to each footer cell
@@ -219,7 +253,7 @@
                 { "data": "GSM" },
                 { "data": "Status" },
                 { "data": "ChallanNo" },
-                { "data": "DeliverQty" },
+                { "data": "DeliveryQty" },
                 {
                     data: "DeliveryDate",
                     render: function (data, type, row) {
@@ -236,6 +270,8 @@
             else {
                 table.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
+                var rowdata = table.row(this).data();
+                Setvalue(rowdata);
             }
         });
 
@@ -245,9 +281,7 @@
 
             $('input', this.footer()).on('keyup change', function () {
                 if (that.search() !== this.value) {
-                    that
-                        .search(this.value)
-                        .draw();
+                    that.search(this.value).draw();
                 }
             });
         });
@@ -255,18 +289,18 @@
         $('#saveBtn').on('click', function (event) {
             event.preventDefault();
             var fabricObj = {
-                'Id': '0',
-                'BuyerName': $("#BuyerName").val(),
-                'FabricType': $("#FabricType").val(),
-                'OrderNo': $("#OrderNo").val(),
-                'Color': $("#Color").val(),
-                'Note': $("#Note").val(),
-                'Width': $("#Width").val(),
-                'GSM': $("#GSM").val(),
-                'Status': $("#Status").val(),
-                'ChallanNo': $("#ChallanNo").val(),
-                'DeliveryQty': $("#DeliveryQty").val(),
-                'DeliveryDate': $("#DeliveryDateText").val().toString()
+                Id: '0',
+                BuyerName: $("#BuyerName").val(),
+                FabricType: $("#FabricType").val(),
+                OrderNo: $("#OrderNo").val(),
+                Color: $("#Color").val(),
+                Note: $("#Note").val(),
+                Width: $("#Width").val(),
+                GSM: $("#GSM").val(),
+                Status: $("#Status").val(),
+                ChallanNo: $("#ChallanNo").val(),
+                DeliveryQty: $("#DeliveryQty").val(),
+                DeliveryDate: $("#DeliveryDateText").val().toString()
             };
 
             $.ajax({
@@ -276,17 +310,15 @@
                 dataType: "json",
                 data: JSON.stringify(fabricObj),
                 success: function (response) {
-                    if (response.data != "" && response.data != null)
-                    {
+                    if (response.data != "" && response.data != null) {
                         table.row.add(response.data);
                         table.draw();
                         Reset();
                     }
-                    else
-                    {
-
+                    else {
+                        alert("Failed to Save! Please Check Connection State!!!");
+                        return;
                     }
-
                 },
                 failure: function () {
                     $("#tblItems").append(" Error when fetching data please contact administrator");
@@ -294,8 +326,25 @@
             });
         });
 
-        function Reset()
-        {
+        function Setvalue(rowdata) {
+            $("#BuyerName").val(rowdata.BuyerName);
+            $("#FabricType").val(rowdata.FabricType);
+            $("#OrderNo").val(rowdata.OrderNo);
+            $("#Color").val(rowdata.Color);
+            $("#Note").val(rowdata.Note);
+            $("#Width").val(rowdata.Width);
+            $("#GSM").val(rowdata.GSM);
+            $("#Status").val(rowdata.Status);
+            $("#ChallanNo").val(rowdata.ChallanNo);
+            $("#DeliveryQty").val(rowdata.DeliveryQty);
+            $("#DeliveryDateText").val(moment(rowdata.DeliveryDate).format("DD/MM/YYYY"));
+        }
+
+        $("#resetBtn").click(function () {
+            Reset();
+        });
+
+        function Reset() {
             $("#BuyerName").val("");
             $("#FabricType").val("");
             $("#OrderNo").val("");
