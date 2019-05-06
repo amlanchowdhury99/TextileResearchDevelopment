@@ -15,9 +15,11 @@ namespace TextileResearchDevelopment.Models
         [Required]
         [DisplayName("Buyer Name")]
         public string BuyerName { get; set; }
+        public int BuyerID { get; set; }
         [Required]
         [DisplayName("Sample Type")]
-        public int FabricType { get; set; }
+        public string FabricType { get; set; }
+        public int FabricTypeID { get; set; }
         [Required]
         [DisplayName("Order No")]
         public string OrderNo { get; set; }

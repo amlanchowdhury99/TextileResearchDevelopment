@@ -33,30 +33,65 @@ namespace TextileResearchDevelopment.Controllers
             return View();
         }
 
+        [HttpGet]
+        public JsonResult GetBuyerList()
+        {
+            JsonResult result = new JsonResult();
+            List<Buyer> buyers = new List<Buyer>();
+
+            try
+            {
+                buyers = FabricBLL.GetBuyerList();
+            }
+            catch (Exception ex)
+            {
+                // Info
+                Console.Write(ex);
+            }
+
+            return Json(buyers, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetFabricTypeList()
+        {
+            JsonResult result = new JsonResult();
+            List<FabricType> fabricTypes = new List<FabricType>();
+
+            try
+            {
+                fabricTypes = FabricBLL.GetFabricTypeList();
+            }
+            catch (Exception ex)
+            {
+                // Info
+                Console.Write(ex);
+            }
+
+            return Json(fabricTypes, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public ActionResult Create(Fabric fabric)
         {
             Boolean Result = false;
             try
             {
-                if (ModelState.IsValid)
+                fabric.BarCode = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + FabricBLL.GetSerial((DateTime.Now.Year + DateTime.Now.Month + DateTime.Now.Day).ToString());
+                if(fabric.Id == 0)
                 {
-                    fabric.BarCode = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + FabricBLL.GetSerial((DateTime.Now.Year + DateTime.Now.Month + DateTime.Now.Day).ToString());
-                    if(fabric.Id == 0)
+                    int Id = FabricBLL.AddFabric(fabric);
+                    if (Id > 0)
                     {
-                        int Id = FabricBLL.AddItem(fabric);
-                        if (Id > 0)
-                        {
-                            fabric.Id = Id;
-                            Result = true;
-                        }
-                        else
-                        {
-                            Result = false;
-                        }
+                        fabric.Id = Id;
+                        Result = true;
                     }
-                    
+                    else
+                    {
+                        Result = false;
+                    }
                 }
+                    
                 if (Result)
                 {
                     return Json(new { data = fabric }, JsonRequestBehavior.AllowGet);
