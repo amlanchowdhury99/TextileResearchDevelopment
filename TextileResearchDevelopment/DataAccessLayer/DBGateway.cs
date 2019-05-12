@@ -262,6 +262,7 @@ namespace TextileResearchDevelopment.DataAccessLayer
             {
                 if (DBGateway.connection.State != ConnectionState.Open)
                 {
+                    DBGateway.connection.Close();
                     DBGateway.connection.Open();
                 }
 

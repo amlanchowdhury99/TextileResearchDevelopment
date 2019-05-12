@@ -17,14 +17,18 @@ namespace TextileResearchDevelopment.BLL
         public static List<Buyer> buyers = new List<Buyer>();
         public static List<FabricType> FabricTypes = new List<FabricType>();
 
+        static string connectionStr = DBGateway.connectionString;
+        
+
         public static List<Fabric> GetList()
         {
-
+            SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader; cm.Connection = cn; cn.Open();
             try
             {
                 fabrics = new List<Fabric>();
                 string query = "SELECT * FROM FabricView";
-                SqlDataReader reader = DBGateway.GetFromDB(query);
+                cm.CommandText = query;
+                reader = cm.ExecuteReader();
                 if (reader.HasRows)
                 {
                     while (reader.Read())
@@ -55,10 +59,7 @@ namespace TextileResearchDevelopment.BLL
             }
             finally
             {
-                if (DBGateway.connection.State == ConnectionState.Open)
-                {
-                    DBGateway.connection.Close();
-                }
+                cn.Close();
             }
 
             return fabrics;
