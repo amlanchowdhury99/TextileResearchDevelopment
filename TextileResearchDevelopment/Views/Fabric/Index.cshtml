@@ -1,37 +1,41 @@
-﻿@model TextileResearchDevelopment.Models.Fabric
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@{
+    if (Request.IsAjaxRequest())
+    {
+        Layout = null;
+    }
 }
+
 
 <head>
 
-    <style>
-        .btn {
-            padding: 10px 20px;
-            font-size: 15px;
-            border-radius: 5px;
-        }
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+        <style>
+            .btn {
+                padding: 10px 20px;
+                font-size: 15px;
+                border-radius: 5px;
+            }
 
-        tfoot input {
-            width: 100%;
-            padding: 3px;
-            box-sizing: border-box;
-        }
+            tfoot input {
+                width: 100%;
+                padding: 3px;
+                box-sizing: border-box;
+            }
 
-        /*.modal-body .form-horizontal .col-sm-2,
-        .modal-body .form-horizontal .col-sm-10 {
-            width: 100%
-        }
+            /*.modal-body .form-horizontal .col-sm-2,
+                .modal-body .form-horizontal .col-sm-10 {
+                    width: 100%
+                }
 
-        .modal-body .form-horizontal .control-label {
-            text-align: left;
-        }
+                .modal-body .form-horizontal .control-label {
+                    text-align: left;
+                }
 
-        .modal-body .form-horizontal .col-sm-offset-2 {
-            margin-left: 15px;
-        }*/
-    </style>
+                .modal-body .form-horizontal .col-sm-offset-2 {
+                    margin-left: 15px;
+                }*/
+        </style>
+    
 
 </head>
 
@@ -41,217 +45,222 @@
 <hr />
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-<form >
-    <div class="panel panel-default ">
-        <div class="panel-heading">
-            <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Create Fabric Order</h5>
-        </div>
-        <div class="panel-body">
-            <div class=" form-group">
-                <div class="form-group col-xs-4 form-inline">
-                    <label for="BuyerName" class="control-label" style="width:35%;">Buyer Name</label>
-                    <div style=" display: inline;">
-                        <select name="BuyerName" id="BuyerName" style="width:50%;" class="form-control input-sm" required autofocus></select>
-                        <a href="#" class="btn-sm btn-info" style="width:10%;display:inline" data-toggle="modal" data-target="#myModalHorizontal">
-                            <span class="glyphicon glyphicon-plus"></span>
-                        </a>
-                        <!-- Modal -->
-                        <div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog"
-                             aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <!-- Modal Header -->
-                                    <div class="modal-header">
-                                        <button type="button" class="close"
-                                                data-dismiss="modal">
-                                            <span aria-hidden="true">&times;</span>
-                                            <span class="sr-only">Close</span>
-                                        </button>
-                                        <h4 class="modal-title" id="myModalLabel">
-                                            Modal title
-                                        </h4>
-                                    </div>
+<div id="MainDiv">
+    <form>
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Create Fabric Order</h5>
+            </div>
+            <div class="panel-body">
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="BuyerName" class="control-label" style="width:35%;">Buyer Name</label>
+                        <div style=" display: inline;">
+                            <select name="BuyerName" id="BuyerName" style="width:50%;" class="form-control input-sm" required autofocus></select>
+                            <a href="#" class="btn-sm btn-info" style="width:10%;display:inline" data-toggle="modal" data-target="#myModalHorizontal">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                            <!-- Modal -->
+                            <div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog"
+                                 aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <button type="button" class="close"
+                                                    data-dismiss="modal">
+                                                <span aria-hidden="true">&times;</span>
+                                                <span class="sr-only">Close</span>
+                                            </button>
+                                            <h4 class="modal-title" id="myModalLabel">
+                                                Modal title
+                                            </h4>
+                                        </div>
 
-                                    <!-- Modal Body -->
-                                    <div class="modal-body">
-                                        <form class="form-horizontal" role="form">
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label"
-                                                       for="inputEmail3">Email</label>
-                                                <div class="col-sm-10">
-                                                    <input type="email" class="form-control"
-                                                           id="inputEmail3" placeholder="Email" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-2 control-label"
-                                                       for="inputPassword3">Password</label>
-                                                <div class="col-sm-10">
-                                                    <input type="password" class="form-control"
-                                                           id="inputPassword3" placeholder="Password" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-offset-2 col-sm-10">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox" /> Remember me
-                                                        </label>
+                                        <!-- Modal Body -->
+                                        <div class="modal-body">
+                                            <form class="form-horizontal" role="form">
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label"
+                                                           for="inputEmail3">Email</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="email" class="form-control"
+                                                               id="inputEmail3" placeholder="Email" />
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-offset-2 col-sm-10">
-                                                    <button type="submit" class="btn btn-default">Sign in</button>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label"
+                                                           for="inputPassword3">Password</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="password" class="form-control"
+                                                               id="inputPassword3" placeholder="Password" />
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </form>
-                                    </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-offset-2 col-sm-10">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input type="checkbox" /> Remember me
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-offset-2 col-sm-10">
+                                                        <button type="submit" class="btn btn-default">Sign in</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
 
-                                    <!-- Modal Footer -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default"
-                                                data-dismiss="modal">
-                                            Close
-                                        </button>
-                                        <button type="button" class="btn btn-primary">
-                                            Save changes
-                                        </button>
+                                        <!-- Modal Footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default"
+                                                    data-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <button type="button" class="btn btn-primary">
+                                                Save changes
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group col-xs-4 form-inline">
-                    <label for="FabricType" class="control-label" style="width:35%;">Sample Type</label>
-                    <div style="display: inline;">
-                        <select name="sampleType" id="sampleType" style="width:50%;" class="form-control input-sm" required autofocus></select>
-                        <a href="#" class="btn-sm btn-info" style="width:10%;">
-                            <span class="glyphicon glyphicon-plus"></span>
-                        </a>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="FabricType" class="control-label" style="width:35%;">Sample Type</label>
+                        <div style="display: inline;">
+                            <select name="sampleType" id="sampleType" style="width:50%;" class="form-control input-sm" required autofocus></select>
+                            <a href="#" class="btn-sm btn-info" style="width:10%;">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="OrderNo" class="control-label" style="width:35%;">Order No</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" id="OrderNo" style="width:60%;" placeholder="Order No" required autofocus>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group col-xs-4 form-inline">
-                    <label for="OrderNo" class="control-label" style="width:35%;">Order No</label>
-                    <div style="display: inline;">
-                        <input type="text" class="form-control" id="OrderNo" style="width:60%;" placeholder="Order No" required autofocus>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Color" class="control-label" style="width:35%;">Color</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="Color" placeholder="Color" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Note" class="control-label" style="width:35%;">Sp Note</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="Note" placeholder="Sp Note">
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Width" class="control-label" style="width:35%;">Required Width</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="Width" placeholder="Width" required autofocus>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class=" form-group">
-                <div class="form-group col-xs-4 form-inline">
-                    <label for="Color" class="control-label" style="width:35%;">Color</label>
-                    <div style="display: inline;">
-                        <input type="text" class="form-control" style="width:60%;" id="Color" placeholder="Color" required autofocus>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="GSM" class="control-label" style="width:35%;">Required GSM</label>
+                        <div style="display: inline;">
+                            <input type="number" class="typeahead form-control" style="width:60%;" id="GSM" min="0" step="1" data-bind="value:GSM" placeholder="GSM" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Status" class="control-label" style="width:35%;">LabDip Status</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="Status" placeholder="LabDip Status" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="ChallanNo" class="control-label" style="width:35%;">Challan No</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="ChallanNo" placeholder="Challan No" required autofocus>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group col-xs-4 form-inline">
-                    <label for="Note" class="control-label" style="width:35%;">Sp Note</label>
-                    <div style="display: inline;">
-                        <input type="text" class="form-control" style="width:60%;" id="Note" placeholder="Sp Note">
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="DeliveryQty" class="control-label" style="width:35%;">Delivery Quatity</label>
+                        <div style="display: inline;">
+                            <input type="number" class="form-control" style="width:60%;" id="DeliveryQty" min="0" step="1" data-bind="value:DeliveryQty" placeholder="Delivery Quatity" required autofocus>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group col-xs-4 form-inline">
-                    <label for="Width" class="control-label" style="width:35%;">Required Width</label>
-                    <div style="display: inline;">
-                        <input type="text" class="form-control" style="width:60%;" id="Width" placeholder="Required Width" required autofocus>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="DeliveryDate" class="control-label" style="width:35%;">Delivery Date</label>
+                        <div class='input-group date' id='DeliveryDate' style="width:60%;">
+                            <input type='text' class="form-control" id="DeliveryDateText" placeholder="Delivey Date" required autofocus />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class=" form-group">
-                <div class="form-group col-xs-4 form-inline">
-                    <label for="GSM" class="control-label" style="width:35%;">Required GSM</label>
-                    <div style="display: inline;">
-                        <input type="number" class="form-control" style="width:60%;" id="GSM" min="0" step="1" data-bind="value:GSM" placeholder="Required GSM" required autofocus>
-                    </div>
-                </div>
-                <div class="form-group col-xs-4 form-inline">
-                    <label for="Status" class="control-label" style="width:35%;">LabDip Status</label>
-                    <div style="display: inline;">
-                        <input type="text" class="form-control" style="width:60%;" id="Status" placeholder="LabDip Status" required autofocus>
-                    </div>
-                </div>
-                <div class="form-group col-xs-4 form-inline">
-                    <label for="ChallanNo" class="control-label" style="width:35%;">Challan No</label>
-                    <div style="display: inline;">
-                        <input type="text" class="form-control" style="width:60%;" id="ChallanNo" placeholder="Challan No" required autofocus>
-                    </div>
-                </div>
-            </div>
-            <div class=" form-group">
-                <div class="form-group col-xs-4 form-inline">
-                    <label for="DeliveryQty" class="control-label" style="width:35%;">Delivery Quatity</label>
-                    <div style="display: inline;">
-                        <input type="number" class="form-control" style="width:60%;" id="DeliveryQty" min="0" step="1" data-bind="value:DeliveryQty" placeholder="Delivery Quatity" required autofocus>
-                    </div>
-                </div>
-                <div class="form-group col-xs-4 form-inline">
-                    <label for="DeliveryDate" class="control-label" style="width:35%;">Delivery Date</label>
-                    <div class='input-group date' id='DeliveryDate' style="width:60%;">
-                        <input type='text' class="form-control" id="DeliveryDateText" placeholder="Delivey Date" required autofocus />
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group col-xs-4 form-inline">
-                    <button class="btn btn-warning btn-sm" style="width:35%;" id="resetBtn">Reset</button>
-                    <div style="display: inline;">
-                        <button type="submit" id="saveBtn" class="btn btn-primary btn-sm" style="width:60%;">Save</button>
+                    <div class="form-group col-xs-4 form-inline">
+                        <button class="btn btn-warning btn-sm" style="width:35%;" id="resetBtn">Reset</button>
+                        <div style="display: inline;">
+                            <button type="submit" id="saveBtn" class="btn btn-primary btn-sm" style="width:60%;">Save</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    @*<div class="valid-tooltip">Good! Your email address looks valid.</div>*@
-    <table id="fabricTable" class="stripe hover order-column" style="width: 100%">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Id</th>
-                <th>BuyerID</th>
-                <th>FabricTypeID</th>
-                <th>BuyerName</th>
-                <th>FabricType</th>
-                <th>OrderNo</th>
-                <th>Color</th>
-                <th>Note</th>
-                <th>Width</th>
-                <th>GSM</th>
-                <th>Status</th>
-                <th>ChallanNo</th>
-                <th>DeliveryQty</th>
-                <th>DeliveryDate</th>
-            </tr>
-        </thead>
-        <tfoot>
-            <tr>
-                <th></th>
-                <th>Id</th>
-                <th>BuyerID</th>
-                <th>FabricTypeID</th>
-                <th>BuyerName</th>
-                <th>FabricType</th>
-                <th>OrderNo</th>
-                <th>Color</th>
-                <th>Note</th>
-                <th>Width</th>
-                <th>GSM</th>
-                <th>Status</th>
-                <th>ChallanNo</th>
-                <th>DeliveryQty</th>
-                <th>DeliveryDate</th>
-            </tr>
-        </tfoot>
-    </table>
-</form>
+        @*<div class="valid-tooltip">Good! Your email address looks valid.</div>*@
+        <table id="fabricTable" class="stripe hover order-column" style="width: 100%">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Id</th>
+                    <th>BuyerID</th>
+                    <th>FabricTypeID</th>
+                    <th>BuyerName</th>
+                    <th>FabricType</th>
+                    <th>OrderNo</th>
+                    <th>Color</th>
+                    <th>Note</th>
+                    <th>Width</th>
+                    <th>GSM</th>
+                    <th>Status</th>
+                    <th>ChallanNo</th>
+                    <th>DeliveryQty</th>
+                    <th>DeliveryDate</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>BuyerName</th>
+                    <th>FabricType</th>
+                    <th>OrderNo</th>
+                    <th>Color</th>
+                    <th>Note</th>
+                    <th>Width</th>
+                    <th>GSM</th>
+                    <th>Status</th>
+                    <th>ChallanNo</th>
+                    <th>DeliveryQty</th>
+                    <th>DeliveryDate</th>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+</div>
+
+
 
 
 
 <script>
 
     $(document).ready(function () {
+        var ColId = "";
 
         loadBuyerList();
 
@@ -276,8 +285,7 @@
                 type: "GET",
                 url: "/Fabric/GetFabricTypeList",
                 data: "{}",
-                success: function (data)
-                {
+                success: function (data) {
                     var s = '<option value="0">Please Sample Type</option>';
                     for (var i = 0; i < data.length; i++) {
                         s += '<option value="' + data[i].Id + '">' + data[i].FabricTypeName + '</option>';
@@ -310,6 +318,7 @@
             "scrollX": true,
             "Sorting": true,
             "searching": true,
+            "destroy": true,
 
             "columnDefs": [
                 {
@@ -454,6 +463,19 @@
             $("#DeliveryQty").val("");
             $("#DeliveryDateText").val("");
         }
+
+        $('input.typeahead').keydown(function () {
+            ColId = $(this).attr('id');
+        });
+
+        $('input.typeahead').typeahead(
+            {
+                source: function (query, process) {
+                    return $.get('/Fabric/GetMatchingData', { query: query, col: ColId }, function (data) {
+                        return process(data);
+                    });
+                }
+            });
 
     });
 </script>

@@ -209,5 +209,21 @@ namespace TextileResearchDevelopment.Controllers
 
         }
 
+        [HttpGet]
+        public JsonResult GetMatchingData(string query, string Col)
+        {
+            List<string> matchingList = new List<string>();
+            try
+            { 
+                matchingList = FabricBLL.GetMatchingData(query, Col);
+            }
+            catch (Exception ex)
+            {
+                // Info
+                Console.Write(ex);
+            }
+            return Json( matchingList, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

@@ -65,6 +65,35 @@ namespace TextileResearchDevelopment.BLL
             return fabrics;
         }
 
+        public static List<string> GetMatchingData(string text, string Col)
+        {
+            List<string> matchingList = new List<string>();
+            SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader; cm.Connection = cn; cn.Open();
+            try
+            {
+                string query = "SELECT "+Col+" FROM Fabric WHERE "+ Col + " LIKE '%"+text+"%'";
+                cm.CommandText = query;
+                reader = cm.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        matchingList.Add(reader[Col].ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
+            finally
+            {
+                cn.Close();
+            }
+
+            return matchingList;
+        }
+
         public static List<Buyer> GetBuyerList()
         {
             try

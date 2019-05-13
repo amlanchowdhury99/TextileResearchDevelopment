@@ -27,14 +27,37 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Fabric", "Index", "Fabric")</li>
+                    <li>
+                        @Ajax.ActionLink("Fabric", "Index", "Fabric", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                    </li>
+                    <li>
+                        @Ajax.ActionLink("Knitting", "Index", "Knitting", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                    </li>
+                    <li>
+                        @Ajax.ActionLink("Dyeing", "Index", "Dyeing", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                    </li>
+                    <li>
+                        @Ajax.ActionLink("Slitting", "Index", "Slitting", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                    </li>
+                    <li>
+                        @Ajax.ActionLink("Stenter", "Index", "Stenter", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                    </li>
+                    <li>
+                        @Ajax.ActionLink("Aop-Print", "Index", "AopPrint", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                    </li>
+                    <li>
+                        @Ajax.ActionLink("Test-Report", "Index", "TestReport", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                    </li>
+                    <li>
+                        @Ajax.ActionLink("Remarks", "Index", "Remarks", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                    </li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    <div class="container body-content" id="MainDiv">
         @RenderBody()
         <hr />
         <footer>
@@ -42,7 +65,7 @@
         </footer>
     </div>
 
-    
+
     @RenderSection("scripts", required: false)
 </body>
 </html>
