@@ -11,6 +11,7 @@ namespace TextileResearchDevelopment
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery.unobtrusive-ajax.min.js",
+                        //"~/Scripts/jquery.modal.min.js",
                         "~/Scripts/jquery.dataTables.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -19,13 +20,17 @@ namespace TextileResearchDevelopment
             bundles.Add(new ScriptBundle("~/bundles/moment").Include(
                         "~/Scripts/moment.js"));
 
+            //bundles.Add(new ScriptBundle("~/bundles/iziModal").Include(
+            //            "~/Scripts/iziModal.min.js"));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
-
+            
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+                      "~/Scripts/bootstrap3-typeahead.min.js",
                       "~/Scripts/bootstrap-datetimepicker.min.js"));
 
             //bundles.Add(new ScriptBundle("~/bundles/popper").Include(
@@ -37,7 +42,8 @@ namespace TextileResearchDevelopment
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/jquery.dataTables.min.css",
-                      //"~/Content/Custom.css",
+                      //"~/Content/jquery.modal.min.css",
+                      //"~/Content/iziModal.min.css",
                       "~/Content/site.css",
                       "~/Content/bootstrap-datetimepicker.min.css"));
         }

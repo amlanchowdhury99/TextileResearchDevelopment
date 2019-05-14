@@ -5,8 +5,263 @@
     }
 }
 
+<head>
+
+    <style>
+        .btn {
+            padding: 10px 20px;
+            font-size: 15px;
+            border-radius: 5px;
+        }
+
+        tfoot input {
+            width: 100%;
+            padding: 3px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<h2>Knitting Entry Form</h2>
+
+@Html.AntiForgeryToken()
+<hr />
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
 
 
 <div id="MainDiv" class="panel panel-default ">
-    <h2>knitting</h2>
+
+    <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                        <i class="fas fa-user prefix grey-text"></i>
+                        <input type="text" id="orangeForm-name" class="form-control validate">
+                        <label data-error="wrong" data-success="right" for="orangeForm-name">Your name</label>
+                    </div>
+                    <div class="md-form mb-5">
+                        <i class="fas fa-envelope prefix grey-text"></i>
+                        <input type="email" id="orangeForm-email" class="form-control validate">
+                        <label data-error="wrong" data-success="right" for="orangeForm-email">Your email</label>
+                    </div>
+
+                    <div class="md-form mb-4">
+                        <i class="fas fa-lock prefix grey-text"></i>
+                        <input type="password" id="orangeForm-pass" class="form-control validate">
+                        <label data-error="wrong" data-success="right" for="orangeForm-pass">Your password</label>
+                    </div>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn btn-deep-orange">Sign up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalRegisterForm">
+            Launch
+            Modal Register Form
+        </a>
+    </div>
+
+    <form>
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Create Knitting Order</h5>
+            </div>
+            <div class="panel-body">
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="FabricName" class="control-label" style="width:35%;">Fabric Type</label>
+                        <div style=" display: inline;">
+                            <select name="FabricName" id="FabricName" style="width:60%;" class="form-control input-sm" required autofocus></select>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="DiaGauge" class="control-label" style="width:35%;">MC Dia-Gauge</label>
+                        <div style="display: inline;">
+                            <select name="DiaGauge" id="DiaGauge" style="width:50%;" class="form-control input-sm" required autofocus></select>
+                            <a href="#" class="btn-sm btn-info" style="width:10%;">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="YarnCount" class="control-label" style="width:35%;">Yarn Count</label>
+                        <div style="display: inline;">
+                            <select name="YarnCount" id="YarnCount" style="width:50%;" class="form-control input-sm" required autofocus></select>
+                            <a href="#" class="btn-sm btn-info" style="width:10%;">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="YarnBrand" class="control-label" style="width:35%;">Yarn Brand</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="YarnBrand" placeholder="Yarn Brand" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Yarn Lot" class="control-label" style="width:35%;">Yarn Lot</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="YarnLot" placeholder="Yarn Lot">
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="StitchLength" class="control-label" style="width:35%;">Stitch Length</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="StitchLength" placeholder="Stitch Length" required autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="KnitUnit" class="control-label" style="width:35%;">Knit Unit</label>
+                        <div style="display: inline;">
+                            <input type="number" class="form-control" style="width:60%;" id="KnitUnit" placeholder="Knit Unit" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="MCNO" class="control-label" style="width:35%;">Mc-No</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="MCNO" min="0" step="1" data-bind="value:MCNO" placeholder="Mc No" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="MCRPM" class="control-label" style="width:35%;">Mc-Rpm</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="MCRPM" min="0" step="1" data-bind="value:MCRPM" placeholder="Mc Rpm" required autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="GreyWidth" class="control-label" style="width:35%;">Grey Width</label>
+                        <div style="display: inline;">
+                            <input type="number" class="form-control" style="width:60%;" id="GreyWidth" min="0" step="1" data-bind="value:GreyWidth" placeholder="Grey Width" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="GreyGSM" class="control-label" style="width:35%;">Grey GSM</label>
+                        <div style="display: inline;">
+                            <input type="number" class="form-control" style="width:60%;" id="GreyGSM" min="0" step="1" data-bind="value:GreyGSM" placeholder="Grey GSM" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="TumbleGSM" class="control-label" style="width:35%;">Tumble GSM</label>
+                        <div style="display: inline;">
+                            <input type="number" class="form-control" style="width:60%;" id="TumbleGSM" min="0" step="1" data-bind="value:TumbleGSM" placeholder="Grey GSM" required autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="TumbleWidth" class="control-label" style="width:35%;">Tumble Width</label>
+                        <div style="display: inline;">
+                            <input type="number" class="form-control" style="width:60%;" id="TumbleWidth" min="0" step="1" data-bind="value:TumbleWidth" placeholder="Grey GSM" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Brand" class="control-label" style="width:35%;">MC Brand</label>
+                        <div style="display: inline;">
+                            <select name="Brand" id="DiaGauge" style="width:50%;" class="form-control input-sm" required autofocus></select>
+                            <a href="#" class="btn-sm btn-info" style="width:10%;">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <button class="btn btn-warning btn-sm" style="width:35%;" id="resetBtn">Reset</button>
+                        <div style="display: inline;">
+                            <button type="submit" id="saveBtn" class="btn btn-primary btn-sm" style="width:60%;">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div class="valid-tooltip">Good! Your email address looks valid.</div>*@
+        <table id="fabricTable" class="stripe hover order-column" style="width: 100%">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>DiaGaugeID</th>
+                    <th>YarnCountID</th>
+                    <th>McBrandID</th>
+                    <th>KnitUnitID</th>
+                    <th>MCNOID</th>
+                    <th>BarCode</th>
+                    <th>Buyer Name</th>
+                    <th>Fabric Type</th>
+                    <th>Order No</th>
+                    <th>Color</th>
+                    <th>Dia Gauge</th>
+                    <th>Yarn Count</th>
+                    <th>Yarn Brand</th>
+                    <th>Yarn Lot</th>
+                    <th>Stitch Length</th>
+                    <th>Knit Unit</th>
+                    <th>MC-NO</th>
+                    <th>MC-RPM</th>
+                    <th>Grey Width</th>
+                    <th>Grey GSM</th>
+                    <th>Tumble Width</th>
+                    <th>Tumble GSM</th>
+                    <th>Mc Brand</th>
+                    <th>Revise</th>
+                    <th>Aprroved</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th>DiaGaugeID</th>
+                    <th>YarnCountID</th>
+                    <th>McBrandID</th>
+                    <th>KnitUnitID</th>
+                    <th>MCNOID</th>
+                    <th>BarCode</th>
+                    <th>Buyer Name</th>
+                    <th>Fabric Type</th>
+                    <th>Order No</th>
+                    <th>Color</th>
+                    <th>Dia Gauge</th>
+                    <th>Yarn Count</th>
+                    <th>Yarn Brand</th>
+                    <th>Yarn Lot</th>
+                    <th>Stitch Length</th>
+                    <th>Knit Unit</th>
+                    <th>MC-NO</th>
+                    <th>MC-RPM</th>
+                    <th>Grey Width</th>
+                    <th>Grey GSM</th>
+                    <th>Tumble Width</th>
+                    <th>Tumble GSM</th>
+                    <th>Mc Brand</th>
+                    <th>Revise</th>
+                    <th>Aprroved</th>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
 </div>
+
+<script>
+    $(document).ready(function () {
+
+
+
+    });
+</script>
