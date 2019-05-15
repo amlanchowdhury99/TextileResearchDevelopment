@@ -30,23 +30,109 @@
 
 <div id="MainDiv" class="panel panel-default ">
 
-    <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div class="modal fade" id="modalFabricSelection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Panel inside of Modal window</h4>
+                    <h4 class="modal-title" id="myModalLabel">Select Fabric</h4>
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-12">
                             <div class="panel panel-default">
-                                <div class="panel-heading">Panel title</div>
+                                <div class="panel-heading">Searching Criteria</div>
                                 <div class="panel-body">
-                                    Panel content
+                                    <form>
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-4 form-inline">
+                                                <label for="BarCodeSL" class="control-label" style="width:35%;">BarCode</label>
+                                                <div style="display: inline;">
+                                                    <input type="text" class="typeahead form-control" style="width:60%;" id="BarCodeSL" placeholder="Bar Code" required autofocus>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-xs-4 form-inline">
+                                                <label for="BuyerSL" class="control-label" style="width:35%;">Buyer</label>
+                                                <div style=" display: inline;">
+                                                    <select name="BuyerSL" id="BuyerSL" style="width:60%;" class="form-control input-sm" required autofocus></select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-xs-4 form-inline">
+                                                <label for="FabricSL" class="control-label" style="width:35%;">Fabric</label>
+                                                <div style="display: inline;">
+                                                    <select name="FabricSL" id="FabricSL" style="width:60%;" class="form-control" required autofocus></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-4 form-inline ">
+                                                <label for="OrderNoSL" class="control-label" style="width:35%;">Order No</label>
+                                                <div style="display: inline;">
+                                                    <input type="text" class="typeahead form-control" style="width:60%;" id="OrderNoSL" placeholder="Order No" required autofocus>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-xs-4 form-inline">
+                                                <label for="ColorSL" class="control-label" style="width:35%;">Color</label>
+                                                <div style="display: inline;">
+                                                    <input type="text" class="typeahead form-control" style="width:60%;" id="ColorSL" placeholder="Color" required autofocus>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-xs-4 form-inline">
+                                                <label for="ChallanSL" class="control-label" style="width:35%;">Challan No</label>
+                                                <div style="display: inline;">
+                                                    <input type="text" class="typeahead form-control" style="width:60%;" id="ChallanSL" placeholder="Challan No" required autofocus>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-4 form-inline">
+                                                <label for="DeliveryDateSL" class="control-label" style="width:35%;">Delivery Date</label>
+                                                <div class='input-group date' id='DeliveryDateSL' style="width:60%;">
+                                                    <input type='text' class="form-control" id="DeliveryDateTextSL" placeholder="Delivey Date" required autofocus />
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-xs-4 form-inline">
+                                                <label for="FabricOrderDateSL" class="control-label" style="width:35%;">Fabric Order Date</label>
+                                                <div class='input-group date' id='FabricOrderDateSL' style="width:60%;">
+                                                    <input type='text' class="form-control" id="FabricOrderDateTextSL" placeholder="Fabric Order Date" required autofocus />
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-xs-4 form-inline">
+                                                <button class="btn btn-warning btn-sm" style="width:35%;" id="resetFabricBtn">Reset</button>
+                                                <div style="display: inline;">
+                                                    <button type="submit" id="searchFabricBtn" class="btn btn-primary btn-sm" style="width:60%;">Search</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
+                            <table id="fabricSelectionTable" class="stripe hover order-column" style="width: 100%">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>BarCode</th>
+                                        <th>BuyerName</th>
+                                        <th>FabricType</th>
+                                        <th>OrderNo</th>
+                                        <th>Color</th>
+                                        <th>Note</th>
+                                        <th>Width</th>
+                                        <th>GSM</th>
+                                        <th>Status</th>
+                                        <th>ChallanNo</th>
+                                        <th>DeliveryQty</th>
+                                        <th>DeliveryDate</th>
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -58,9 +144,8 @@
     </div>
 
     <div class="text-left">
-        <a href="" class="btn-default sm-4" data-toggle="modal" data-target="#modalRegisterForm">
-            Launch
-            Modal Register Form
+        <a href="" id="FabricSelection" class="btn-default sm-4" data-toggle="modal" data-target="#modalFabricSelection">
+            Select Fabric
         </a>
     </div>
 
@@ -186,6 +271,7 @@
             <thead>
                 <tr>
                     <th></th>
+                    <th>KnitID</th>
                     <th>DiaGaugeID</th>
                     <th>YarnCountID</th>
                     <th>McBrandID</th>
@@ -216,6 +302,7 @@
             <tfoot>
                 <tr>
                     <th></th>
+                    <th>KnitID</th>
                     <th>DiaGaugeID</th>
                     <th>YarnCountID</th>
                     <th>McBrandID</th>
@@ -250,7 +337,87 @@
 <script>
     $(document).ready(function () {
 
+        $("#searchFabricBtn").click(function ()
+        {
+            event.preventDefault();
+            var fabricSearchObj = {
+                BarCode: $("#BarCodeSL").val().toString(),
+                BuyerName: $("#BuyerSL  option:selected").text(),
+                FabricType: $("#FabricSL  option:selected").text(),
+                OrderNo: $("#OrderNoSL").val(),
+                Color: $("#ColorSL").val(),
+                ChallanNo: $("#ChallanSL").val(),
+                DeliveryDate: $("#DeliveryDateTextSL").val().toString()
+            };
 
+            $.ajax({
+                type: "POST",
+                url: "/Knitting/FabricSearch",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(fabricSearchObj),
+                success: function (response) {
+                    if (response.data != "" && response.data != null)
+                    {
+                        table.row.add(response.data);
+                        table.draw();
+                        Reset();
+                    }
+                    else {
+                        alert("Failed to Save! Please Check Connection State!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        });
+
+        $("#FabricSelection").click(function () {
+
+            var fabricSelectionTable = $('#fabricSelectionTable').DataTable({
+                "dom": 'lrtip',
+                "scrollY": true,
+                "scrollX": true,
+                "Sorting": true,
+                "searching": true,
+                "destroy": true,
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        "searchable": false,
+                        "orderable": false,
+                        "visible": false
+                    },
+                ],
+                "columns": [
+                    {
+                        "searchable": false,
+                        "data": "Id"
+                    },
+                    { "data": "BarCode"},
+                    { "data": "BuyerName" },
+                    { "data": "FabricType" },
+                    { "data": "OrderNo" },
+                    { "data": "Color" },
+                    { "data": "Note" },
+                    { "data": "Width" },
+                    { "data": "GSM" },
+                    { "data": "Status" },
+                    { "data": "ChallanNo" },
+                    { "data": "DeliveryQty" },
+                    {
+                        data: "DeliveryDate",
+                        render: function (data, type, row) {
+                            return moment(data).format("DD/MM/YYYY");
+                        }
+                    }
+                ]
+
+            });
+
+        });
 
     });
 </script>

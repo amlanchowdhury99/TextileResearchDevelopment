@@ -12,6 +12,9 @@ namespace TextileResearchDevelopment.Models
         private DateTime defaultDate = DateTime.Now;
 
         public int Id { get; set; }
+
+        [DisplayName("Bar Code")]
+        public string BarCode { get; set; }
         [Required]
         [DisplayName("Buyer Name")]
         public string BuyerName { get; set; }
@@ -51,8 +54,6 @@ namespace TextileResearchDevelopment.Models
         {
             get; set;
         }
-
-        public string BarCode { get; set; }
 
     }
 }

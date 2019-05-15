@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TextileResearchDevelopment.Models;
+using TextileResearchDevelopment.BLL;
 using System.Web.Mvc;
 
 namespace TextileResearchDevelopment.Controllers
@@ -14,10 +16,20 @@ namespace TextileResearchDevelopment.Controllers
             return View();
         }
 
-        // GET: Knitting/Details/5
-        public ActionResult Details(int id)
+        // GET: Knitting/FabricSearch/
+        public JsonResult FabricSearch(Fabric fabricSearchObj)
         {
-            return View();
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
+
+
+            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Knitting/Create

@@ -201,7 +201,6 @@ namespace TextileResearchDevelopment.Controllers
             }
             catch (Exception ex)
             {
-                // Info
                 Console.Write(ex);
             }
 
