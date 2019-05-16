@@ -19,17 +19,18 @@ namespace TextileResearchDevelopment.Controllers
         // GET: Knitting/FabricSearch/
         public JsonResult FabricSearch(Fabric fabricSearchObj)
         {
+
+            List<Fabric> data = new List<Fabric>();
             try
             {
-
+                data = KnittingBLL.FabricSearch(fabricSearchObj);
             }
             catch (Exception ex)
             {
-                Console.Write(ex);
+                data = new List<Fabric>();
             }
 
-
-            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Knitting/Create

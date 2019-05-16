@@ -9,51 +9,42 @@ namespace TextileResearchDevelopment.Models
 {
     public class Fabric
     {
+
+        public Fabric()
+        {
+            Id = 0;
+            BarCode = "";
+            BuyerName = "";
+            BuyerID = 0;
+            FabricType = "";
+            FabricTypeID = 0;
+            OrderNo = "";
+            Color = "";
+            Note = "";
+            Width = "";
+            GSM = 0;
+            Status = "";
+            ChallanNo = "";
+            DeliveryQty = (decimal)0.00;
+            DeliveryDate = DateTime.MaxValue;
+        }
+
         private DateTime defaultDate = DateTime.Now;
-
         public int Id { get; set; }
-
-        [DisplayName("Bar Code")]
         public string BarCode { get; set; }
-        [Required]
-        [DisplayName("Buyer Name")]
         public string BuyerName { get; set; }
         public int BuyerID { get; set; }
-        [Required]
-        [DisplayName("Sample Type")]
         public string FabricType { get; set; }
         public int FabricTypeID { get; set; }
-        [Required]
-        [DisplayName("Order No")]
         public string OrderNo { get; set; }
-        [Required]
         public string Color { get; set; }
-        [Required]
-        [DisplayName("Sp Note")]
         public string Note { get; set; }
-        [Required]
-        [DisplayName("Required Width")]
         public string Width { get; set; }
-        [Required]
-        [DisplayName("Required GSM")]
         public int GSM { get; set; }
-        [Required]
-        [DisplayName("LabDip Status")]
         public string Status { get; set; }
-        [Required]
-        [DisplayName("Challan No")]
         public string ChallanNo { get; set; }
-        [Required]
-        [DisplayName("Deliver Quantity")]
         public decimal DeliveryQty { get; set; }
-        [Required]
-        [DisplayName("Delivery Date")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime DeliveryDate
-        {
-            get; set;
-        }
+        public DateTime DeliveryDate { get; set; }
 
     }
 }

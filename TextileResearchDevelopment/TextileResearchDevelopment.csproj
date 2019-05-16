@@ -123,6 +123,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BLL\FabricBLL.cs" />
+    <Compile Include="BLL\KnittingBLL.cs" />
     <Compile Include="Controllers\AopPrintController.cs" />
     <Compile Include="Controllers\DyeingController.cs" />
     <Compile Include="Controllers\FabricController.cs" />
@@ -138,6 +139,7 @@
     </Compile>
     <Compile Include="Models\DbClass.cs" />
     <Compile Include="Models\Fabric.cs" />
+    <Compile Include="Models\Knitting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

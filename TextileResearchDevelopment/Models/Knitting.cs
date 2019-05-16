@@ -9,6 +9,28 @@ namespace TextileResearchDevelopment.Models
 {
     public class Knitting
     {
+        public Knitting()
+        {
+            Id = 0;
+            FabricID = "";
+            BarCode = "";
+            McDiaGuage = "";
+            YarnCount = "";
+            YarnBrand = "";
+            YarnLot = "";
+            StitchLength = (decimal)0.00;
+            KnitUnit = "";
+            MCNO = 0;
+            MCRPM = 0;
+            GreyWidth = (decimal)0.00;
+            GreyGSM = (decimal)0.00;
+            TumbleWidth = (decimal)0.00;
+            McBrand = "";
+            ReverseStatus = 0;
+            ApprovedStatus = 0;
+            OrderDate = DateTime.MaxValue;
+        }
+
         private DateTime defaultDate = DateTime.Now;
 
         public int Id { get; set; }
