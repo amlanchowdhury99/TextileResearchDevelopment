@@ -16,6 +16,25 @@ namespace TextileResearchDevelopment.Controllers
             return View();
         }
 
+        [HttpGet]
+        public JsonResult GetData()
+        {
+            JsonResult result = new JsonResult();
+            List<Knitting> data = new List<Knitting>();
+
+            try
+            {
+                data = KnittingBLL.GetList();
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
+
+            return Json(new { data = data }, JsonRequestBehavior.AllowGet);
+
+        }
+
         // GET: Knitting/FabricSearch/
         public JsonResult FabricSearch(Fabric fabricSearchObj)
         {
@@ -41,18 +60,36 @@ namespace TextileResearchDevelopment.Controllers
 
         // POST: Knitting/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Knitting knit)
         {
+            Boolean Result = false;
             try
             {
-                // TODO: Add insert logic here
+                if (knit.Id == 0)
+                {
+                    int Id = KnittingBLL.AddKnit(knit);
+                    if (Id > 0)
+                    {
+                        knit.Id = Id;
+                        Result = true;
+                    }
+                    else
+                    {
+                        Result = false;
+                    }
+                }
 
-                return RedirectToAction("Index");
+                if (Result)
+                {
+                    return Json(new { data = knit }, JsonRequestBehavior.AllowGet);
+                }
             }
             catch
             {
                 return View();
             }
+
+            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Knitting/Edit/5

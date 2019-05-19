@@ -6,7 +6,8 @@
 }
 
 <head>
-
+    @*<script src="https://cdn.datatables.net/fixedcolumns/3.2.6/js/dataTables.fixedColumns.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.2.6/css/fixedColumns.dataTables.min.css">*@
     <style>
         .btn {
             padding: 10px 20px;
@@ -112,7 +113,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <table id="fabricSelectionTable" class="stripe hover order-column" style="width: 100%">
+                            <table id="fabricSelectionTable" class="stripe hover order-column DataTable" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th>Id</th>
@@ -135,16 +136,16 @@
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                    <button class="btn btn-deep-orange">Sign up</button>
+                    <button type="submit" id="okayBtn" class="btn btn-success">Okay</button>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="text-left">
-        <a href="" id="FabricSelection" class="btn-default sm-4" data-toggle="modal" data-target="#modalFabricSelection">
+        <button href="" id="FabricSelection" class="btn-info sm-4" data-toggle="modal" data-target="#modalFabricSelection">
             Select Fabric
-        </a>
+        </button>
     </div>
 
     <form>
@@ -153,6 +154,26 @@
                 <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Create Knitting Order</h5>
             </div>
             <div class="panel-body">
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="BarCode" class="control-label" style="width:35%;">BarCode</label>
+                        <div style=" display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="BarCode" required readonly>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="OrderNo" class="control-label" style="width:35%;">Order No</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="OrderNo" required readonly>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Color" class="control-label" style="width:35%;">Color</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="Color" required readonly>
+                        </div>
+                    </div>
+                </div>
                 <div class=" form-group">
                     <div class="form-group col-xs-4 form-inline">
                         <label for="FabricName" class="control-label" style="width:35%;">Fabric Type</label>
@@ -265,16 +286,16 @@
             </div>
         </div>
         @*<div class="valid-tooltip">Good! Your email address looks valid.</div>*@
-        <table id="fabricTable" class="stripe hover order-column" style="width: 100%">
+        <table id="knitTable" class="stripe hover order-column DataTable " style="width: 1000px; clear: both; margin: 0 auto;">
             <thead>
                 <tr>
                     <th></th>
-                    <th>KnitID</th>
+                    <th>Id</th>
                     <th>DiaGaugeID</th>
                     <th>YarnCountID</th>
                     <th>McBrandID</th>
                     <th>KnitUnitID</th>
-                    <th>MCNOID</th>
+                    <th>FabricID</th>
                     <th>BarCode</th>
                     <th>Buyer Name</th>
                     <th>Fabric Type</th>
@@ -299,13 +320,13 @@
             </thead>
             <tfoot>
                 <tr>
+                    <th style="visibility:hidden;"></th>
                     <th></th>
-                    <th>KnitID</th>
-                    <th>DiaGaugeID</th>
-                    <th>YarnCountID</th>
-                    <th>McBrandID</th>
-                    <th>KnitUnitID</th>
-                    <th>MCNOID</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                     <th>BarCode</th>
                     <th>Buyer Name</th>
                     <th>Fabric Type</th>
@@ -330,23 +351,102 @@
             </tfoot>
         </table>
     </form>
+
 </div>
 
 <script>
     $(document).ready(function () {
 
-        var fabricSelectionTable = null;
+        var selectedFabricRowId = 0;
+        var fabricSelectionTable = $('#fabricSelectionTable').DataTable();
 
-        $("#searchFabricBtn").click(function ()
-        {
-            debugger;
+        $('#knitTable tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="Search" />');
+        });
+
+        var knitTable = $('#knitTable').removeAttr('width').DataTable({
+            "ajax":
+            {
+                "url": "/Knitting/GetData",
+                "type": "GET",
+                "dataType": "JSON"
+            },
+            "autowidth": false,
+            "scrollY": true,
+            "scrollX": true,
+            "Sorting": true,
+            "searching": true,
+            "destroy": true,
+
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "searchable": false,
+                    "orderable": false,
+                },
+                {
+                    "targets": [1, 2, 3, 4, 5, 6],
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    "targets": "_all",
+                    "width": "100px"
+                }
+
+            ],
+
+            "columns": [
+                {
+                    "searchable": false,
+                    "render": function (data, type, full, meta) {
+                        return table.data().count();
+                    }
+                },
+                { "data": "Id" },
+                { "data": "DiaGaugeID" },
+                { "data": "YarnCountID" },
+                { "data": "McBrandID" },
+                { "data": "KnitUnitID" },
+                { "data": "FabricID" },
+                { "data": "BarCode" },
+                { "data": "BuyerName" },
+                { "data": "FabricName" },
+                { "data": "OrderNo" },
+                { "data": "Color" },
+                { "data": "McDiaGuage" },
+                { "data": "YarnCount" },
+                { "data": "YarnBrand" },
+                { "data": "YarnLot" },
+                { "data": "StitchLength" },
+                { "data": "KnitUnit" },
+                { "data": "MCNO" },
+                { "data": "MCRPM" },
+                { "data": "GreyWidth" },
+                { "data": "GreyGSM" },
+                { "data": "TumbleWidth" },
+                { "data": "TumbleGSM" },
+                { "data": "McBrand" },
+                { "data": "ReviseStatus" },
+                { "data": "ApprovedStatus" },
+                {
+                    data: "OrderDate",
+                    render: function (data, type, row) {
+                        return moment(data).format("DD/MM/YYYY");
+                    }
+                }
+            ]
+        });
+
+        $("#searchFabricBtn").click(function () {
             event.preventDefault();
             var fabricSearchObj = {
                 BarCode: $("#BarCodeSL").val().toString(),
                 BuyerID: $("#BuyerSL  option:selected").val(),
                 FabricTypeID: $("#FabricSL  option:selected").val(),
                 OrderNo: $("#OrderNoSL").val().length > 0 ? $("#OrderNoSL").val().toString() : '',
-                Color: $("#ColorSL").val().length > 0  ? $("#ColorSL").val().toString() : '',
+                Color: $("#ColorSL").val().length > 0 ? $("#ColorSL").val().toString() : '',
                 ChallanNo: $("#ChallanSL").val().length > 0 ? $("#ChallanSL").val().toString() : '',
                 DeliveryDate: $("#DeliveryDateTextSL").val().length > 0 ? $("#DeliveryDateTextSL").val().toString() : '',
             };
@@ -358,11 +458,9 @@
                 dataType: "json",
                 data: JSON.stringify(fabricSearchObj),
                 success: function (response) {
-                    if (response != "" && response != null)
-                    {
-                        debugger;
-                        fabricSelectionTable.rows.add(response);
-                        fabricSelectionTable.draw();
+                    if (response != "" && response != null) {
+                        fabricSelectionTable.clear().draw();
+                        fabricSelectionTable.rows.add(response).draw();
                     }
                     else {
                         alert("Failed to Save! Please Check Connection State!!!");
@@ -377,12 +475,16 @@
 
         $("#FabricSelection").click(function () {
 
+            selectedFabricRowId = 0;
             fabricSelectionTable = $('#fabricSelectionTable').DataTable({
-                "dom": 'lrtip',
+                "dom": 'Bfrtip',
                 "scrollY": true,
                 "scrollX": true,
                 "Sorting": true,
                 "searching": true,
+                "select": {
+                    style: 'single'
+                },
                 "destroy": true,
                 "columnDefs": [
                     {
@@ -416,6 +518,70 @@
                     }
                 ]
 
+            });
+
+        });
+
+        $("#okayBtn").click(function () {
+            debugger
+            if ($('#fabricSelectionTable tbody tr').hasClass('selected'))
+            {
+                selectedFabricRowId = fabricSelectionTable.rows('.selected').data()[0].Id;
+                $('#BarCode').val(fabricSelectionTable.rows('.selected').data()[0].BarCode);
+                $('#OrderNo').val(fabricSelectionTable.rows('.selected').data()[0].OrderNo);
+                $('#Color').val(fabricSelectionTable.rows('.selected').data()[0].Color);
+                $("#modalFabricSelection .close").click();
+            }
+            else
+            {
+                alert('Please Select A Row.')
+                return;
+            }
+
+        });
+
+        $("#saveBtn").click(function () {
+            event.preventDefault();
+            var fabricObj = {
+                Id: '0',
+                DiaGaugeID: $("#DiaGauge  option:selected").val(),
+                YarnCountID: $("#YarnCount  option:selected").val(),
+                McBrandID: $("#Brand  option:selected").val(),
+                KnitUnitID: $("#KnitUnit  option:selected").val(),
+                FabricID: selectedFabricRowId,
+                BarCode: $("#BarCode").val(),
+                YarnBrand: $("#YarnBrand").val(),
+                YarnLot: $("#YarnLot").val(),
+                StitchLength: $("#StitchLength").val(),
+                MCNO: $("#MCNO").val(),
+                MCNO: $("#MCNO").val(),
+                GreyWidth: $("#GreyWidth").val().toString(),
+                GreyGSM: $("#GreyGSM").val(),
+                TumbleWidth: $("#TumbleWidth").val(),
+                TumbleGSM: $("#TumbleGSM").val(),
+                OrderDate: moment(Date.now()).format("DD/MM/YYYY") 
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Fabric/Create",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(fabricObj),
+                success: function (response) {
+                    if (response.data != "" && response.data != null) {
+                        table.row.add(response.data);
+                        table.draw();
+                        Reset();
+                    }
+                    else {
+                        alert("Failed to Save! Please Check Connection State!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
             });
 
         });

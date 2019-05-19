@@ -12,7 +12,7 @@ namespace TextileResearchDevelopment.Models
         public Knitting()
         {
             Id = 0;
-            FabricID = "";
+            FabricID = 0;
             BarCode = "";
             McDiaGuage = "";
             YarnCount = "";
@@ -25,8 +25,9 @@ namespace TextileResearchDevelopment.Models
             GreyWidth = (decimal)0.00;
             GreyGSM = (decimal)0.00;
             TumbleWidth = (decimal)0.00;
+            TumbleGSM = (decimal)0.00;
             McBrand = "";
-            ReverseStatus = 0;
+            ReviseStatus = 0;
             ApprovedStatus = 0;
             OrderDate = DateTime.MaxValue;
         }
@@ -35,7 +36,7 @@ namespace TextileResearchDevelopment.Models
 
         public int Id { get; set; }
 
-        public string FabricID { get; set; }
+        public int FabricID { get; set; }
 
         public string BarCode { get; set; }
 
@@ -65,10 +66,31 @@ namespace TextileResearchDevelopment.Models
 
         public string McBrand { get; set; }
 
-        public int ReverseStatus { get; set; }
+        public int ReviseStatus { get; set; }
 
         public int ApprovedStatus { get; set; }
 
         public DateTime OrderDate { get; set; }
+
+
+        public int DiaGaugeID { get; set; }
+        public int YarnCountID { get; set; }
+        public int McBrandID { get; set; }
+        public int KnitUnitID { get; set; }
+
+
+        public string BuyerName { get; set; }
+
+        public string FabricName { get; set; }
+
+        public string OrderNo { get; set; }
+
+        public string Color { get; set; }
+
+        public string ChallanNo { get; set; }
+
+        public DateTime DeliveryDate { get; set; }
+
+
     }
 }

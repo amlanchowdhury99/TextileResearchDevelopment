@@ -6,6 +6,7 @@
 }
 
 <head>
+
     <style>
         .btn {
             padding: 10px 20px;
@@ -188,7 +189,8 @@
 
 <script>
 
-    $(document).ready(function () {
+    $(document).ready(function ()
+    {
         var ColId = "";
 
         loadBuyerList();
@@ -298,15 +300,14 @@
         });
 
         $('#fabricTable tbody').on('click', 'tr', function () {
+
+            $(this).toggleClass('selected');
+
             if ($(this).hasClass('selected')) {
-                $(this).removeClass('selected');
-            }
-            else {
-                table.$('tr.selected').removeClass('selected');
-                $(this).addClass('selected');
                 var rowdata = table.row(this).data();
-                Setvalue(rowdata);
+                Setvalue(rowdata)
             }
+
         });
 
         // Apply the search

@@ -11,11 +11,13 @@ namespace TextileResearchDevelopment
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery.unobtrusive-ajax.min.js",
-                        //"~/Scripts/jquery.modal.min.js",
                         "~/Scripts/jquery.dataTables.min.js"));
-
+            
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
+
+            bundles.Add(new ScriptBundle("~/bundles/dataTables").Include(
+                        "~/Scripts/dataTables.select.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/moment").Include(
                         "~/Scripts/moment.js"));
@@ -42,7 +44,7 @@ namespace TextileResearchDevelopment
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/jquery.dataTables.min.css",
-                      //"~/Content/jquery.modal.min.css",
+                      "~/Content/select.dataTables.min.css",
                       //"~/Content/iziModal.min.css",
                       "~/Content/site.css",
                       "~/Content/bootstrap-datetimepicker.min.css"));

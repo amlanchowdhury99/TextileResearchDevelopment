@@ -10,8 +10,6 @@ namespace TextileResearchDevelopment.Models
     public class Buyer
     {
         public int Id { get; set; }
-        [Required]
-        [DisplayName("Buyer Name")]
         public string BuyerName { get; set; }
         
     }
@@ -19,10 +17,42 @@ namespace TextileResearchDevelopment.Models
     public class FabricType
     {
         public int Id { get; set; }
-        [Required]
-        [DisplayName("Sample Type")]
         public string FabricTypeName { get; set; }
     }
 
+    public class McDiaGaugeType
+    {
+        public int Id { get; set; }
+        public string McDiaGuage { get; set; }
+    }
 
+    public class YarnCountType
+    {
+        public int Id { get; set; }
+        public string YarnCount { get; set; }
+    }
+
+    public class KnitUnitType
+    {
+        public int Id { get; set; }
+        public string KnitUnit { get; set; }
+    }
+
+    public class McBrandType
+    {
+        public int Id { get; set; }
+        public string McBrand { get; set; }
+    }
+
+    public class DyeingUnitType
+    {
+        public int Id { get; set; }
+        public string DyeingUnit { get; set; }
+    }
+
+    public class SoftenerType
+    {
+        public int Id { get; set; }
+        public string Softener { get; set; }
+    }
 }
