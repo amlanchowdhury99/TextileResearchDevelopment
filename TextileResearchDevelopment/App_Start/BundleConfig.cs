@@ -12,9 +12,10 @@ namespace TextileResearchDevelopment
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery.unobtrusive-ajax.min.js",
                         "~/Scripts/jquery.dataTables.min.js"));
-            
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+                        "~/Scripts/jquery.validate*",
+                        "~/Scripts/jquery.validate.unobtrusive.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/dataTables").Include(
                         "~/Scripts/dataTables.select.min.js"));
@@ -29,10 +30,11 @@ namespace TextileResearchDevelopment
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
-            
+
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/bootstrap3-typeahead.min.js",
+                      "~/Scripts/bootstrapValidator.min.js",
                       "~/Scripts/bootstrap-datetimepicker.min.js"));
 
             //bundles.Add(new ScriptBundle("~/bundles/popper").Include(
@@ -45,7 +47,7 @@ namespace TextileResearchDevelopment
                       "~/Content/bootstrap.css",
                       "~/Content/jquery.dataTables.min.css",
                       "~/Content/select.dataTables.min.css",
-                      //"~/Content/iziModal.min.css",
+                      "~/Content/bootstrapValidator.min.css",
                       "~/Content/site.css",
                       "~/Content/bootstrap-datetimepicker.min.css"));
         }

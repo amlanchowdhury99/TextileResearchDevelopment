@@ -4,7 +4,159 @@
         Layout = null;
     }
 }
+
+<head>
+    <style>
+        .btn {
+            padding: 10px 20px;
+            font-size: 15px;
+            border-radius: 5px;
+        }
+
+        tfoot input {
+            width: 100%;
+            padding: 3px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<h2>Dyeing Entry Form</h2>
+
 <div id="MainDiv" class="panel panel-default ">
-    <h2>Dyeing</h2>
+
+    <div class="text-left">
+        <button href="" id="KnitSelection" class="btn-info sm-4" data-toggle="modal" data-target="#modalKnitSelection">
+            Select Knitting
+        </button>
+    </div>
+
+    <div class="panel panel-default ">
+        <div class="panel-heading">
+            <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Create Dyeing Order</h5>
+        </div>
+        <div class="panel-body">
+            <form id="DyeingForm">
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="BarCode" class="control-label" style="width:35%;">BarCode</label>
+                        <div style=" display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="BarCode" required readonly>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="OrderNo" class="control-label" style="width:35%;">Order No</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="OrderNo" required readonly>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Color" class="control-label" style="width:35%;">Color</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="Color" required readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="FabricName" class="control-label" style="width:35%;">Fabric Type</label>
+                        <div style=" display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="FabricName" required readonly>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="DiaGauge" class="control-label" style="width:35%;">MC Dia-Gauge</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="DiaGauge" required readonly>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="YarnCount" class="control-label" style="width:35%;">Yarn Count</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="YarnCount" required readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="YarnBrand" class="control-label" style="width:35%;">Yarn Brand</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="YarnBrand" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Yarn Lot" class="control-label" style="width:35%;">Yarn Lot</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="YarnLot" name="YarnLot" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="KnitUnit" class="control-label" style="width:35%;">Knit Unit</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="KnitUnit" required autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Brand" class="control-label" style="width:35%;">MC Brand</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="Brand" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="GreyWidth" class="control-label" style="width:35%;">Grey Width</label>
+                        <div style="display: inline;">
+                            <input type="number" class="form-control" style="width:60%;" id="GreyWidth" min="0" step="1"  required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="GreyGSM" class="control-label" style="width:35%;">Grey GSM</label>
+                        <div style="display: inline;">
+                            <input type="number" class="form-control" style="width:60%;" id="GreyGSM" min="0" step="1" data-bind="value:GreyGSM" placeholder="Grey GSM" required autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="TumbleWidth" class="control-label" style="width:35%;">Tumble Width</label>
+                        <div style="display: inline;">
+                            <select name="DiaGauge" id="DiaGauge" style="width:50%;" class="form-control input-sm" required autofocus></select>
+                            <a href="#" class="btn-sm btn-info" style="width:10%;">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Brand" class="control-label" style="width:35%;">MC Brand</label>
+                        <div style="display: inline;">
+                            <input type="number" class="form-control" style="width:60%;" id="GreyGSM" min="0" step="1" data-bind="value:GreyGSM" placeholder="Grey GSM" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Brand" class="control-label" style="width:35%;">MC Brand</label>
+                        <div style="display: inline;">
+                            <input type="number" class="form-control" style="width:60%;" id="GreyGSM" min="0" step="1" data-bind="value:GreyGSM" placeholder="Grey GSM" required autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Brand" class="control-label" style="width:35%;">MC Brand</label>
+                        <div style="display: inline;">
+                            <input type="number" class="form-control" style="width:60%;" id="GreyGSM" min="0" step="1" data-bind="value:GreyGSM" placeholder="Grey GSM" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <button class="btn btn-warning btn-sm" style="width:35%;" id="resetBtn">Reset</button>
+                        <div style="display: inline;">
+                            <button type="button" id="saveBtn" class="btn btn-primary btn-sm" style="width:60%;">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </div>
 

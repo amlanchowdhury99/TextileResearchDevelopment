@@ -124,6 +124,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BLL\FabricBLL.cs" />
     <Compile Include="BLL\KnittingBLL.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AopPrintController.cs" />
     <Compile Include="Controllers\DyeingController.cs" />
     <Compile Include="Controllers\FabricController.cs" />
@@ -155,6 +156,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\bootstrapValidator.min.css" />
     <Content Include="Content\Carousel\carousel.css" />
     <Content Include="Content\Carousel\jquery.liMarquee.js" />
     <Content Include="Content\Carousel\jquery.marquee.js" />
@@ -162,6 +164,10 @@
     <Content Include="Content\Custom.css" />
     <Content Include="Content\icomoon\fonts\icomoon.svg" />
     <Content Include="Content\icomoon\styles.css" />
+    <Content Include="Content\images\arrow.png" />
+    <Content Include="Content\images\bg3.jpg" />
+    <Content Include="Content\images\mail.png" />
+    <Content Include="Content\images\pass.png" />
     <Content Include="Content\iziModal.min.css" />
     <Content Include="Content\jquery.dataTables.min.css" />
     <Content Include="Content\jquery.modal.min.css" />
@@ -178,6 +184,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\bootstrap3-typeahead.min.js" />
+    <Content Include="Scripts\bootstrapValidator.min.js" />
     <Content Include="Scripts\dataTables.select.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
@@ -264,6 +271,7 @@
     <Content Include="Views\AopPrint\Index.cshtml" />
     <Content Include="Views\TestReport\Index.cshtml" />
     <Content Include="Views\Remarks\Index.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -35,6 +35,82 @@ namespace TextileResearchDevelopment.Controllers
 
         }
 
+        [HttpGet]
+        public JsonResult GetMCDIAList()
+        {
+            JsonResult result = new JsonResult();
+            List<McDiaGaugeType> McDiaGauges = new List<McDiaGaugeType>();
+
+            try
+            {
+                McDiaGauges = KnittingBLL.GetMCDIAList();
+            }
+            catch (Exception ex)
+            {
+                // Info
+                Console.Write(ex);
+            }
+
+            return Json(McDiaGauges, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetYarnCountList()
+        {
+            JsonResult result = new JsonResult();
+            List<YarnCountType> YarnCounts = new List<YarnCountType>();
+
+            try
+            {
+                YarnCounts = KnittingBLL.GetYarnCountList();
+            }
+            catch (Exception ex)
+            {
+                // Info
+                Console.Write(ex);
+            }
+
+            return Json(YarnCounts, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetKnitUnitList()
+        {
+            JsonResult result = new JsonResult();
+            List<KnitUnitType> KnitUnits = new List<KnitUnitType>();
+
+            try
+            {
+                KnitUnits = KnittingBLL.GetKnitUnitList();
+            }
+            catch (Exception ex)
+            {
+                // Info
+                Console.Write(ex);
+            }
+
+            return Json(KnitUnits, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetMcBrandList()
+        {
+            JsonResult result = new JsonResult();
+            List<McBrandType> McBrands = new List<McBrandType>();
+
+            try
+            {
+                McBrands = KnittingBLL.GetMcBrandList();
+            }
+            catch (Exception ex)
+            {
+                // Info
+                Console.Write(ex);
+            }
+
+            return Json(McBrands, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Knitting/FabricSearch/
         public JsonResult FabricSearch(Fabric fabricSearchObj)
         {

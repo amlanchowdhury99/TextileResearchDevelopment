@@ -78,10 +78,11 @@ namespace TextileResearchDevelopment.BLL
             int Id = -1;
             try
             {
-                string query = "INSERT INTO Knitting (BuyerID, FabricTypeID, OrderNo, Color, Note, Width, GSM, LabdipStatus, ChallanNo, DeliveryQty, DeliveryDate, Barcode) VALUES(" + fabric.BuyerID + "," + fabric.FabricTypeID + ",'" + fabric.OrderNo + "','" + fabric.Color + "','" + fabric.Note + "','" + fabric.Width + "'," + fabric.GSM + ",'" + fabric.Status + "','" + fabric.ChallanNo + "'," + fabric.DeliveryQty + ",'" + fabric.DeliveryDate.ToString("yyyy-MM-dd") + "','" + fabric.BarCode + "')";
+                string query = " INSERT INTO Knitting (FabricID, DiaGaugeID, YarnCountID, YarnBrand, YarnLot, StitchLength, KnitUnitID, MCNO, MCRPM, GreyWidth, GreyGSM, TumbleWidth, TumbleGSM, McBrandID, ReviseStatus, ApprovedStatus, OrderDate, BarCode) " + 
+                               " VALUES(" + knit.FabricID + "," + knit.DiaGaugeID + "," + knit.YarnCountID + ",'" + knit.YarnBrand + "','" + knit.YarnLot + "'," + knit.StitchLength + "," + knit.KnitUnitID + "," + knit.MCNO + "," + knit.MCRPM + "," + knit.GreyWidth + "," + knit.GreyGSM + "," + knit.TumbleWidth + "," + knit.TumbleGSM + "," + knit.McBrandID + "," + knit.ReviseStatus + "," + knit.ApprovedStatus + ",'" + knit.OrderDate.ToString("yyyy/MM/dd") + "'," + knit.BarCode + " )";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1 (Id) AS Id FROM Fabric order by Id desc";
+                    query = "SELECT TOP 1 (Id) AS Id FROM Knitting order by Id desc";
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
@@ -140,7 +141,7 @@ namespace TextileResearchDevelopment.BLL
                         knit.YarnCount = reader["YarnCount"].ToString();
                         knit.YarnBrand = reader["YarnBrand"].ToString();
                         knit.YarnLot = reader["YarnLot"].ToString();
-                        knit.StitchLength = Convert.ToDecimal(reader["ChallanNo"]);
+                        knit.StitchLength = Convert.ToDecimal(reader["StitchLength"]);
                         knit.KnitUnit = reader["KnitUnit"].ToString();
                         knit.MCNO = Convert.ToInt32(reader["MCNO"]);
                         knit.MCRPM = Convert.ToInt32(reader["MCRPM"]);
