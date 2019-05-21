@@ -7,6 +7,16 @@ using System.Web;
 
 namespace TextileResearchDevelopment.Models
 {
+    public class User
+    {
+        public int Id { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string SuperAdmin { get; set; }
+        public string DeptID { get; set; }
+
+    }
+
     public class Buyer
     {
         public int Id { get; set; }

@@ -149,3 +149,4 @@ G:\Projects\TextileResearchDevelopment\TextileResearchDevelopment\obj\Debug\Text
 G:\Projects\TextileResearchDevelopment\TextileResearchDevelopment\obj\Debug\TextileResearchDevelopment.csproj.CopyComplete
 G:\Projects\TextileResearchDevelopment\TextileResearchDevelopment\obj\Debug\TextileResearchDevelopment.dll
 G:\Projects\TextileResearchDevelopment\TextileResearchDevelopment\obj\Debug\TextileResearchDevelopment.pdb
+G:\Projects\TextileResearchDevelopment\TextileResearchDevelopment\obj\Debug\TextileResearchDevelopment.csprojAssemblyReference.cache

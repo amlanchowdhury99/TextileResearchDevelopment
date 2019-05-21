@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TextileResearchDevelopment.Models;
+using TextileResearchDevelopment.BLL;
+
 
 namespace TextileResearchDevelopment.Controllers
 {
@@ -13,6 +16,8 @@ namespace TextileResearchDevelopment.Controllers
         {
             return View();
         }
+
+        
 
         // GET: Account/Details/5
         public ActionResult Details(int id)
@@ -68,8 +73,10 @@ namespace TextileResearchDevelopment.Controllers
             }
         }
 
-        [HttpGet]
-        public JsonResult CheckAuthentication(string username, string pass)
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public JsonResult CheckAuthentication(User user)
         {
             // Your code to check the Authentication
             //int count = 1;
@@ -81,7 +88,7 @@ namespace TextileResearchDevelopment.Controllers
             //{
             //    return Json("Failed", JsonRequestBehavior.AllowGet);
             //}
-            return Json(new { success = true, redirecturl = Url.Action("/Home/Index") });
+            return Json(new { success = true, redirecturl = "/Home/Index" });
         }
 
 
