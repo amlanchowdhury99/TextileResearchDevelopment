@@ -26,13 +26,12 @@
                 </button>
                 @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
+            <div id="ActionLinkBar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>
-                        @Ajax.ActionLink("Fabric", "Index", "Fabric", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                        @*@Ajax.ActionLink("Fabric", "Index", "Fabric", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })*@
                     </li>
-                    <li>
+                    @*<li>
                         @Ajax.ActionLink("Knitting", "Index", "Knitting", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
                     </li>
                     <li>
@@ -52,7 +51,7 @@
                     </li>
                     <li>
                         @Ajax.ActionLink("Remarks", "Index", "Remarks", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
-                    </li>
+                    </li>*@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
@@ -67,7 +66,18 @@
         </footer>
     </div>
 
-
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Fabric", "Index", "Fabric", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+
+    });
+
+
+</script>

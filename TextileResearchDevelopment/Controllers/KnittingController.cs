@@ -11,12 +11,14 @@ namespace TextileResearchDevelopment.Controllers
     public class KnittingController : Controller
     {
         // GET: Knitting
+        //[Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
+        //[Authorize(Roles = "Admin")]
         public JsonResult GetData()
         {
             JsonResult result = new JsonResult();

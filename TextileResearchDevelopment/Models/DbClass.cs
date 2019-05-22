@@ -65,4 +65,5 @@ namespace TextileResearchDevelopment.Models
         public int Id { get; set; }
         public string Softener { get; set; }
     }
+
 }

@@ -52,7 +52,7 @@ namespace TextileResearchDevelopment.Controllers
             //    return Json("Failed", JsonRequestBehavior.AllowGet);
             //}
 
-            Session["UserName"] = "a";
+            Session["UserName"] = "b";
 
             return Json(new { success = true, redirecturl = @Url.Action("Index") });
         }

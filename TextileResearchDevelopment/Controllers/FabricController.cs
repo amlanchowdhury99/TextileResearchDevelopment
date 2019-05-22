@@ -7,7 +7,6 @@ using TextileResearchDevelopment.Models;
 using TextileResearchDevelopment.BLL;
 using System.Web.Services;
 using System.Web.Script.Serialization;
-using Newtonsoft.Json;
 using System.Data;
 using System.Data.SqlClient;
 
