@@ -42,7 +42,7 @@
 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 <div id="MainDiv">
-    <form>
+    <form id="FabicForm">
         <div class="panel panel-default ">
             <div class="panel-heading">
                 <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Create Fabric Order</h5>
@@ -133,7 +133,8 @@
                     <div class="form-group col-xs-4 form-inline">
                         <button class="btn btn-warning btn-sm" style="width:35%;" id="resetBtn">Reset</button>
                         <div style="display: inline;">
-                            <button type="submit" id="saveBtn" class="btn btn-primary btn-sm" style="width:60%;">Save</button>
+                            @*<button type="submit" id="saveBtn" class="btn btn-primary btn-sm" style="width:60%;">Save</button>*@
+                            <input type="submit" value="Save" class="btn btn-primary btn-sm" style="width:60%;" name="saveBtn">
                         </div>
                     </div>
                 </div>
@@ -183,14 +184,9 @@
     </form>
 </div>
 
-
-
-
-
 <script>
 
-    $(document).ready(function ()
-    {
+    $(document).ready(function () {
         var ColId = "";
 
         loadBuyerList();
@@ -201,7 +197,7 @@
                 url: "/Fabric/GetBuyerList",
                 data: "{}",
                 success: function (data) {
-                    var s = '<option value="0">Please Buyer</option>';
+                    var s = '<option value="">Please Buyer</option>';
                     for (var i = 0; i < data.length; i++) {
                         s += '<option value="' + data[i].Id + '">' + data[i].BuyerName + '</option>';
                     }
@@ -217,7 +213,7 @@
                 url: "/Fabric/GetFabricTypeList",
                 data: "{}",
                 success: function (data) {
-                    var s = '<option value="0">Please Sample Type</option>';
+                    var s = '<option value="">Please Sample Type</option>';
                     for (var i = 0; i < data.length; i++) {
                         s += '<option value="' + data[i].Id + '">' + data[i].FabricTypeName + '</option>';
                     }
@@ -321,7 +317,8 @@
             });
         });
 
-        $('#saveBtn').on('click', function (event) {
+        $('#LoginForm').submit(function (e) {
+
             event.preventDefault();
             var fabricObj = {
                 Id: '0',
@@ -361,7 +358,12 @@
                     $("#tblItems").append(" Error when fetching data please contact administrator");
                 }
             });
+
         });
+
+        //$('#saveBtn').on('click', function (event) {
+
+        //});
 
         function Setvalue(rowdata) {
             $("#BuyerName").val(rowdata.BuyerID);

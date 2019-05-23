@@ -29,9 +29,9 @@
             <div id="ActionLinkBar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>
-                        @*@Ajax.ActionLink("Fabric", "Index", "Fabric", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })*@
+                        @Ajax.ActionLink("Fabric", "Index", "Fabric", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
                     </li>
-                    @*<li>
+                    <li>
                         @Ajax.ActionLink("Knitting", "Index", "Knitting", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
                     </li>
                     <li>
@@ -51,10 +51,16 @@
                     </li>
                     <li>
                         @Ajax.ActionLink("Remarks", "Index", "Remarks", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
-                    </li>*@
+                    </li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
+                <p>
+                    <p id="SignOutUserName" style="color:white; display:none"></p>
+                    <a id="SignOutBtn" style="float:right;" href="#" class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-log-out"></span> Log out
+                    </a>
+                </p>
             </div>
         </div>
     </div>
@@ -73,9 +79,19 @@
 
 <script type="text/javascript">
 
+
     $(document).ready(function () {
 
-        $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Fabric", "Index", "Fabric", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+        debugger;
+
+        @*$("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Fabric", "Index", "Fabric", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');*@
+
+
+        $('#SignOutBtn').click(function (){
+
+
+
+        });
 
     });
 

@@ -281,7 +281,8 @@
                     <div class="form-group col-xs-4 form-inline">
                         <button class="btn btn-warning btn-sm" style="width:35%;" id="resetBtn">Reset</button>
                         <div style="display: inline;">
-                            <button type="button" id="saveBtn" class="btn btn-primary btn-sm" style="width:60%;">Save</button>
+                            @*<button type="button" id="saveBtn" class="btn btn-primary btn-sm" style="width:60%;">Save</button>*@
+                            <input type="submit" value="Save" class="btn btn-primary btn-sm" style="width:60%;" name="saveBtn">
                         </div>
                     </div>
                 </div>
@@ -372,7 +373,7 @@
                 url: "/Knitting/GetMCDIAList",
                 data: "{}",
                 success: function (data) {
-                    var s = '<option value="0">Select DiaGauge</option>';
+                    var s = '<option value="">Select DiaGauge</option>';
                     for (var i = 0; i < data.length; i++) {
                         s += '<option value="' + data[i].Id + '">' + data[i].McDiaGuage + '</option>';
                     }
@@ -388,7 +389,7 @@
                 url: "/Knitting/GetYarnCountList",
                 data: "{}",
                 success: function (data) {
-                    var s = '<option value="0">Select Yarn Count</option>';
+                    var s = '<option value="">Select Yarn Count</option>';
                     for (var i = 0; i < data.length; i++) {
                         s += '<option value="' + data[i].Id + '">' + data[i].YarnCount + '</option>';
                     }
@@ -404,7 +405,7 @@
                 url: "/Knitting/GetKnitUnitList",
                 data: "{}",
                 success: function (data) {
-                    var s = '<option value="0">Select KnitUnit</option>';
+                    var s = '<option value="">Select KnitUnit</option>';
                     for (var i = 0; i < data.length; i++) {
                         s += '<option value="' + data[i].Id + '">' + data[i].KnitUnit + '</option>';
                     }
@@ -420,7 +421,7 @@
                 url: "/Knitting/GetMcBrandList",
                 data: "{}",
                 success: function (data) {
-                    var s = '<option value="0">Select McBrand</option>';
+                    var s = '<option value="">Select McBrand</option>';
                     for (var i = 0; i < data.length; i++) {
                         s += '<option value="' + data[i].Id + '">' + data[i].McBrand + '</option>';
                     }
@@ -608,75 +609,62 @@
 
         });
 
-        $("#saveBtn").click(function () {
-            debugger;
+        $('#KnitForm').submit(function (e) {
+
             event.preventDefault();
+            var fabricObj = {
+                Id: '0',
+                DiaGaugeID: $("#DiaGauge  option:selected").val(),
+                YarnCountID: $("#YarnCount  option:selected").val(),
+                McBrandID: $("#Brand  option:selected").val(),
+                KnitUnitID: $("#KnitUnit  option:selected").val(),
+                FabricID: selectedFabricRowId,
+                BarCode: $("#BarCode").val(),
+                YarnBrand: $("#YarnBrand").val(),
+                YarnLot: $("#YarnLot").val(),
+                StitchLength: $("#StitchLength").val(),
+                MCNO: $("#MCNO").val(),
+                MCRPM: $("#MCRPM").val(),
+                GreyWidth: $("#GreyWidth").val().toString(),
+                GreyGSM: $("#GreyGSM").val(),
+                TumbleWidth: $("#TumbleWidth").val(),
+                TumbleGSM: $("#TumbleGSM").val(),
+                OrderDate: moment(Date.now()).format("DD/MM/YYYY")
+            };
 
-            if (ValidateKnitForm() == true) {
-                var fabricObj = {
-                    Id: '0',
-                    DiaGaugeID: $("#DiaGauge  option:selected").val(),
-                    YarnCountID: $("#YarnCount  option:selected").val(),
-                    McBrandID: $("#Brand  option:selected").val(),
-                    KnitUnitID: $("#KnitUnit  option:selected").val(),
-                    FabricID: selectedFabricRowId,
-                    BarCode: $("#BarCode").val(),
-                    YarnBrand: $("#YarnBrand").val(),
-                    YarnLot: $("#YarnLot").val(),
-                    StitchLength: $("#StitchLength").val(),
-                    MCNO: $("#MCNO").val(),
-                    MCRPM: $("#MCRPM").val(),
-                    GreyWidth: $("#GreyWidth").val().toString(),
-                    GreyGSM: $("#GreyGSM").val(),
-                    TumbleWidth: $("#TumbleWidth").val(),
-                    TumbleGSM: $("#TumbleGSM").val(),
-                    OrderDate: moment(Date.now()).format("DD/MM/YYYY")
-                };
-
-                $.ajax({
-                    type: "POST",
-                    url: "/Knitting/Create",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    data: JSON.stringify(fabricObj),
-                    success: function (response)
-                    {
-                        debugger
-                        if (response.data != "" && response.data != null) {
-                            table.row.add(response.data);
-                            table.draw();
-                            Reset();
-                        }
-                        else {
-                            alert("Failed to Save! Please Check Connection State!!!");
-                            return;
-                        }
-                    },
-                    failure: function () {
-                        $("#tblItems").append(" Error when fetching data please contact administrator");
+            $.ajax({
+                type: "POST",
+                url: "/Knitting/Create",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(fabricObj),
+                success: function (response) {
+                    debugger
+                    if (response.data != "" && response.data != null) {
+                        table.row.add(response.data);
+                        table.draw();
+                        Reset();
                     }
-                });
-            }
-            else
-            {
-                alert("Please Fill the empty Field!");
-            }
-
-
+                    else {
+                        alert("Failed to Save! Please Check Connection State!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
 
         });
 
-        function ValidateKnitForm()
-        {
+        function ValidateKnitForm() {
             debugger;
             if ($("#DiaGauge  option:selected").val() == "0" || $("#YarnCount  option:selected").val() == "0" || $("#Brand  option:selected").val() == "0" || $("#KnitUnit  option:selected").val() == "0" || selectedFabricRowId == 0 ||
                 $("#BarCode").val() == "" || $("#YarnBrand").val() == "" || $("#YarnLot").val() == "" || $("#StitchLength").val() == "" || $("#MCNO").val() == "" || $("#MCRPM").val() == "" || $("#GreyWidth").val() == "" ||
-                $("#GreyGSM").val() == "" || $("#TumbleWidth").val() == "" || $("#TumbleGSM").val() == "")
-            {
+                $("#GreyGSM").val() == "" || $("#TumbleWidth").val() == "" || $("#TumbleGSM").val() == "") {
                 return false;
             }
-            else
-            {
+            else {
                 return true;
             }
         }
