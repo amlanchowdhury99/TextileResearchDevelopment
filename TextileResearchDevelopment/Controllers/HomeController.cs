@@ -14,8 +14,6 @@ namespace TextileResearchDevelopment.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            //HttpSessionState sessionValue = System.Web.HttpContext.Current.Session;
-
             if (Session[System.Web.HttpContext.Current.Session.SessionID] != null)
             {
                 return View();
@@ -54,11 +52,27 @@ namespace TextileResearchDevelopment.Controllers
             {
                 return Json("Failed", JsonRequestBehavior.AllowGet);
             }
-
-            //Session["UserName"] = "b";
-
-            //return Json(new { success = true, redirecturl = @Url.Action("Index") });
         }
+
+        public JsonResult LogOut()
+        {
+            string userName = Session[System.Web.HttpContext.Current.Session.SessionID].ToString();
+            if (UserBLL.LogOut(userName))
+            {
+                Session[System.Web.HttpContext.Current.Session.SessionID] = null;
+                Session.Clear();
+                Session.RemoveAll();
+                Session.Abandon();
+                Response.Cookies.Add(new HttpCookie("ASP.NET_SessionId", ""));
+
+                return Json("Success", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

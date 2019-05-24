@@ -14,20 +14,12 @@ namespace TextileResearchDevelopment.Controllers
 {
     public class FabricController : Controller
     {
-        // GET: Fabric
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: Fabric/Details/5
         public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        //GET: Fabric/Create
-        public ActionResult Create()
         {
             return View();
         }
@@ -104,13 +96,12 @@ namespace TextileResearchDevelopment.Controllers
             return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Fabric/Edit/5
+        [HttpPost]
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Fabric/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -126,28 +117,10 @@ namespace TextileResearchDevelopment.Controllers
             }
         }
 
-        // GET: Fabric/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
-
-        // POST: Fabric/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
 
         [HttpGet]
         public JsonResult GetData()

@@ -12,8 +12,18 @@ namespace TextileResearchDevelopment.Models
         public int Id { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
-        public string SuperAdmin { get; set; }
-        public string DeptID { get; set; }
+        public int SuperAdmin { get; set; }
+        public int Fabric { get; set; }
+        public int Knitting { get; set; }
+        public int Dyeing { get; set; }
+        public int Slitting { get; set; }
+        public int Stenter { get; set; }
+        public int Aop { get; set; }
+        public int Test { get; set; }
+        public int Remarks { get; set; }
+        public string PermissionString { get; set; }
+        public DateTime CreateDate { get; set; }
+        public int LogIn { get; set; }
 
     }
 

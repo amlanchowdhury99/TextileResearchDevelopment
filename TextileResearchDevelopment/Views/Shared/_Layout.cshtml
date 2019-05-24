@@ -52,8 +52,9 @@
                     <li>
                         @Ajax.ActionLink("Remarks", "Index", "Remarks", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
                     </li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>
+                        @Ajax.ActionLink("UserManagement", "Index", "UserManagement", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
+                    </li>
                 </ul>
                 <p>
                     <p id="SignOutUserName" style="color:white; display:none"></p>
@@ -86,10 +87,24 @@
 
         @*$("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Fabric", "Index", "Fabric", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');*@
 
-
         $('#SignOutBtn').click(function (){
 
-
+            $.ajax({
+                url: "/Home/LogOut",
+                type: 'GET',
+                dataType: "json",
+                success: function (result) {
+                    if (result == "Success")
+                    {
+                        window.location.href = "/Home/LoginForm";
+                    }
+                    else
+                    {
+                        alert("LogOut Is Failed!!!");
+                        return false;
+                    }
+                }
+            });
 
         });
 

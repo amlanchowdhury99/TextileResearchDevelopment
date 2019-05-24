@@ -281,7 +281,6 @@
                     <div class="form-group col-xs-4 form-inline">
                         <button class="btn btn-warning btn-sm" style="width:35%;" id="resetBtn">Reset</button>
                         <div style="display: inline;">
-                            @*<button type="button" id="saveBtn" class="btn btn-primary btn-sm" style="width:60%;">Save</button>*@
                             <input type="submit" value="Save" class="btn btn-primary btn-sm" style="width:60%;" name="saveBtn">
                         </div>
                     </div>
@@ -289,7 +288,7 @@
             </form>
         </div>
     </div>
-    @*<div class="valid-tooltip">Good! Your email address looks valid.</div>*@
+
     <table id="knitTable" class="stripe hover order-column " style="width: 1000px;">
         <thead>
             <tr>
@@ -360,7 +359,8 @@
 </div>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function ()
+    {
         debugger;
         var selectedFabricRowId = 0;
         var fabricSelectionTable = $('#fabricSelectionTable').DataTable();
