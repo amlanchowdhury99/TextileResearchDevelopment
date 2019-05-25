@@ -10,25 +10,21 @@ namespace TextileResearchDevelopment.Controllers
 {
     public class DyeingController : Controller
     {
-        // GET: Dyeing
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: Dyeing/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Dyeing/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Dyeing/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -44,13 +40,11 @@ namespace TextileResearchDevelopment.Controllers
             }
         }
 
-        // GET: Dyeing/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Dyeing/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -66,19 +60,16 @@ namespace TextileResearchDevelopment.Controllers
             }
         }
 
-        // GET: Dyeing/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Dyeing/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
 
                 return RedirectToAction("Index");
             }
@@ -86,6 +77,22 @@ namespace TextileResearchDevelopment.Controllers
             {
                 return View();
             }
+        }
+
+        public JsonResult KnitSearch(Knitting knitSearchObj)
+        {
+
+            List<Knitting> data = new List<Knitting>();
+            try
+            {
+                data = KnittingBLL.KnitSearch(knitSearchObj);
+            }
+            catch (Exception ex)
+            {
+                data = new List<Fabric>();
+            }
+
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
     }
 }

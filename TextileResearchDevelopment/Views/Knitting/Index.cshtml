@@ -207,7 +207,7 @@
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="Yarn Lot" class="control-label" style="width:35%;">Yarn Lot</label>
+                        <label for="YarnLot" class="control-label" style="width:35%;">Yarn Lot</label>
                         <div style="display: inline;">
                             <input type="text" class="typeahead form-control" style="width:60%;" id="YarnLot" name="YarnLot" required placeholder="Yarn Lot">
                         </div>
@@ -664,7 +664,8 @@
                 $("#GreyGSM").val() == "" || $("#TumbleWidth").val() == "" || $("#TumbleGSM").val() == "") {
                 return false;
             }
-            else {
+            else
+            {
                 return true;
             }
         }

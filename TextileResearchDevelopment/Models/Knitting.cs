@@ -26,7 +26,7 @@ namespace TextileResearchDevelopment.Models
             GreyGSM = (decimal)0.00;
             TumbleWidth = (decimal)0.00;
             TumbleGSM = (decimal)0.00;
-            McBrand = "";
+            McBrand = 0;
             ReviseStatus = 0;
             ApprovedStatus = 0;
             OrderDate = DateTime.MaxValue;
@@ -64,13 +64,15 @@ namespace TextileResearchDevelopment.Models
 
         public decimal TumbleGSM { get; set; }
 
-        public string McBrand { get; set; }
+        public int McBrand { get; set; }
 
         public int ReviseStatus { get; set; }
 
         public int ApprovedStatus { get; set; }
 
         public DateTime OrderDate { get; set; }
+
+        public DateTime FabricOrderDate { get; set; }
 
 
         public int DiaGaugeID { get; set; }
@@ -91,6 +93,9 @@ namespace TextileResearchDevelopment.Models
 
         public DateTime DeliveryDate { get; set; }
 
+
+        public int BuyerID { get; set; }
+        public int FabricTypeID { get; set; }
 
     }
 }

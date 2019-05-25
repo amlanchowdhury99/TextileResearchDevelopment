@@ -127,6 +127,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BLL\DyeingBLL.cs" />
     <Compile Include="BLL\FabricBLL.cs" />
     <Compile Include="BLL\KnittingBLL.cs" />
     <Compile Include="BLL\UserBLL.cs" />
@@ -146,9 +147,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DbClass.cs" />
+    <Compile Include="Models\Dyeing.cs" />
     <Compile Include="Models\Fabric.cs" />
     <Compile Include="Models\Knitting.cs" />
     <Compile Include="Models\Members.cs" />
+    <Compile Include="Models\Stenter.cs" />
+    <Compile Include="Models\Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
