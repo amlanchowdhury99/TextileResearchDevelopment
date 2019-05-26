@@ -26,10 +26,19 @@ namespace TextileResearchDevelopment.Models
             GreyGSM = (decimal)0.00;
             TumbleWidth = (decimal)0.00;
             TumbleGSM = (decimal)0.00;
-            McBrand = 0;
+            McBrand = "";
             ReviseStatus = 0;
             ApprovedStatus = 0;
-            OrderDate = DateTime.MaxValue;
+            CreateBy = 0;
+            UpdateBy = 0;
+            ApprovedBy = 0;
+            CreateByName = "";
+            UpdateByName = "";
+            ApprovedByName = "";
+            DeliveryDate = DateTime.MaxValue;
+            CreateTime = DateTime.MaxValue;
+            UpdateTime = DateTime.MaxValue;
+            ApprovedTime = DateTime.MaxValue;
         }
 
         private DateTime defaultDate = DateTime.Now;
@@ -64,15 +73,31 @@ namespace TextileResearchDevelopment.Models
 
         public decimal TumbleGSM { get; set; }
 
-        public int McBrand { get; set; }
+        public string McBrand { get; set; }
 
         public int ReviseStatus { get; set; }
 
         public int ApprovedStatus { get; set; }
 
-        public DateTime OrderDate { get; set; }
+        public DateTime CreateTime { get; set; }
 
-        public DateTime FabricOrderDate { get; set; }
+        public int CreateBy { get; set; }
+
+        public string CreateByName { get; set; }
+
+        public DateTime UpdateTime { get; set; }
+
+        public int UpdateBy { get; set; }
+
+        public string UpdateByName { get; set; }
+
+        public DateTime ApprovedTime { get; set; }
+
+        public int ApprovedBy { get; set; }
+
+        public string ApprovedByName { get; set; }
+
+        public DateTime FabricCreateTime { get; set; }
 
 
         public int DiaGaugeID { get; set; }

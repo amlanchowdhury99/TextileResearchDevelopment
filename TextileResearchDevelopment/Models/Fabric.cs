@@ -45,6 +45,7 @@ namespace TextileResearchDevelopment.Models
         public string ChallanNo { get; set; }
         public decimal DeliveryQty { get; set; }
         public DateTime DeliveryDate { get; set; }
+        public DateTime CreateTime { get; set; }
 
     }
 }

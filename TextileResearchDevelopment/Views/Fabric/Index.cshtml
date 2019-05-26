@@ -289,7 +289,7 @@
                 {
                     data: "DeliveryDate",
                     render: function (data, type, row) {
-                        return moment(data).format("DD/MM/YYYY");
+                        return moment(data).format("DD/MM/YYYY h:mm a");
                     }
                 }
             ]
@@ -317,7 +317,7 @@
             });
         });
 
-        $('#LoginForm').submit(function (e) {
+        $('#FabicForm').submit(function (e) {
 
             event.preventDefault();
             var fabricObj = {
@@ -360,10 +360,6 @@
             });
 
         });
-
-        //$('#saveBtn').on('click', function (event) {
-
-        //});
 
         function Setvalue(rowdata) {
             $("#BuyerName").val(rowdata.BuyerID);
@@ -412,7 +408,3 @@
 
     });
 </script>
-
-@*@section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }*@

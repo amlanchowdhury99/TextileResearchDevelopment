@@ -17,6 +17,7 @@ namespace TextileResearchDevelopment.BLL
         public static List<YarnCountType> YarnCounts = new List<YarnCountType>();
         public static List<KnitUnitType> KnitUnits = new List<KnitUnitType>();
         public static List<McBrandType> McBrands = new List<McBrandType>();
+
         public static List<Fabric> fabrics = new List<Fabric>();
 
         static string connectionStr = DBGateway.connectionString;
@@ -78,8 +79,8 @@ namespace TextileResearchDevelopment.BLL
             int Id = -1;
             try
             {
-                string query = " INSERT INTO Knitting (FabricID, DiaGaugeID, YarnCountID, YarnBrand, YarnLot, StitchLength, KnitUnitID, MCNO, MCRPM, GreyWidth, GreyGSM, TumbleWidth, TumbleGSM, McBrandID, ReviseStatus, ApprovedStatus, OrderDate, BarCode) " + 
-                               " VALUES(" + knit.FabricID + "," + knit.DiaGaugeID + "," + knit.YarnCountID + ",'" + knit.YarnBrand + "','" + knit.YarnLot + "'," + knit.StitchLength + "," + knit.KnitUnitID + "," + knit.MCNO + "," + knit.MCRPM + "," + knit.GreyWidth + "," + knit.GreyGSM + "," + knit.TumbleWidth + "," + knit.TumbleGSM + "," + knit.McBrandID + "," + knit.ReviseStatus + "," + knit.ApprovedStatus + ",'" + knit.OrderDate.ToString("yyyy/MM/dd") + "'," + knit.BarCode + " )";
+                string query = " INSERT INTO Knitting (FabricID, DiaGaugeID, YarnCountID, YarnBrand, YarnLot, StitchLength, KnitUnitID, MCNO, MCRPM, GreyWidth, GreyGSM, TumbleWidth, TumbleGSM, McBrandID, ReviseStatus, ApprovedStatus, CreateTime, BarCode) " + 
+                               " VALUES(" + knit.FabricID + "," + knit.DiaGaugeID + "," + knit.YarnCountID + ",'" + knit.YarnBrand + "','" + knit.YarnLot + "'," + knit.StitchLength + "," + knit.KnitUnitID + "," + knit.MCNO + "," + knit.MCRPM + "," + knit.GreyWidth + "," + knit.GreyGSM + "," + knit.TumbleWidth + "," + knit.TumbleGSM + "," + knit.McBrandID + "," + knit.ReviseStatus + "," + knit.ApprovedStatus + ",'" + knit.CreateTime.ToString("yyyy/MM/dd") + "'," + knit.BarCode + " )";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT TOP 1 (Id) AS Id FROM Knitting order by Id desc";
@@ -152,7 +153,13 @@ namespace TextileResearchDevelopment.BLL
                         knit.McBrand = reader["McBrand"].ToString();
                         knit.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
                         knit.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
-                        knit.OrderDate = Convert.ToDateTime(reader["OrderDate"]);
+
+                        knit.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
+                        knit.UpdateTime = Convert.ToDateTime(reader["UpdateTime"]);
+                        knit.ApprovedTime = Convert.ToDateTime(reader["ApprovedTime"]);
+                        knit.CreateByName = reader["CreateByName"].ToString();
+                        knit.UpdateByName = reader["UpdateByName"].ToString();
+                        knit.ApprovedByName = reader["ApprovedByName"].ToString();
 
                         knittings.Add(knit);
                     }

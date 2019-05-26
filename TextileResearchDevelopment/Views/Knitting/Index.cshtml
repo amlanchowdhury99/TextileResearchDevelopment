@@ -319,7 +319,7 @@
                 <th>Mc Brand</th>
                 <th>Revise</th>
                 <th>Aprroved</th>
-                <th>OrderDate</th>
+                <th>CreateTime</th>
             </tr>
         </thead>
         <tfoot>
@@ -351,7 +351,7 @@
                 <th>Mc Brand</th>
                 <th>Revise</th>
                 <th>Aprroved</th>
-                <th>OrderDate</th>
+                <th>CreateTime</th>
             </tr>
         </tfoot>
     </table>
@@ -364,6 +364,11 @@
         debugger;
         var selectedFabricRowId = 0;
         var fabricSelectionTable = $('#fabricSelectionTable').DataTable();
+
+        $('#DeliveryDateSL, #FabricOrderDateSL').datetimepicker({
+            defaultDate: new Date(),
+            format: 'DD/MM/YYYY'
+        });
 
         loadMCDIAList();
 
@@ -501,9 +506,9 @@
                 { "data": "ReviseStatus" },
                 { "data": "ApprovedStatus" },
                 {
-                    data: "OrderDate",
+                    data: "CreateTime",
                     render: function (data, type, row) {
-                        return moment(data).format("DD/MM/YYYY");
+                        return moment(data).format("DD/MM/YYYY h:mm a");
                     }
                 }
             ]
@@ -629,7 +634,7 @@
                 GreyGSM: $("#GreyGSM").val(),
                 TumbleWidth: $("#TumbleWidth").val(),
                 TumbleGSM: $("#TumbleGSM").val(),
-                OrderDate: moment(Date.now()).format("DD/MM/YYYY")
+                CreateTime: moment(Date.now()).format("DD/MM/YYYY")
             };
 
             $.ajax({

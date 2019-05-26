@@ -25,7 +25,7 @@
 
 <div id="MainDiv" class="panel panel-default ">
 
-    <div class="modal fade" id="modalFabricSelection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div class="modal fade" id="modalKnitSelection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -100,8 +100,8 @@
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="KnitOrderDateSL" class="control-label" style="width:35%;">Knit Order Date</label>
-                                            <div class='input-group date' id='FabricOrderDateSL' style="width:60%;">
-                                                <input type='text' class="form-control" id="KnitOrderDateSL" placeholder="Knit Order Date" required autofocus />
+                                            <div class='input-group date' id='KnitOrderDateSL' style="width:60%;">
+                                                <input type='text' class="form-control" id="KnitOrderDateTextSL" placeholder="Knit Order Date" required autofocus />
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                 </span>
@@ -162,7 +162,7 @@
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
-                                            <button class="btn btn-warning btn-sm" style="width:35%;" id="resetFabricBtn">Reset</button>
+                                            <button class="btn btn-warning btn-sm" style="width:35%;" id="resetKnitBtn">Reset</button>
                                             <div style="display: inline;">
                                                 <button type="submit" id="searchKnitBtn" class="btn btn-primary btn-sm" style="width:60%;">Search</button>
                                             </div>
@@ -209,10 +209,11 @@
     </div>
 
     <div class="text-left">
-        <button href="" id="KnitSelection" class="btn-info sm-4" data-toggle="modal" data-target="#modalFabricSelection">
+        <button href="" id="KnitSelection" class="btn-info sm-4" data-toggle="modal" data-target="#modalKnitSelection">
             Select Knitting
         </button>
     </div>
+    <input type="checkbox" id="hidden" value="option1" style="display:none;">
 
     <div class="panel panel-default ">
         <div class="panel-heading">
@@ -248,19 +249,25 @@
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
+                        <label for="BuyerName" class="control-label" style="width:35%;">Buyer Name</label>
+                        <div style=" display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="BuyerName" required readonly>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
                         <label for="DiaGauge" class="control-label" style="width:35%;">MC Dia-Gauge</label>
                         <div style="display: inline;">
                             <input type="text" class="form-control" style="width:60%;" id="DiaGauge" required readonly>
                         </div>
                     </div>
+                </div>
+                <div class="form-group">
                     <div class="form-group col-xs-4 form-inline">
                         <label for="YarnCount" class="control-label" style="width:35%;">Yarn Count</label>
                         <div style="display: inline;">
                             <input type="text" class="form-control" style="width:60%;" id="YarnCount" required readonly>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
                     <div class="form-group col-xs-4 form-inline">
                         <label for="YarnBrand" class="control-label" style="width:35%;">Yarn Brand</label>
                         <div style="display: inline;">
@@ -273,14 +280,14 @@
                             <input type="text" class="form-control" style="width:60%;" id="YarnLot" name="YarnLot" required autofocus readonly>
                         </div>
                     </div>
+                </div>
+                <div class=" form-group">
                     <div class="form-group col-xs-4 form-inline">
                         <label for="KnitUnit" class="control-label" style="width:35%;">Knit Unit</label>
                         <div style="display: inline;">
                             <input type="text" class="form-control" style="width:60%;" id="KnitUnit" required autofocus readonly>
                         </div>
                     </div>
-                </div>
-                <div class=" form-group">
                     <div class="form-group col-xs-4 form-inline">
                         <label for="Brand" class="control-label" style="width:35%;">MC Brand</label>
                         <div style="display: inline;">
@@ -293,14 +300,14 @@
                             <input type="number" class="form-control" style="width:60%;" id="GreyWidth" min="0" step="1" required autofocus readonly>
                         </div>
                     </div>
+                </div>
+                <div class=" form-group">
                     <div class="form-group col-xs-4 form-inline">
                         <label for="GreyGSM" class="control-label" style="width:35%;">Grey GSM</label>
                         <div style="display: inline;">
                             <input type="number" class="form-control" style="width:60%;" id="GreyGSM" min="0" step="1" data-bind="value:GreyGSM" placeholder="Grey GSM" required autofocus readonly>
                         </div>
                     </div>
-                </div>
-                <div class=" form-group">
                     <div class="form-group col-xs-4 form-inline">
                         <label for="DyeingUnit" class="control-label" style="width:35%;">Dyeing Unit</label>
                         <div style="display: inline;">
@@ -313,17 +320,17 @@
                     <div class="form-group col-xs-4 form-inline">
                         <label for="BatchNo" class="control-label" style="width:35%;">Batch No</label>
                         <div style="display: inline;">
-                            <input type="text" class="form-control" style="width:60%;" id="BatchNo" placeholder="Batch No" required autofocus readonly>
+                            <input type="text" class="form-control" style="width:60%;" id="BatchNo" placeholder="Batch No" required autofocus>
                         </div>
                     </div>
+                </div>
+                <div class=" form-group">
                     <div class="form-group col-xs-4 form-inline">
                         <label for="BatchQty" class="control-label" style="width:35%;">Batch Qty</label>
                         <div style="display: inline;">
                             <input type="number" class="form-control" style="width:60%;" id="BatchQty" min="0" step="1" data-bind="value:BatchQty" placeholder="Batch Qty" required autofocus>
                         </div>
                     </div>
-                </div>
-                <div class=" form-group">
                     <div class="form-group col-xs-4 form-inline">
                         <label for="Serial" class="control-label" style="width:35%;">Serial No</label>
                         <div style="display: inline;">
@@ -333,7 +340,7 @@
                     <div class="form-group col-xs-4 form-inline">
                         <button class="btn btn-warning btn-sm" style="width:35%;" id="resetBtn">Reset</button>
                         <div style="display: inline;">
-                            <button type="button" id="saveBtn" class="btn btn-primary btn-sm" style="width:60%;">Save</button>
+                            <input type="submit" value="Save" class="btn btn-primary btn-sm" style="width:60%;" name="saveBtn">
                         </div>
                     </div>
                 </div>
@@ -341,16 +348,118 @@
         </div>
     </div>
 
+    <table id="DyeingTable" class="stripe hover order-column " style="width: 1000px;">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Id</th>
+                <th>FabricID</th>
+                <th>KnitID</th>
+                <th>DyeingUnitID</th>
+                <th>BarCode</th>
+                <th>Buyer Name</th>
+                <th>Fabric Type</th>
+                <th>Order No</th>
+                <th>Color</th>
+                <th>Dia Gauge</th>
+                <th>Yarn Count</th>
+                <th>Yarn Brand</th>
+                <th>Yarn Lot</th>
+                <th>Knit Unit</th>
+                <th>Grey Width</th>
+                <th>Grey GSM</th>
+                <th>Mc Brand</th>
+                <th>Dyeing Unit</th>
+                <th>Batch No</th>
+                <th>Batch Qty</th>
+                <th>Serial No</th>
+                <th>Revise</th>
+                <th>Create Time</th>
+                <th>Create By</th>
+                <th>Update Time</th>
+                <th>Update By</th>
+                <th>Aprroved Time</th>
+                <th>Aprroved By</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th style="visibility:hidden;"></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>BarCode</th>
+                <th>Buyer Name</th>
+                <th>Fabric Type</th>
+                <th>Order No</th>
+                <th>Color</th>
+                <th>Dia Gauge</th>
+                <th>Yarn Count</th>
+                <th>Yarn Brand</th>
+                <th>Yarn Lot</th>
+                <th>Knit Unit</th>
+                <th>Grey Width</th>
+                <th>Grey GSM</th>
+                <th>Mc Brand</th>
+                <th>Dyeing Unit</th>
+                <th>Batch No</th>
+                <th>Batch Qty</th>
+                <th>Serial No</th>
+                <th>Revise</th>
+                <th>Create Time</th>
+                <th>Create By</th>
+                <th>Update Time</th>
+                <th>Update By</th>
+                <th>Aprroved Time</th>
+                <th>Aprroved By</th>
+            </tr>
+        </tfoot>
+    </table>
+
 </div>
 
 <script>
     $(document).ready(function () {
 
         debugger;
-        var selectedKnitRowId = 0;
+        var selectedKnitRowId = 0; var selectedKnitId = 0; var selectedfabriId = 0;
         var knitSelectionTable = $('#knitSelectionTable').DataTable();
 
-        loadBuyerList();
+        $('#DeliveryDateSL, #FabricOrderDateSL, #KnitOrderDateSL').datetimepicker({
+            defaultDate: new Date(),
+            format: 'DD/MM/YYYY'
+        });
+
+        loadDyeingUnitList();
+
+        function ValidateKnitSelectionForm() {
+            debugger;
+            if ($("#DiaGaugeSL  option:selected").val() == "" && $("#YarnCountSL  option:selected").val() == "" && $("#BrandSL  option:selected").val() == "" && $("#KnitUnitSL  option:selected").val() == "" &&
+                $("#BarCodeSL").val() == "" && $("#YarnBrandSL").val() == "" && $("#YarnLotSL").val() == "" && $("#ChallanSL").val() == "" && $("#DeliveryDateSL").val() == "" && $("#FabricOrderDateSL").val() == "" && $("#KnitOrderDateSL").val() == "" && $("#GreyWidthSL").val() == "" &&
+                $("#GreyGSMSL").val() == "" && $("#BuyerSL option:selected").val() == "" && $("#FabricSL option:selected").val() == "" && $("#OrderNoSL").val() == "" && $("#ColorSL").val() == "") {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        function loadDyeingUnitList() {
+            $.ajax({
+                type: "GET",
+                url: "/Dyeing/GetDyeingUnit",
+                data: "{}",
+                success: function (data) {
+                    var s = '<option value="">Select Dyeing</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].DyeingUnit + '</option>';
+                    }
+                    $("#DyeingUnit").html(s);
+                    loadBuyerList();
+                }
+            });
+        }
 
         function loadBuyerList() {
             $.ajax({
@@ -482,7 +591,7 @@
                     {
                         "searchable": false,
                         "render": function (data, type, full, meta) {
-                            return knitTable.data().count();
+                            return knitSelectionTable.data().count();
                         }
                     },
                     { "data": "Id" },
@@ -506,9 +615,9 @@
                     { "data": "TumbleGSM" },
                     { "data": "McBrand" },
                     {
-                        data: "OrderDate",
+                        data: "CreateTime",
                         render: function (data, type, row) {
-                            return moment(data).format("DD/MM/YYYY");
+                            return moment(data).format("DD/MM/YYYY  h:mm a");
                         }
                     }
                 ]
@@ -518,7 +627,10 @@
         });
 
         $("#searchKnitBtn").click(function () {
+            debugger;
             event.preventDefault();
+
+            //if (ValidateKnitSelectionForm() == true) {
             var knitSearchObj = {
                 BarCode: $("#BarCodeSL").val().toString(),
                 BuyerID: $("#BuyerSL  option:selected").val(),
@@ -527,28 +639,29 @@
                 Color: $("#ColorSL").val().length > 0 ? $("#ColorSL").val().toString() : '',
                 ChallanNo: $("#ChallanSL").val().length > 0 ? $("#ChallanSL").val().toString() : '',
                 DeliveryDate: $("#DeliveryDateTextSL").val().length > 0 ? $("#DeliveryDateTextSL").val().toString() : '',
-                FabricOrderDate: $("#FabricOrderDateSL").val().length > 0 ? $("#FabricOrderDateSL").val().toString() : '',
-                OrderDate: $("#KnitOrderDateSL").val().length > 0 ? $("#KnitOrderDateSL").val().toString() : '',
+                FabricCreateTime: $("#FabricOrderDateTextSL").val().length > 0 ? $("#FabricOrderDateTextSL").val().toString() : '',
+                CreateTime: $("#KnitOrderDateTextSL").val().length > 0 ? $("#KnitOrderDateTextSL").val().toString() : '',
                 McDiaGuage: $("#DiaGaugeSL  option:selected").val(),
-                YarnCountSL: $("#YarnCountSL  option:selected").val(),
+                YarnCountID: $("#YarnCountSL  option:selected").val(),
                 YarnBrand: $("#YarnBrandSL").val().toString(),
                 YarnLot: $("#YarnLotSL").val().toString(),
-                KnitUnit: $("#KnitUnitSL  option:selected").val(),
+                KnitUnitID: $("#KnitUnitSL  option:selected").val(),
                 GreyWidth: $("#GreyWidthSL").val().toString(),
                 GreyGSM: $("#GreyGSMSL").val().toString(),
-                McBrand: $("#BrandSL  option:selected").val(),
+                McBrandID: $("#BrandSL  option:selected").val(),
             };
 
             $.ajax({
                 type: "POST",
-                url: "/Knitting/KnitSearch",
+                url: "/Dyeing/KnitSearch",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 data: JSON.stringify(knitSearchObj),
                 success: function (response) {
                     if (response != "" && response != null) {
-                        fabricSelectionTable.clear().draw();
-                        fabricSelectionTable.rows.add(response).draw();
+                        debugger
+                        knitSelectionTable.clear().draw();
+                        knitSelectionTable.rows.add(response).draw();
                     }
                     else {
                         alert("Failed to Save! Please Check Connection State!!!");
@@ -559,6 +672,222 @@
                     $("#tblItems").append(" Error when fetching data please contact administrator");
                 }
             });
+            //}
+            //else {
+            //    alert("Please Select Atleast One Criteria!!!");
+            //    return;
+            //}
+
+
+        });
+
+        var DyeingTable = $('#DyeingTable').DataTable({
+            "ajax":
+            {
+                "url": "/Dyeing/GetData",
+                "type": "GET",
+                "dataType": "JSON"
+            },
+            "autowidth": false,
+            "scrollY": true,
+            "scrollX": true,
+            "Sorting": true,
+            "searching": true,
+            "destroy": true,
+
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "searchable": false,
+                    "orderable": false,
+                },
+                {
+                    "targets": [1, 2, 3, 4],
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    "targets": "_all",
+                    "width": "100px"
+                }
+
+            ],
+
+            "columns": [
+                {
+                    "searchable": false,
+                    "render": function (data, type, full, meta) {
+                        return DyeingTable.data().count();
+                    }
+                },
+                { "data": "Id" },
+                { "data": "FabricID" },
+                { "data": "KnitUnitID" },
+                { "data": "DyeingUnitID" },
+                { "data": "BarCode" },
+                { "data": "BuyerName" },
+                { "data": "FabricName" },
+                { "data": "OrderNo" },
+                { "data": "Color" },
+                { "data": "McDiaGuage" },
+                { "data": "YarnCount" },
+                { "data": "YarnBrand" },
+                { "data": "YarnLot" },
+                { "data": "KnitUnit" },
+                { "data": "GreyWidth" },
+                { "data": "GreyGSM" },
+                { "data": "McBrand" },
+                { "data": "DyeingUnit" },
+                { "data": "BatchNo" },
+                { "data": "BatchQty" },
+                { "data": "SerialNo" },
+                { "data": "ReviseStatus" },
+                {
+                    data: "CreateTime",
+                    render: function (data, type, row) {
+                        return moment(data).format("DD/MM/YYYY h:mm a");
+                    }
+                },
+                { "data": "CreateBy" },
+                {
+                    data: "UpdateTime",
+                    render: function (data, type, row) {
+                        return moment(data).format("DD/MM/YYYY h:mm a");
+                    }
+                },
+                { "data": "UpdateBy" },
+                {
+                    data: "AprrovedTime",
+                    render: function (data, type, row) {
+                        return moment(data).format("DD/MM/YYYY h:mm a");
+                    }
+                },
+                { "data": "AprrovedBy" }
+            ]
+        });
+
+        function Reset() {
+            $("#BarCode").val("");
+            $("#OrderNo").val("");
+            $("#Color").val("");
+            $("#FabricName").val("");
+            $("#BuyerName").val("");
+            $("#DiaGauge").val("");
+            $("#YarnCount").val("");
+            $("#YarnBrand").val("");
+            $("#YarnLot").val("");
+            $("#KnitUnit").val("");
+            $("#Brand").val("");
+            $("#GreyWidth").val("");
+            $("#GreyGSM").val("");
+            $("#DyeingUnit").val("");
+            $("#BatchNo").val("");
+            $("#BatchQty").val("");
+            $("#SerialNo").val("");
+            $('#hidden').prop('checked', false);
+        }
+
+        function ResetKnit() {
+            $("#BarCodeSL").val("");
+            $("#OrderNoSL").val("");
+            $("#ColorSL").val("");
+            $("#FabricNameSL").val("");
+            $("#BuyerNameSL").val("");
+            $("#DiaGaugeSL").val("");
+            $("#YarnCountSL").val("");
+            $("#YarnBrandSL").val("");
+            $("#YarnLotSL").val("");
+            $("#KnitUnitSL").val("");
+            $("#BrandSL").val("");
+            $("#GreyWidthSL").val("");
+            $("#GreyGSMSL").val("");
+            $("#ChallaNoSL").val("");
+            $("#DeliveryDateTextSL").val("");
+            $("#FabricOrderDateTextSL").val("");
+            $("#KnitOrderDateSL").val("");
+        }
+
+        $('#DyeingForm').submit(function (e) {
+
+            event.preventDefault();
+
+            if ($('#hidden').is(':checked') == true) {
+                var dyeingObj = {
+                    Id: '0',
+                    FabricID: selectedfabriId,
+                    KnitID: selectedKnitRowId,
+                    DyeingUnitID: $("#DyeingUnit  option:selected").val(),
+                    BatchNo: $("#BatchNo").val(),
+                    BatchQty: $("#BatchQty").val(),
+                    SerialNo: $("#SerialNo").val(),
+                    CreateTime: moment(Date.now()).format("DD/MM/YYYY")
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Dyeing/Create",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(dyeingObj),
+                    success: function (response) {
+                        debugger
+                        if (response.data != "" && response.data != null) {
+                            DyeingTable.row.add(response.data);
+                            DyeingTable.draw();
+                            Reset();
+                        }
+                        else {
+                            alert("Failed to Save! Please Check Connection State!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select knitting!!!");
+                return;
+            }
+        });
+
+        $("#resetBtn").click(function () {
+            Reset();
+        });
+
+        $("#resetKnitBtn").click(function () {
+            ResetKnit();
+        });
+
+        $("#okayBtn").click(function () {
+            debugger
+            if ($('#knitSelectionTable tbody tr').hasClass('selected')) {
+                selectedKnitRowId = knitSelectionTable.rows('.selected').data()[0].Id;
+                selectedFabriId = knitSelectionTable.rows('.selected').data()[0].FabricID;
+
+                $('#BarCode').val(knitSelectionTable.rows('.selected').data()[0].BarCode);
+                $('#FabricName').val(knitSelectionTable.rows('.selected').data()[0].FabricName);
+                $('#BuyerName').val(knitSelectionTable.rows('.selected').data()[0].BuyerName);
+                $('#OrderNo').val(knitSelectionTable.rows('.selected').data()[0].OrderNo);
+                $('#Color').val(knitSelectionTable.rows('.selected').data()[0].Color);
+                $('#DiaGauge').val(knitSelectionTable.rows('.selected').data()[0].McDiaGuage);
+                $('#YarnCount').val(knitSelectionTable.rows('.selected').data()[0].YarnCount);
+                $('#YarnBrand').val(knitSelectionTable.rows('.selected').data()[0].YarnBrand);
+                $('#YarnLot').val(knitSelectionTable.rows('.selected').data()[0].YarnLot);
+                $('#KnitUnit').val(knitSelectionTable.rows('.selected').data()[0].KnitUnit);
+                $('#GreyWidth').val(knitSelectionTable.rows('.selected').data()[0].GreyWidth);
+                $('#GreyGSM').val(knitSelectionTable.rows('.selected').data()[0].GreyGSM);
+                $('#Brand').val(knitSelectionTable.rows('.selected').data()[0].McBrand);
+                $("#modalKnitSelection .close").click();
+
+                $('#hidden').prop('checked', true);
+            }
+            else {
+                alert('Please Select A Row.')
+                return;
+            }
+
         });
 
     });
