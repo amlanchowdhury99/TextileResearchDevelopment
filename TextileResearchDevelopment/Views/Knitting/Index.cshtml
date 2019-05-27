@@ -279,9 +279,15 @@
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
-                        <button class="btn btn-warning btn-sm" style="width:35%;" id="resetBtn">Reset</button>
+                        <button class="btn btn-warning btn-sm" style="width:25%;" id="resetBtn">Reset</button>
                         <div style="display: inline;">
-                            <input type="submit" value="Save" class="btn btn-primary btn-sm" style="width:60%;" name="saveBtn">
+                            <input type="submit" value="Save" class="btn btn-success btn-sm" style="width:22%;" id="saveBtn">
+                        </div>
+                        <div style="display: inline;">
+                            <input type="submit" value="Revise" class="btn btn-info btn-sm" disabled="disabled" style="width:23%;" id="reviseBtn">
+                        </div>
+                        <div style="display: inline;">
+                            <input type="submit" value="Update" class="btn btn-primary btn-sm" disabled="disabled" style="width:23%;" id="updateBtn">
                         </div>
                     </div>
                 </div>
@@ -319,7 +325,12 @@
                 <th>Mc Brand</th>
                 <th>Revise</th>
                 <th>Aprroved</th>
-                <th>CreateTime</th>
+                <th>Create Time</th>
+                <th>Create By</th>
+                <th>Update Time</th>
+                <th>Update By</th>
+                <th>Approved Time</th>
+                <th>Approved By</th>
             </tr>
         </thead>
         <tfoot>
@@ -351,7 +362,12 @@
                 <th>Mc Brand</th>
                 <th>Revise</th>
                 <th>Aprroved</th>
-                <th>CreateTime</th>
+                <th>Create Time</th>
+                <th>Create By</th>
+                <th>Update Time</th>
+                <th>Update By</th>
+                <th>Approved Time</th>
+                <th>Approved By</th>
             </tr>
         </tfoot>
     </table>
@@ -359,8 +375,7 @@
 </div>
 
 <script>
-    $(document).ready(function ()
-    {
+    $(document).ready(function () {
         debugger;
         var selectedFabricRowId = 0;
         var fabricSelectionTable = $('#fabricSelectionTable').DataTable();
@@ -441,6 +456,7 @@
         });
 
         var knitTable = $('#knitTable').DataTable({
+
             "ajax":
             {
                 "url": "/Knitting/GetData",
@@ -510,9 +526,82 @@
                     render: function (data, type, row) {
                         return moment(data).format("DD/MM/YYYY h:mm a");
                     }
+                },
+                { "data": "CreateByName" },
+                {
+                    data: "UpdateTime",
+                    render: function (data, type, row) {
+                        if (data != null)
+                            return moment(data).format("DD/MM/YYYY h:mm a");
+                        else
+                            return "N/A"
+                    }
+                },
+                {
+                    "data": "UpdateByName",
+                    render: function (data, type, row) {
+                        if (data != "")
+                            return data;
+                        else
+                            return "N/A"
+                    }
+                },
+                {
+                    data: "ApprovedTime",
+                    render: function (data, type, row) {
+                        if (data != null)
+                            return moment(data).format("DD/MM/YYYY h:mm a");
+                        else
+                            return "N/A"
+                    }
+                },
+                {
+                    "data": "ApprovedByName",
+                    render: function (data, type, row) {
+                        if (data != "")
+                            return data;
+                        else
+                            return "N/A"
+                    }
                 }
             ]
         });
+
+        $('#knitTable tbody').on('click', 'tr', function () {
+
+            $(this).toggleClass('selected');
+
+            if ($(this).hasClass('selected')) {
+                var rowdata = knitTable.row(this).data();
+                Setvalue(rowdata);
+                $('#saveBtn').prop("disabled", true);
+                $('#updateBtn').prop("disabled", false);
+                $('#reviseBtn').prop("disabled", false);
+
+            }
+            else {
+                $('#saveBtn').prop("disabled", false);
+                $('#updateBtn').prop("disabled", true);
+                $('#reviseBtn').prop("disabled", true);
+            }
+
+        });
+
+        function Setvalue(rowdata) {
+            $("#DiaGauge").val(rowdata.DiaGaugeID);
+            $("#YarnCount").val(rowdata.YarnCountID);
+            $("#YarnBrand").val(rowdata.YarnBrand);
+            $("#YarnLot").val(rowdata.YarnLot);
+            $("#StitchLength").val(rowdata.StitchLength);
+            $("#MCNO").val(rowdata.MCNO);
+            $("#MCRPM").val(rowdata.MCRPM);
+            $("#GreyWidth").val(rowdata.GreyWidth);
+            $("#GreyGSM").val(rowdata.GreyGSM);
+            $("#TumbleWidth").val(rowdata.TumbleWidth);
+            $("#TumbleGSM").val(rowdata.TumbleGSM);
+            $("#Brand").val(rowdata.McBrandID);
+            $("#KnitUnit").val(rowdata.KnitUnitID);
+        }
 
         $("#searchFabricBtn").click(function () {
             event.preventDefault();
@@ -669,11 +758,40 @@
                 $("#GreyGSM").val() == "" || $("#TumbleWidth").val() == "" || $("#TumbleGSM").val() == "") {
                 return false;
             }
-            else
-            {
+            else {
                 return true;
             }
         }
+
+        function Reset()
+        {
+            event.preventDefault();
+            $('#saveBtn').prop("disabled", false);
+            $('#updateBtn').prop("disabled", true);
+            $('#reviseBtn').prop("disabled", true);
+
+            $("#BarCode").val("");
+            $("#OrderNo").val("");
+            $("#Color").val("");
+            $("#FabricName").val("");
+            $("#BuyerName").val("");
+            $("#DiaGauge").val("");
+            $("#YarnCount").val("");
+            $("#YarnBrand").val("");
+            $("#YarnLot").val("");
+            $("#MCNO").val("");
+            $("#MCRPM").val("");
+            $("#StitchLength").val("");
+            $("#KnitUnit").val("");
+            $("#Brand").val("");
+            $("#GreyWidth").val("");
+            $("#GreyGSM").val("");
+            //$('#hidden').prop('checked', false);
+        }
+
+        $("#resetBtn").click(function () {
+            Reset();
+        });
 
     });
 </script>

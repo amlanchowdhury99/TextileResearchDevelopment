@@ -196,8 +196,8 @@ namespace TextileResearchDevelopment.BLL
                         dyeing.SerialNo = Convert.ToInt32(reader["SerialNo"]);
 
                         dyeing.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
-                        dyeing.UpdateTime = Convert.ToDateTime(reader["UpdateTime"]);
-                        dyeing.ApprovedTime = Convert.ToDateTime(reader["ApprovedTime"]);
+                        dyeing.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
+                        dyeing.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
                         dyeing.CreateByName = reader["CreateByName"].ToString();
                         dyeing.UpdateByName = reader["UpdateByName"].ToString();
                         dyeing.ApprovedByName = reader["ApprovedByName"].ToString();

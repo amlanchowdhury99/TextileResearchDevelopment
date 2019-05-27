@@ -81,13 +81,13 @@ namespace TextileResearchDevelopment.Models
 
         public string CreateByName { get; set; }
 
-        public DateTime UpdateTime { get; set; }
+        public Nullable<DateTime> UpdateTime { get; set; }
 
         public int UpdateBy { get; set; }
 
         public string UpdateByName { get; set; }
 
-        public DateTime ApprovedTime { get; set; }
+        public Nullable<DateTime> ApprovedTime { get; set; }
 
         public int ApprovedBy { get; set; }
 

@@ -155,8 +155,8 @@ namespace TextileResearchDevelopment.BLL
                         knit.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
 
                         knit.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
-                        knit.UpdateTime = Convert.ToDateTime(reader["UpdateTime"]);
-                        knit.ApprovedTime = Convert.ToDateTime(reader["ApprovedTime"]);
+                        knit.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
+                        knit.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
                         knit.CreateByName = reader["CreateByName"].ToString();
                         knit.UpdateByName = reader["UpdateByName"].ToString();
                         knit.ApprovedByName = reader["ApprovedByName"].ToString();

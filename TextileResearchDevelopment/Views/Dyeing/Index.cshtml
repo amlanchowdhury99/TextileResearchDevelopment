@@ -748,23 +748,67 @@
                         return moment(data).format("DD/MM/YYYY h:mm a");
                     }
                 },
-                { "data": "CreateBy" },
+                { "data": "CreateByName" },
                 {
                     data: "UpdateTime",
-                    render: function (data, type, row) {
-                        return moment(data).format("DD/MM/YYYY h:mm a");
+                    render: function (data, type, row)
+                    {
+                        if(data != null)
+                            return moment(data).format("DD/MM/YYYY h:mm a");
+                        else
+                            return "N/A"
                     }
                 },
-                { "data": "UpdateBy" },
                 {
-                    data: "AprrovedTime",
-                    render: function (data, type, row) {
-                        return moment(data).format("DD/MM/YYYY h:mm a");
+                    "data": "UpdateByName",
+                    render: function (data, type, row)
+                    {
+                        if(data != "")
+                            return data;
+                        else
+                            return "N/A"
                     }
                 },
-                { "data": "AprrovedBy" }
+                {
+                    data: "ApprovedTime",
+                    render: function (data, type, row)
+                    {
+                        if(data != null)
+                            return moment(data).format("DD/MM/YYYY h:mm a");
+                        else
+                            return "N/A"
+                    }
+                },
+                {
+                    "data": "AprrovedByName",
+                    render: function (data, type, row)
+                    {
+                        if(data != "")
+                            return data;
+                        else
+                            return "N/A"
+                    }
+                }
             ]
         });
+
+        $('#DyeingTable tbody').on('click', 'tr', function () {
+
+            $(this).toggleClass('selected');
+
+            if ($(this).hasClass('selected')) {
+                var rowdata = DyeingTable.row(this).data();
+                Setvalue(rowdata);
+            }
+
+        });
+
+        function Setvalue(rowdata) {
+            $("#DyeingUnit").val(rowdata.DyeingUnitID);
+            $("#BatchNo").val(rowdata.BatchNo);
+            $("#BatchQty").val(rowdata.BatchQty);
+            $("#SerialNo").val(rowdata.SerialNo);
+        }
 
         function Reset() {
             $("#BarCode").val("");
