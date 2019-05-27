@@ -50,7 +50,7 @@ namespace TextileResearchDevelopment.Controllers
                 Console.Write(ex);
             }
 
-            return Json(McDiaGauges, JsonRequestBehavior.AllowGet);
+            return Json(new { data = McDiaGauges }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -69,7 +69,7 @@ namespace TextileResearchDevelopment.Controllers
                 Console.Write(ex);
             }
 
-            return Json(YarnCounts, JsonRequestBehavior.AllowGet);
+            return Json(new { data = YarnCounts }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -88,7 +88,7 @@ namespace TextileResearchDevelopment.Controllers
                 Console.Write(ex);
             }
 
-            return Json(KnitUnits, JsonRequestBehavior.AllowGet);
+            return Json(new { data = KnitUnits }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -107,7 +107,7 @@ namespace TextileResearchDevelopment.Controllers
                 Console.Write(ex);
             }
 
-            return Json(McBrands, JsonRequestBehavior.AllowGet);
+            return Json(new { data = McBrands }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult FabricSearch(Fabric fabricSearchObj)
@@ -159,14 +159,123 @@ namespace TextileResearchDevelopment.Controllers
             return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Edit(int id)
+        [HttpPost]
+        public ActionResult Edit(Knitting knit)
         {
-            return View();
+            Boolean Result = false;
+            try
+            {
+                if (knit.Id > 0)
+                {
+                    int Id = KnittingBLL.EditKnit(knit);
+                    if (Id > 0)
+                    {
+                        Result = true;
+                    }
+                    else
+                    {
+                        Result = false;
+                    }
+                }
+
+                if (Result)
+                {
+                    return Json(new { data = knit }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return View();
+            }
+
+            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Delete(int id)
+        [HttpPost]
+        public ActionResult Approve(Knitting knit)
         {
-            return View();
+            Boolean Result = false;
+            try
+            {
+                if (knit.Id > 0)
+                {
+                    int Id = KnittingBLL.ApproveKnit(knit);
+                    if (Id > 0)
+                    {
+                        Result = true;
+                    }
+                    else
+                    {
+                        Result = false;
+                    }
+                }
+
+                if (Result)
+                {
+                    return Json(new { data = knit }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return View();
+            }
+
+            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult Revise(Knitting knit)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (knit.Id > 0)
+                {
+                    int Id = KnittingBLL.ReviseKnit(knit);
+                    if (Id > 0)
+                    {
+                        Result = true;
+                    }
+                    else
+                    {
+                        Result = false;
+                    }
+                }
+
+                if (Result)
+                {
+                    return Json(new { data = knit }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return View();
+            }
+
+            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Delete(int Id)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (Id > 0)
+                {
+                    Result = KnittingBLL.DeleteKnit(Id);
+                }
+
+                if (Result)
+                {
+                    return Json("Success", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("Failed", JsonRequestBehavior.AllowGet);
         }
 
     }

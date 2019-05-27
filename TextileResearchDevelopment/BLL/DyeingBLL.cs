@@ -59,8 +59,8 @@ namespace TextileResearchDevelopment.BLL
             int Id = -1;
             try
             {
-                string query = " INSERT INTO Dyeing (FabricID, KnitID, BarCode, DyeingUnitID, BatchNo, BatchQty, SerialNo, ReviseStatus, CreateTime, UpdateTime, ApprovedTime, CreateBy, UpdateBy, ApprovedBy) " +
-                               " VALUES(" + dyeing.FabricID + "," + "," + dyeing.KnitID + "," + dyeing.BarCode + "," + dyeing.DyeingUnitID + ",'" + dyeing.BatchNo + "'," + dyeing.BatchQty + "," + dyeing.SerialNo + "," + dyeing.ReviseStatus + ",'" + dyeing.CreateTime + "','" + dyeing.UpdateTime + "','" + dyeing.ApprovedTime + "',"+ dyeing.CreateBy+ ","+ dyeing.UpdateBy + ","+ dyeing.ApprovedBy + " )";
+                string query = " INSERT INTO Dyeing (FabricID, KnitID, BarCode, DyeingUnitID, BatchNo, BatchQty, SerialNo, ReviseStatus, CreateTime, UpdateTime, ApprovedTime, CreateBy, UpdateBy, ApprovedBy, UpdateBy) " +
+                               " VALUES(" + dyeing.FabricID + "," + "," + dyeing.KnitID + "," + dyeing.BarCode + "," + dyeing.DyeingUnitID + ",'" + dyeing.BatchNo + "'," + dyeing.BatchQty + "," + dyeing.SerialNo + "," + dyeing.ReviseStatus + ",'" + dyeing.CreateTime + "','" + dyeing.UpdateTime + "','" + dyeing.ApprovedTime + "',"+ dyeing.CreateBy+ ", 0, 0 )";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT TOP 1 (Id) AS Id FROM Dyeing order by Id desc";

@@ -25,6 +25,11 @@
 
 <div id="MainDiv" class="panel panel-default ">
 
+    <ul id="contextMenu" class="dropdown-menu" role="menu" style="display:none">
+        <li><a tabindex="-1" href="#">Delete</a></li>
+        <li><a tabindex="-1" href="#">Approve</a></li>
+    </ul>
+
     <div class="modal fade" id="modalKnitSelection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -43,7 +48,7 @@
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="BarCodeSL" class="control-label" style="width:35%;">BarCode</label>
                                             <div style="display: inline;">
-                                                <input type="text" class="typeahead form-control" style="width:60%;" id="BarCodeSL" placeholder="Bar Code" required autofocus>
+                                                <input type="text" class="typeahead form-control" style="width:60%;" id="BarCodeSL" placeholder="Bar Code" autofocus>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
@@ -55,7 +60,7 @@
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="FabricSL" class="control-label" style="width:35%;">Fabric</label>
                                             <div style="display: inline;">
-                                                <select name="FabricSL" id="FabricSL" style="width:60%;" class="form-control" required autofocus></select>
+                                                <select name="FabricSL" id="FabricSL" style="width:60%;" class="form-control" autofocus></select>
                                             </div>
                                         </div>
                                     </div>
@@ -63,45 +68,48 @@
                                         <div class="form-group col-xs-4 form-inline ">
                                             <label for="OrderNoSL" class="control-label" style="width:35%;">Order No</label>
                                             <div style="display: inline;">
-                                                <input type="text" class="typeahead form-control" style="width:60%;" id="OrderNoSL" placeholder="Order No" required autofocus>
+                                                <input type="text" class="typeahead form-control" style="width:60%;" id="OrderNoSL" placeholder="Order No" autofocus>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="ColorSL" class="control-label" style="width:35%;">Color</label>
                                             <div style="display: inline;">
-                                                <input type="text" class="typeahead form-control" style="width:60%;" id="ColorSL" placeholder="Color" required autofocus>
+                                                <input type="text" class="typeahead form-control" style="width:60%;" id="ColorSL" placeholder="Color" autofocus>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="ChallanSL" class="control-label" style="width:35%;">Challan No</label>
                                             <div style="display: inline;">
-                                                <input type="text" class="typeahead form-control" style="width:60%;" id="ChallanSL" placeholder="Challan No" required autofocus>
+                                                <input type="text" class="typeahead form-control" style="width:60%;" id="ChallanSL" placeholder="Challan No" autofocus>
                                             </div>
                                         </div>
                                     </div>
                                     <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
-                                            <label for="DeliveryDateSL" class="control-label" style="width:35%;">Delivery Date</label>
+                                            <input type="checkbox" id="DeliveryDateCheckBox" style="width:5%;">
+                                            <label for="DeliveryDateSL" class="control-label" style="width:30%;">Delivery Date</label>
                                             <div class='input-group date' id='DeliveryDateSL' style="width:60%;">
-                                                <input type='text' class="form-control" id="DeliveryDateTextSL" placeholder="Delivey Date" required autofocus />
+                                                <input type='text' class="form-control" id="DeliveryDateTextSL" disabled placeholder="Delivey Date" autofocus />
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                 </span>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
-                                            <label for="FabricOrderDateSL" class="control-label" style="width:35%;">Fabric Order Date</label>
+                                            <input type="checkbox" id="FabricOrderDateCheckBox" style="width:5%;">
+                                            <label for="FabricOrderDateSL" class="control-label" style="width:30%;">Fabric Order Date</label>
                                             <div class='input-group date' id='FabricOrderDateSL' style="width:60%;">
-                                                <input type='text' class="form-control" id="FabricOrderDateTextSL" placeholder="Fabric Order Date" required autofocus />
+                                                <input type='text' class="form-control" id="FabricOrderDateTextSL" disabled placeholder="Fabric Order Date" autofocus />
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                 </span>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
-                                            <label for="KnitOrderDateSL" class="control-label" style="width:35%;">Knit Order Date</label>
+                                            <input type="checkbox" id="KnitOrderDateCheckBox" style="width:5%;">
+                                            <label for="KnitOrderDateSL" class="control-label" style="width:30%;">Knit Order Date</label>
                                             <div class='input-group date' id='KnitOrderDateSL' style="width:60%;">
-                                                <input type='text' class="form-control" id="KnitOrderDateTextSL" placeholder="Knit Order Date" required autofocus />
+                                                <input type='text' class="form-control" id="KnitOrderDateTextSL" disabled placeholder="Knit Order Date" autofocus />
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                 </span>
@@ -112,19 +120,19 @@
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="DiaGaugeSL" class="control-label" style="width:35%;">Dia-Gauge</label>
                                             <div style="display: inline;">
-                                                <select name="DiaGaugeSL" id="DiaGaugeSL" style="width:60%;" class="form-control input-sm" required autofocus></select>
+                                                <select name="DiaGaugeSL" id="DiaGaugeSL" style="width:60%;" class="form-control input-sm" autofocus></select>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="YarnCountSL" class="control-label" style="width:35%;">Yarn Count</label>
                                             <div style="display: inline;">
-                                                <select name="YarnCountSL" id="YarnCountSL" style="width:60%;" class="form-control input-sm" required autofocus></select>
+                                                <select name="YarnCountSL" id="YarnCountSL" style="width:60%;" class="form-control input-sm" autofocus></select>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="YarnBrandSL" class="control-label" style="width:35%;">Yarn Brand</label>
                                             <div style="display: inline;">
-                                                <input type="text" class="typeahead form-control input-sm" style="width:60%;" id="YarnBrandSL" placeholder="Yarn Brand" required autofocus>
+                                                <input type="text" class="typeahead form-control input-sm" style="width:60%;" id="YarnBrandSL" placeholder="Yarn Brand" autofocus>
                                             </div>
                                         </div>
                                     </div>
@@ -132,19 +140,19 @@
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="YarnLotSL" class="control-label" style="width:35%;">Yarn Lot</label>
                                             <div style="display: inline;">
-                                                <input type="text" class="typeahead form-control" style="width:60%;" id="YarnLotSL" name="YarnLotSL" required placeholder="Yarn Lot">
+                                                <input type="text" class="typeahead form-control" style="width:60%;" id="YarnLotSL" name="YarnLotSL" placeholder="Yarn Lot">
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="GreyWidthSL" class="control-label" style="width:35%;">Grey Width</label>
                                             <div style="display: inline;">
-                                                <input type="number" class="form-control" style="width:60%;" id="GreyWidthSL" min="0" step="1" data-bind="value:GreyWidth" placeholder="Grey Width" required autofocus>
+                                                <input type="number" class="form-control" style="width:60%;" id="GreyWidthSL" min="0" step="1" data-bind="value:GreyWidth" placeholder="Grey Width" autofocus>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="GreyGSMSL" class="control-label" style="width:35%;">Grey GSM</label>
                                             <div style="display: inline;">
-                                                <input type="number" class="form-control" style="width:60%;" id="GreyGSMSL" min="0" step="1" data-bind="value:GreyGSM" placeholder="Grey GSM" required autofocus>
+                                                <input type="number" class="form-control" style="width:60%;" id="GreyGSMSL" min="0" step="1" data-bind="value:GreyGSM" placeholder="Grey GSM" autofocus>
                                             </div>
                                         </div>
                                     </div>
@@ -152,13 +160,13 @@
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="KnitUnitSL" class="control-label" style="width:35%;">Knit Unit</label>
                                             <div style="display: inline;">
-                                                <select name="KnitUnitSL" id="KnitUnitSL" style="width:60%;" class="form-control" required autofocus></select>
+                                                <select name="KnitUnitSL" id="KnitUnitSL" style="width:60%;" class="form-control" autofocus></select>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="BrandSL" class="control-label" style="width:35%;">MC Brand</label>
                                             <div style="display: inline;">
-                                                <select name="BrandSL" id="BrandSL" style="width:60%;" class="form-control input-sm" required autofocus></select>
+                                                <select name="BrandSL" id="BrandSL" style="width:60%;" class="form-control input-sm" autofocus></select>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
@@ -426,24 +434,69 @@
         var selectedKnitRowId = 0; var selectedKnitId = 0; var selectedfabriId = 0;
         var knitSelectionTable = $('#knitSelectionTable').DataTable();
 
+        (function ($, window) {
+
+            $.fn.contextMenu = function (settings) {
+
+                return this.each(function () {
+
+                    // Open context menu
+                    $(this).on("contextmenu", function (e) {
+                        // return native menu if pressing control
+                        if (e.ctrlKey) return;
+
+                        if ($('#knitTable tbody tr').hasClass('selected') == false) return;
+
+                        //open menu
+                        var $menu = $(settings.menuSelector)
+                            .data("invokedOn", $(e.target))
+                            .show()
+                            .css({
+                                position: "absolute",
+                                left: getMenuPosition(e.clientX, 'width', 'scrollLeft'),
+                                top: getMenuPosition(e.clientY, 'height', 'scrollTop')
+                            })
+                            .off('click')
+                            .on('click', 'a', function (e) {
+                                $menu.hide();
+
+                                var $invokedOn = $menu.data("invokedOn");
+                                var $selectedMenu = $(e.target);
+
+                                settings.menuSelected.call(this, $invokedOn, $selectedMenu);
+                            });
+
+                        return false;
+                    });
+
+                    //make sure menu closes on any click
+                    $('body').click(function () {
+                        $(settings.menuSelector).hide();
+                    });
+                });
+
+                function getMenuPosition(mouse, direction, scrollDir) {
+                    var win = $(window)[direction](),
+                        scroll = $(window)[scrollDir](),
+                        menu = $(settings.menuSelector)[direction](),
+                        position = mouse + scroll;
+
+                    // opening menu would pass the side of the page
+                    if (mouse + menu > win && menu < mouse)
+                        position -= menu;
+
+                    return position;
+                }
+
+            };
+        })(jQuery, window);
+
         $('#DeliveryDateSL, #FabricOrderDateSL, #KnitOrderDateSL').datetimepicker({
             defaultDate: new Date(),
             format: 'DD/MM/YYYY'
         });
 
         loadDyeingUnitList();
-
-        function ValidateKnitSelectionForm() {
-            debugger;
-            if ($("#DiaGaugeSL  option:selected").val() == "" && $("#YarnCountSL  option:selected").val() == "" && $("#BrandSL  option:selected").val() == "" && $("#KnitUnitSL  option:selected").val() == "" &&
-                $("#BarCodeSL").val() == "" && $("#YarnBrandSL").val() == "" && $("#YarnLotSL").val() == "" && $("#ChallanSL").val() == "" && $("#DeliveryDateSL").val() == "" && $("#FabricOrderDateSL").val() == "" && $("#KnitOrderDateSL").val() == "" && $("#GreyWidthSL").val() == "" &&
-                $("#GreyGSMSL").val() == "" && $("#BuyerSL option:selected").val() == "" && $("#FabricSL option:selected").val() == "" && $("#OrderNoSL").val() == "" && $("#ColorSL").val() == "") {
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
 
         function loadDyeingUnitList() {
             $.ajax({
@@ -630,53 +683,53 @@
             debugger;
             event.preventDefault();
 
-            //if (ValidateKnitSelectionForm() == true) {
-            var knitSearchObj = {
-                BarCode: $("#BarCodeSL").val().toString(),
-                BuyerID: $("#BuyerSL  option:selected").val(),
-                FabricTypeID: $("#FabricSL  option:selected").val(),
-                OrderNo: $("#OrderNoSL").val().length > 0 ? $("#OrderNoSL").val().toString() : '',
-                Color: $("#ColorSL").val().length > 0 ? $("#ColorSL").val().toString() : '',
-                ChallanNo: $("#ChallanSL").val().length > 0 ? $("#ChallanSL").val().toString() : '',
-                DeliveryDate: $("#DeliveryDateTextSL").val().length > 0 ? $("#DeliveryDateTextSL").val().toString() : '',
-                FabricCreateTime: $("#FabricOrderDateTextSL").val().length > 0 ? $("#FabricOrderDateTextSL").val().toString() : '',
-                CreateTime: $("#KnitOrderDateTextSL").val().length > 0 ? $("#KnitOrderDateTextSL").val().toString() : '',
-                McDiaGuage: $("#DiaGaugeSL  option:selected").val(),
-                YarnCountID: $("#YarnCountSL  option:selected").val(),
-                YarnBrand: $("#YarnBrandSL").val().toString(),
-                YarnLot: $("#YarnLotSL").val().toString(),
-                KnitUnitID: $("#KnitUnitSL  option:selected").val(),
-                GreyWidth: $("#GreyWidthSL").val().toString(),
-                GreyGSM: $("#GreyGSMSL").val().toString(),
-                McBrandID: $("#BrandSL  option:selected").val(),
-            };
+            if (ValidateKnitSelectionForm() == true) {
+                var knitSearchObj = {
+                    BarCode: $("#BarCodeSL").val().toString(),
+                    BuyerID: $("#BuyerSL  option:selected").val(),
+                    FabricTypeID: $("#FabricSL  option:selected").val(),
+                    OrderNo: $("#OrderNoSL").val().length > 0 ? $("#OrderNoSL").val().toString() : '',
+                    Color: $("#ColorSL").val().length > 0 ? $("#ColorSL").val().toString() : '',
+                    ChallanNo: $("#ChallanSL").val().length > 0 ? $("#ChallanSL").val().toString() : '',
+                    DeliveryDate: $('#DeliveryDateCheckBox').is(":checked") == true ? $("#DeliveryDateTextSL").val().toString() : '',
+                    FabricCreateTime: $('#FabricOrderDateCheckBox').is(":checked") == true ? $("#FabricOrderDateTextSL").val().toString() : '',
+                    CreateTime: $('#KnitOrderDateCheckBox').is(":checked") == true ? $("#KnitOrderDateTextSL").val().toString() : '',
+                    McDiaGuage: $("#DiaGaugeSL  option:selected").val(),
+                    YarnCountID: $("#YarnCountSL  option:selected").val(),
+                    YarnBrand: $("#YarnBrandSL").val().toString(),
+                    YarnLot: $("#YarnLotSL").val().toString(),
+                    KnitUnitID: $("#KnitUnitSL  option:selected").val(),
+                    GreyWidth: $("#GreyWidthSL").val().toString(),
+                    GreyGSM: $("#GreyGSMSL").val().toString(),
+                    McBrandID: $("#BrandSL  option:selected").val(),
+                };
 
-            $.ajax({
-                type: "POST",
-                url: "/Dyeing/KnitSearch",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                data: JSON.stringify(knitSearchObj),
-                success: function (response) {
-                    if (response != "" && response != null) {
-                        debugger
-                        knitSelectionTable.clear().draw();
-                        knitSelectionTable.rows.add(response).draw();
+                $.ajax({
+                    type: "POST",
+                    url: "/Dyeing/KnitSearch",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(knitSearchObj),
+                    success: function (response) {
+                        if (response != "" && response != null) {
+                            debugger
+                            knitSelectionTable.clear().draw();
+                            knitSelectionTable.rows.add(response).draw();
+                        }
+                        else {
+                            alert("Failed to Save! Please Check Connection State!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
                     }
-                    else {
-                        alert("Failed to Save! Please Check Connection State!!!");
-                        return;
-                    }
-                },
-                failure: function () {
-                    $("#tblItems").append(" Error when fetching data please contact administrator");
-                }
-            });
-            //}
-            //else {
-            //    alert("Please Select Atleast One Criteria!!!");
-            //    return;
-            //}
+                });
+            }
+            else {
+                alert("Please Select Atleast One Criteria!!!");
+                return;
+            }
 
 
         });
@@ -751,9 +804,8 @@
                 { "data": "CreateByName" },
                 {
                     data: "UpdateTime",
-                    render: function (data, type, row)
-                    {
-                        if(data != null)
+                    render: function (data, type, row) {
+                        if (data != null)
                             return moment(data).format("DD/MM/YYYY h:mm a");
                         else
                             return "N/A"
@@ -761,9 +813,8 @@
                 },
                 {
                     "data": "UpdateByName",
-                    render: function (data, type, row)
-                    {
-                        if(data != "")
+                    render: function (data, type, row) {
+                        if (data != "")
                             return data;
                         else
                             return "N/A"
@@ -771,9 +822,8 @@
                 },
                 {
                     data: "ApprovedTime",
-                    render: function (data, type, row)
-                    {
-                        if(data != null)
+                    render: function (data, type, row) {
+                        if (data != null)
                             return moment(data).format("DD/MM/YYYY h:mm a");
                         else
                             return "N/A"
@@ -781,9 +831,8 @@
                 },
                 {
                     "data": "AprrovedByName",
-                    render: function (data, type, row)
-                    {
-                        if(data != "")
+                    render: function (data, type, row) {
+                        if (data != "")
                             return data;
                         else
                             return "N/A"
@@ -851,6 +900,18 @@
             $("#KnitOrderDateSL").val("");
         }
 
+        function ValidateKnitSelectionForm() {
+            debugger;
+            if ($("#DiaGaugeSL  option:selected").val() == "" && $("#YarnCountSL  option:selected").val() == "" && $("#BrandSL  option:selected").val() == "" && $("#KnitUnitSL  option:selected").val() == "" &&
+                $("#BarCodeSL").val() == "" && $("#YarnBrandSL").val() == "" && $("#YarnLotSL").val() == "" && $("#ChallanSL").val() == "" && $("#GreyWidthSL").val() == "" && $('#DeliveryDateCheckBox').is(":checked") == false && $('#FabricOrderDateCheckBox').is(":checked") == false && $('#KnitOrderDateCheckBox').is(":checked") == false &&
+                $("#GreyGSMSL").val() == "" && $("#BuyerSL option:selected").val() == "" && $("#FabricSL option:selected").val() == "" && $("#OrderNoSL").val() == "" && $("#ColorSL").val() == "") {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
         $('#DyeingForm').submit(function (e) {
 
             event.preventDefault();
@@ -904,6 +965,27 @@
             ResetKnit();
         });
 
+        $("#DyeingTable tbody").contextMenu({
+            menuSelector: "#contextMenu",
+            menuSelected: function (invokedOn, selectedMenu) {
+                debugger;
+
+                var ApprovedBy = knitTable.rows('.selected').data()[0].ApprovedBy;
+                if (ApprovedBy == 0)
+                {
+                    if (selectedMenu.text == "Delete")
+                        DeleteRow();
+                    if (selectedMenu.text == "Approve")
+                        ApproveRow();
+                    
+                }
+                else {
+                    alert("This order is already approved!!!");
+                    return;
+                }
+            }
+        });
+
         $("#okayBtn").click(function () {
             debugger
             if ($('#knitSelectionTable tbody tr').hasClass('selected')) {
@@ -931,7 +1013,33 @@
                 alert('Please Select A Row.')
                 return;
             }
+        });
 
+        $('#DeliveryDateCheckBox').change(function () {
+            if ($(this).is(":checked")) {
+                $('#DeliveryDateTextSL').prop('disabled', false);
+            }
+            else {
+                $('#DeliveryDateTextSL').prop('disabled', true);
+            }
+        });
+
+        $('#FabricOrderDateCheckBox').change(function () {
+            if ($(this).is(":checked")) {
+                $('#FabricOrderDateTextSL').prop('disabled', false);
+            }
+            else {
+                $('#FabricOrderDateTextSL').prop('disabled', true);
+            }
+        });
+
+        $('#KnitOrderDateCheckBox').change(function () {
+            if ($(this).is(":checked")) {
+                $('#KnitOrderDateTextSL').prop('disabled', false);
+            }
+            else {
+                $('#KnitOrderDateTextSL').prop('disabled', true);
+            }
         });
 
     });

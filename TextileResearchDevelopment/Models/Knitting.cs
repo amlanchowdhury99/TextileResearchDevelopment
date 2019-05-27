@@ -39,6 +39,7 @@ namespace TextileResearchDevelopment.Models
             CreateTime = DateTime.MaxValue;
             UpdateTime = DateTime.MaxValue;
             ApprovedTime = DateTime.MaxValue;
+            FabricCreateTime = DateTime.MaxValue;
         }
 
         private DateTime defaultDate = DateTime.Now;

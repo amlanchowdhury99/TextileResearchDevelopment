@@ -8,6 +8,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web.Configuration;
 
+
 namespace TextileResearchDevelopment.BLL
 {
     public class KnittingBLL
@@ -79,17 +80,292 @@ namespace TextileResearchDevelopment.BLL
             int Id = -1;
             try
             {
-                string query = " INSERT INTO Knitting (FabricID, DiaGaugeID, YarnCountID, YarnBrand, YarnLot, StitchLength, KnitUnitID, MCNO, MCRPM, GreyWidth, GreyGSM, TumbleWidth, TumbleGSM, McBrandID, ReviseStatus, ApprovedStatus, CreateTime, BarCode) " + 
-                               " VALUES(" + knit.FabricID + "," + knit.DiaGaugeID + "," + knit.YarnCountID + ",'" + knit.YarnBrand + "','" + knit.YarnLot + "'," + knit.StitchLength + "," + knit.KnitUnitID + "," + knit.MCNO + "," + knit.MCRPM + "," + knit.GreyWidth + "," + knit.GreyGSM + "," + knit.TumbleWidth + "," + knit.TumbleGSM + "," + knit.McBrandID + "," + knit.ReviseStatus + "," + knit.ApprovedStatus + ",'" + knit.CreateTime.ToString("yyyy/MM/dd") + "'," + knit.BarCode + " )";
+                string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
+                string query = " INSERT INTO Knitting (FabricID, DiaGaugeID, YarnCountID, YarnBrand, YarnLot, StitchLength, KnitUnitID, MCNO, MCRPM, GreyWidth, GreyGSM, TumbleWidth, TumbleGSM, McBrandID, ReviseStatus, ApprovedStatus, CreateBy, CreateTime, BarCode, ApprovedBy, UpdateBy) " + 
+                               " VALUES(" + knit.FabricID + "," + knit.DiaGaugeID + "," + knit.YarnCountID + ",'" + knit.YarnBrand + "','" + knit.YarnLot + "'," + knit.StitchLength + "," + knit.KnitUnitID + "," + knit.MCNO + "," + knit.MCRPM + "," + knit.GreyWidth + "," + knit.GreyGSM + "," + knit.TumbleWidth + "," + knit.TumbleGSM + "," + knit.McBrandID + "," + knit.ReviseStatus + "," + knit.ApprovedStatus + ", ("+ GetCreateByQuery + "), '" + knit.CreateTime.ToString("yyyy/MM/dd") + "'," + knit.BarCode + ", 0, 0)";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1 (Id) AS Id FROM Knitting order by Id desc";
+                    query = "SELECT TOP 1* FROM KnitView order by KnitId desc";
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            Id = Convert.ToInt32(reader["Id"]);
+                            knit.Id = Id = Convert.ToInt32(reader["KnitId"]);
+                            knit.BuyerName = reader["BuyerName"].ToString();
+                            knit.FabricName = reader["FabricName"].ToString();
+                            knit.OrderNo = reader["OrderNo"].ToString();
+                            knit.Color = reader["Color"].ToString();
+                            knit.ChallanNo = reader["ChallanNo"].ToString();
+                            knit.DeliveryDate = Convert.ToDateTime(reader["DeliveryDate"]);
+                            knit.FabricID = Convert.ToInt32(reader["FabricID"]);
+                            knit.BarCode = reader["BarCode"].ToString();
+
+                            knit.DiaGaugeID = Convert.ToInt32(reader["DiaGaugeID"]);
+                            knit.YarnCountID = Convert.ToInt32(reader["YarnCountID"]);
+                            knit.KnitUnitID = Convert.ToInt32(reader["KnitUnitID"]);
+                            knit.McBrandID = Convert.ToInt32(reader["McBrandID"]);
+
+                            knit.McDiaGuage = reader["McDiaGuage"].ToString();
+                            knit.YarnCount = reader["YarnCount"].ToString();
+                            knit.YarnBrand = reader["YarnBrand"].ToString();
+                            knit.YarnLot = reader["YarnLot"].ToString();
+                            knit.StitchLength = Convert.ToDecimal(reader["StitchLength"]);
+                            knit.KnitUnit = reader["KnitUnit"].ToString();
+                            knit.MCNO = Convert.ToInt32(reader["MCNO"]);
+                            knit.MCRPM = Convert.ToInt32(reader["MCRPM"]);
+                            knit.GreyWidth = Convert.ToDecimal(reader["GreyWidth"]);
+                            knit.GreyGSM = Convert.ToDecimal(reader["GreyGSM"]);
+                            knit.TumbleWidth = Convert.ToDecimal(reader["TumbleWidth"]);
+                            knit.TumbleGSM = Convert.ToDecimal(reader["TumbleGSM"]);
+                            knit.McBrand = reader["McBrand"].ToString();
+                            knit.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
+                            knit.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
+
+                            knit.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
+                            knit.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
+                            knit.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
+                            knit.CreateByName = reader["CreateByName"].ToString();
+                            knit.UpdateByName = reader["UpdateByName"].ToString();
+                            knit.ApprovedByName = reader["ApprovedByName"].ToString();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                return Id;
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+            return Id;
+        }
+
+        internal static int ApproveKnit(Knitting knit)
+        {
+            int Id = -1;
+            try
+            {
+                string GetApproveByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
+                string query = " UPDATE Knitting SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + knit.ApprovedTime?.ToString("yyyy/MM/dd") + "' WHERE Id = " + knit.Id + " AND ApprovedBy = 0 ";
+                if (DBGateway.ExecutionToDB(query, 1))
+                {
+                    query = "SELECT * FROM KnitView WHERE KnitId = " + knit.Id;
+                    SqlDataReader reader = DBGateway.GetFromDB(query);
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            knit.Id = Id = Convert.ToInt32(reader["KnitId"]);
+                            knit.BuyerName = reader["BuyerName"].ToString();
+                            knit.FabricName = reader["FabricName"].ToString();
+                            knit.OrderNo = reader["OrderNo"].ToString();
+                            knit.Color = reader["Color"].ToString();
+                            knit.ChallanNo = reader["ChallanNo"].ToString();
+                            knit.DeliveryDate = Convert.ToDateTime(reader["DeliveryDate"]);
+                            knit.FabricID = Convert.ToInt32(reader["FabricID"]);
+                            knit.BarCode = reader["BarCode"].ToString();
+
+                            knit.DiaGaugeID = Convert.ToInt32(reader["DiaGaugeID"]);
+                            knit.YarnCountID = Convert.ToInt32(reader["YarnCountID"]);
+                            knit.KnitUnitID = Convert.ToInt32(reader["KnitUnitID"]);
+                            knit.McBrandID = Convert.ToInt32(reader["McBrandID"]);
+
+                            knit.McDiaGuage = reader["McDiaGuage"].ToString();
+                            knit.YarnCount = reader["YarnCount"].ToString();
+                            knit.YarnBrand = reader["YarnBrand"].ToString();
+                            knit.YarnLot = reader["YarnLot"].ToString();
+                            knit.StitchLength = Convert.ToDecimal(reader["StitchLength"]);
+                            knit.KnitUnit = reader["KnitUnit"].ToString();
+                            knit.MCNO = Convert.ToInt32(reader["MCNO"]);
+                            knit.MCRPM = Convert.ToInt32(reader["MCRPM"]);
+                            knit.GreyWidth = Convert.ToDecimal(reader["GreyWidth"]);
+                            knit.GreyGSM = Convert.ToDecimal(reader["GreyGSM"]);
+                            knit.TumbleWidth = Convert.ToDecimal(reader["TumbleWidth"]);
+                            knit.TumbleGSM = Convert.ToDecimal(reader["TumbleGSM"]);
+                            knit.McBrand = reader["McBrand"].ToString();
+                            knit.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
+                            knit.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
+
+                            knit.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
+                            knit.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
+                            knit.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
+                            knit.CreateByName = reader["CreateByName"].ToString();
+                            knit.UpdateByName = reader["UpdateByName"].ToString();
+                            knit.ApprovedByName = reader["ApprovedByName"].ToString();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                return Id;
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+            return Id;
+        }
+
+        internal static int EditKnit(Knitting knit)
+        {
+            int Id = -1;
+            try
+            {
+                string GetUpdateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '"+ HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID]+"'";
+                string query = " UPDATE Knitting SET DiaGaugeID = " + knit.DiaGaugeID + ", YarnCountID = " + knit.YarnCountID + ", YarnBrand = '" + knit.YarnBrand + "', YarnLot = '" + knit.YarnLot + "', StitchLength = " + knit.StitchLength + ", KnitUnitID = " + knit.KnitUnitID + ", MCNO = " + knit.MCNO + ", MCRPM = " + knit.MCRPM + ", GreyWidth = " + knit.GreyWidth + ", GreyGSM = " + knit.GreyGSM + ", TumbleWidth = " + knit.TumbleWidth + ", TumbleGSM = " + knit.TumbleGSM + ", McBrandID = " + knit.McBrandID + ", UpdateBy = ("+ GetUpdateByQuery + "), UpdateTime = '" + knit.UpdateTime?.ToString("yyyy/MM/dd") + "' WHERE Id = "+knit.Id + " AND ApprovedBy = 0";
+                if (DBGateway.ExecutionToDB(query, 1))
+                {
+                    query = "SELECT * FROM KnitView WHERE KnitId = " + knit.Id;
+                    SqlDataReader reader = DBGateway.GetFromDB(query);
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            knit.Id = Id = Convert.ToInt32(reader["KnitId"]);
+                            knit.BuyerName = reader["BuyerName"].ToString();
+                            knit.FabricName = reader["FabricName"].ToString();
+                            knit.OrderNo = reader["OrderNo"].ToString();
+                            knit.Color = reader["Color"].ToString();
+                            knit.ChallanNo = reader["ChallanNo"].ToString();
+                            knit.DeliveryDate = Convert.ToDateTime(reader["DeliveryDate"]);
+                            knit.FabricID = Convert.ToInt32(reader["FabricID"]);
+                            knit.BarCode = reader["BarCode"].ToString();
+
+                            knit.DiaGaugeID = Convert.ToInt32(reader["DiaGaugeID"]);
+                            knit.YarnCountID = Convert.ToInt32(reader["YarnCountID"]);
+                            knit.KnitUnitID = Convert.ToInt32(reader["KnitUnitID"]);
+                            knit.McBrandID = Convert.ToInt32(reader["McBrandID"]);
+
+                            knit.McDiaGuage = reader["McDiaGuage"].ToString();
+                            knit.YarnCount = reader["YarnCount"].ToString();
+                            knit.YarnBrand = reader["YarnBrand"].ToString();
+                            knit.YarnLot = reader["YarnLot"].ToString();
+                            knit.StitchLength = Convert.ToDecimal(reader["StitchLength"]);
+                            knit.KnitUnit = reader["KnitUnit"].ToString();
+                            knit.MCNO = Convert.ToInt32(reader["MCNO"]);
+                            knit.MCRPM = Convert.ToInt32(reader["MCRPM"]);
+                            knit.GreyWidth = Convert.ToDecimal(reader["GreyWidth"]);
+                            knit.GreyGSM = Convert.ToDecimal(reader["GreyGSM"]);
+                            knit.TumbleWidth = Convert.ToDecimal(reader["TumbleWidth"]);
+                            knit.TumbleGSM = Convert.ToDecimal(reader["TumbleGSM"]);
+                            knit.McBrand = reader["McBrand"].ToString();
+                            knit.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
+                            knit.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
+
+                            knit.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
+                            knit.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
+                            knit.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
+                            knit.CreateByName = reader["CreateByName"].ToString();
+                            knit.UpdateByName = reader["UpdateByName"].ToString();
+                            knit.ApprovedByName = reader["ApprovedByName"].ToString();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                return Id;
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+            return Id;
+        }
+
+        internal static bool DeleteKnit(int Id)
+        {
+            try
+            {
+                string query = "DELETE FROM Knitting WHERE Id = " + Id + " AND ApprovedBy = 0";
+                if (DBGateway.ExecutionToDB(query, 1))
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+            return false;
+        }
+
+        internal static int ReviseKnit(Knitting knit)
+        {
+            int Id = -1;
+            try
+            {
+                string GetUpdateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
+                string GetReviseQuery = "SELECT ReviseStatus FROM Knitting WHERE Id = " + knit.Id;
+                string query = " UPDATE Knitting SET ReviseStatus = ("+ GetReviseQuery + ") + 1, DiaGaugeID = " + knit.DiaGaugeID + ", YarnCountID = " + knit.YarnCountID + ", YarnBrand = '" + knit.YarnBrand + "', YarnLot = '" + knit.YarnLot + "', StitchLength = " + knit.StitchLength + ", KnitUnitID = " + knit.KnitUnitID + ", MCNO = " + knit.MCNO + ", MCRPM = " + knit.MCRPM + ", GreyWidth = " + knit.GreyWidth + ", GreyGSM = " + knit.GreyGSM + ", TumbleWidth = " + knit.TumbleWidth + ", TumbleGSM = " + knit.TumbleGSM + ", McBrandID = " + knit.McBrandID + ", UpdateBy = (" + GetUpdateByQuery + "), UpdateTime = '" + knit.UpdateTime?.ToString("yyyy/MM/dd") + "' WHERE Id = " + knit.Id + " AND ApprovedBy = 0 ";
+                if (DBGateway.ExecutionToDB(query, 1))
+                {
+                    query = "SELECT * FROM KnitView WHERE KnitId = " + knit.Id;
+                    SqlDataReader reader = DBGateway.GetFromDB(query);
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            knit.Id = Id = Convert.ToInt32(reader["KnitId"]);
+                            knit.BuyerName = reader["BuyerName"].ToString();
+                            knit.FabricName = reader["FabricName"].ToString();
+                            knit.OrderNo = reader["OrderNo"].ToString();
+                            knit.Color = reader["Color"].ToString();
+                            knit.ChallanNo = reader["ChallanNo"].ToString();
+                            knit.DeliveryDate = Convert.ToDateTime(reader["DeliveryDate"]);
+                            knit.FabricID = Convert.ToInt32(reader["FabricID"]);
+                            knit.BarCode = reader["BarCode"].ToString();
+
+                            knit.DiaGaugeID = Convert.ToInt32(reader["DiaGaugeID"]);
+                            knit.YarnCountID = Convert.ToInt32(reader["YarnCountID"]);
+                            knit.KnitUnitID = Convert.ToInt32(reader["KnitUnitID"]);
+                            knit.McBrandID = Convert.ToInt32(reader["McBrandID"]);
+
+                            knit.McDiaGuage = reader["McDiaGuage"].ToString();
+                            knit.YarnCount = reader["YarnCount"].ToString();
+                            knit.YarnBrand = reader["YarnBrand"].ToString();
+                            knit.YarnLot = reader["YarnLot"].ToString();
+                            knit.StitchLength = Convert.ToDecimal(reader["StitchLength"]);
+                            knit.KnitUnit = reader["KnitUnit"].ToString();
+                            knit.MCNO = Convert.ToInt32(reader["MCNO"]);
+                            knit.MCRPM = Convert.ToInt32(reader["MCRPM"]);
+                            knit.GreyWidth = Convert.ToDecimal(reader["GreyWidth"]);
+                            knit.GreyGSM = Convert.ToDecimal(reader["GreyGSM"]);
+                            knit.TumbleWidth = Convert.ToDecimal(reader["TumbleWidth"]);
+                            knit.TumbleGSM = Convert.ToDecimal(reader["TumbleGSM"]);
+                            knit.McBrand = reader["McBrand"].ToString();
+                            knit.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
+                            knit.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
+
+                            knit.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
+                            knit.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
+                            knit.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
+                            knit.CreateByName = reader["CreateByName"].ToString();
+                            knit.UpdateByName = reader["UpdateByName"].ToString();
+                            knit.ApprovedByName = reader["ApprovedByName"].ToString();
                         }
                     }
                 }
@@ -228,7 +504,6 @@ namespace TextileResearchDevelopment.BLL
 
         public static int AddMCDIA(Buyer buyer)
         {
-
             int Id = -1;
             try
 
