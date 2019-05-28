@@ -30,7 +30,7 @@
 
 <div id="MainDiv" class="panel panel-default ">
 
-    <ul id="contextMenu" class="dropdown-menu" role="menu" style="display:none">
+    <ul id="MainContextMenu" class="dropdown-menu" role="menu" style="display:none">
         <li><a tabindex="-1" href="#">Delete</a></li>
         <li><a tabindex="-1" href="#">Approve</a></li>
     </ul>
@@ -58,9 +58,10 @@
                                     </div>
                                     <div class=" form-group">
                                         <div class="form-group col-xs-12 form-inline">
-                                            <button class="btn btn-warning btn-sm" style="width:35%;" id="EditDiaGuage">Edit</button>
+                                            <button class="btn btn-warning btn-sm" style="width:30%;" disabled id="editDiaGuageBtn">Update</button>
+                                            <button class="btn btn-danger btn-sm" style="width:30%;" disabled id="deleteDiaGuageBtn">Delete</button>
                                             <div style="display: inline;">
-                                                <button type="submit" id="saveDiaGuage" class="btn btn-primary btn-sm" style="width:60%;">Save</button>
+                                                <button type="submit" id="saveDiaGuageBtn" class="btn btn-primary btn-sm" style="width:30%;">Save</button>
                                             </div>
                                         </div>
                                     </div>
@@ -79,7 +80,7 @@
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                    <button type="submit" id="okayBtn" class="btn btn-success">Okay</button>
+                    <button type="submit" id="okayDiaGuageBtn" class="btn btn-success">Okay</button>
                 </div>
             </div>
         </div>
@@ -98,25 +99,29 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">Add Yarn Count</div>
                                 <div class="panel-body">
-                                    <div class=" form-group">
-                                        <div class="form-group col-xs-12 form-inline">
-                                            <label for="YarnCountMD" class="control-label" style="width:35%;">YarnCount</label>
-                                            <div style="display: inline;">
-                                                <input type="text" class="typeahead form-control" style="width:60%;" id="YarnCountMD" placeholder="Yarn Count" autofocus>
+                                    <form id="YarnCountForm">
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-12 form-inline">
+                                                <label for="YarnCountMD" class="control-label" style="width:35%;">YarnCount</label>
+                                                <div style="display: inline;">
+                                                    <input type="text" class="typeahead form-control" style="width:60%;" id="YarnCountMD" placeholder="Yarn Count" autofocus>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class=" form-group">
-                                        <div class="form-group col-xs-12 form-inline">
-                                            <button class="btn btn-warning btn-sm" style="width:35%;" id="EditYarnCount">Edit</button>
-                                            <div style="display: inline;">
-                                                <button type="submit" id="saveYarnCount" class="btn btn-primary btn-sm" style="width:60%;">Save</button>
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-12 form-inline">
+                                                <button class="btn btn-warning btn-sm" style="width:30%;" disabled id="editYarnCountBtn">Update</button>
+                                                <button class="btn btn-danger btn-sm" style="width:30%;" disabled id="deleteYarnCountBtn">Delete</button>
+                                                <div style="display: inline;">
+                                                    <input type="submit" value="Save" id="saveYarnCountBtn" class="btn btn-primary btn-sm" style="width:30%;">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
-                            <table id="YarnCountTable" class="stripe hover order-column" style="width: 100px">
+
+                            <table id="YarnCountTable" class="stripe hover order-column" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -129,7 +134,7 @@
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                    <button type="submit" id="okayBtn" class="btn btn-success">Okay</button>
+                    <button type="submit" id="okayYarnCountBtn" class="btn btn-success">Okay</button>
                 </div>
             </div>
         </div>
@@ -158,9 +163,10 @@
                                     </div>
                                     <div class=" form-group">
                                         <div class="form-group col-xs-12 form-inline">
-                                            <button class="btn btn-warning btn-sm" style="width:35%;" id="EditKnitUnit">Edit</button>
+                                            <button class="btn btn-warning btn-sm" style="width:30%;" disabled id="editKnitUnitBtn">Update</button>
+                                            <button class="btn btn-danger btn-sm" style="width:30%;" disabled id="deleteKnitUnitBtn">Delete</button>
                                             <div style="display: inline;">
-                                                <button type="submit" id="saveKnitUnit" class="btn btn-primary btn-sm" style="width:60%;">Save</button>
+                                                <button type="submit" id="saveKnitUnitBtn" class="btn btn-primary btn-sm" style="width:30%;">Save</button>
                                             </div>
                                         </div>
                                     </div>
@@ -179,7 +185,7 @@
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                    <button type="submit" id="okayBtn" class="btn btn-success">Okay</button>
+                    <button type="submit" id="okayKnitUnitBtn" class="btn btn-success">Okay</button>
                 </div>
             </div>
         </div>
@@ -208,9 +214,10 @@
                                     </div>
                                     <div class=" form-group">
                                         <div class="form-group col-xs-12 form-inline">
-                                            <button class="btn btn-warning btn-sm" style="width:35%;" id="EditBrand">Edit</button>
+                                            <button class="btn btn-warning btn-sm" style="width:30%;" disabled id="editBrandBtn">Update</button>
+                                            <button class="btn btn-danger btn-sm" style="width:30%;" disabled id="deleteBrandBtn">Delete</button>
                                             <div style="display: inline;">
-                                                <button type="submit" id="saveBrand" class="btn btn-primary btn-sm" style="width:60%;">Save</button>
+                                                <button type="submit" id="saveBrandBtn" class="btn btn-primary btn-sm" style="width:30%;">Save</button>
                                             </div>
                                         </div>
                                     </div>
@@ -229,7 +236,7 @@
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                    <button type="submit" id="okayBtn" class="btn btn-success">Okay</button>
+                    <button type="submit" id="okayBrandBtn" class="btn btn-success">Okay</button>
                 </div>
             </div>
         </div>
@@ -393,8 +400,8 @@
                         <label for="DiaGauge" class="control-label" style="width:35%;">MC Dia-Gauge</label>
                         <div style="display: inline;">
                             <select name="DiaGauge" id="DiaGauge" style="width:50%;" class="form-control input-sm" required autofocus></select>
-                            <a href="#" class="btn-sm btn-info" style="width:10%;">
-                                <span class="glyphicon glyphicon-plus" id="mdDiaGauge" data-target="#modalDiaGauge"></span>
+                            <a href="#" class="btn-sm btn-info" style="width:10%;" id="mdDiaGauge" data-toggle="modal" data-target="#modalDiaGauge">
+                                <span class="glyphicon glyphicon-plus"></span>
                             </a>
                         </div>
                     </div>
@@ -402,8 +409,8 @@
                         <label for="YarnCount" class="control-label" style="width:35%;">Yarn Count</label>
                         <div style="display: inline;">
                             <select name="YarnCount" id="YarnCount" style="width:50%;" class="form-control" required autofocus></select>
-                            <a href="#" class="btn-sm btn-info" style="width:10%;">
-                                <span class="glyphicon glyphicon-plus" data-toggle="modal" id="mdYarnCount" data-target="#modalYarnCount"></span>
+                            <a href="#" class="btn-sm btn-info" style="width:10%;" id="mdYarnCount" data-toggle="modal" data-target="#modalYarnCount">
+                                <span class="glyphicon glyphicon-plus"></span>
                             </a>
                         </div>
                     </div>
@@ -433,8 +440,8 @@
                         <label for="KnitUnit" class="control-label" style="width:35%;">Knit Unit</label>
                         <div style="display: inline;">
                             <select name="KnitUnit" id="KnitUnit" style="width:50%;" class="form-control" required autofocus></select>
-                            <a href="#" class="btn-sm btn-info" style="width:10%;">
-                                <span class="glyphicon glyphicon-plus" id="mdKnitUnit" data-target="#modalKnitUnit"></span>
+                            <a href="#" class="btn-sm btn-info" style="width:10%;" id="mdKnitUnit" data-toggle="modal" data-target="#modalKnitUnit">
+                                <span class="glyphicon glyphicon-plus"></span>
                             </a>
                         </div>
                     </div>
@@ -482,8 +489,8 @@
                         <label for="Brand" class="control-label" style="width:35%;">MC Brand</label>
                         <div style="display: inline;">
                             <select name="Brand" id="Brand" style="width:50%;" class="form-control input-sm" required autofocus></select>
-                            <a href="#" class="btn-sm btn-info" style="width:10%;">
-                                <span class="glyphicon glyphicon-plus" id="mdBrand" data-target="#modalBrand"></span>
+                            <a href="#" class="btn-sm btn-info" style="width:10%;" id="mdBrand" data-toggle="modal" data-target="#modalBrand">
+                                <span class="glyphicon glyphicon-plus"></span>
                             </a>
                         </div>
                     </div>
@@ -504,7 +511,7 @@
         </div>
     </div>
 
-    <table id="knitTable" class="stripe hover order-column " style="width: 1000px;">
+    <table id="knitTable" class="stripe hover order-column " style="width: 200px;">
         <thead>
             <tr>
                 <th></th>
@@ -589,7 +596,7 @@
         var selectedFabricRowId = 0;
         var fabricSelectionTable = $('#fabricSelectionTable').DataTable();
         var KnitUnitTable = $('#KnitUnitTable').DataTable();
-        //var YarnCountTable = $('#YarnCountTable').DataTable();
+        var YarnCountTable = $('#YarnCountTable').DataTable();
         var BrandTable = $('#BrandTable').DataTable();
         var DiaGuageTable = $('#DiaGuageTable').DataTable();
 
@@ -602,6 +609,7 @@
 
                     // Open context menu
                     $(this).on("contextmenu", function (e) {
+                        debugger;
                         // return native menu if pressing control
                         if (e.ctrlKey) return;
 
@@ -619,7 +627,6 @@
                             .off('click')
                             .on('click', 'a', function (e) {
                                 $menu.hide();
-
                                 var $invokedOn = $menu.data("invokedOn");
                                 var $selectedMenu = $(e.target);
 
@@ -759,44 +766,52 @@
             });
         }
 
+        $('#modalYarnCount').on('shown.bs.modal', function () {
+            YarnCountTable.columns.adjust();
+        });
+        $('#modalKnitUnit').on('shown.bs.modal', function () {
+            KnitUnitTable.columns.adjust();
+        });
+        $('#modalBrand').on('shown.bs.modal', function () {
+            BrandTable.columns.adjust();
+        });
+        $('#modalDiaGuage').on('shown.bs.modal', function () {
+            DiaGuageTable.columns.adjust();
+        });
+
         $("#mdYarnCount").click(function () {
             debugger;
-            event.preventDefault();
-            var YarnCountTable = $('#YarnCountTable').DataTable({
+            YarnCountTable = $('#YarnCountTable').DataTable({
                 "ajax":
                 {
                     "url": "/Knitting/GetYarnCountList",
                     "type": "GET",
                     "dataType": "JSON"
                 },
-                "autowidth": false,
+                "dom": 'Bfrtip',
                 "scrollY": true,
                 "scrollX": true,
                 "Sorting": true,
                 "searching": true,
                 "destroy": true,
-
+                "select": {
+                    style: 'single'
+                },
                 "columnDefs": [
                     {
                         "targets": [0],
                         "searchable": false,
-                        "orderable": false,
+                        "orderable": false
                     },
                     {
                         "targets": [1],
-                        "visible": false,
-                        "searchable": false
-                    },
-                    {
-                        "targets": "_all",
-                        "width": "50px"
+                        "searchable": false,
+                        "orderable": false,
+                        "visible": false
                     }
-
                 ],
-
                 "columns": [
                     {
-                        "searchable": false,
                         "render": function (data, type, full, meta) {
                             return YarnCountTable.data().count();
                         }
@@ -826,7 +841,9 @@
             "Sorting": true,
             "searching": true,
             "destroy": true,
-
+            "select": {
+                style: 'single'
+            },
             "columnDefs": [
                 {
                     "targets": [0],
@@ -926,22 +943,44 @@
 
         $('#knitTable tbody').on('click', 'tr', function () {
 
-            $(this).toggleClass('selected');
+            if (knitTable.data().any()) {
+                $(this).toggleClass('selected');
 
-            if ($(this).hasClass('selected')) {
                 var rowdata = knitTable.row(this).data();
-                Setvalue(rowdata);
-                $('#saveBtn').prop("disabled", true);
-                $('#updateBtn').prop("disabled", false);
-                $('#reviseBtn').prop("disabled", false);
 
+                if (knitTable.data().any()) {
+                    Setvalue(rowdata);
+                    $('#saveBtn').prop("disabled", true);
+                    $('#updateBtn').prop("disabled", false);
+                    $('#reviseBtn').prop("disabled", false);
+                }
+                else {
+                    $('#saveBtn').prop("disabled", false);
+                    $('#updateBtn').prop("disabled", true);
+                    $('#reviseBtn').prop("disabled", true);
+                }
             }
-            else {
-                $('#saveBtn').prop("disabled", false);
-                $('#updateBtn').prop("disabled", true);
-                $('#reviseBtn').prop("disabled", true);
-            }
+        });
 
+        $('#YarnCountTable tbody').on('click', 'tr', function () {
+
+            if (YarnCountTable.data().any()) {
+                $(this).toggleClass('selected');
+
+                if ($(this).hasClass('selected')) {
+                    debugger
+                    var rowdata = YarnCountTable.row(this).data();
+                    $('#YarnCountMD').val(rowdata.YarnCount)
+                    $('#editYarnCountBtn').prop("disabled", false);
+                    $('#deleteYarnCountBtn').prop("disabled", false);
+                    $('#saveYarnCountBtn').prop("disabled", true);
+                }
+                else {
+                    $('#editYarnCountBtn').prop("disabled", true);
+                    $('#deleteYarnCountBtn').prop("disabled", true);
+                    $('#saveYarnCountBtn').prop("disabled", false);
+                }
+            }
         });
 
         function Setvalue(rowdata) {
@@ -1051,7 +1090,6 @@
                         }
                     }
                 ]
-
             });
 
         });
@@ -1251,6 +1289,37 @@
 
         });
 
+        $('#YarnCountForm').submit(function (e) {
+
+            event.preventDefault();
+            var yarnObj = {
+                Id: '0',
+                YarnCount: $("#YarnCountMD").val(),
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Knitting/Create",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(yarnObj),
+                success: function (response) {
+                    debugger
+                    if (response.data != "" && response.data != null) {
+                        knitTable.row.add(response.data).draw();
+                        Reset();
+                    }
+                    else {
+                        alert("Failed to Save! Please Check Connection State!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        });
+
         function ValidateFabricForm() {
             debugger;
             if ($("#BarCodeSL").val() == "" && $("#BuyerSL option:selected").val() == "" && $("#FabricSL option:selected").val() == "" && $("#OrderNoSL").val() == "" && $("#ColorSL").val() == "" && $("#ChallanSL").val() == "" && $('#DeliveryDateCheckBox').is(":checked") == false && $('#FabricOrderDateCheckBox').is(":checked") == false) {
@@ -1359,7 +1428,7 @@
         }
 
         $("#knitTable tbody").contextMenu({
-            menuSelector: "#contextMenu",
+            menuSelector: "#MainContextMenu",
             menuSelected: function (invokedOn, selectedMenu) {
                 debugger;
 

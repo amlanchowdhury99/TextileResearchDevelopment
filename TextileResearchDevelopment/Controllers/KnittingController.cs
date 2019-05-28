@@ -160,6 +160,234 @@ namespace TextileResearchDevelopment.Controllers
         }
 
         [HttpPost]
+        public ActionResult AddYarnCount(YarnCountType yarn)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (yarn.Id == 0)
+                {
+                    int Id = KnittingBLL.AddYarnCount(yarn);
+                    if (Id > 0)
+                    {
+                        yarn.Id = Id;
+                        Result = true;
+                    }
+                    else
+                    {
+                        Result = false;
+                    }
+                }
+
+                if (Result)
+                {
+                    return Json(new { data = yarn }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return View();
+            }
+
+            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteYarnCount(int Id)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (Id > 0)
+                {
+                    Result = KnittingBLL.DeleteYarnCount(Id);
+                }
+
+                if (Result)
+                {
+                    return Json("Success", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("Failed", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult AddMCDIA(McDiaGaugeType dia)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (dia.Id == 0)
+                {
+                    int Id = KnittingBLL.AddMCDIA(dia);
+                    if (Id > 0)
+                    {
+                        dia.Id = Id;
+                        Result = true;
+                    }
+                    else
+                    {
+                        Result = false;
+                    }
+                }
+
+                if (Result)
+                {
+                    return Json(new { data = dia }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return View();
+            }
+
+            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteMCDIA(int Id)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (Id > 0)
+                {
+                    Result = KnittingBLL.DeleteMCDIA(Id);
+                }
+
+                if (Result)
+                {
+                    return Json("Success", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("Failed", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult AddKnitUnit(KnitUnitType knitunit)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (knitunit.Id == 0)
+                {
+                    int Id = KnittingBLL.AddKnitUnit(knitunit);
+                    if (Id > 0)
+                    {
+                        knitunit.Id = Id;
+                        Result = true;
+                    }
+                    else
+                    {
+                        Result = false;
+                    }
+                }
+
+                if (Result)
+                {
+                    return Json(new { data = knitunit }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return View();
+            }
+
+            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteKnitUnit(int Id)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (Id > 0)
+                {
+                    Result = KnittingBLL.DeleteKnitUnit(Id);
+                }
+
+                if (Result)
+                {
+                    return Json("Success", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("Failed", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult AddBrand(McBrandType brand)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (brand.Id == 0)
+                {
+                    int Id = KnittingBLL.AddBrand(brand);
+                    if (Id > 0)
+                    {
+                        brand.Id = Id;
+                        Result = true;
+                    }
+                    else
+                    {
+                        Result = false;
+                    }
+                }
+
+                if (Result)
+                {
+                    return Json(new { data = brand }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return View();
+            }
+
+            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteBrand(int Id)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (Id > 0)
+                {
+                    Result = KnittingBLL.DeleteBrand(Id);
+                }
+
+                if (Result)
+                {
+                    return Json("Success", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("Failed", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public ActionResult Edit(Knitting knit)
         {
             Boolean Result = false;
