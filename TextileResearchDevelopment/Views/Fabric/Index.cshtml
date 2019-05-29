@@ -252,8 +252,7 @@
 
         $("#knitTable tbody").contextMenu({
             menuSelector: "#contextMenu",
-            menuSelected: function (invokedOn, selectedMenu)
-            {
+            menuSelected: function (invokedOn, selectedMenu) {
                 debugger;
                 DeleteRow();
             }
@@ -267,6 +266,7 @@
                 url: "/Fabric/GetBuyerList",
                 data: "{}",
                 success: function (data) {
+                    debugger
                     var s = '<option value="">Please Buyer</option>';
                     for (var i = 0; i < data.length; i++) {
                         s += '<option value="' + data[i].Id + '">' + data[i].BuyerName + '</option>';
@@ -404,7 +404,7 @@
                 Status: $("#Status").val(),
                 ChallanNo: $("#ChallanNo").val(),
                 DeliveryQty: $("#DeliveryQty").val(),
-                DeliveryDate: $("#DeliveryDateText").val().toString()
+                DeliveryDate: moment($("#DeliveryDateText").val()).format("YYYY/MM/DD")
             };
 
             $.ajax({
@@ -420,7 +420,7 @@
                         Reset();
                     }
                     else {
-                        alert("Failed to Save! Please Check Connection State!!!");
+                        alert("Failed to Save!!!");
                         return;
                     }
                 },
@@ -475,6 +475,5 @@
                     });
                 }
             });
-
     });
 </script>

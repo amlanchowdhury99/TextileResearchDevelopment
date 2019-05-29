@@ -75,6 +75,35 @@ namespace TextileResearchDevelopment.BLL
             return fabrics;
         }
 
+        internal static List<string> GetMatchingData(string text, string Col)
+        {
+            List<string> matchingList = new List<string>();
+            SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader; cm.Connection = cn; cn.Open();
+            try
+            {
+                string query = "SELECT " + Col + " FROM Knitting WHERE " + Col + " LIKE '%" + text + "%'";
+                cm.CommandText = query;
+                reader = cm.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        matchingList.Add(reader[Col].ToString());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
+            finally
+            {
+                cn.Close();
+            }
+
+            return matchingList;
+        }
+
         internal static int AddKnit(Knitting knit)
         {
             int Id = -1;
@@ -82,7 +111,7 @@ namespace TextileResearchDevelopment.BLL
             {
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
                 string query = " INSERT INTO Knitting (FabricID, DiaGaugeID, YarnCountID, YarnBrand, YarnLot, StitchLength, KnitUnitID, MCNO, MCRPM, GreyWidth, GreyGSM, TumbleWidth, TumbleGSM, McBrandID, ReviseStatus, ApprovedStatus, CreateBy, CreateTime, BarCode, ApprovedBy, UpdateBy) " +
-                               " VALUES(" + knit.FabricID + "," + knit.DiaGaugeID + "," + knit.YarnCountID + ",'" + knit.YarnBrand + "','" + knit.YarnLot + "'," + knit.StitchLength + "," + knit.KnitUnitID + "," + knit.MCNO + "," + knit.MCRPM + "," + knit.GreyWidth + "," + knit.GreyGSM + "," + knit.TumbleWidth + "," + knit.TumbleGSM + "," + knit.McBrandID + "," + knit.ReviseStatus + "," + knit.ApprovedStatus + ", (" + GetCreateByQuery + "), '" + knit.CreateTime.ToString("yyyy/MM/dd") + "'," + knit.BarCode + ", 0, 0)";
+                               " VALUES(" + knit.FabricID + "," + knit.DiaGaugeID + "," + knit.YarnCountID + ",'" + knit.YarnBrand + "','" + knit.YarnLot + "'," + knit.StitchLength + "," + knit.KnitUnitID + "," + knit.MCNO + "," + knit.MCRPM + "," + knit.GreyWidth + "," + knit.GreyGSM + "," + knit.TumbleWidth + "," + knit.TumbleGSM + "," + knit.McBrandID + "," + knit.ReviseStatus + "," + knit.ApprovedStatus + ", (" + GetCreateByQuery + "), '" + knit.CreateTime.ToString("yyyy/MM/dd HH:mm") + "'," + knit.BarCode + ", 0, 0)";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT TOP 1* FROM KnitView order by KnitId desc";
@@ -106,7 +135,7 @@ namespace TextileResearchDevelopment.BLL
                             knit.KnitUnitID = Convert.ToInt32(reader["KnitUnitID"]);
                             knit.McBrandID = Convert.ToInt32(reader["McBrandID"]);
 
-                            knit.McDiaGuage = reader["McDiaGuage"].ToString();
+                            knit.McDiaGauge = reader["McDiaGauge"].ToString();
                             knit.YarnCount = reader["YarnCount"].ToString();
                             knit.YarnBrand = reader["YarnBrand"].ToString();
                             knit.YarnLot = reader["YarnLot"].ToString();
@@ -151,7 +180,7 @@ namespace TextileResearchDevelopment.BLL
         {
             try
             {
-                string query = "DELETE FROM McDiaGauge WHERE Id = " + Id;
+                string query = "DELETE FROM McDia WHERE Id = " + Id;
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     return true;
@@ -249,7 +278,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string GetApproveByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " UPDATE Knitting SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + knit.ApprovedTime?.ToString("yyyy/MM/dd") + "' WHERE Id = " + knit.Id + " AND ApprovedBy = 0 ";
+                string query = " UPDATE Knitting SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + knit.ApprovedTime?.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + knit.Id + " AND ApprovedBy = 0 ";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT * FROM KnitView WHERE KnitId = " + knit.Id;
@@ -273,7 +302,7 @@ namespace TextileResearchDevelopment.BLL
                             knit.KnitUnitID = Convert.ToInt32(reader["KnitUnitID"]);
                             knit.McBrandID = Convert.ToInt32(reader["McBrandID"]);
 
-                            knit.McDiaGuage = reader["McDiaGuage"].ToString();
+                            knit.McDiaGauge = reader["McDiaGauge"].ToString();
                             knit.YarnCount = reader["YarnCount"].ToString();
                             knit.YarnBrand = reader["YarnBrand"].ToString();
                             knit.YarnLot = reader["YarnLot"].ToString();
@@ -314,13 +343,37 @@ namespace TextileResearchDevelopment.BLL
             return Id;
         }
 
+        internal static bool BarCodeAuthorization(int BarCode)
+        {
+            try
+            {
+                string query = "SELECT * FROM Knitting WHERE BarCode = "+ BarCode;
+                if (!DBGateway.recordExist(query))
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+            return false;
+        }
+
         internal static int EditKnit(Knitting knit)
         {
             int Id = -1;
             try
             {
                 string GetUpdateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " UPDATE Knitting SET DiaGaugeID = " + knit.DiaGaugeID + ", YarnCountID = " + knit.YarnCountID + ", YarnBrand = '" + knit.YarnBrand + "', YarnLot = '" + knit.YarnLot + "', StitchLength = " + knit.StitchLength + ", KnitUnitID = " + knit.KnitUnitID + ", MCNO = " + knit.MCNO + ", MCRPM = " + knit.MCRPM + ", GreyWidth = " + knit.GreyWidth + ", GreyGSM = " + knit.GreyGSM + ", TumbleWidth = " + knit.TumbleWidth + ", TumbleGSM = " + knit.TumbleGSM + ", McBrandID = " + knit.McBrandID + ", UpdateBy = (" + GetUpdateByQuery + "), UpdateTime = '" + knit.UpdateTime?.ToString("yyyy/MM/dd") + "' WHERE Id = " + knit.Id + " AND ApprovedBy = 0";
+                string query = " UPDATE Knitting SET DiaGaugeID = " + knit.DiaGaugeID + ", YarnCountID = " + knit.YarnCountID + ", YarnBrand = '" + knit.YarnBrand + "', YarnLot = '" + knit.YarnLot + "', StitchLength = " + knit.StitchLength + ", KnitUnitID = " + knit.KnitUnitID + ", MCNO = " + knit.MCNO + ", MCRPM = " + knit.MCRPM + ", GreyWidth = " + knit.GreyWidth + ", GreyGSM = " + knit.GreyGSM + ", TumbleWidth = " + knit.TumbleWidth + ", TumbleGSM = " + knit.TumbleGSM + ", McBrandID = " + knit.McBrandID + ", UpdateBy = (" + GetUpdateByQuery + "), UpdateTime = '" + knit.UpdateTime?.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + knit.Id + " AND ApprovedBy = 0";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT * FROM KnitView WHERE KnitId = " + knit.Id;
@@ -344,7 +397,7 @@ namespace TextileResearchDevelopment.BLL
                             knit.KnitUnitID = Convert.ToInt32(reader["KnitUnitID"]);
                             knit.McBrandID = Convert.ToInt32(reader["McBrandID"]);
 
-                            knit.McDiaGuage = reader["McDiaGuage"].ToString();
+                            knit.McDiaGauge = reader["McDiaGauge"].ToString();
                             knit.YarnCount = reader["YarnCount"].ToString();
                             knit.YarnBrand = reader["YarnBrand"].ToString();
                             knit.YarnLot = reader["YarnLot"].ToString();
@@ -414,12 +467,15 @@ namespace TextileResearchDevelopment.BLL
             int Id = -1;
             try
             {
-                string GetUpdateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
+                string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
                 string GetReviseQuery = "SELECT ReviseStatus FROM Knitting WHERE Id = " + knit.Id;
-                string query = " UPDATE Knitting SET ReviseStatus = (" + GetReviseQuery + ") + 1, DiaGaugeID = " + knit.DiaGaugeID + ", YarnCountID = " + knit.YarnCountID + ", YarnBrand = '" + knit.YarnBrand + "', YarnLot = '" + knit.YarnLot + "', StitchLength = " + knit.StitchLength + ", KnitUnitID = " + knit.KnitUnitID + ", MCNO = " + knit.MCNO + ", MCRPM = " + knit.MCRPM + ", GreyWidth = " + knit.GreyWidth + ", GreyGSM = " + knit.GreyGSM + ", TumbleWidth = " + knit.TumbleWidth + ", TumbleGSM = " + knit.TumbleGSM + ", McBrandID = " + knit.McBrandID + ", UpdateBy = (" + GetUpdateByQuery + "), UpdateTime = '" + knit.UpdateTime?.ToString("yyyy/MM/dd") + "' WHERE Id = " + knit.Id + " AND ApprovedBy = 0 ";
+
+                string query = " INSERT INTO Knitting (FabricID, DiaGaugeID, YarnCountID, YarnBrand, YarnLot, StitchLength, KnitUnitID, MCNO, MCRPM, GreyWidth, GreyGSM, TumbleWidth, TumbleGSM, McBrandID, ReviseStatus, ApprovedStatus, CreateBy, CreateTime, BarCode, ApprovedBy, UpdateBy) " +
+                               " VALUES(" + knit.FabricID + "," + knit.DiaGaugeID + "," + knit.YarnCountID + ",'" + knit.YarnBrand + "','" + knit.YarnLot + "'," + knit.StitchLength + "," + knit.KnitUnitID + "," + knit.MCNO + "," + knit.MCRPM + "," + knit.GreyWidth + "," + knit.GreyGSM + "," + knit.TumbleWidth + "," + knit.TumbleGSM + "," + knit.McBrandID + ",((" + GetReviseQuery + ") + 1)," + knit.ApprovedStatus + ", (" + GetCreateByQuery + "), '" + knit.CreateTime.ToString("yyyy/MM/dd HH:mm") + "'," + knit.BarCode + ", 0, 0)";
+
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT * FROM KnitView WHERE KnitId = " + knit.Id;
+                    query = "SELECT TOP 1* FROM KnitView order by KnitId desc";
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
@@ -440,7 +496,7 @@ namespace TextileResearchDevelopment.BLL
                             knit.KnitUnitID = Convert.ToInt32(reader["KnitUnitID"]);
                             knit.McBrandID = Convert.ToInt32(reader["McBrandID"]);
 
-                            knit.McDiaGuage = reader["McDiaGuage"].ToString();
+                            knit.McDiaGauge = reader["McDiaGauge"].ToString();
                             knit.YarnCount = reader["YarnCount"].ToString();
                             knit.YarnBrand = reader["YarnBrand"].ToString();
                             knit.YarnLot = reader["YarnLot"].ToString();
@@ -510,7 +566,7 @@ namespace TextileResearchDevelopment.BLL
                         knit.KnitUnitID = Convert.ToInt32(reader["KnitUnitID"]);
                         knit.McBrandID = Convert.ToInt32(reader["McBrandID"]);
 
-                        knit.McDiaGuage = reader["McDiaGuage"].ToString();
+                        knit.McDiaGauge = reader["McDiaGauge"].ToString();
                         knit.YarnCount = reader["YarnCount"].ToString();
                         knit.YarnBrand = reader["YarnBrand"].ToString();
                         knit.YarnLot = reader["YarnLot"].ToString();
@@ -587,7 +643,7 @@ namespace TextileResearchDevelopment.BLL
                 if (fabricearchObj.DeliveryDate != DateTime.MaxValue && fabricearchObj.DeliveryDate != null)
                 {
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " DeliveryDate = '" + fabricearchObj.DeliveryDate.ToString("dd/MM/yyy") + "'";
+                    query = query + " DeliveryDate = '" + fabricearchObj.DeliveryDate + "'";
                 }
 
                 return query;
@@ -604,10 +660,10 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string query = "";
-                query = dia.Id > 0 ? "INSERT INTO McDiaGuage (McDiaGuage) VALUES('" + dia.McDiaGuage + "')" : "UPDATE McDiaGuage SET McDiaGuage = '" + dia.McDiaGuage + "' WHERE Id = " + dia.Id;
+                query = dia.Id == 0 ? "INSERT INTO McDia (McDiaGauge) VALUES('" + dia.McDiaGauge + "')" : "UPDATE McDiaGauge SET McDiaGauge = '" + dia.McDiaGauge + "' WHERE Id = " + dia.Id;
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1 (Id) AS Id FROM McDiaGuage order by Id desc";
+                    query = "SELECT TOP 1 (Id) AS Id FROM McDia order by Id desc";
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
@@ -639,7 +695,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string query = "";
-                query = yarn.Id > 0 ? "INSERT INTO YarnCount (YarnCount) VALUES('" + yarn.YarnCount + "')" : "UPDATE YarnCount SET YarnCount = '" + yarn.YarnCount + "' WHERE Id = " + yarn.Id;
+                query = yarn.Id == 0 ? "INSERT INTO YarnCount (YarnCount) VALUES('" + yarn.YarnCount + "')" : "UPDATE YarnCount SET YarnCount = '" + yarn.YarnCount + "' WHERE Id = " + yarn.Id;
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT TOP 1 (Id) AS Id FROM YarnCount order by Id desc";
@@ -668,14 +724,14 @@ namespace TextileResearchDevelopment.BLL
             return Id;
         }
 
-        public static int AddKnitUnit(KnitUnitType KnitUnit)
+        public static int AddKnitUnit(KnitUnitType knitType)
         {
             int Id = -1;
             try
 
             {
                 string query = "";
-                query = KnitUnit.Id > 0 ? "INSERT INTO KnitUnit (KnitUnit) VALUES('" + KnitUnit.KnitUnit + "')" : "UPDATE KnitUnit SET KnitUnit = '" + KnitUnit.KnitUnit + "' WHERE Id = " + KnitUnit.Id;
+                query = knitType.Id == 0 ? "INSERT INTO KnitUnit (KnitUnit) VALUES('" + knitType.KnitUnit + "')" : "UPDATE KnitUnit SET KnitUnit = '" + knitType.KnitUnit + "' WHERE Id = " + knitType.Id;
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT TOP 1 (Id) AS Id FROM KnitUnit order by Id desc";
@@ -711,7 +767,7 @@ namespace TextileResearchDevelopment.BLL
 
             {
                 string query = "";
-                query = brand.Id > 0 ? "INSERT INTO McBrand (McBrand) VALUES('" + brand.McBrand + "')" : "UPDATE McBrand SET McBrand = '"+brand.McBrand+"' WHERE Id = "+brand.Id;
+                query = brand.Id == 0 ? "INSERT INTO McBrand (McBrand) VALUES('" + brand.McBrand + "')" : "UPDATE McBrand SET McBrand = '"+brand.McBrand+"' WHERE Id = "+brand.Id;
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT TOP 1 (Id) AS Id FROM McBrand order by Id desc";
@@ -745,7 +801,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 McDiaGauges = new List<McDiaGaugeType>();
-                string query = "SELECT * FROM McDiaGuage";
+                string query = "SELECT * FROM McDia";
                 SqlDataReader reader = DBGateway.GetFromDB(query);
                 if (reader.HasRows)
                 {
@@ -753,7 +809,7 @@ namespace TextileResearchDevelopment.BLL
                     {
                         McDiaGaugeType McDiaGauge = new McDiaGaugeType();
                         McDiaGauge.Id = Convert.ToInt32(reader["Id"]);
-                        McDiaGauge.McDiaGuage = reader["McDiaGuage"].ToString();
+                        McDiaGauge.McDiaGauge = reader["McDiaGauge"].ToString();
 
                         McDiaGauges.Add(McDiaGauge);
                     }

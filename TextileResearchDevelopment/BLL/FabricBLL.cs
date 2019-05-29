@@ -267,7 +267,7 @@ namespace TextileResearchDevelopment.BLL
             int Id = -1;
             try
             {
-                string query = "INSERT INTO Fabric (BuyerID, FabricTypeID, OrderNo, Color, Note, Width, GSM, LabdipStatus, ChallanNo, DeliveryQty, DeliveryDate, Barcode) VALUES(" + fabric.BuyerID+","+fabric.FabricTypeID+",'"+fabric.OrderNo+"','"+fabric.Color+"','"+fabric.Note+"','"+fabric.Width+"',"+fabric.GSM+",'"+fabric.Status+"','"+fabric.ChallanNo+"',"+fabric.DeliveryQty+",'"+ fabric.DeliveryDate.ToString("yyyy-MM-dd")+"','"+fabric.BarCode+"')";
+                string query = "INSERT INTO Fabric (BuyerID, FabricTypeID, OrderNo, Color, Note, Width, GSM, LabdipStatus, ChallanNo, DeliveryQty, DeliveryDate, Barcode) VALUES(" + fabric.BuyerID+","+fabric.FabricTypeID+",'"+fabric.OrderNo+"','"+fabric.Color+"','"+fabric.Note+"','"+fabric.Width+"',"+fabric.GSM+",'"+fabric.Status+"','"+fabric.ChallanNo+"',"+fabric.DeliveryQty+",'"+ fabric.DeliveryDate.ToString("yyyy/MM/dd")+"','"+fabric.BarCode+"')";
                 if(DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT TOP 1 (Id) AS Id FROM Fabric order by Id desc";

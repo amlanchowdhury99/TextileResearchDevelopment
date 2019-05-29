@@ -14,7 +14,7 @@ namespace TextileResearchDevelopment.Models
             Id = 0;
             FabricID = 0;
             BarCode = "";
-            McDiaGuage = "";
+            McDiaGauge = "";
             YarnCount = "";
             YarnBrand = "";
             YarnLot = "";
@@ -50,7 +50,7 @@ namespace TextileResearchDevelopment.Models
 
         public string BarCode { get; set; }
 
-        public string McDiaGuage { get; set; }
+        public string McDiaGauge { get; set; }
 
         public string YarnCount { get; set; }
 

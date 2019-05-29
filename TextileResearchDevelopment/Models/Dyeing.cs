@@ -47,7 +47,7 @@ namespace TextileResearchDevelopment.Models
 
         public DateTime DeliveryDate { get; set; }
 
-        public string McDiaGuage { get; set; }
+        public string McDiaGauge { get; set; }
 
         public string YarnCount { get; set; }
 

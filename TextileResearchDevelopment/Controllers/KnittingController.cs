@@ -35,6 +35,22 @@ namespace TextileResearchDevelopment.Controllers
         }
 
         [HttpGet]
+        public JsonResult GetMatchingData(string query, string Col)
+        {
+            List<string> matchingList = new List<string>();
+            try
+            {
+                matchingList = KnittingBLL.GetMatchingData(query, Col);
+            }
+            catch (Exception ex)
+            {
+                // Info
+                Console.Write(ex);
+            }
+            return Json(matchingList, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
         public JsonResult GetMCDIAList()
         {
             JsonResult result = new JsonResult();
@@ -165,18 +181,15 @@ namespace TextileResearchDevelopment.Controllers
             Boolean Result = false;
             try
             {
-                if (yarn.Id == 0)
+                int Id = KnittingBLL.AddYarnCount(yarn);
+                if (Id > 0)
                 {
-                    int Id = KnittingBLL.AddYarnCount(yarn);
-                    if (Id > 0)
-                    {
-                        yarn.Id = Id;
-                        Result = true;
-                    }
-                    else
-                    {
-                        Result = false;
-                    }
+                    yarn.Id = Id;
+                    Result = true;
+                }
+                else
+                {
+                    Result = false;
                 }
 
                 if (Result)
@@ -222,18 +235,15 @@ namespace TextileResearchDevelopment.Controllers
             Boolean Result = false;
             try
             {
-                if (dia.Id == 0)
+                int Id = KnittingBLL.AddMCDIA(dia);
+                if (Id > 0)
                 {
-                    int Id = KnittingBLL.AddMCDIA(dia);
-                    if (Id > 0)
-                    {
-                        dia.Id = Id;
-                        Result = true;
-                    }
-                    else
-                    {
-                        Result = false;
-                    }
+                    dia.Id = Id;
+                    Result = true;
+                }
+                else
+                {
+                    Result = false;
                 }
 
                 if (Result)
@@ -274,28 +284,25 @@ namespace TextileResearchDevelopment.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddKnitUnit(KnitUnitType knitunit)
+        public ActionResult AddKnitUnit(KnitUnitType knitType)
         {
             Boolean Result = false;
             try
             {
-                if (knitunit.Id == 0)
+                int Id = KnittingBLL.AddKnitUnit(knitType);
+                if (Id > 0)
                 {
-                    int Id = KnittingBLL.AddKnitUnit(knitunit);
-                    if (Id > 0)
-                    {
-                        knitunit.Id = Id;
-                        Result = true;
-                    }
-                    else
-                    {
-                        Result = false;
-                    }
+                    knitType.Id = Id;
+                    Result = true;
+                }
+                else
+                {
+                    Result = false;
                 }
 
                 if (Result)
                 {
-                    return Json(new { data = knitunit }, JsonRequestBehavior.AllowGet);
+                    return Json(new { data = knitType }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch
@@ -336,20 +343,16 @@ namespace TextileResearchDevelopment.Controllers
             Boolean Result = false;
             try
             {
-                if (brand.Id == 0)
+                int Id = KnittingBLL.AddBrand(brand);
+                if (Id > 0)
                 {
-                    int Id = KnittingBLL.AddBrand(brand);
-                    if (Id > 0)
-                    {
-                        brand.Id = Id;
-                        Result = true;
-                    }
-                    else
-                    {
-                        Result = false;
-                    }
+                    brand.Id = Id;
+                    Result = true;
                 }
-
+                else
+                {
+                    Result = false;
+                }
                 if (Result)
                 {
                     return Json(new { data = brand }, JsonRequestBehavior.AllowGet);
@@ -504,6 +507,33 @@ namespace TextileResearchDevelopment.Controllers
             }
 
             return Json("Failed", JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult BarCodeAuthorization(int BarCode)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (BarCode > 0)
+                {
+                    Result = KnittingBLL.BarCodeAuthorization(BarCode);
+                }
+                if(BarCode == 0)
+                {
+                    Result = true;
+                }
+
+                if (Result)
+                {
+                    return Json("true", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("false", JsonRequestBehavior.AllowGet);
         }
 
     }

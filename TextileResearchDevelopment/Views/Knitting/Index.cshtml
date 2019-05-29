@@ -6,7 +6,6 @@
 }
 
 <head>
-
     <style>
         .btn {
             padding: 10px 20px;
@@ -35,9 +34,9 @@
         <li><a tabindex="-1" href="#">Approve</a></li>
     </ul>
 
-    <div class="modal fade" id="modalDiaGuage" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div class="modal fade" id="modalDiaGauge" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
-        <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
@@ -48,31 +47,33 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">Add Dia Guage</div>
                                 <div class="panel-body">
-                                    <div class=" form-group">
-                                        <div class="form-group col-xs-12 form-inline">
-                                            <label for="DiaGuageMD" class="control-label" style="width:35%;">Brand</label>
-                                            <div style="display: inline;">
-                                                <input type="text" class="typeahead form-control" style="width:60%;" id="DiaGuageMD" placeholder="Dia Guage" autofocus>
+                                    <form id="DiaGaugeForm">
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-12 form-inline">
+                                                <label for="DiaGaugeMD" class="control-label" style="width:35%;">Brand</label>
+                                                <div style="display: inline;">
+                                                    <input type="text" class="form-control" style="width:60%;" id="DiaGaugeMD" placeholder="Dia Guage" required autofocus>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class=" form-group">
-                                        <div class="form-group col-xs-12 form-inline">
-                                            <button class="btn btn-warning btn-sm" style="width:30%;" disabled id="editDiaGuageBtn">Update</button>
-                                            <button class="btn btn-danger btn-sm" style="width:30%;" disabled id="deleteDiaGuageBtn">Delete</button>
-                                            <div style="display: inline;">
-                                                <button type="submit" id="saveDiaGuageBtn" class="btn btn-primary btn-sm" style="width:30%;">Save</button>
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-12 form-inline">
+                                                <button class="btn btn-warning btn-sm" style="width:30%;" disabled id="editDiaGaugeBtn">Update</button>
+                                                <button class="btn btn-danger btn-sm" style="width:30%;" disabled id="deleteDiaGaugeBtn">Delete</button>
+                                                <div style="display: inline;">
+                                                    <button type="submit" id="saveDiaGaugeBtn" class="btn btn-primary btn-sm" style="width:30%;">Save</button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
-                            <table id="DiaGuageTable" class="stripe hover order-column" style="width: 100%">
+                            <table id="DiaGaugeTable" class="stripe hover order-column" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th></th>
                                         <th>Id</th>
-                                        <th>Yarn Count</th>
+                                        <th>Dia Guage</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -80,7 +81,8 @@
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                    <button type="submit" id="okayDiaGuageBtn" class="btn btn-success">Okay</button>
+                    <button type="button" id="resetDiaGaugeBtn" class="btn btn-info">Reset</button>
+                    <button type="submit" id="okayDiaGaugeBtn" class="btn btn-success">Okay</button>
                 </div>
             </div>
         </div>
@@ -104,7 +106,7 @@
                                             <div class="form-group col-xs-12 form-inline">
                                                 <label for="YarnCountMD" class="control-label" style="width:35%;">YarnCount</label>
                                                 <div style="display: inline;">
-                                                    <input type="text" class="typeahead form-control" style="width:60%;" id="YarnCountMD" placeholder="Yarn Count" autofocus>
+                                                    <input type="text" class=" form-control" style="width:60%;" id="YarnCountMD" placeholder="Yarn Count" required autofocus>
                                                 </div>
                                             </div>
                                         </div>
@@ -134,6 +136,7 @@
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" id="resetYarnCountBtn" class="btn btn-info">Reset</button>
                     <button type="submit" id="okayYarnCountBtn" class="btn btn-success">Okay</button>
                 </div>
             </div>
@@ -142,7 +145,7 @@
 
     <div class="modal fade" id="modalKnitUnit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
-        <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
@@ -153,23 +156,25 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">Add Knit Unit</div>
                                 <div class="panel-body">
-                                    <div class=" form-group">
-                                        <div class="form-group col-xs-12 form-inline">
-                                            <label for="KnitUnitMD" class="control-label" style="width:35%;">Knit Unit</label>
-                                            <div style="display: inline;">
-                                                <input type="text" class="typeahead form-control" style="width:60%;" id="KnitUnitMD" placeholder="Knit Unit" autofocus>
+                                    <form id="KnitUnitForm">
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-12 form-inline">
+                                                <label for="KnitUnitMD" class="control-label" style="width:35%;">Knit Unit</label>
+                                                <div style="display: inline;">
+                                                    <input type="text" class=" form-control" style="width:60%;" id="KnitUnitMD" placeholder="Knit Unit" required autofocus>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class=" form-group">
-                                        <div class="form-group col-xs-12 form-inline">
-                                            <button class="btn btn-warning btn-sm" style="width:30%;" disabled id="editKnitUnitBtn">Update</button>
-                                            <button class="btn btn-danger btn-sm" style="width:30%;" disabled id="deleteKnitUnitBtn">Delete</button>
-                                            <div style="display: inline;">
-                                                <button type="submit" id="saveKnitUnitBtn" class="btn btn-primary btn-sm" style="width:30%;">Save</button>
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-12 form-inline">
+                                                <button class="btn btn-warning btn-sm" style="width:30%;" disabled id="editKnitUnitBtn">Update</button>
+                                                <button class="btn btn-danger btn-sm" style="width:30%;" disabled id="deleteKnitUnitBtn">Delete</button>
+                                                <div style="display: inline;">
+                                                    <button type="submit" id="saveKnitUnitBtn" class="btn btn-primary btn-sm" style="width:30%;">Save</button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                             <table id="KnitUnitTable" class="stripe hover order-column" style="width: 100%">
@@ -177,7 +182,7 @@
                                     <tr>
                                         <th></th>
                                         <th>Id</th>
-                                        <th>Yarn Count</th>
+                                        <th>Knit Unit</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -185,6 +190,7 @@
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" id="resetKnitUnitBtn" class="btn btn-info">Reset</button>
                     <button type="submit" id="okayKnitUnitBtn" class="btn btn-success">Okay</button>
                 </div>
             </div>
@@ -193,7 +199,7 @@
 
     <div class="modal fade" id="modalBrand" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
-        <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
@@ -204,23 +210,25 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">Add Brand</div>
                                 <div class="panel-body">
-                                    <div class=" form-group">
-                                        <div class="form-group col-xs-12 form-inline">
-                                            <label for="BrandMD" class="control-label" style="width:35%;">Brand</label>
-                                            <div style="display: inline;">
-                                                <input type="text" class="typeahead form-control" style="width:60%;" id="BrandMD" placeholder="Brand" autofocus>
+                                    <form id="BrandForm">
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-12 form-inline">
+                                                <label for="BrandMD" class="control-label" style="width:35%;">Brand</label>
+                                                <div style="display: inline;">
+                                                    <input type="text" class=" form-control" style="width:60%;" id="BrandMD" placeholder="Brand" required autofocus>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class=" form-group">
-                                        <div class="form-group col-xs-12 form-inline">
-                                            <button class="btn btn-warning btn-sm" style="width:30%;" disabled id="editBrandBtn">Update</button>
-                                            <button class="btn btn-danger btn-sm" style="width:30%;" disabled id="deleteBrandBtn">Delete</button>
-                                            <div style="display: inline;">
-                                                <button type="submit" id="saveBrandBtn" class="btn btn-primary btn-sm" style="width:30%;">Save</button>
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-12 form-inline">
+                                                <button class="btn btn-warning btn-sm" style="width:30%;" disabled id="editBrandBtn">Update</button>
+                                                <button class="btn btn-danger btn-sm" style="width:30%;" disabled id="deleteBrandBtn">Delete</button>
+                                                <div style="display: inline;">
+                                                    <button type="submit" id="saveBrandBtn" class="btn btn-primary btn-sm" style="width:30%;">Save</button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                             <table id="BrandTable" class="stripe hover order-column" style="width: 100%">
@@ -228,7 +236,7 @@
                                     <tr>
                                         <th></th>
                                         <th>Id</th>
-                                        <th>Yarn Count</th>
+                                        <th>Brand</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -236,6 +244,7 @@
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" id="resetBrandBtn" class="btn btn-info">Reset</button>
                     <button type="submit" id="okayBrandBtn" class="btn btn-success">Okay</button>
                 </div>
             </div>
@@ -260,7 +269,7 @@
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="BarCodeSL" class="control-label" style="width:35%;">BarCode</label>
                                             <div style="display: inline;">
-                                                <input type="text" class="typeahead form-control" style="width:60%;" id="BarCodeSL" placeholder="Bar Code" autofocus>
+                                                <input type="text" class=" form-control" style="width:60%;" id="BarCodeSL" placeholder="Bar Code" autofocus>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
@@ -280,19 +289,19 @@
                                         <div class="form-group col-xs-4 form-inline ">
                                             <label for="OrderNoSL" class="control-label" style="width:35%;">Order No</label>
                                             <div style="display: inline;">
-                                                <input type="text" class="typeahead form-control" style="width:60%;" id="OrderNoSL" placeholder="Order No" autofocus>
+                                                <input type="text" class=" form-control" style="width:60%;" id="OrderNoSL" placeholder="Order No" autofocus>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="ColorSL" class="control-label" style="width:35%;">Color</label>
                                             <div style="display: inline;">
-                                                <input type="text" class="typeahead form-control" style="width:60%;" id="ColorSL" placeholder="Color" autofocus>
+                                                <input type="text" class=" form-control" style="width:60%;" id="ColorSL" placeholder="Color" autofocus>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="ChallanSL" class="control-label" style="width:35%;">Challan No</label>
                                             <div style="display: inline;">
-                                                <input type="text" class="typeahead form-control" style="width:60%;" id="ChallanSL" placeholder="Challan No" autofocus>
+                                                <input type="text" class=" form-control" style="width:60%;" id="ChallanSL" placeholder="Challan No" autofocus>
                                             </div>
                                         </div>
                                     </div>
@@ -397,7 +406,7 @@
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="DiaGauge" class="control-label" style="width:35%;">MC Dia-Gauge</label>
+                        <label for="DiaGauge" class="control-label" style="width:35%;">MC Dia-Guage</label>
                         <div style="display: inline;">
                             <select name="DiaGauge" id="DiaGauge" style="width:50%;" class="form-control input-sm" required autofocus></select>
                             <a href="#" class="btn-sm btn-info" style="width:10%;" id="mdDiaGauge" data-toggle="modal" data-target="#modalDiaGauge">
@@ -431,7 +440,7 @@
                     <div class="form-group col-xs-4 form-inline">
                         <label for="StitchLength" class="control-label" style="width:35%;">Stitch Length</label>
                         <div style="display: inline;">
-                            <input type="text" class="typeahead form-control" style="width:60%;" id="StitchLength" placeholder="Stitch Length" required autofocus>
+                            <input type="text" class=" form-control" style="width:60%;" id="StitchLength" placeholder="Stitch Length" required autofocus>
                         </div>
                     </div>
                 </div>
@@ -468,7 +477,7 @@
                     <div class="form-group col-xs-4 form-inline">
                         <label for="GreyGSM" class="control-label" style="width:35%;">Grey GSM</label>
                         <div style="display: inline;">
-                            <input type="number" class="form-control" style="width:60%;" id="GreyGSM" min="0" step="1" data-bind="value:GreyGSM" placeholder="Grey GSM" required autofocus>
+                            <input type="number" class="typeahead form-control" style="width:60%;" id="GreyGSM" min="0" step="1" data-bind="value:GreyGSM" placeholder="Grey GSM" required autofocus>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
@@ -526,7 +535,7 @@
                 <th>Fabric Type</th>
                 <th>Order No</th>
                 <th>Color</th>
-                <th>Dia Gauge</th>
+                <th>Dia Guage</th>
                 <th>Yarn Count</th>
                 <th>Yarn Brand</th>
                 <th>Yarn Lot</th>
@@ -563,7 +572,7 @@
                 <th>Fabric Type</th>
                 <th>Order No</th>
                 <th>Color</th>
-                <th>Dia Gauge</th>
+                <th>Dia Guage</th>
                 <th>Yarn Count</th>
                 <th>Yarn Brand</th>
                 <th>Yarn Lot</th>
@@ -598,8 +607,20 @@
         var KnitUnitTable = $('#KnitUnitTable').DataTable();
         var YarnCountTable = $('#YarnCountTable').DataTable();
         var BrandTable = $('#BrandTable').DataTable();
-        var DiaGuageTable = $('#DiaGuageTable').DataTable();
+        var DiaGaugeTable = $('#DiaGaugeTable').DataTable();
 
+        $('input.typeahead').keydown(function () {
+            ColId = $(this).attr('id');
+        });
+
+        $('input.typeahead').typeahead(
+            {
+                source: function (query, process) {
+                    return $.get('/Knitting/GetMatchingData', { query: query, col: ColId }, function (data) {
+                        return process(data);
+                    });
+                }
+            });
 
         (function ($, window) {
 
@@ -672,9 +693,11 @@
                 url: "/Knitting/GetMCDIAList",
                 data: "{}",
                 success: function (data) {
+                    debugger
+                    var data = data.data;
                     var s = '<option value="">Select DiaGauge</option>';
                     for (var i = 0; i < data.length; i++) {
-                        s += '<option value="' + data[i].Id + '">' + data[i].McDiaGuage + '</option>';
+                        s += '<option value="' + data[i].Id + '">' + data[i].McDiaGauge + '</option>';
                     }
                     $("#DiaGauge").html(s);
                     loadYarnCountList();
@@ -689,6 +712,7 @@
                 url: "/Knitting/GetYarnCountList",
                 data: "{}",
                 success: function (data) {
+                    var data = data.data;
                     var s = '<option value="">Select Yarn Count</option>';
                     for (var i = 0; i < data.length; i++) {
                         s += '<option value="' + data[i].Id + '">' + data[i].YarnCount + '</option>';
@@ -706,6 +730,7 @@
                 url: "/Knitting/GetKnitUnitList",
                 data: "{}",
                 success: function (data) {
+                    var data = data.data;
                     var s = '<option value="">Select KnitUnit</option>';
                     for (var i = 0; i < data.length; i++) {
                         s += '<option value="' + data[i].Id + '">' + data[i].KnitUnit + '</option>';
@@ -723,6 +748,7 @@
                 url: "/Knitting/GetMcBrandList",
                 data: "{}",
                 success: function (data) {
+                    var data = data.data;
                     var s = '<option value="">Select McBrand</option>';
                     for (var i = 0; i < data.length; i++) {
                         s += '<option value="' + data[i].Id + '">' + data[i].McBrand + '</option>';
@@ -775,8 +801,8 @@
         $('#modalBrand').on('shown.bs.modal', function () {
             BrandTable.columns.adjust();
         });
-        $('#modalDiaGuage').on('shown.bs.modal', function () {
-            DiaGuageTable.columns.adjust();
+        $('#modalDiaGauge').on('shown.bs.modal', function () {
+            DiaGaugeTable.columns.adjust();
         });
 
         $("#mdYarnCount").click(function () {
@@ -818,6 +844,135 @@
                     },
                     { "data": "Id" },
                     { "data": "YarnCount" }
+                ]
+            });
+        });
+
+        $("#mdDiaGauge").click(function () {
+            debugger;
+            DiaGaugeTable = $('#DiaGaugeTable').DataTable({
+                "ajax":
+                {
+                    "url": "/Knitting/GetMCDIAList",
+                    "type": "GET",
+                    "dataType": "JSON"
+                },
+                "dom": 'Bfrtip',
+                "scrollY": true,
+                "scrollX": true,
+                "Sorting": true,
+                "searching": true,
+                "destroy": true,
+                "select": {
+                    style: 'single'
+                },
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        "searchable": false,
+                        "orderable": false
+                    },
+                    {
+                        "targets": [1],
+                        "searchable": false,
+                        "orderable": false,
+                        "visible": false
+                    }
+                ],
+                "columns": [
+                    {
+                        "render": function (data, type, full, meta) {
+                            return DiaGaugeTable.data().count();
+                        }
+                    },
+                    { "data": "Id" },
+                    { "data": "McDiaGauge" }
+                ]
+            });
+        });
+
+        $("#mdKnitUnit").click(function () {
+            debugger;
+            KnitUnitTable = $('#KnitUnitTable').DataTable({
+                "ajax":
+                {
+                    "url": "/Knitting/GetKnitUnitList",
+                    "type": "GET",
+                    "dataType": "JSON"
+                },
+                "dom": 'Bfrtip',
+                "scrollY": true,
+                "scrollX": true,
+                "Sorting": true,
+                "searching": true,
+                "destroy": true,
+                "select": {
+                    style: 'single'
+                },
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        "searchable": false,
+                        "orderable": false
+                    },
+                    {
+                        "targets": [1],
+                        "searchable": false,
+                        "orderable": false,
+                        "visible": false
+                    }
+                ],
+                "columns": [
+                    {
+                        "render": function (data, type, full, meta) {
+                            return KnitUnitTable.data().count();
+                        }
+                    },
+                    { "data": "Id" },
+                    { "data": "KnitUnit" }
+                ]
+            });
+        });
+
+        $("#mdBrand").click(function () {
+            debugger;
+            BrandTable = $('#BrandTable').DataTable({
+                "ajax":
+                {
+                    "url": "/Knitting/GetMcBrandList",
+                    "type": "GET",
+                    "dataType": "JSON"
+                },
+                "dom": 'Bfrtip',
+                "scrollY": true,
+                "scrollX": true,
+                "Sorting": true,
+                "searching": true,
+                "destroy": true,
+                "select": {
+                    style: 'single'
+                },
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        "searchable": false,
+                        "orderable": false
+                    },
+                    {
+                        "targets": [1],
+                        "searchable": false,
+                        "orderable": false,
+                        "visible": false
+                    }
+                ],
+                "columns": [
+                    {
+                        "render": function (data, type, full, meta) {
+                            return BrandTable.data().count();
+                        }
+                    },
+                    { "data": "Id" },
+                    { "data": "McBrand" }
                 ]
             });
         });
@@ -880,7 +1035,7 @@
                 { "data": "FabricName" },
                 { "data": "OrderNo" },
                 { "data": "Color" },
-                { "data": "McDiaGuage" },
+                { "data": "McDiaGauge" },
                 { "data": "YarnCount" },
                 { "data": "YarnBrand" },
                 { "data": "YarnLot" },
@@ -983,51 +1138,125 @@
             }
         });
 
-        function Setvalue(rowdata) {
-            $("#DiaGauge").val(rowdata.DiaGaugeID);
-            $("#YarnCount").val(rowdata.YarnCountID);
-            $("#YarnBrand").val(rowdata.YarnBrand);
-            $("#YarnLot").val(rowdata.YarnLot);
-            $("#StitchLength").val(rowdata.StitchLength);
-            $("#MCNO").val(rowdata.MCNO);
-            $("#MCRPM").val(rowdata.MCRPM);
-            $("#GreyWidth").val(rowdata.GreyWidth);
-            $("#GreyGSM").val(rowdata.GreyGSM);
-            $("#TumbleWidth").val(rowdata.TumbleWidth);
-            $("#TumbleGSM").val(rowdata.TumbleGSM);
-            $("#Brand").val(rowdata.McBrandID);
-            $("#KnitUnit").val(rowdata.KnitUnitID);
-        }
+        $('#DiaGaugeTable tbody').on('click', 'tr', function () {
+
+            if (DiaGaugeTable.data().any()) {
+                $(this).toggleClass('selected');
+
+                if ($(this).hasClass('selected')) {
+                    debugger
+                    var rowdata = DiaGaugeTable.row(this).data();
+                    $('#DiaGaugeMD').val(rowdata.McDiaGauge)
+                    $('#editDiaGaugeBtn').prop("disabled", false);
+                    $('#deleteDiaGaugeBtn').prop("disabled", false);
+                    $('#saveDiaGaugeBtn').prop("disabled", true);
+                }
+                else {
+                    $('#editDiaGaugeBtn').prop("disabled", true);
+                    $('#deleteDiaGaugeBtn').prop("disabled", true);
+                    $('#saveDiaGaugeBtn').prop("disabled", false);
+                }
+            }
+        });
+
+        $('#KnitUnitTable tbody').on('click', 'tr', function () {
+
+            if (KnitUnitTable.data().any()) {
+                $(this).toggleClass('selected');
+
+                if ($(this).hasClass('selected')) {
+                    debugger
+                    var rowdata = KnitUnitTable.row(this).data();
+                    $('#KnitUnitMD').val(rowdata.KnitUnit)
+                    $('#editKnitUnitBtn').prop("disabled", false);
+                    $('#deleteKnitUnitBtn').prop("disabled", false);
+                    $('#saveKnitUnitBtn').prop("disabled", true);
+                }
+                else {
+                    $('#editKnitUnitBtn').prop("disabled", true);
+                    $('#deleteKnitUnitBtn').prop("disabled", true);
+                    $('#saveKnitUnitBtn').prop("disabled", false);
+                }
+            }
+        });
+
+        $('#BrandTable tbody').on('click', 'tr', function () {
+
+            if (BrandTable.data().any()) {
+                $(this).toggleClass('selected');
+
+                if ($(this).hasClass('selected')) {
+                    debugger
+                    var rowdata = BrandTable.row(this).data();
+                    $('#BrandMD').val(rowdata.McBrand)
+                    $('#editBrandBtn').prop("disabled", false);
+                    $('#deleteBrandBtn').prop("disabled", false);
+                    $('#saveBrandBtn').prop("disabled", true);
+                }
+                else {
+                    $('#editBrandBtn').prop("disabled", true);
+                    $('#deleteBrandBtn').prop("disabled", true);
+                    $('#saveBrandBtn').prop("disabled", false);
+                }
+            }
+        });
 
         $("#searchFabricBtn").click(function () {
             event.preventDefault();
 
             debugger;
             if (ValidateFabricForm() == true) {
-                var fabricSearchObj = {
-                    BarCode: $("#BarCodeSL").val().toString(),
-                    BuyerID: $("#BuyerSL option:selected").val(),
-                    FabricTypeID: $("#FabricSL option:selected").val(),
-                    OrderNo: $("#OrderNoSL").val().length > 0 ? $("#OrderNoSL").val().toString() : '',
-                    Color: $("#ColorSL").val().length > 0 ? $("#ColorSL").val().toString() : '',
-                    ChallanNo: $("#ChallanSL").val().length > 0 ? $("#ChallanSL").val().toString() : '',
-                    DeliveryDate: $('#DeliveryDateCheckBox').is(":checked") == true ? $("#DeliveryDateTextSL").val().toString() : '',
-                    CreateTime: $('#FabricOrderDateCheckBox').is(":checked") == true ? $("#FabricOrderDateTextSL").val().toString() : '',
-                };
+
+                var barCode = $('#BarCodeSL').val() == "" ? 0 : parseInt($('#BarCodeSL').val());
 
                 $.ajax({
                     type: "POST",
-                    url: "/Knitting/FabricSearch",
+                    url: "/Knitting/BarCodeAuthorization",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    data: JSON.stringify(fabricSearchObj),
+                    data: JSON.stringify({ BarCode: barCode }),
                     success: function (response) {
-                        if (response != "" && response != null) {
-                            fabricSelectionTable.clear().draw();
-                            fabricSelectionTable.rows.add(response).draw();
+                        debugger
+                        if (response == "true")
+                        {
+                            var fabricSearchObj = {
+                                BarCode: $("#BarCodeSL").val().toString(),
+                                BuyerID: $("#BuyerSL option:selected").val(),
+                                FabricTypeID: $("#FabricSL option:selected").val(),
+                                OrderNo: $("#OrderNoSL").val().length > 0 ? $("#OrderNoSL").val().toString() : '',
+                                Color: $("#ColorSL").val().length > 0 ? $("#ColorSL").val().toString() : '',
+                                ChallanNo: $("#ChallanSL").val().length > 0 ? $("#ChallanSL").val().toString() : '',
+                                DeliveryDate: $('#DeliveryDateCheckBox').is(":checked") == true ? $("#DeliveryDateTextSL").val().toString() : '',
+                                CreateTime: $('#FabricOrderDateCheckBox').is(":checked") == true ? $("#FabricOrderDateTextSL").val().toString() : '',
+                            };
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/Knitting/FabricSearch",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                data: JSON.stringify(fabricSearchObj),
+                                success: function (response) {
+                                    if (response != "" && response != null) {
+                                        fabricSelectionTable.clear().draw();
+                                        fabricSelectionTable.rows.add(response).draw();
+                                    }
+                                    else {
+                                        alert("Failed to Search!!! No Data Found!!!");
+                                        return;
+                                    }
+                                },
+                                failure: function () {
+                                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                                }
+                            });
                         }
-                        else {
-                            alert("Failed to Save! Please Check Connection State!!!");
+                        if (response == "false") {
+                            alert("This Barcode is already used in another knit order!!!");
+                            return;
+                        }
+                        if (response == ""  || response == null){
+                            alert("Connection problem!!!");
                             return;
                         }
                     },
@@ -1035,6 +1264,7 @@
                         $("#tblItems").append(" Error when fetching data please contact administrator");
                     }
                 });
+
             }
             else {
                 alert("Please Select Atleast One Searching Criteria!!!");
@@ -1086,7 +1316,7 @@
                     {
                         data: "DeliveryDate",
                         render: function (data, type, row) {
-                            return moment(data).format("DD/MM/YYYY");
+                            return moment(data).format("DD/MM/YYYY h:mm a");
                         }
                     }
                 ]
@@ -1129,7 +1359,7 @@
                     McBrandID: $("#Brand  option:selected").val(),
                     KnitUnitID: $("#KnitUnit  option:selected").val(),
                     FabricID: selectedFabricRowId,
-                    BarCode: $("#BarCode").val(),
+                    BarCode: KnitRow.BarCode,
                     YarnBrand: $("#YarnBrand").val(),
                     YarnLot: $("#YarnLot").val(),
                     StitchLength: $("#StitchLength").val(),
@@ -1139,7 +1369,7 @@
                     GreyGSM: $("#GreyGSM").val(),
                     TumbleWidth: $("#TumbleWidth").val(),
                     TumbleGSM: $("#TumbleGSM").val(),
-                    UpdateTime: moment(Date.now()).format("DD/MM/YYYY"),
+                    UpdateTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
                 };
 
                 $.ajax({
@@ -1156,7 +1386,7 @@
                             Reset();
                         }
                         else {
-                            alert("Failed to Update! Please Check Connection State!!!");
+                            alert("Failed to Update!!!");
                             return;
                         }
                     },
@@ -1188,8 +1418,8 @@
                     YarnCountID: $("#YarnCount  option:selected").val(),
                     McBrandID: $("#Brand  option:selected").val(),
                     KnitUnitID: $("#KnitUnit  option:selected").val(),
-                    FabricID: selectedFabricRowId,
-                    BarCode: $("#BarCode").val(),
+                    FabricID: KnitRow.FabricID,
+                    BarCode: KnitRow.BarCode,
                     YarnBrand: $("#YarnBrand").val(),
                     YarnLot: $("#YarnLot").val(),
                     StitchLength: $("#StitchLength").val(),
@@ -1199,7 +1429,7 @@
                     GreyGSM: $("#GreyGSM").val(),
                     TumbleWidth: $("#TumbleWidth").val(),
                     TumbleGSM: $("#TumbleGSM").val(),
-                    UpdateTime: moment(Date.now()).format("DD/MM/YYYY"),
+                    UpdateTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
                 };
 
                 $.ajax({
@@ -1216,7 +1446,7 @@
                             Reset();
                         }
                         else {
-                            alert("Failed to Revise! Please Check Connection State!!!");
+                            alert("Failed to Revise!!!");
                             return;
                         }
                     },
@@ -1256,7 +1486,7 @@
                     GreyGSM: $("#GreyGSM").val(),
                     TumbleWidth: $("#TumbleWidth").val(),
                     TumbleGSM: $("#TumbleGSM").val(),
-                    CreateTime: moment(Date.now()).format("DD/MM/YYYY")
+                    CreateTime: moment(Date.now()).format("YYYY/MM/DD h:mm a")
                 };
 
                 $.ajax({
@@ -1272,7 +1502,7 @@
                             Reset();
                         }
                         else {
-                            alert("Failed to Save! Please Check Connection State!!!");
+                            alert("Failed to Save!!!");
                             return;
                         }
                     },
@@ -1294,23 +1524,23 @@
             event.preventDefault();
             var yarnObj = {
                 Id: '0',
-                YarnCount: $("#YarnCountMD").val(),
+                YarnCount: $("#YarnCountMD").val()
             };
 
             $.ajax({
                 type: "POST",
-                url: "/Knitting/Create",
+                url: "/Knitting/AddYarnCount",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 data: JSON.stringify(yarnObj),
                 success: function (response) {
                     debugger
                     if (response.data != "" && response.data != null) {
-                        knitTable.row.add(response.data).draw();
-                        Reset();
+                        YarnCountTable.row.add(response.data).draw();
+                        $("#YarnCountMD").val("");
                     }
                     else {
-                        alert("Failed to Save! Please Check Connection State!!!");
+                        alert("Failed to Save!!!");
                         return;
                     }
                 },
@@ -1319,6 +1549,530 @@
                 }
             });
         });
+
+        $('#DiaGaugeForm').submit(function (e) {
+
+            event.preventDefault();
+            var diaObj = {
+                Id: '0',
+                McDiaGauge: $("#DiaGaugeMD").val()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Knitting/AddMCDIA",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(diaObj),
+                success: function (response) {
+                    debugger
+                    if (response.data != "" && response.data != null) {
+                        DiaGaugeTable.row.add(response.data).draw();
+                        $("#DiaGaugeMD").val("");
+                    }
+                    else {
+                        alert("Failed to Save!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        });
+
+        $('#KnitUnitForm').submit(function (e) {
+
+            event.preventDefault();
+            debugger
+            var knitObj = {
+                Id: '0',
+                KnitUnit: $("#KnitUnitMD").val()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Knitting/AddKnitUnit",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(knitObj),
+                success: function (response) {
+                    debugger
+                    if (response.data != "" && response.data != null) {
+                        KnitUnitTable.row.add(response.data).draw();
+                        $("#KnitUnitMD").val("");
+                    }
+                    else {
+                        alert("Failed to Save!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        });
+
+        $('#BrandForm').submit(function (e) {
+
+            event.preventDefault();
+            debugger
+            var BrandObj = {
+                Id: '0',
+                McBrand: $("#BrandMD").val()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Knitting/AddBrand",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(BrandObj),
+                success: function (response) {
+                    debugger
+                    if (response.data != "" && response.data != null) {
+                        BrandTable.row.add(response.data).draw();
+                        $("#BrandMD").val("");
+                    }
+                    else {
+                        alert("Failed to Save!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        });
+
+        $("#editYarnCountBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#YarnCountTable tbody tr').hasClass('selected')) {
+                debugger
+                var KnitRow = YarnCountTable.rows('.selected').data()[0];
+                var index = YarnCountTable.row('.selected').index();
+
+                var yarnObj =
+                {
+                    Id: KnitRow.Id,
+                    YarnCount: $("#YarnCountMD").val()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Knitting/AddYarnCount",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(yarnObj),
+                    success: function (response) {
+                        debugger
+                        if (response.data != "" && response.data != null) {
+                            debugger
+                            YarnCountTable.row(index).data(response.data).draw();
+                            $("#YarnCountMD").val("");
+                        }
+                        else {
+                            alert("Failed to Update!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#deleteYarnCountBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#YarnCountTable tbody tr').hasClass('selected')) {
+                debugger
+                var KnitRow = YarnCountTable.rows('.selected').data()[0];
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Knitting/DeleteYarnCount",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify({ Id: KnitRow.Id }),
+                    success: function (response) {
+                        debugger
+                        if (response == "Success") {
+                            YarnCountTable.row('.selected').remove().draw(false);
+                            $("#YarnCountMD").val("");
+                        }
+                        else {
+                            alert("Failed to Update!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#editDiaGaugeBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#DiaGaugeTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = DiaGaugeTable.rows('.selected').data()[0];
+                var index = DiaGaugeTable.row('.selected').index();
+
+                var Obj =
+                {
+                    Id: Row.Id,
+                    McDiaGauge: $("#DiaGaugeMD").val()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Knitting/AddMCDIA",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(Obj),
+                    success: function (response) {
+                        debugger
+                        if (response.data != "" && response.data != null) {
+                            debugger
+                            DiaGaugeTable.row(index).data(response.data).draw();
+                            $("#YarnCountMD").val("");
+                        }
+                        else {
+                            alert("Failed to Update!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#deleteDiaGaugeBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#DiaGaugeTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = DiaGaugeTable.rows('.selected').data()[0];
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Knitting/DeleteMCDIA",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify({ Id: Row.Id }),
+                    success: function (response) {
+                        debugger
+                        if (response == "Success") {
+                            DiaGaugeTable.row('.selected').remove().draw(false);
+                            $("#DiaGaugeMD").val("");
+                        }
+                        else {
+                            alert("Failed to Update!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#editKnitUnitBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#KnitUnitTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = KnitUnitTable.rows('.selected').data()[0];
+                var index = KnitUnitTable.row('.selected').index();
+
+                var knitObj =
+                {
+                    Id: Row.Id,
+                    KnitUnit: $("#KnitUnitMD").val()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Knitting/AddKnitUnit",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(knitObj),
+                    success: function (response) {
+                        debugger
+                        if (response.data != "" && response.data != null) {
+                            debugger
+                            KnitUnitTable.row(index).data(response.data).draw();
+                            $("#KnitUnitMD").val("");
+                        }
+                        else {
+                            alert("Failed to Update!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#deleteKnitUnitBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#KnitUnitTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = KnitUnitTable.rows('.selected').data()[0];
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Knitting/DeleteKnitUnit",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify({ Id: Row.Id }),
+                    success: function (response) {
+                        debugger
+                        if (response == "Success") {
+                            KnitUnitTable.row('.selected').remove().draw(false);
+                            $("#KnitUnitMD").val("");
+                        }
+                        else {
+                            alert("Failed to Update!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#editBrandBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#BrandTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = BrandTable.rows('.selected').data()[0];
+                var index = BrandTable.row('.selected').index();
+
+                var knitObj =
+                {
+                    Id: Row.Id,
+                    McBrand: $("#BrandMD").val()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Knitting/AddBrand",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(knitObj),
+                    success: function (response) {
+                        debugger
+                        if (response.data != "" && response.data != null) {
+                            debugger
+                            BrandTable.row(index).data(response.data).draw();
+                            $("#BrandMD").val("");
+                        }
+                        else {
+                            alert("Failed to Update!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#deleteBrandBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#BrandTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = BrandTable.rows('.selected').data()[0];
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Knitting/DeleteBrand",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify({ Id: Row.Id }),
+                    success: function (response) {
+                        debugger
+                        if (response == "Success") {
+                            BrandTable.row('.selected').remove().draw(false);
+                            $("#BrandMD").val("");
+                        }
+                        else {
+                            alert("Failed to Update!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#resetYarnCountBtn").click(function () {
+            $("#YarnCountMD").val("");
+            $('#editYarnCountBtn').prop("disabled", true);
+            $('#deleteYarnCountBtn').prop("disabled", true);
+            $('#saveYarnCountBtn').prop("disabled", false);
+        });
+
+        $("#okayYarnCountBtn").click(function () {
+            $("#modalYarnCount .close").click();
+            loadYarnCountList();
+        });
+
+        $("#resetDiaGaugeBtn").click(function () {
+            $("#DiaGaugeMD").val("");
+            $('#editDiaGaugeBtn').prop("disabled", true);
+            $('#deleteDiaGaugeBtn').prop("disabled", true);
+            $('#saveDiaGaugeBtn').prop("disabled", false);
+        });
+
+        $("#okayDiaGaugeBtn").click(function () {
+            $("#modalDiaGauge .close").click();
+            loadMCDIAList();
+        });
+
+        $("#resetKnitUnitBtn").click(function () {
+            $("#KnitUnitMD").val("");
+            $('#editKnitUnitBtn').prop("disabled", true);
+            $('#deleteKnitUnitBtn').prop("disabled", true);
+            $('#saveKnitUnitBtn').prop("disabled", false);
+        });
+
+        $("#okayKnitUnitBtn").click(function () {
+            $("#modalKnitUnit .close").click();
+            loadKnitUnitList();
+        });
+
+        $("#resetBrandBtn").click(function () {
+            $("#BrandMD").val("");
+            $('#editBrandBtn').prop("disabled", true);
+            $('#deleteBrandBtn').prop("disabled", true);
+            $('#saveBrandBtn').prop("disabled", false);
+        });
+
+        $("#okayBrandBtn").click(function () {
+            $("#modalBrand .close").click();
+            loadMcBrandList();
+        });
+
+        $("#resetBtn").click(function () {
+            Reset();
+        });
+
+        function DeleteRow() {
+            event.preventDefault();
+            var Id = knitTable.rows('.selected').data()[0].Id;
+
+            $.ajax({
+                type: "POST",
+                url: "/Knitting/Delete",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({ "Id": Id }),
+                success: function (response) {
+                    debugger
+                    if (response = "Success") {
+                        debugger;
+                        knitTable.row('.selected').remove().draw(false);
+                        Reset();
+                    }
+                    else {
+                        alert("Failed to Delete!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        };
+
+        function ApproveRow() {
+            debugger
+            event.preventDefault();
+
+            var KnitRow = knitTable.rows('.selected').data()[0];
+            var index = knitTable.row('.selected').index();
+
+            var knitObj =
+            {
+                Id: KnitRow.Id,
+                ApprovedTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Knitting/Approve",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(knitObj),
+                success: function (response) {
+                    debugger
+                    if (response.data != "" && response.data != null) {
+                        debugger
+                        knitTable.row(index).data(response.data).draw();
+                        Reset();
+                    }
+                    else {
+                        alert("Failed to Approve!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        }
 
         function ValidateFabricForm() {
             debugger;
@@ -1359,72 +2113,20 @@
             $("#TumbleGSM").val("");
         }
 
-        $("#resetBtn").click(function () {
-            Reset();
-        });
-
-        function DeleteRow() {
-            event.preventDefault();
-            var Id = knitTable.rows('.selected').data()[0].Id;
-
-            $.ajax({
-                type: "POST",
-                url: "/Knitting/Delete",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                data: JSON.stringify({ "Id": Id }),
-                success: function (response) {
-                    debugger
-                    if (response = "Success") {
-                        debugger;
-                        knitTable.row('.selected').remove().draw(false);
-                        Reset();
-                    }
-                    else {
-                        alert("Failed to Delete! Please Check Connection State!!!");
-                        return;
-                    }
-                },
-                failure: function () {
-                    $("#tblItems").append(" Error when fetching data please contact administrator");
-                }
-            });
-        };
-
-        function ApproveRow() {
-            event.preventDefault();
-
-            var KnitRow = knitTable.rows('.selected').data()[0];
-            var index = knitTable.row('.selected').index();
-
-            var knitObj =
-            {
-                Id: KnitRow.Id,
-                ApproveTime: moment(Date.now()).format("DD/MM/YYYY"),
-            };
-
-            $.ajax({
-                type: "POST",
-                url: "/Knitting/Approve",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                data: JSON.stringify(knitObj),
-                success: function (response) {
-                    debugger
-                    if (response.data != "" && response.data != null) {
-                        debugger
-                        knitTable.row(index).data(response.data).draw();
-                        Reset();
-                    }
-                    else {
-                        alert("Failed to Approve! Please Check Connection State!!!");
-                        return;
-                    }
-                },
-                failure: function () {
-                    $("#tblItems").append(" Error when fetching data please contact administrator");
-                }
-            });
+        function Setvalue(rowdata) {
+            $("#DiaGauge").val(rowdata.DiaGaugeID);
+            $("#YarnCount").val(rowdata.YarnCountID);
+            $("#YarnBrand").val(rowdata.YarnBrand);
+            $("#YarnLot").val(rowdata.YarnLot);
+            $("#StitchLength").val(rowdata.StitchLength);
+            $("#MCNO").val(rowdata.MCNO);
+            $("#MCRPM").val(rowdata.MCRPM);
+            $("#GreyWidth").val(rowdata.GreyWidth);
+            $("#GreyGSM").val(rowdata.GreyGSM);
+            $("#TumbleWidth").val(rowdata.TumbleWidth);
+            $("#TumbleGSM").val(rowdata.TumbleGSM);
+            $("#Brand").val(rowdata.McBrandID);
+            $("#KnitUnit").val(rowdata.KnitUnitID);
         }
 
         $("#knitTable tbody").contextMenu({
@@ -1432,11 +2134,11 @@
             menuSelected: function (invokedOn, selectedMenu) {
                 debugger;
 
-                var ApprovedBy = knitTable.rows('.selected').data()[0].ApprovedBy;
-                if (ApprovedBy == 0) {
-                    if (selectedMenu.text == "Delete")
+                var ApprovedStatus = knitTable.rows('.selected').data()[0].ApprovedStatus;
+                if (ApprovedStatus == 0) {
+                    if (selectedMenu.text() == "Delete")
                         DeleteRow();
-                    if (selectedMenu.text == "Approve")
+                    if (selectedMenu.text() == "Approve")
                         ApproveRow();
 
                 }

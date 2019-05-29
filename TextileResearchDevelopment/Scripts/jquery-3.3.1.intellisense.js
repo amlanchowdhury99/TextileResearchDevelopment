@@ -1663,8 +1663,8 @@ intellisense.annotate(jQuery.fn, {
   },
   'lang': function() {
     /// <signature>
-    ///   <summary>Selects all elements of the specified language.</summary>
-    ///   <param name="language" type="String">A language code.</param>
+    ///   <summary>Selects all elements of the specified lanGuage.</summary>
+    ///   <param name="lanGuage" type="String">A lanGuage code.</param>
     /// </signature>
   },
   'last': function() {
