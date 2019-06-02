@@ -156,9 +156,10 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string GetReviseQuery = "SELECT ReviseStatus FROM Knitting WHERE Id = " + dyeing.Id;
+                string GetReviseQuery = "SELECT ReviseStatus FROM Dyeing WHERE Id = " + dyeing.Id;
+                string GetknitID = "SELECT KnitID FROM Dyeing WHERE Id = " + dyeing.Id;
                 string query = " INSERT INTO Dyeing (FabricID, KnitID, BarCode, DyeingUnitID, BatchNo, BatchQty, SerialNo, ReviseStatus, CreateTime, CreateBy, ApprovedStatus, ApprovedBy, UpdateBy) " +
-                               " VALUES(" + dyeing.FabricID + "," + dyeing.KnitID + "," + dyeing.BarCode + "," + dyeing.DyeingUnitID + ",'" + dyeing.BatchNo + "'," + dyeing.BatchQty + "," + dyeing.SerialNo + ",((" + GetReviseQuery + ") + 1),'" + dyeing.CreateTime.ToString("yyyy/MM/dd HH:mm") + "',(" + GetCreateByQuery + "), 0, 0, 0 )";
+                               " VALUES(" + dyeing.FabricID + ",(" + GetknitID + ")," + dyeing.BarCode + "," + dyeing.DyeingUnitID + ",'" + dyeing.BatchNo + "'," + dyeing.BatchQty + "," + dyeing.SerialNo + ",((" + GetReviseQuery + ") + 1),'" + dyeing.CreateTime.ToString("yyyy/MM/dd HH:mm") + "',(" + GetCreateByQuery + "), 0, 0, 0 )";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT TOP 1* FROM DyeingView order by Id desc";

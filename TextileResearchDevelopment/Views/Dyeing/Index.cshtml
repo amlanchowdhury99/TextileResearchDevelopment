@@ -275,6 +275,7 @@
             Select Knitting
         </button>
     </div>
+
     <input type="checkbox" id="hidden" value="option1" style="display:none;">
 
     <div class="panel panel-default ">
@@ -400,9 +401,15 @@
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
-                        <button class="btn btn-warning btn-sm" style="width:35%;" id="resetBtn">Reset</button>
+                        <button class="btn btn-warning btn-sm" style="width:25%;" id="resetBtn">Reset</button>
                         <div style="display: inline;">
-                            <input type="submit" value="Save" class="btn btn-primary btn-sm" style="width:60%;" name="saveBtn">
+                            <input type="submit" value="Save" class="btn btn-success btn-sm" style="width:22%;" id="saveBtn">
+                        </div>
+                        <div style="display: inline;">
+                            <input type="submit" value="Revise" class="btn btn-info btn-sm" disabled="disabled" style="width:23%;" id="reviseBtn">
+                        </div>
+                        <div style="display: inline;">
+                            <input type="submit" value="Update" class="btn btn-primary btn-sm" disabled="disabled" style="width:23%;" id="updateBtn">
                         </div>
                     </div>
                 </div>
@@ -500,7 +507,7 @@
                         // return native menu if pressing control
                         if (e.ctrlKey) return;
 
-                        if ($('#knitTable tbody tr').hasClass('selected') == false) return;
+                        if ($('#DyeingTable tbody tr').hasClass('selected') == false) return;
 
                         //open menu
                         var $menu = $(settings.menuSelector)
@@ -832,7 +839,9 @@
             "Sorting": true,
             "searching": true,
             "destroy": true,
-
+            "select": {
+                    style: 'single'
+                },
             "columnDefs": [
                 {
                     "targets": [0],
@@ -932,16 +941,29 @@
 
             if ($(this).hasClass('selected')) {
                 var rowdata = DyeingTable.row(this).data();
+            }
+
+            if (DyeingTable.data().any())
+            {
                 Setvalue(rowdata);
+                $('#saveBtn').prop("disabled", true);
+                $('#updateBtn').prop("disabled", false);
+                $('#reviseBtn').prop("disabled", false);
+            }
+            else {
+                $('#saveBtn').prop("disabled", false);
+                $('#updateBtn').prop("disabled", true);
+                $('#reviseBtn').prop("disabled", true);
             }
 
         });
 
         function Setvalue(rowdata) {
+            debugger;
             $("#DyeingUnit").val(rowdata.DyeingUnitID);
             $("#BatchNo").val(rowdata.BatchNo);
             $("#BatchQty").val(rowdata.BatchQty);
-            $("#SerialNo").val(rowdata.SerialNo);
+            $("#Serial").val(rowdata.SerialNo);
         }
 
         function Reset() {
@@ -961,7 +983,7 @@
             $("#DyeingUnit").val("");
             $("#BatchNo").val("");
             $("#BatchQty").val("");
-            $("#SerialNo").val("");
+            $("#Serial").val("");
             $('#hidden').prop('checked', false);
         }
 
@@ -1010,7 +1032,7 @@
                     DyeingUnitID: $("#DyeingUnit  option:selected").val(),
                     BatchNo: $("#BatchNo").val(),
                     BatchQty: $("#BatchQty").val(),
-                    SerialNo: $("#SerialNo").val(),
+                    SerialNo: $("#Serial").val(),
                     CreateTime: moment(Date.now()).format("DD/MM/YYYY h:mm a")
                 };
 
@@ -1046,20 +1068,20 @@
         $("#updateBtn").click(function () {
             event.preventDefault();
 
+            debugger
             if ($('#DyeingTable tbody tr').hasClass('selected')) {
                 debugger
                 var Row = DyeingTable.rows('.selected').data()[0];
                 var index = DyeingTable.row('.selected').index();
 
                 var dyeingObj = {
-                    Id: '0',
-                    BarCode: $('#BarCode').val(),
-                    FabricID: knitSelectionTable.rows('.selected').data()[0].FabricID,
-                    KnitID: selectedKnitRowId,
+                    Id: Row.Id,
+                    BarCode: Row.BarCode,
+                    FabricID: Row.FabricID,
                     DyeingUnitID: $("#DyeingUnit  option:selected").val(),
                     BatchNo: $("#BatchNo").val(),
                     BatchQty: $("#BatchQty").val(),
-                    SerialNo: $("#SerialNo").val(),
+                    SerialNo: $("#Serial").val(),
                     CreateTime: moment(Date.now()).format("DD/MM/YYYY h:mm a")
                 };
 
@@ -1103,14 +1125,13 @@
                 var Row = DyeingTable.rows('.selected').data()[0];
 
                 var dyeingObj = {
-                    Id: '0',
-                    BarCode: $('#BarCode').val(),
-                    FabricID: knitSelectionTable.rows('.selected').data()[0].FabricID,
-                    KnitID: selectedKnitRowId,
+                    Id: Row.Id,
+                    BarCode: Row.BarCode,
+                    FabricID: Row.FabricID,
                     DyeingUnitID: $("#DyeingUnit  option:selected").val(),
                     BatchNo: $("#BatchNo").val(),
                     BatchQty: $("#BatchQty").val(),
-                    SerialNo: $("#SerialNo").val(),
+                    SerialNo: $("#Serial").val(),
                     CreateTime: moment(Date.now()).format("DD/MM/YYYY h:mm a")
                 };
 
@@ -1477,7 +1498,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/DyeingTable/Approve",
+                url: "/Dyeing/Approve",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 data: JSON.stringify(dyeingObj),

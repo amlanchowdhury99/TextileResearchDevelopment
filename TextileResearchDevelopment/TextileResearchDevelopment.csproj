@@ -130,6 +130,7 @@
     <Compile Include="BLL\DyeingBLL.cs" />
     <Compile Include="BLL\FabricBLL.cs" />
     <Compile Include="BLL\KnittingBLL.cs" />
+    <Compile Include="BLL\StenterBLL.cs" />
     <Compile Include="BLL\UserBLL.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AopPrintController.cs" />

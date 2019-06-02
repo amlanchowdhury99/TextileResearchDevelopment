@@ -10,25 +10,11 @@ namespace TextileResearchDevelopment.Controllers
 {
     public class StenterController : Controller
     {
-        // GET: Stenter
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: Stenter/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Stenter/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Stenter/Create
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
@@ -44,13 +30,6 @@ namespace TextileResearchDevelopment.Controllers
             }
         }
 
-        // GET: Stenter/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Stenter/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -66,26 +45,28 @@ namespace TextileResearchDevelopment.Controllers
             }
         }
 
-        // GET: Stenter/Delete/5
+        [HttpPost]
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Stenter/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public JsonResult GetData()
         {
+            JsonResult result = new JsonResult();
+            List<Stenter> data = new List<Stenter>();
+
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                data = StenterBLL.GetList();
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                Console.Write(ex);
             }
+
+            return Json(new { data = data }, JsonRequestBehavior.AllowGet);
+
         }
     }
 }
