@@ -23,11 +23,6 @@ namespace TextileResearchDevelopment
             bundles.Add(new ScriptBundle("~/bundles/moment").Include(
                         "~/Scripts/moment.js"));
 
-            //bundles.Add(new ScriptBundle("~/bundles/iziModal").Include(
-            //            "~/Scripts/iziModal.min.js"));
-
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're
-            // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
@@ -37,15 +32,19 @@ namespace TextileResearchDevelopment
                       "~/Scripts/bootstrapValidator.min.js",
                       "~/Scripts/bootstrap-datetimepicker.min.js"));
 
-            //bundles.Add(new ScriptBundle("~/bundles/popper").Include(
-            //          "~/Scripts/popper.min.js"));
-
-            //bundles.Add(new ScriptBundle("~/bundles/mdb").Include(
-            //          "~/Scripts/mdb.min.js"));
+            bundles.Add(new ScriptBundle("~/bundles/fileExport").Include(
+                        "~/Scripts/dataTables.buttons.min.js",
+                        "~/Scripts/buttons.flash.min.js",
+                        "~/Scripts/jszip.min.js",
+                        "~/Scripts/pdfmake.min.js",
+                        "~/Scripts/vfs_fonts.js",
+                        "~/Scripts/buttons.html5.min.js",
+                        "~/Scripts/buttons.colVis.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/jquery.dataTables.min.css",
+                      "~/Content/buttons.dataTables.min.css",
                       "~/Content/select.dataTables.min.css",
                       "~/Content/bootstrapValidator.min.css",
                       "~/Content/site.css",

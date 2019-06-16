@@ -63,7 +63,7 @@ namespace TextileResearchDevelopment.BLL
                         Stenter.SerialNo = Convert.ToInt32(reader["SerialNo"]);
 
                         Stenter.WidthSet = Convert.ToInt32(reader["WidthSet"]);
-                        Stenter.OverFeed = Convert.ToInt32(reader["OverFeed"];
+                        Stenter.OverFeed = Convert.ToInt32(reader["OverFeed"]);
                         Stenter.Temp = Convert.ToDecimal(reader["Temp"]);
                         Stenter.Speed = Convert.ToInt32(reader["Speed"]);
                         Stenter.Peder = reader["Peder"].ToString();

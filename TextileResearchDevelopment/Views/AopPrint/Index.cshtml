@@ -5,7 +5,841 @@
     }
 }
 
+<head>
+    <style>
+        .btn {
+            padding: 10px 20px;
+            font-size: 15px;
+            border-radius: 5px;
+        }
+
+        tfoot input {
+            width: 100%;
+            padding: 3px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
 <div id="MainDiv" class="panel panel-default ">
-    <h2>Aop Print</h2>
+    <h2>Aop Print Entry Form</h2>
+
+    <ul id="MainContextMenu" class="dropdown-menu" role="menu" style="display:none">
+        <li><a tabindex="-1" href="#">Delete</a></li>
+        <li><a tabindex="-1" href="#">Approve</a></li>
+    </ul>
+
+    <div class="modal fade" id="modalPrintType" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Add Print Type</div>
+                                <div class="panel-body">
+                                    <form id="SoftenerForm">
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-12 form-inline">
+                                                <label for="PrintMD" class="control-label" style="width:35%;">Print Type</label>
+                                                <div style="display: inline;">
+                                                    <input type="text" class=" form-control" style="width:60%;" id="PrintMD" placeholder="Print Type" required autofocus>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-12 form-inline">
+                                                <button class="btn btn-warning btn-sm" style="width:30%;" disabled id="editPrintBtn">Update</button>
+                                                <button class="btn btn-danger btn-sm" style="width:30%;" disabled id="deletePrintBtn">Delete</button>
+                                                <div style="display: inline;">
+                                                    <button type="submit" id="savePrintBtn" class="btn btn-primary btn-sm" style="width:30%;">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <table id="PrintTable" class="stripe hover order-column" style="width: 100%">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Id</th>
+                                        <th>PrintType</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" id="resetSoftenerBtn" class="btn btn-info">Reset</button>
+                    <button type="submit" id="okaySoftenerBtn" class="btn btn-success">Okay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalStenterSelection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Select Stenter</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Searching Criteria</div>
+                                <div class="panel-body">
+                                    <div class=" form-group">
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <label for="BarCodeSL" class="control-label" style="width:35%;">BarCode</label>
+                                            <div style="display: inline;">
+                                                <input type="text" class="typeahead form-control" style="width:60%;" id="BarCodeSL" placeholder="Bar Code" autofocus>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <label for="BuyerSL" class="control-label" style="width:35%;">Buyer</label>
+                                            <div style=" display: inline;">
+                                                <select name="BuyerSL" id="BuyerSL" style="width:60%;" class="form-control input-sm" required autofocus></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <label for="FabricSL" class="control-label" style="width:35%;">Fabric</label>
+                                            <div style="display: inline;">
+                                                <select name="FabricSL" id="FabricSL" style="width:60%;" class="form-control" autofocus></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class=" form-group">
+                                        <div class="form-group col-xs-4 form-inline ">
+                                            <label for="OrderNoSL" class="control-label" style="width:35%;">Order No</label>
+                                            <div style="display: inline;">
+                                                <input type="text" class="typeahead form-control" style="width:60%;" id="OrderNoSL" placeholder="Order No" autofocus>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <label for="ColorSL" class="control-label" style="width:35%;">Color</label>
+                                            <div style="display: inline;">
+                                                <input type="text" class="typeahead form-control" style="width:60%;" id="ColorSL" placeholder="Color" autofocus>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <label for="ChallanSL" class="control-label" style="width:35%;">Challan No</label>
+                                            <div style="display: inline;">
+                                                <input type="text" class="typeahead form-control" style="width:60%;" id="ChallanSL" placeholder="Challan No" autofocus>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class=" form-group">
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <input type="checkbox" id="DeliveryDateCheckBox" style="width:5%;">
+                                            <label for="DeliveryDateSL" class="control-label" style="width:30%;">Delivery Date</label>
+                                            <div class='input-group date' id='DeliveryDateSL' style="width:60%;">
+                                                <input type='text' class="form-control" id="DeliveryDateTextSL" disabled placeholder="Delivey Date" autofocus />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <input type="checkbox" id="FabricOrderDateCheckBox" style="width:5%;">
+                                            <label for="FabricOrderDateSL" class="control-label" style="width:30%;">Fabric Order Date</label>
+                                            <div class='input-group date' id='FabricOrderDateSL' style="width:60%;">
+                                                <input type='text' class="form-control" id="FabricOrderDateTextSL" disabled placeholder="Fabric Order Date" autofocus />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <input type="checkbox" id="KnitOrderDateCheckBox" style="width:5%;">
+                                            <label for="KnitOrderDateSL" class="control-label" style="width:30%;">Knit Order Date</label>
+                                            <div class='input-group date' id='KnitOrderDateSL' style="width:60%;">
+                                                <input type='text' class="form-control" id="KnitOrderDateTextSL" disabled placeholder="Knit Order Date" autofocus />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class=" form-group">
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <label for="DiaGaugeSL" class="control-label" style="width:35%;">Dia-Guage</label>
+                                            <div style="display: inline;">
+                                                <select name="DiaGaugeSL" id="DiaGaugeSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <label for="YarnCountSL" class="control-label" style="width:35%;">Yarn Count</label>
+                                            <div style="display: inline;">
+                                                <select name="YarnCountSL" id="YarnCountSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <label for="YarnBrandSL" class="control-label" style="width:35%;">Yarn Brand</label>
+                                            <div style="display: inline;">
+                                                <input type="text" class="typeahead form-control input-sm" style="width:60%;" id="YarnBrandSL" placeholder="Yarn Brand" autofocus>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class=" form-group">
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <label for="YarnLotSL" class="control-label" style="width:35%;">Yarn Lot</label>
+                                            <div style="display: inline;">
+                                                <input type="text" class="typeahead form-control" style="width:60%;" id="YarnLotSL" name="YarnLotSL" placeholder="Yarn Lot">
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <label for="GreyWidthSL" class="control-label" style="width:35%;">Grey Width</label>
+                                            <div style="display: inline;">
+                                                <input type="number" class="form-control" style="width:60%;" id="GreyWidthSL" min="0" step="1" data-bind="value:GreyWidth" placeholder="Grey Width" autofocus>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <label for="GreyGSMSL" class="control-label" style="width:35%;">Grey GSM</label>
+                                            <div style="display: inline;">
+                                                <input type="number" class="form-control" style="width:60%;" id="GreyGSMSL" min="0" step="1" data-bind="value:GreyGSM" placeholder="Grey GSM" autofocus>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class=" form-group">
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <label for="KnitUnitSL" class="control-label" style="width:35%;">Knit Unit</label>
+                                            <div style="display: inline;">
+                                                <select name="KnitUnitSL" id="KnitUnitSL" style="width:60%;" class="form-control" autofocus></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <label for="BrandSL" class="control-label" style="width:35%;">MC Brand</label>
+                                            <div style="display: inline;">
+                                                <select name="BrandSL" id="BrandSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <label for="DyeingUnitSL" class="control-label" style="width:35%;">DyeingUnit</label>
+                                            <div style="display: inline;">
+                                                <select name="DyeingUnitSL" id="DyeingUnitSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class=" form-group">
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <label for="BatchNoSL" class="control-label" style="width:35%;">Batch No</label>
+                                            <div style="display: inline;">
+                                                <select name="BatchNoSL" id="BatchNoSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <button class="btn btn-warning btn-sm" style="width:35%;" id="resetDyeingBtn">Reset</button>
+                                            <div style="display: inline;">
+                                                <button type="submit" id="searchDyeingBtn" class="btn btn-primary btn-sm" style="width:60%;">Search</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <table id="StenterSelectionTable" class="stripe hover order-column" style="width: 100%">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Id</th>
+                                        <th>DyeingID</th>
+                                        <th>DyeingUnitID</th>
+                                        <th>BarCode</th>
+                                        <th>Buyer Name</th>
+                                        <th>Fabric Type</th>
+                                        <th>Order No</th>
+                                        <th>Color</th>
+                                        <th>Dia Guage</th>
+                                        <th>Yarn Count</th>
+                                        <th>Yarn Brand</th>
+                                        <th>Yarn Lot</th>
+                                        <th>Knit Unit</th>
+                                        <th>Grey Width</th>
+                                        <th>Grey GSM</th>
+                                        <th>Mc Brand</th>
+                                        <th>Dyeing Unit</th>
+                                        <th>Batch No</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit" id="okayBtn" class="btn btn-success">Okay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-left">
+        <button href="" id="StenterSelection" class="btn-info sm-4" data-toggle="modal" data-target="#modalStenterSelection">
+            Select Stenter
+        </button>
+    </div>
+
+    <input type="checkbox" id="hidden" value="option1" style="display:none;">
+
+    <div class="panel panel-default ">
+        <div class="panel-heading">
+            <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Create AOP Order</h5>
+        </div>
+        <div class="panel-body">
+            <form id="AopForm">
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="BarCode" class="control-label" style="width:35%;">BarCode</label>
+                        <div style=" display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="BarCode" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="OrderNo" class="control-label" style="width:35%;">Order No</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="OrderNo" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Color" class="control-label" style="width:35%;">Color</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="Color" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="FabricName" class="control-label" style="width:35%;">Fabric Type</label>
+                        <div style=" display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="FabricName" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="BuyerName" class="control-label" style="width:35%;">Buyer Name</label>
+                        <div style=" display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="BuyerName" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="DiaGauge" class="control-label" style="width:35%;">MC Dia-Guage</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="DiaGauge" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="YarnCount" class="control-label" style="width:35%;">Yarn Count</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="YarnCount" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="YarnBrand" class="control-label" style="width:35%;">Yarn Brand</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="YarnBrand" autofocus readonly>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Yarn Lot" class="control-label" style="width:35%;">Yarn Lot</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="YarnLot" name="YarnLot" autofocus readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="KnitUnit" class="control-label" style="width:35%;">Knit Unit</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="KnitUnit" autofocus readonly>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Brand" class="control-label" style="width:35%;">MC Brand</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="Brand" autofocus readonly>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="GreyWidth" class="control-label" style="width:35%;">Grey Width</label>
+                        <div style="display: inline;">
+                            <input type="number" class="form-control" style="width:60%;" id="GreyWidth" min="0" step="1" autofocus readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="GreyGSM" class="control-label" style="width:35%;">Grey GSM</label>
+                        <div style="display: inline;">
+                            <input type="number" class="form-control" style="width:60%;" id="GreyGSM" min="0" step="1" data-bind="value:GreyGSM" placeholder="Grey GSM" autofocus readonly>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="DyeingUnit" class="control-label" style="width:35%;">Dyeing Unit</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="DyeingUnit" autofocus readonly>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="BatchNo" class="control-label" style="width:35%;">Batch No</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="BatchNo" placeholder="Batch No" autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="SoftenerName" class="control-label" style="width:35%;">Softener Name</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="SoftenerName" placeholder="Softener Name" autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="PrintType" class="control-label" style="width:35%;">Print Type</label>
+                        <div style="display: inline;">
+                            <input type="number" class="form-control" style="width:60%;" id="PrintType" min="0" step="1" data-bind="value:PrintType" placeholder="Print Type" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="MachineType" class="control-label" style="width:35%;">Machine Type</label>
+                        <div style="display: inline;">
+                            <input type="number" class="form-control" style="width:60%;" id="MachineType" min="0" step="1" data-bind="value:MachineType" placeholder="Machine Type" required autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <button class="btn btn-warning btn-sm" style="width:25%;" id="resetBtn">Reset</button>
+                        <div style="display: inline;">
+                            <input type="submit" value="Save" class="btn btn-success btn-sm" style="width:22%;" id="saveBtn">
+                        </div>
+                        <div style="display: inline;">
+                            <input type="submit" value="Revise" class="btn btn-info btn-sm" disabled="disabled" style="width:23%;" id="reviseBtn">
+                        </div>
+                        <div style="display: inline;">
+                            <input type="submit" value="Update" class="btn btn-primary btn-sm" disabled="disabled" style="width:23%;" id="updateBtn">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <table id="AopTable" class="stripe hover order-column " style="width: 1000px;">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Id</th>
+                <th>StenterID</th>
+                <th>PrintTypeID</th>
+                <th>MachineTypeID</th>
+                <th>BarCode</th>
+                <th>BuyerName</th>
+                <th>FabricType</th>
+                <th>OrderNo</th>
+                <th>Color</th>
+                <th>DiaGuage</th>
+                <th>YarnCount</th>
+                <th>YarnBrand</th>
+                <th>YarnLot</th>
+                <th>KnitUnit</th>
+                <th>GreyWidth</th>
+                <th>GreyGSM</th>
+                <th>McBrand</th>
+                <th>DyeingUnit</th>
+                <th>BatchNo</th>
+                <th>SoftenerName</th>
+                <th>PrintType</th>
+                <th>MachineType/th>
+                <th>Revise</th>
+                <th>CreateTime</th>
+                <th>CreateBy</th>
+                <th>UpdateTime</th>
+                <th>UpdateBy</th>
+                <th>ApprovedTime</th>
+                <th>ApprovedBy</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th style="visibility:hidden;"></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>BarCode</th>
+                <th>BuyerName</th>
+                <th>FabricType</th>
+                <th>OrderNo</th>
+                <th>Color</th>
+                <th>DiaGuage</th>
+                <th>YarnCount</th>
+                <th>YarnBrand</th>
+                <th>YarnLot</th>
+                <th>KnitUnit</th>
+                <th>GreyWidth</th>
+                <th>GreyGSM</th>
+                <th>McBrand</th>
+                <th>DyeingUnit</th>
+                <th>BatchNo</th>
+                <th>SoftenerName</th>
+                <th>PrintType</th>
+                <th>MachineType/th>
+                <th>Revise</th>
+                <th>CreateTime</th>
+                <th>CreateBy</th>
+                <th>UpdateTime</th>
+                <th>UpdateBy</th>
+                <th>ApprovedTime</th>
+                <th>ApprovedBy</th>
+            </tr>
+        </tfoot>
+    </table>
+
 </div>
+
+<script>
+
+    $(document).ready(function () {
+
+        debugger;
+        var selectedAopRowId = 0; var selectedStenterId = 0;
+        var StenterSelectionTable = $('#StenterSelectionTable').DataTable();
+        var PrintTypeTable = $('#PrintTypeTable').DataTable();
+        var MachineTypeTable = $('#MachineTypeTable').DataTable();
+
+        (function ($, window) {
+
+            $.fn.contextMenu = function (settings) {
+
+                return this.each(function () {
+
+                    // Open context menu
+                    $(this).on("contextmenu", function (e) {
+                        // return native menu if pressing control
+                        if (e.ctrlKey) return;
+
+                        if ($('#DyeingTable tbody tr').hasClass('selected') == false) return;
+
+                        //open menu
+                        var $menu = $(settings.menuSelector)
+                            .data("invokedOn", $(e.target))
+                            .show()
+                            .css({
+                                position: "absolute",
+                                left: getMenuPosition(e.clientX, 'width', 'scrollLeft'),
+                                top: getMenuPosition(e.clientY, 'height', 'scrollTop')
+                            })
+                            .off('click')
+                            .on('click', 'a', function (e) {
+                                $menu.hide();
+
+                                var $invokedOn = $menu.data("invokedOn");
+                                var $selectedMenu = $(e.target);
+
+                                settings.menuSelected.call(this, $invokedOn, $selectedMenu);
+                            });
+
+                        return false;
+                    });
+
+                    //make sure menu closes on any click
+                    $('body').click(function () {
+                        $(settings.menuSelector).hide();
+                    });
+                });
+
+                function getMenuPosition(mouse, direction, scrollDir) {
+                    var win = $(window)[direction](),
+                        scroll = $(window)[scrollDir](),
+                        menu = $(settings.menuSelector)[direction](),
+                        position = mouse + scroll;
+
+                    // opening menu would pass the side of the page
+                    if (mouse + menu > win && menu < mouse)
+                        position -= menu;
+
+                    return position;
+                }
+
+            };
+        })(jQuery, window);
+
+        //$('#DeliveryDateSL, #FabricOrderDateSL, #KnitOrderDateSL').datetimepicker({
+        //    defaultDate: new Date(),
+        //    format: 'DD/MM/YYYY'
+        //});
+
+        $('#modalPrintType').on('shown.bs.modal', function () {
+            PrintTypeTable.columns.adjust();
+        });
+
+        $('#modalMachineType').on('shown.bs.modal', function () {
+            MachineTypeTable.columns.adjust();
+        });
+
+        //loadPrintTypeList();
+
+        function loadPrintTypeList() {
+
+            $.ajax({
+                type: "GET",
+                url: "/Aop/GetPrintType",
+                data: "{}",
+                success: function (data) {
+                    var s = '<option value="">Select Print</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].PrintType + '</option>';
+                    }
+                    $("#PrintType").html(s);
+                    loadMachineTypeList();
+                }
+            });
+
+        }
+
+        function loadMachineTypeList() {
+
+            $.ajax({
+                type: "GET",
+                url: "/Aop/GetMachineType",
+                data: "{}",
+                success: function (data) {
+                    var s = '<option value="">Select Machine</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].MachineType + '</option>';
+                    }
+                    $("#MachineType").html(s);
+                    loadDyeingUnitList();
+                }
+            });
+
+        }
+
+        function loadDyeingUnitList() {
+            $.ajax({
+                type: "GET",
+                url: "/Dyeing/GetDyeingUnit",
+                data: "{}",
+                success: function (data) {
+                    var s = '<option value="">Select Dyeing</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].DyeingUnit + '</option>';
+                    }
+                    $("#DyeingUnit").html(s);
+                    loadBuyerList();
+                }
+            });
+        }
+
+        function loadBuyerList() {
+            $.ajax({
+                type: "GET",
+                url: "/Fabric/GetBuyerList",
+                data: "{}",
+                success: function (data) {
+                    var s = '<option value="">Select Buyer</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].BuyerName + '</option>';
+                    }
+                    $("#BuyerSL").html(s);
+                    loadFabricTypeList();
+                }
+            });
+        }
+
+        function loadFabricTypeList() {
+            $.ajax({
+                type: "GET",
+                url: "/Fabric/GetFabricTypeList",
+                data: "{}",
+                success: function (data) {
+                    var s = '<option value="">Select Fabric</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].FabricTypeName + '</option>';
+                    }
+                    $("#FabricSL").html(s);
+                    loadMCDIAList();
+                }
+            });
+        }
+
+        function loadMCDIAList() {
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetMCDIAList",
+                data: "{}",
+                success: function (data) {
+                    var s = '<option value="">Select DiaGauge</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].McDiaGauge + '</option>';
+                    }
+                    $("#DiaGaugeSL").html(s);
+                    loadYarnCountList();
+                }
+            });
+        }
+
+        function loadYarnCountList() {
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetYarnCountList",
+                data: "{}",
+                success: function (data) {
+                    var s = '<option value="">Select Yarn Count</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].YarnCount + '</option>';
+                    }
+                    $("#YarnCountSL").html(s);
+                    loadKnitUnitList();
+                }
+            });
+        }
+
+        function loadKnitUnitList() {
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetKnitUnitList",
+                data: "{}",
+                success: function (data) {
+                    var s = '<option value="">Select KnitUnit</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].KnitUnit + '</option>';
+                    }
+                    $("#KnitUnitSL").html(s);
+                    loadMcBrandList();
+                }
+            });
+        }
+
+        function loadMcBrandList() {
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetMcBrandList",
+                data: "{}",
+                success: function (data) {
+                    var s = '<option value="">Select McBrand</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].McBrand + '</option>';
+                    }
+                    $("#BrandSL").html(s);
+                }
+            });
+        }
+
+        var AopTable = $('#AopTable').DataTable({
+            "ajax":
+            {
+                "url": "/AopPrint/GetData",
+                "type": "GET",
+                "dataType": "JSON"
+            },
+            "scrollY": true,
+            "scrollX": true,
+            "Sorting": true,
+            "searching": true,
+            "destroy": true,
+            "select": {
+                style: 'single'
+            },
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "searchable": false,
+                    "orderable": false,
+                },
+                {
+                    "targets": [1, 2, 3, 4],
+                    "visible": false,
+                    "searchable": false
+                }
+
+            ],
+
+            "columns": [
+                {
+                    "searchable": false,
+                    "render": function (data, type, full, meta) {
+                        return AopTable.data().count();
+                    }
+                },
+                { "data": "Id" },
+                { "data": "StenterID" },
+                { "data": "PrintTypeID" },
+                { "data": "MachineTypeID" },
+                { "data": "BarCode" },
+                { "data": "BuyerName" },
+                { "data": "FabricName" },
+                { "data": "OrderNo" },
+                { "data": "Color" },
+                { "data": "McDiaGauge" },
+                { "data": "YarnCount" },
+                { "data": "YarnBrand" },
+                { "data": "YarnLot" },
+                { "data": "KnitUnit" },
+                { "data": "GreyWidth" },
+                { "data": "GreyGSM" },
+                { "data": "McBrand" },
+                { "data": "DyeingUnit" },
+                { "data": "BatchNo" },
+                { "data": "SoftenerName" },
+                { "data": "PrintType" },
+                { "data": "MachineType" },
+                { "data": "ReviseStatus" },
+                {
+                    data: "CreateTime",
+                    render: function (data, type, row) {
+                        return moment(data).format("DD/MM/YYYY h:mm a");
+                    }
+                },
+                { "data": "CreateByName" },
+                {
+                    data: "UpdateTime",
+                    render: function (data, type, row) {
+                        if (data != null)
+                            return moment(data).format("DD/MM/YYYY h:mm a");
+                        else
+                            return "N/A"
+                    }
+                },
+                {
+                    "data": "UpdateByName",
+                    render: function (data, type, row) {
+                        if (data != "")
+                            return data;
+                        else
+                            return "N/A"
+                    }
+                },
+                {
+                    data: "ApprovedTime",
+                    render: function (data, type, row) {
+                        if (data != null)
+                            return moment(data).format("DD/MM/YYYY h:mm a");
+                        else
+                            return "N/A"
+                    }
+                },
+                {
+                    "data": "ApprovedByName",
+                    render: function (data, type, row) {
+                        if (data != "")
+                            return data;
+                        else
+                            return "N/A"
+                    }
+                }
+            ]
+        });
+
+    });
+
+</script>
 

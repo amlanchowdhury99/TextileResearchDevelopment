@@ -76,4 +76,17 @@ namespace TextileResearchDevelopment.Models
         public string Softener { get; set; }
     }
 
+    public class PrintType
+    {
+        public int Id { get; set; }
+        public string PrintName { get; set; }
+    }
+
+    public class MachineType
+    {
+        public int Id { get; set; }
+        public string MachineName { get; set; }
+    }
+
+
 }

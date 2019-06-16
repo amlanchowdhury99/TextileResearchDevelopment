@@ -21,6 +21,25 @@ namespace TextileResearchDevelopment.Controllers
         }
 
         [HttpGet]
+        public JsonResult GetData()
+        {
+            JsonResult result = new JsonResult();
+            List<Dyeing> data = new List<Dyeing>();
+
+            try
+            {
+                data = DyeingBLL.GetList();
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
+
+            return Json(new { data = data }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpGet]
         public JsonResult GetDyeingUnit()
         {
             JsonResult result = new JsonResult();
@@ -204,25 +223,6 @@ namespace TextileResearchDevelopment.Controllers
             }
 
             return Json(data, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public JsonResult GetData()
-        {
-            JsonResult result = new JsonResult();
-            List<Dyeing> data = new List<Dyeing>();
-
-            try
-            {
-                data = DyeingBLL.GetList();
-            }
-            catch (Exception ex)
-            {
-                Console.Write(ex);
-            }
-
-            return Json(new { data = data }, JsonRequestBehavior.AllowGet);
-
         }
 
         public ActionResult BarCodeAuthorization(int BarCode)
