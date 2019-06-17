@@ -10,10 +10,6 @@ namespace TextileResearchDevelopment.Controllers
 {
     public class AopPrintController : Controller
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
 
         public ActionResult Edit(int id)
         {
@@ -228,6 +224,7 @@ namespace TextileResearchDevelopment.Controllers
             return Json("Failed", JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         public JsonResult StenterSearch(Stenter stenterSearchObj)
         {
 
@@ -244,6 +241,7 @@ namespace TextileResearchDevelopment.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         public ActionResult BarCodeAuthorization(int BarCode)
         {
             Boolean Result = false;

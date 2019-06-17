@@ -168,7 +168,7 @@ namespace TextileResearchDevelopment.BLL
                     {
                         while (reader.Read())
                         {
-                            dyeing.Id = Id = Convert.ToInt32(reader["KnitId"]);
+                            dyeing.Id = Id = Convert.ToInt32(reader["Id"]);
                             dyeing.BuyerName = reader["BuyerName"].ToString();
                             dyeing.FabricName = reader["FabricName"].ToString();
                             dyeing.OrderNo = reader["OrderNo"].ToString();
@@ -240,7 +240,7 @@ namespace TextileResearchDevelopment.BLL
                     {
                         while (reader.Read())
                         {
-                            dyeing.Id = Id = Convert.ToInt32(reader["KnitId"]);
+                            dyeing.Id = Id = Convert.ToInt32(reader["Id"]);
                             dyeing.BuyerName = reader["BuyerName"].ToString();
                             dyeing.FabricName = reader["FabricName"].ToString();
                             dyeing.OrderNo = reader["OrderNo"].ToString();
@@ -312,7 +312,7 @@ namespace TextileResearchDevelopment.BLL
                     {
                         while (reader.Read())
                         {
-                            dyeing.Id = Id = Convert.ToInt32(reader["KnitId"]);
+                            dyeing.Id = Id = Convert.ToInt32(reader["Id"]);
                             dyeing.BuyerName = reader["BuyerName"].ToString();
                             dyeing.FabricName = reader["FabricName"].ToString();
                             dyeing.OrderNo = reader["OrderNo"].ToString();
@@ -484,32 +484,32 @@ namespace TextileResearchDevelopment.BLL
                     {
                         while (reader.Read())
                         {
-                            Knitting dyeing = new Knitting();
-                            dyeing.Id = Convert.ToInt32(reader["KnitId"]);
-                            dyeing.FabricID = Convert.ToInt32(reader["FabricID"]);
-                            dyeing.BarCode = reader["BarCode"].ToString();
-                            dyeing.BuyerName = reader["BuyerName"].ToString();
-                            dyeing.FabricName = reader["FabricName"].ToString();
-                            dyeing.OrderNo = reader["OrderNo"].ToString();
-                            dyeing.Color = reader["Color"].ToString();
-                            dyeing.ChallanNo = reader["ChallanNo"].ToString();
+                            Knitting knitting = new Knitting();
+                            knitting.Id = Convert.ToInt32(reader["KnitId"]);
+                            knitting.FabricID = Convert.ToInt32(reader["FabricID"]);
+                            knitting.BarCode = reader["BarCode"].ToString();
+                            knitting.BuyerName = reader["BuyerName"].ToString();
+                            knitting.FabricName = reader["FabricName"].ToString();
+                            knitting.OrderNo = reader["OrderNo"].ToString();
+                            knitting.Color = reader["Color"].ToString();
+                            knitting.ChallanNo = reader["ChallanNo"].ToString();
 
-                            dyeing.McDiaGauge = reader["McDiaGauge"].ToString();
-                            dyeing.YarnCount = reader["YarnCount"].ToString();
-                            dyeing.YarnBrand = reader["YarnBrand"].ToString();
-                            dyeing.YarnLot = reader["YarnLot"].ToString();
-                            dyeing.StitchLength = Convert.ToDecimal(reader["StitchLength"]);
-                            dyeing.KnitUnit = reader["KnitUnit"].ToString();
-                            dyeing.MCNO = Convert.ToInt32(reader["MCNO"]);
-                            dyeing.MCRPM = Convert.ToInt32(reader["MCRPM"]);
-                            dyeing.GreyWidth = Convert.ToDecimal(reader["GreyWidth"]);
-                            dyeing.GreyGSM = Convert.ToDecimal(reader["GreyGSM"]);
-                            dyeing.TumbleWidth = Convert.ToDecimal(reader["TumbleWidth"]);
-                            dyeing.TumbleGSM = Convert.ToDecimal(reader["TumbleGSM"]);
-                            dyeing.McBrand = reader["McBrand"].ToString();
-                            dyeing.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
+                            knitting.McDiaGauge = reader["McDiaGauge"].ToString();
+                            knitting.YarnCount = reader["YarnCount"].ToString();
+                            knitting.YarnBrand = reader["YarnBrand"].ToString();
+                            knitting.YarnLot = reader["YarnLot"].ToString();
+                            knitting.StitchLength = Convert.ToDecimal(reader["StitchLength"]);
+                            knitting.KnitUnit = reader["KnitUnit"].ToString();
+                            knitting.MCNO = Convert.ToInt32(reader["MCNO"]);
+                            knitting.MCRPM = Convert.ToInt32(reader["MCRPM"]);
+                            knitting.GreyWidth = Convert.ToDecimal(reader["GreyWidth"]);
+                            knitting.GreyGSM = Convert.ToDecimal(reader["GreyGSM"]);
+                            knitting.TumbleWidth = Convert.ToDecimal(reader["TumbleWidth"]);
+                            knitting.TumbleGSM = Convert.ToDecimal(reader["TumbleGSM"]);
+                            knitting.McBrand = reader["McBrand"].ToString();
+                            knitting.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
 
-                            knittings.Add(dyeing);
+                            knittings.Add(knitting);
                         }
                     }
                 }

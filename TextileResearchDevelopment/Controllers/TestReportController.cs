@@ -10,82 +10,222 @@ namespace TextileResearchDevelopment.Controllers
 {
     public class TestReportController : Controller
     {
-        // GET: TestReport
-        public ActionResult Index()
+        [HttpGet]
+        public JsonResult GetData()
         {
-            return View();
-        }
+            JsonResult result = new JsonResult();
+            List<TestReport> data = new List<TestReport>();
 
-        // GET: TestReport/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: TestReport/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: TestReport/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
             try
             {
-                // TODO: Add insert logic here
+                data = TestBLL.GetList();
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
 
-                return RedirectToAction("Index");
+            return Json(new { data = data }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpPost]
+        public ActionResult Create(TestReport test)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (test.Id == 0)
+                {
+                    int Id = TestBLL.AddTest(test);
+                    if (Id > 0)
+                    {
+                        test.Id = Id;
+                        Result = true;
+                    }
+                    else
+                    {
+                        Result = false;
+                    }
+                }
+
+                if (Result)
+                {
+                    return Json(new { data = test }, JsonRequestBehavior.AllowGet);
+                }
             }
             catch
             {
                 return View();
             }
+
+            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: TestReport/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: TestReport/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(TestReport test)
         {
+            Boolean Result = false;
             try
             {
-                // TODO: Add update logic here
+                if (test.Id > 0)
+                {
+                    int Id = TestBLL.EditTest(test);
+                    if (Id > 0)
+                    {
+                        Result = true;
+                    }
+                    else
+                    {
+                        Result = false;
+                    }
+                }
 
-                return RedirectToAction("Index");
+                if (Result)
+                {
+                    return Json(new { data = test }, JsonRequestBehavior.AllowGet);
+                }
             }
             catch
             {
                 return View();
             }
+
+            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: TestReport/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: TestReport/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Approve(TestReport test)
         {
+            Boolean Result = false;
             try
             {
-                // TODO: Add delete logic here
+                if (test.Id > 0)
+                {
+                    int Id = TestBLL.ApproveTest(test);
+                    if (Id > 0)
+                    {
+                        Result = true;
+                    }
+                    else
+                    {
+                        Result = false;
+                    }
+                }
 
-                return RedirectToAction("Index");
+                if (Result)
+                {
+                    return Json(new { data = test }, JsonRequestBehavior.AllowGet);
+                }
             }
             catch
             {
                 return View();
             }
+
+            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult Revise(TestReport test)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (test.Id > 0)
+                {
+                    int Id = TestBLL.ReviseTest(test);
+                    if (Id > 0)
+                    {
+                        Result = true;
+                    }
+                    else
+                    {
+                        Result = false;
+                    }
+                }
+
+                if (Result)
+                {
+                    return Json(new { data = test }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return View();
+            }
+
+            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int Id)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (Id > 0)
+                {
+                    Result = TestBLL.DeleteTest(Id);
+                }
+
+                if (Result)
+                {
+                    return Json("Success", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("Failed", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult AopSearch(Aop aopSearchObj)
+        {
+
+            List<Aop> data = new List<Aop>();
+            try
+            {
+                data = TestBLL.AopSearch(aopSearchObj);
+            }
+            catch (Exception ex)
+            {
+                data = new List<Aop>();
+            }
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult BarCodeAuthorization(int BarCode)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (BarCode > 0)
+                {
+                    Result = TestBLL.BarCodeAuthorization(BarCode);
+                }
+                if (BarCode == 0)
+                {
+                    Result = true;
+                }
+
+                if (Result)
+                {
+                    return Json("true", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("false", JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

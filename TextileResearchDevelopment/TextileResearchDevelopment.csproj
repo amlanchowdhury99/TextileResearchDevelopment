@@ -132,6 +132,7 @@
     <Compile Include="BLL\FabricBLL.cs" />
     <Compile Include="BLL\KnittingBLL.cs" />
     <Compile Include="BLL\StenterBLL.cs" />
+    <Compile Include="BLL\TestBLL.cs" />
     <Compile Include="BLL\UserBLL.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AopPrintController.cs" />
@@ -156,7 +157,6 @@
     <Compile Include="Models\Members.cs" />
     <Compile Include="Models\Remarks.cs" />
     <Compile Include="Models\Stenter.cs" />
-    <Compile Include="Models\Test.cs" />
     <Compile Include="Models\TestReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

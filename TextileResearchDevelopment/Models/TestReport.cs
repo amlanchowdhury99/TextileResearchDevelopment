@@ -88,10 +88,10 @@ namespace TextileResearchDevelopment.Models
         public DateTime CreateTime { get; set; }
 
 
-        public int FinalWidth { get; set; }
-        public int FinalGSM { get; set; }
-        public int TWidth { get; set; }
-        public int TGSM { get; set; }
+        public decimal FinalWidth { get; set; }
+        public decimal FinalGSM { get; set; }
+        public decimal TLength { get; set; }
+        public decimal TWidth { get; set; }
         public decimal TSP { get; set; }
 
 
