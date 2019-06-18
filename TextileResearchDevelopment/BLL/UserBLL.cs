@@ -89,6 +89,39 @@ namespace TextileResearchDevelopment.BLL
             return Id;
         }
 
+        internal static string GetUserAccess(string UserName)
+        {
+            string PermissionString = "";
+            try
+            {
+                string query = "SELECT PermissionString FROM UserInfo WHERE UserName = '" + UserName + "'";
+                SqlDataReader reader = DBGateway.GetFromDB(query);
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        PermissionString = reader["PermissionString"].ToString();
+                    }
+                }
+                else
+                {
+                    PermissionString = "";
+                }
+            }
+            catch (Exception ex)
+            {
+                return PermissionString;
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+            return PermissionString;
+        }
+
         internal static Boolean DeleteUser(int Id)
         {
             try

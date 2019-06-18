@@ -26,7 +26,7 @@
             </div>
             <div id="ActionLinkBar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>
+                    @*<li>
                         @Ajax.ActionLink("Fabric", "Index", "Fabric", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
                     </li>
                     <li>
@@ -52,7 +52,7 @@
                     </li>
                     <li>
                         @Ajax.ActionLink("UserManagement", "Index", "UserManagement", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })
-                    </li>
+                    </li>*@
                 </ul>
                 <p>
                     <p id="SignOutUserName" style="color:white; display:none"></p>
@@ -83,10 +83,73 @@
 
         debugger;
 
+        GetUserAccess();
+
+        function GetUserAccess() {
+
+            $.ajax({
+                url: "/Home/GetUserAccess",
+                type: 'GET',
+                dataType: "json",
+                success: function (result) {
+                    if (result != null && result != "")
+                    {
+                        var result = result.split(',');
+                        for (let i = 0; i < result.length; i++)
+                        {
+                            if (parseInt(result[i]) == 1)
+                            {
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Fabric", "Index", "Fabric", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                            }
+                            if (parseInt(result[i]) == 2)
+                            {
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Knitting", "Index", "Knitting", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                            }
+                            if (parseInt(result[i]) == 3)
+                            {
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Dyeing", "Index", "Dyeing", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                            }
+                            if (parseInt(result[i]) == 4)
+                            {
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Slitting", "Index", "Slitting", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                            }
+                            if (parseInt(result[i]) == 5)
+                            {
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Stenter", "Index", "Stenter", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                            }
+                            if (parseInt(result[i]) == 6)
+                            {
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Aop-Print", "Index", "AopPrint", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                            }
+                            if (parseInt(result[i]) == 7)
+                            {
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Test-Report", "Index", "TestReport", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                            }
+                            if (parseInt(result[i]) == 8)
+                            {
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Remarks", "Index", "Remarks", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                            }
+                        }
+                    }
+                    else
+                    {
+                        alert("Connection Problem!");
+                        signout();
+                    }
+                }
+            });
+
+        }
+
+
         @*$("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Fabric", "Index", "Fabric", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');*@
 
         $('#SignOutBtn').click(function (){
+            signout();
+        });
 
+        function signout()
+        {
             $.ajax({
                 url: "/Home/LogOut",
                 type: 'GET',
@@ -103,8 +166,7 @@
                     }
                 }
             });
-
-        });
+        }
 
     });
 

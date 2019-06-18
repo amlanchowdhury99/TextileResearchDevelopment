@@ -73,11 +73,26 @@ namespace TextileResearchDevelopment.Controllers
             }
         }
 
-        public ActionResult About()
+        [HttpGet]
+        public JsonResult GetUserAccess()
         {
-            ViewBag.Message = "Your application description page.";
+            string UserName = ""; string AccessCode = "";
 
-            return View();
+            try
+            {
+                if (Session[System.Web.HttpContext.Current.Session.SessionID] != null)
+                {
+                    UserName = Session[System.Web.HttpContext.Current.Session.SessionID].ToString();
+                    AccessCode = UserBLL.GetUserAccess(UserName);
+                }
+            }
+
+            catch
+            {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(AccessCode, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Contact()

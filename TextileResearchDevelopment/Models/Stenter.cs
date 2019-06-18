@@ -31,6 +31,7 @@ namespace TextileResearchDevelopment.Models
         public int YarnCountID { get; set; }
         public int McBrandID { get; set; }
         public int KnitUnitID { get; set; }
+        public int DyeingID { get; set; }
         public int DyeingUnitID { get; set; }
 
         public int SoftenerID { get; set; }
@@ -75,16 +76,16 @@ namespace TextileResearchDevelopment.Models
         public int BatchQty { get; set; }
         public int SerialNo { get; set; }
 
-        public int WidthSet { get; set; }
-        public int OverFeed { get; set; }
+        public decimal WidthSet { get; set; }
+        public decimal OverFeed { get; set; }
         public decimal Temp { get; set; }
-        public int Speed { get; set; }
+        public decimal Speed { get; set; }
         public string Peder { get; set; }
-        public int Blower { get; set; }
+        public decimal Blower { get; set; }
         public string SoftenerName { get; set; }
-        public string SoftenerGL { get; set; }
-        public int DIA { get; set; }
-        public int GSM { get; set; }
+        public decimal SoftenerGL { get; set; }
+        public decimal DIA { get; set; }
+        public decimal GSM { get; set; }
 
 
         public DateTime CreateTime { get; set; }

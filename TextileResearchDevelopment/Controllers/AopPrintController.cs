@@ -10,8 +10,7 @@ namespace TextileResearchDevelopment.Controllers
 {
     public class AopPrintController : Controller
     {
-
-        public ActionResult Edit(int id)
+        public ActionResult Index()
         {
             return View();
         }
@@ -33,42 +32,6 @@ namespace TextileResearchDevelopment.Controllers
 
             return Json(new { data = data }, JsonRequestBehavior.AllowGet);
 
-        }
-
-        [HttpGet]
-        public JsonResult GetPrintUnit()
-        {
-            JsonResult result = new JsonResult();
-            List<PrintType> PrintTypes = new List<PrintType>();
-
-            try
-            {
-                PrintTypes = AopBLL.GetPrintUnit();
-            }
-            catch (Exception ex)
-            {
-                PrintTypes = new List<PrintType>();
-            }
-
-            return Json(PrintTypes, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public JsonResult GetMachineUnit()
-        {
-            JsonResult result = new JsonResult();
-            List<MachineType> MachineTypes = new List<MachineType>();
-
-            try
-            {
-                MachineTypes = AopBLL.GetMachineUnit();
-            }
-            catch (Exception ex)
-            {
-                MachineTypes = new List<MachineType>();
-            }
-
-            return Json(MachineTypes, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -362,7 +325,7 @@ namespace TextileResearchDevelopment.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddMachineType(PrintType machineType)
+        public ActionResult AddMachineType(MachineType machineType)
         {
             Boolean Result = false;
             try

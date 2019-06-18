@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -442,19 +443,277 @@ namespace TextileResearchDevelopment.BLL
             return Id;
         }
 
-        internal static bool DeleteTest(int id)
+        internal static bool DeleteTest(int Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string query = "DELETE FROM Test WHERE Id = " + Id + " AND ApprovedBy = 0";
+                if (DBGateway.ExecutionToDB(query, 1))
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+            return false;
         }
 
         internal static List<Aop> AopSearch(Aop aopSearchObj)
         {
-            throw new NotImplementedException();
+            aops = new List<Aop>();
+            SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader; cm.Connection = cn; cn.Open();
+            try
+            {
+                aops = new List<Aop>();
+                string query = "";
+                query = GetTestSearchQuery(aopSearchObj);
+                if (query != "")
+                {
+                    cm.CommandText = query;
+                    reader = cm.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            Aop aop = new Aop();
+
+                            aop.Id = Convert.ToInt32(reader["Id"]);
+                            aop.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
+                            aop.BuyerName = reader["BuyerName"].ToString();
+                            aop.FabricName = reader["FabricName"].ToString();
+                            aop.OrderNo = reader["OrderNo"].ToString();
+                            aop.Color = reader["Color"].ToString();
+                            aop.ChallanNo = reader["ChallanNo"].ToString();
+                            aop.DeliveryDate = Convert.ToDateTime(reader["DeliveryDate"]);
+                            aop.FabricID = Convert.ToInt32(reader["FabricID"]);
+                            aop.BarCode = reader["BarCode"].ToString();
+                            aop.McDiaGauge = reader["McDiaGauge"].ToString();
+                            aop.YarnCount = reader["YarnCount"].ToString();
+                            aop.YarnBrand = reader["YarnBrand"].ToString();
+                            aop.YarnLot = reader["YarnLot"].ToString();
+                            aop.KnitUnit = reader["KnitUnit"].ToString();
+                            aop.GreyWidth = Convert.ToDecimal(reader["GreyWidth"]);
+                            aop.GreyGSM = Convert.ToDecimal(reader["GreyGSM"]);
+                            aop.McBrand = reader["McBrand"].ToString();
+
+                            aop.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
+                            aop.DyeingUnit = reader["DyeingUnitName"].ToString();
+                            aop.BatchNo = reader["BatchNo"].ToString();
+                            aop.BatchQty = Convert.ToInt32(reader["BatchQty"]);
+                            aop.SerialNo = Convert.ToInt32(reader["SerialNo"]);
+
+                            aop.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
+                            aop.SoftenerName = reader["SoftenerName"].ToString();
+
+                            aop.PrintID = Convert.ToInt32(reader["PrintID"]);
+                            aop.PrintName = reader["PrintName"].ToString();
+                            aop.MachineID = Convert.ToInt32(reader["MachineID"]);
+                            aop.MachineName = reader["MachineName"].ToString();
+
+                            aop.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
+                            aop.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
+                            aop.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
+                            aop.CreateByName = reader["CreateByName"].ToString();
+                            aop.UpdateByName = reader["UpdateByName"].ToString();
+                            aop.ApprovedByName = reader["ApprovedByName"].ToString();
+
+                            aop.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
+                            aop.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
+
+                            aops.Add(aop);
+                        }
+                    }
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            catch (Exception ex)
+            {
+                aops = new List<Aop>();
+            }
+            finally
+            {
+                cn.Close();
+            }
+
+            return aops;
         }
 
-        internal static bool BarCodeAuthorization(int barCode)
+        internal static bool BarCodeAuthorization(int BarCode)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string query = "SELECT * FROM Test WHERE BarCode = " + BarCode;
+                if (!DBGateway.recordExist(query))
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+            return false;
+        }
+
+        public static string GetTestSearchQuery(Aop aopSearchObj)
+        {
+            try
+            {
+                string query = "SELECT * FROM TestView ";
+                if (aopSearchObj.BarCode != "" && aopSearchObj.BarCode != null)
+                {
+                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                    query = query + " Barcode = " + Convert.ToInt32(aopSearchObj.BarCode);
+                }
+
+                if (aopSearchObj.BuyerID > 0)
+                {
+                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                    query = query + " BuyerID = " + aopSearchObj.BuyerID;
+                }
+
+                if (aopSearchObj.FabricTypeID > 0)
+                {
+                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                    query = query + " FabricTypeID = " + aopSearchObj.FabricTypeID;
+                }
+
+                if (aopSearchObj.DiaGaugeID > 0)
+                {
+                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                    query = query + " DiaGaugeID = " + aopSearchObj.DiaGaugeID;
+                }
+
+                if (aopSearchObj.YarnCountID > 0)
+                {
+                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                    query = query + " YarnCountID = " + aopSearchObj.YarnCountID;
+                }
+
+                if (aopSearchObj.KnitUnitID > 0)
+                {
+                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                    query = query + " KnitUnitID = " + aopSearchObj.KnitUnitID;
+                }
+
+                if (aopSearchObj.McBrandID > 0)
+                {
+                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                    query = query + " McBrandID = " + aopSearchObj.McBrandID;
+                }
+
+                if (aopSearchObj.OrderNo != "" && aopSearchObj.OrderNo != null)
+                {
+                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                    query = query + " OrderNo = '" + aopSearchObj.OrderNo + "'";
+                }
+
+                if (aopSearchObj.Color != "" && aopSearchObj.Color != null)
+                {
+                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                    query = query + " Color = '" + aopSearchObj.Color + "'";
+                }
+
+                if (aopSearchObj.ChallanNo != "" && aopSearchObj.ChallanNo != null)
+                {
+                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                    query = query + " ChallanNo = '" + aopSearchObj.ChallanNo + "'";
+                }
+
+                if (aopSearchObj.DeliveryDate != DateTime.MaxValue)
+                {
+                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                    query = query + " DeliveryDate = '" + aopSearchObj.DeliveryDate + "'";
+                }
+
+                if (aopSearchObj.CreateTime != DateTime.MaxValue && aopSearchObj.CreateTime != null)
+                {
+                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                    query = query + " CreateTime = '" + aopSearchObj.CreateTime + "'";
+                }
+
+                if (aopSearchObj.YarnBrand != "" && aopSearchObj.YarnBrand != null)
+                {
+                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                    query = query + " YarnBrand = '" + aopSearchObj.YarnBrand + "'";
+                }
+
+                if (aopSearchObj.YarnLot != "" && aopSearchObj.YarnLot != null)
+                {
+                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                    query = query + " YarnLot = '" + aopSearchObj.YarnLot + "'";
+                }
+
+                if (aopSearchObj.GreyWidth != (decimal)0.00)
+                {
+                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                    query = query + " GreyWidth = " + aopSearchObj.GreyWidth;
+                }
+
+                if (aopSearchObj.GreyGSM != (decimal)0.00)
+                {
+                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                    query = query + " GreyGSM = " + aopSearchObj.GreyGSM;
+                }
+
+                if (aopSearchObj.DyeingUnitID > 0)
+                {
+                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                    query = query + " DyeingUnitID = " + aopSearchObj.DyeingUnitID;
+                }
+
+                if (aopSearchObj.BatchNo != "" && aopSearchObj.BatchNo != null)
+                {
+                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                    query = query + " BatchNo = '" + aopSearchObj.BatchNo + "'";
+                }
+
+                if (aopSearchObj.SoftenerID > 0)
+                {
+                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                    query = query + " SoftenerID = " + aopSearchObj.SoftenerID;
+                }
+
+                if (aopSearchObj.PrintID > 0)
+                {
+                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                    query = query + " PrintType = " + aopSearchObj.PrintID;
+                }
+
+                if (aopSearchObj.MachineID > 0)
+                {
+                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                    query = query + " MachineType = " + aopSearchObj.MachineID;
+                }
+
+                query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                query = query + " ApprovedStatus > 0";
+
+                return query;
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
         }
     }
 }

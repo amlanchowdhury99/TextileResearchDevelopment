@@ -10,6 +10,11 @@ namespace TextileResearchDevelopment.Controllers
 {
     public class TestReportController : Controller
     {
+        public ActionResult Index()
+        {
+            return View();
+        }
+
         [HttpGet]
         public JsonResult GetData()
         {

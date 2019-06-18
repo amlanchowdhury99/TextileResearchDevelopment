@@ -499,7 +499,7 @@ namespace TextileResearchDevelopment.BLL
                             Stenter.Peder = reader["Peder"].ToString();
                             Stenter.Blower = Convert.ToInt32(reader["Blower"]);
                             Stenter.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
-                            Stenter.SoftenerGL = reader["SoftenerGL"].ToString();
+                            Stenter.SoftenerGL = Convert.ToDecimal(reader["SoftenerGL"]);
                             Stenter.SoftenerName = reader["SoftenerName"].ToString();
                             Stenter.DIA = Convert.ToInt32(reader["DIA"]);
                             Stenter.GSM = Convert.ToInt32(reader["GSM"]);
@@ -839,16 +839,28 @@ namespace TextileResearchDevelopment.BLL
                     query = query + " GreyGSM = " + StenterSearchObj.GreyGSM;
                 }
 
+                if (StenterSearchObj.DyeingUnitID > 0)
+                {
+                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                    query = query + " DyeingUnitID = " + StenterSearchObj.DyeingUnitID;
+                }
+
+                if (StenterSearchObj.BatchNo != "" && StenterSearchObj.BatchNo != null)
+                {
+                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                    query = query + " BatchNo = '" + StenterSearchObj.BatchNo + "'";
+                }
+
                 if (StenterSearchObj.SoftenerID > 0)
                 {
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
                     query = query + " SoftenerID = " + StenterSearchObj.SoftenerID;
                 }
 
-                if (StenterSearchObj.SoftenerGL != "" && StenterSearchObj.SoftenerGL != null)
+                if (StenterSearchObj.SoftenerGL != (decimal)0.00)
                 {
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " SoftenerGL = '" + StenterSearchObj.SoftenerGL +"'";
+                    query = query + " SoftenerGL = " + StenterSearchObj.SoftenerGL;
                 }
 
                 query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
