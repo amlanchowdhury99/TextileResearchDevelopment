@@ -233,7 +233,7 @@
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="BatchNoSL" class="control-label" style="width:35%;">Batch No</label>
                                             <div style="display: inline;">
-                                                <select name="BatchNoSL" id="BatchNoSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                                                <input type="text" class="typeahead form-control" style="width:60%;" id="BatchNoSL" name="BatchNoSL" placeholder="Batch No">
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
@@ -245,28 +245,34 @@
                                     </div>
                                 </div>
                             </div>
-                            <table id="DyeingSelectionTable" class="stripe hover order-column" style="width: 100%">
+                            <table id="DyeingSelectionTable" class="display nowrap stripe hover order-column" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th>Id</th>
                                         <th>DyeingID</th>
-                                        <th>DyeingUnitID</th>
+                                        <th>FabricID</th>
+                                        <th>KnitID</th>
                                         <th>BarCode</th>
-                                        <th>Buyer Name</th>
-                                        <th>Fabric Type</th>
-                                        <th>Order No</th>
+                                        <th>BuyerName</th>
+                                        <th>FabricType</th>
+                                        <th>OrderNo</th>
                                         <th>Color</th>
-                                        <th>Dia Guage</th>
-                                        <th>Yarn Count</th>
-                                        <th>Yarn Brand</th>
-                                        <th>Yarn Lot</th>
-                                        <th>Knit Unit</th>
-                                        <th>Grey Width</th>
-                                        <th>Grey GSM</th>
-                                        <th>Mc Brand</th>
-                                        <th>Dyeing Unit</th>
-                                        <th>Batch No</th>
+                                        <th>DiaGuage</th>
+                                        <th>YarnCount</th>
+                                        <th>YarnBrand</th>
+                                        <th>YarnLot</th>
+                                        <th>StitchLength</th>
+                                        <th>KnitUnit</th>
+                                        <th>MC_NO</th>
+                                        <th>MC_RPM</th>
+                                        <th>GreyWidth</th>
+                                        <th>GreyGSM</th>
+                                        <th>TumbleWidth</th>
+                                        <th>TumbleGSM</th>
+                                        <th>McBrand</th>
+                                        <th>KnitOrderDate</th>
+                                        <th>DyeingUnit</th>
+                                        <th>BatchNo</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -478,7 +484,7 @@
         </div>
     </div>
 
-    <table id="StenterTable" class="stripe hover order-column " style="width: 1000px;">
+    <table id="StenterTable" class="display nowrap stripe hover order-column " style="width: 1000px;">
         <thead>
             <tr>
                 <th></th>
@@ -567,6 +573,7 @@
 
     $(document).ready(function () {
 
+        var selectedDyeingRowId = 0;
         var DyeingSelectionTable = $('#DyeingSelectionTable').DataTable();
         var SoftenerTable = $('#SoftenerTable').DataTable();
 
@@ -579,7 +586,168 @@
             SoftenerTable.columns.adjust();
         });
 
+        loadDyeingUnitList();
+
+        function loadDyeingUnitList() {
+            $.ajax({
+                type: "GET",
+                url: "/Dyeing/GetDyeingUnit",
+                data: "{}",
+                success: function (data) {
+                    debugger;
+                    var s = '<option value="">Select Dyeing</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].DyeingUnit + '</option>';
+                    }
+                    $("#DyeingUnitSL").html(s);
+                    loadBuyerList();
+                }
+            });
+        }
+
+        function loadBuyerList() {
+            $.ajax({
+                type: "GET",
+                url: "/Fabric/GetBuyerList",
+                data: "{}",
+                success: function (data) {
+                    var s = '<option value="">Select Buyer</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].BuyerName + '</option>';
+                    }
+                    $("#BuyerSL").html(s);
+                    loadFabricTypeList();
+                }
+            });
+        }
+
+        function loadFabricTypeList() {
+            $.ajax({
+                type: "GET",
+                url: "/Fabric/GetFabricTypeList",
+                data: "{}",
+                success: function (data) {
+                    var s = '<option value="">Select Fabric</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].FabricTypeName + '</option>';
+                    }
+                    $("#FabricSL").html(s);
+                    loadMCDIAList();
+                }
+            });
+        }
+
+        function loadMCDIAList() {
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetMCDIAList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select DiaGauge</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].McDiaGauge + '</option>';
+                    }
+                    $("#DiaGaugeSL").html(s);
+                    loadYarnCountList();
+                }
+            });
+        }
+
+        function loadYarnCountList() {
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetYarnCountList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select Yarn Count</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].YarnCount + '</option>';
+                    }
+                    $("#YarnCountSL").html(s);
+                    loadKnitUnitList();
+                }
+            });
+        }
+
+        function loadKnitUnitList() {
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetKnitUnitList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select KnitUnit</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].KnitUnit + '</option>';
+                    }
+                    $("#KnitUnitSL").html(s);
+                    loadMcBrandList();
+                }
+            });
+        }
+
+        function loadMcBrandList() {
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetMcBrandList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select McBrand</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].McBrand + '</option>';
+                    }
+                    $("#BrandSL").html(s);
+                }
+            });
+        }
+
+        $('#DeliveryDateCheckBox').change(function () {
+            if ($(this).is(":checked")) {
+                $('#DeliveryDateTextSL').prop('disabled', false);
+            }
+            else {
+                $('#DeliveryDateTextSL').prop('disabled', true);
+            }
+        });
+
+        $('#FabricOrderDateCheckBox').change(function () {
+            if ($(this).is(":checked")) {
+                $('#FabricOrderDateTextSL').prop('disabled', false);
+            }
+            else {
+                $('#FabricOrderDateTextSL').prop('disabled', true);
+            }
+        });
+
+        $('#KnitOrderDateCheckBox').change(function () {
+            if ($(this).is(":checked")) {
+                $('#KnitOrderDateTextSL').prop('disabled', false);
+            }
+            else {
+                $('#KnitOrderDateTextSL').prop('disabled', true);
+            }
+        });
+
         var StenterTable = $('#StenterTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                'colvis'
+            ],
             "ajax":
             {
                 "url": "/Stenter/GetData",
@@ -695,6 +863,246 @@
                     }
                 }
             ]
+        });
+
+        $("#DyeingSelection").click(function () {
+
+            selectedDyeingRowId = 0;
+
+            DyeingSelectionTable = $('#DyeingSelectionTable').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    'colvis'
+                ],
+                "scrollY": true,
+                "scrollX": true,
+                "Sorting": true,
+                "searching": true,
+                "select": {
+                    style: 'single'
+                },
+                "destroy": true,
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        "searchable": false,
+                        "orderable": false,
+                    },
+                    {
+                        "targets": [1, 2, 3],
+                        "visible": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": "_all",
+                        "width": "100px"
+                    }
+
+                ],
+                "columns": [
+                    {
+                        "searchable": false,
+                        "render": function (data, type, full, meta) {
+                            return DyeingSelectionTable.data().count();
+                        }
+                    },
+                    { "data": "Id" },
+                    { "data": "KnitID" },
+                    { "data": "FabricID" },
+                    { "data": "BarCode" },
+                    { "data": "BuyerName" },
+                    { "data": "FabricName" },
+                    { "data": "OrderNo" },
+                    { "data": "Color" },
+                    { "data": "McDiaGauge" },
+                    { "data": "YarnCount" },
+                    { "data": "YarnBrand" },
+                    { "data": "YarnLot" },
+                    { "data": "StitchLength" },
+                    { "data": "KnitUnit" },
+                    { "data": "MCNO" },
+                    { "data": "MCRPM" },
+                    { "data": "GreyWidth" },
+                    { "data": "GreyGSM" },
+                    { "data": "TumbleWidth" },
+                    { "data": "TumbleGSM" },
+                    { "data": "McBrand" },
+                    {
+                        data: "CreateTime",
+                        render: function (data, type, row) {
+                            return moment(data).format("DD/MM/YYYY  h:mm a");
+                        }
+                    },
+                    { "data": "DyeingUnit" },
+                    { "data": "BatchNo" }
+                ]
+            });
+
+        });
+
+        $("#searchDyeingBtn").click(function () {
+            debugger;
+            event.preventDefault();
+
+            if (ValidateDyeingSelectionForm() == true) {
+
+                var barCode = $('#BarCodeSL').val() == "" ? 0 : parseInt($('#BarCodeSL').val());
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Stenter/BarCodeAuthorization",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify({ BarCode: barCode }),
+                    success: function (response) {
+                        debugger;
+                        if (response == "true") {
+                            debugger;
+                            var dyeingSearchObj = {
+                                BarCode: $("#BarCodeSL").val().toString(),
+                                BuyerID: $("#BuyerSL  option:selected").val(),
+                                FabricTypeID: $("#FabricSL  option:selected").val(),
+                                OrderNo: $("#OrderNoSL").val().length > 0 ? $("#OrderNoSL").val().toString() : '',
+                                Color: $("#ColorSL").val().length > 0 ? $("#ColorSL").val().toString() : '',
+                                ChallanNo: $("#ChallanSL").val().length > 0 ? $("#ChallanSL").val().toString() : '',
+                                DeliveryDate: $('#DeliveryDateCheckBox').is(":checked") == true ? $("#DeliveryDateTextSL").val().toString() : '',
+                                FabricCreateTime: $('#FabricOrderDateCheckBox').is(":checked") == true ? $("#FabricOrderDateTextSL").val().toString() : '',
+                                CreateTime: $('#KnitOrderDateCheckBox').is(":checked") == true ? $("#KnitOrderDateTextSL").val().toString() : '',
+                                McDiaGauge: $("#DiaGaugeSL  option:selected").val(),
+                                YarnCountID: $("#YarnCountSL  option:selected").val(),
+                                YarnBrand: $("#YarnBrandSL").val().toString(),
+                                YarnLot: $("#YarnLotSL").val().toString(),
+                                KnitUnitID: $("#KnitUnitSL  option:selected").val(),
+                                GreyWidth: $("#GreyWidthSL").val().toString(),
+                                GreyGSM: $("#GreyGSMSL").val().toString(),
+                                McBrandID: $("#BrandSL  option:selected").val(),
+                                DyeingUnitID: $("#DyeingUnitSL  option:selected").val(),
+                                BatchNo: $("#BatchNoSL  option:selected").val(),
+                            };
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/Stenter/DyeingSearch",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                data: JSON.stringify(dyeingSearchObj),
+                                success: function (response) {
+                                    if (response != "" && response != null) {
+                                        debugger
+                                        DyeingSelectionTable.clear().draw();
+                                        DyeingSelectionTable.rows.add(response).draw();
+                                    }
+                                    else {
+                                        alert("Failed to Save! Please Check Connection State!!!");
+                                        return;
+                                    }
+                                },
+                                failure: function () {
+                                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                                }
+                            });
+                        }
+                        if (response == "false") {
+                            alert("This Barcode is already used in another dyeing order!!!");
+                            return;
+                        }
+                        if (response == "" || response == null) {
+                            alert("Connection problem!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select Atleast One Criteria!!!");
+                return;
+            }
+
+
+        });
+
+        function ValidateDyeingSelectionForm() {
+            debugger;
+            if ($("#DiaGaugeSL  option:selected").val() == "" && $("#YarnCountSL  option:selected").val() == "" && $("#BrandSL  option:selected").val() == "" && $("#KnitUnitSL  option:selected").val() == "" &&
+                $("#BarCodeSL").val() == "" && $("#YarnBrandSL").val() == "" && $("#YarnLotSL").val() == "" && $("#ChallanSL").val() == "" && $("#GreyWidthSL").val() == "" && $('#DeliveryDateCheckBox').is(":checked") == false && $('#FabricOrderDateCheckBox').is(":checked") == false && $('#KnitOrderDateCheckBox').is(":checked") == false &&
+                $("#GreyGSMSL").val() == "" && $("#BuyerSL option:selected").val() == "" && $("#FabricSL option:selected").val() == "" && $("#OrderNoSL").val() == "" && $("#ColorSL").val() == "" && $("#DyeingUnitSL option:selected").val() == "" && $("#BatchNoSL").val() == "") {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        function ResetDyeing() {
+            $("#BarCodeSL").val("");
+            $("#OrderNoSL").val("");
+            $("#ColorSL").val("");
+            $("#FabricNameSL").val("");
+            $("#BuyerNameSL").val("");
+            $("#DiaGaugeSL").val("");
+            $("#YarnCountSL").val("");
+            $("#YarnBrandSL").val("");
+            $("#YarnLotSL").val("");
+            $("#KnitUnitSL").val("");
+            $("#BrandSL").val("");
+            $("#GreyWidthSL").val("");
+            $("#GreyGSMSL").val("");
+            $("#ChallaNoSL").val("");
+            $("#DeliveryDateTextSL").val("");
+            $("#FabricOrderDateTextSL").val("");
+            $("#KnitOrderDateSL").val("");
+            $("#DyeingUnitSL").val("");
+            $("#BatchNoSL").val("");
+        }
+
+        $("#resetDyeingBtn").click(function () {
+            ResetDyeing();
+        });
+
+        $("#okayBtn").click(function () {
+            debugger
+            if ($('#DyeingSelectionTable tbody tr').hasClass('selected')) {
+                selectedDyeingRowId = DyeingSelectionTable.rows('.selected').data()[0].Id;
+                //selectedFabriId = DyeingSelectionTable.rows('.selected').data()[0].FabricID;
+
+                $('#BarCode').val(DyeingSelectionTable.rows('.selected').data()[0].BarCode);
+                $('#FabricName').val(DyeingSelectionTable.rows('.selected').data()[0].FabricName);
+                $('#BuyerName').val(DyeingSelectionTable.rows('.selected').data()[0].BuyerName);
+                $('#OrderNo').val(DyeingSelectionTable.rows('.selected').data()[0].OrderNo);
+                $('#Color').val(DyeingSelectionTable.rows('.selected').data()[0].Color);
+                $('#DiaGauge').val(DyeingSelectionTable.rows('.selected').data()[0].McDiaGauge);
+                $('#YarnCount').val(DyeingSelectionTable.rows('.selected').data()[0].YarnCount);
+                $('#YarnBrand').val(DyeingSelectionTable.rows('.selected').data()[0].YarnBrand);
+                $('#YarnLot').val(DyeingSelectionTable.rows('.selected').data()[0].YarnLot);
+                $('#KnitUnit').val(DyeingSelectionTable.rows('.selected').data()[0].KnitUnit);
+                $('#GreyWidth').val(DyeingSelectionTable.rows('.selected').data()[0].GreyWidth);
+                $('#GreyGSM').val(DyeingSelectionTable.rows('.selected').data()[0].GreyGSM);
+                $('#Brand').val(DyeingSelectionTable.rows('.selected').data()[0].McBrand);
+                $('#DyeingUnit').val(DyeingSelectionTable.rows('.selected').data()[0].DyeingUnit);
+                $('#BatchNo').val(DyeingSelectionTable.rows('.selected').data()[0].BatchNo);
+                $("#modalDyeingSelection .close").click();
+
+                $('#hidden').prop('checked', true);
+            }
+            else {
+                alert('Please Select A Row.')
+                return;
+            }
         });
 
     });

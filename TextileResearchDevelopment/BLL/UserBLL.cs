@@ -47,6 +47,44 @@ namespace TextileResearchDevelopment.BLL
             }
         }
 
+        internal static int EditUser(User user)
+        {
+            int Id = -1;
+            try
+            {
+                string query = "SELECT Count(*) As count FROM UserInfo WHERE UserName = '" + user.UserName + "'";
+                if (DBGateway.GetNumberForRows(query))
+                {
+                    query = " UPDATE UserInfo SET UserName = '" + user.UserName + "', Password = '" + user.Password + "', Fabric = " + user.Fabric + ", Knitting = " + user.Knitting + ", Dyeing = " + user.Dyeing + ", Slitting = " + user.Slitting + ", Stenter = " + user.Stenter + ", Aop = " + user.Aop + ", Test = " + user.Test + ", Remarks = " + user.Remarks + ", PermissionString = '" + user.PermissionString + "'" +
+                                                   " WHERE UserName = '" + user.UserName + "'";
+                    if (DBGateway.ExecutionToDB(query, 1))
+                    {
+                        Id = 1;
+                    }
+                    else
+                    {
+                        Id = -1;
+                    }
+                }
+                else
+                {
+                    Id = -1;
+                }
+            }
+            catch (Exception ex)
+            {
+                return Id;
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+            return Id;
+        }
+
         internal static int AddUser(User user)
         {
             int Id = -1;
@@ -161,7 +199,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 users = new List<User>();
-                string query = "SELECT * FROM UserInfo";
+                string query = "SELECT * FROM UserInfo WHERE UserName != 'SuperAdmin' AND Password != 'urmi@admin'";
                 cm.CommandText = query;
                 reader = cm.ExecuteReader();
                 if (reader.HasRows)

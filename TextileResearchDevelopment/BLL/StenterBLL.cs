@@ -160,6 +160,8 @@ namespace TextileResearchDevelopment.BLL
                             stenter.DeliveryDate = Convert.ToDateTime(reader["DeliveryDate"]);
                             stenter.FabricID = Convert.ToInt32(reader["FabricID"]);
 
+                            stenter.BarCode = reader["BarCode"].ToString();
+
                             stenter.DiaGaugeID = Convert.ToInt32(reader["DiaGaugeID"]);
                             stenter.YarnCountID = Convert.ToInt32(reader["YarnCountID"]);
                             stenter.KnitUnitID = Convert.ToInt32(reader["KnitUnitID"]);
@@ -247,6 +249,8 @@ namespace TextileResearchDevelopment.BLL
                             stenter.DeliveryDate = Convert.ToDateTime(reader["DeliveryDate"]);
                             stenter.FabricID = Convert.ToInt32(reader["FabricID"]);
 
+                            stenter.BarCode = reader["BarCode"].ToString();
+
                             stenter.DiaGaugeID = Convert.ToInt32(reader["DiaGaugeID"]);
                             stenter.YarnCountID = Convert.ToInt32(reader["YarnCountID"]);
                             stenter.KnitUnitID = Convert.ToInt32(reader["KnitUnitID"]);
@@ -331,6 +335,8 @@ namespace TextileResearchDevelopment.BLL
                             stenter.ChallanNo = reader["ChallanNo"].ToString();
                             stenter.DeliveryDate = Convert.ToDateTime(reader["DeliveryDate"]);
                             stenter.FabricID = Convert.ToInt32(reader["FabricID"]);
+
+                            stenter.BarCode = reader["BarCode"].ToString();
 
                             stenter.DiaGaugeID = Convert.ToInt32(reader["DiaGaugeID"]);
                             stenter.YarnCountID = Convert.ToInt32(reader["YarnCountID"]);
@@ -421,6 +427,8 @@ namespace TextileResearchDevelopment.BLL
                             stenter.ChallanNo = reader["ChallanNo"].ToString();
                             stenter.DeliveryDate = Convert.ToDateTime(reader["DeliveryDate"]);
                             stenter.FabricID = Convert.ToInt32(reader["FabricID"]);
+
+                            stenter.BarCode = reader["BarCode"].ToString();
 
                             stenter.DiaGaugeID = Convert.ToInt32(reader["DiaGaugeID"]);
                             stenter.YarnCountID = Convert.ToInt32(reader["YarnCountID"]);
@@ -533,6 +541,8 @@ namespace TextileResearchDevelopment.BLL
                             dyeing.ChallanNo = reader["ChallanNo"].ToString();
                             dyeing.DeliveryDate = Convert.ToDateTime(reader["DeliveryDate"]);
                             dyeing.FabricID = Convert.ToInt32(reader["FabricID"]);
+
+                            dyeing.BarCode = reader["BarCode"].ToString();
 
                             dyeing.DiaGaugeID = Convert.ToInt32(reader["DiaGaugeID"]);
                             dyeing.YarnCountID = Convert.ToInt32(reader["YarnCountID"]);

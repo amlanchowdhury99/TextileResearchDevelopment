@@ -18,6 +18,8 @@ namespace TextileResearchDevelopment.Models
             CreateTime = DateTime.MaxValue;
             UpdateTime = DateTime.MaxValue;
             ApprovedTime = DateTime.MaxValue;
+            DeliveryDate = DateTime.MaxValue;
+            FabricCreateTime = DateTime.MaxValue;
         }
 
         public int Id { get; set; }
@@ -75,6 +77,13 @@ namespace TextileResearchDevelopment.Models
 
         public int ApprovedStatus { get; set; }
 
+
+        public decimal StitchLength { get; set; }
+        public int MCNO { get; set; }
+        public int MCRPM { get; set; }
+        public decimal TumbleWidth { get; set; }
+        public decimal TumbleGSM { get; set; }
+        public DateTime FabricCreateTime { get; set; }
 
         public string DyeingUnit { get; set; }
         public string BatchNo { get; set; }

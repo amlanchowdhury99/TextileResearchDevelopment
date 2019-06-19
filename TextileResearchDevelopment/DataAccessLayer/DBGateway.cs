@@ -209,14 +209,22 @@ namespace TextileResearchDevelopment.DataAccessLayer
         {
             try
             {
-
+                rowsCount = -1;
                 if (DBGateway.connection.State != ConnectionState.Open)
                 {
                     connection.Open();
                 }
                 cmd = new SqlCommand(query, connection);
 
-                rowsCount = (Int32)cmd.ExecuteScalar();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        rowsCount = Convert.ToInt32(reader["count"]);
+                    }
+                }
 
                 if (rowsCount > -1)
                 {

@@ -63,7 +63,10 @@
                     <div class="form-group col-xs-4 form-inline">
                         <button class="btn btn-warning btn-sm" style="width:25%;" id="resetBtn">Reset</button>
                         <div style="display: inline;">
-                            <input type="submit" value="Save" class="btn btn-primary btn-sm" style="width:40%;" name="saveBtn">
+                            <input type="submit" value="Save" class="btn btn-success btn-sm" style="width:22%;" id="saveBtn">
+                        </div>
+                        <div style="display: inline;">
+                            <input type="submit" value="Update" class="btn btn-primary btn-sm" disabled="disabled" style="width:23%;" id="updateBtn">
                         </div>
                     </div>
                 </div>
@@ -170,70 +173,57 @@
 
         });
 
-        function IsValid()
-        {
-            if ($('#Fabric').is(':checked'))
-            {
+        function IsValid() {
+            if ($('#Fabric').is(':checked')) {
                 PermissionString = PermissionString + "1,";
             }
-            if ($('#Knitting').is(':checked'))
-            {
+            if ($('#Knitting').is(':checked')) {
                 PermissionString = PermissionString + "2,";
             }
-            if ($('#Dyeing').is(':checked'))
-            {
+            if ($('#Dyeing').is(':checked')) {
                 PermissionString = PermissionString + "3,";
             }
-            if ($('#Slitting').is(':checked'))
-            {
+            if ($('#Slitting').is(':checked')) {
                 PermissionString = PermissionString + "4,";
             }
-            if ($('#Stenter').is(':checked'))
-            {
+            if ($('#Stenter').is(':checked')) {
                 PermissionString = PermissionString + "5,";
             }
-            if ($('#Aop').is(':checked'))
-            {
+            if ($('#Aop').is(':checked')) {
                 PermissionString = PermissionString + "6,";
             }
-            if ($('#Test').is(':checked'))
-            {
+            if ($('#Test').is(':checked')) {
                 PermissionString = PermissionString + "7,";
 
             }
-            if ($('#Remarks').is(':checked'))
-            {
+            if ($('#Remarks').is(':checked')) {
                 PermissionString = PermissionString + "8,";
             }
 
-            if (PermissionString != "")
-            {
+            if (PermissionString != "") {
                 PermissionString = PermissionString.replace(/,\s*$/, "");
                 return true;
             }
-            else
-            {
+            else {
                 return false;
             }
         }
 
-        function Reset()
-        {
+        function Reset() {
             $("#UserName").val("");
             $("#Password").val("");
             $("#Fabric").prop("checked", false);
             $("#Knitting").prop("checked", false);
             $("#Dyeing").prop("checked", false);
             $("#Slitting").prop("checked", false);
-            $("#Stenter"). prop("checked", false);
-            $("#Aop"). prop("checked", false);
-            $("#Test"). prop("checked", false);
-            $("#Remarks"). prop("checked", false);
+            $("#Stenter").prop("checked", false);
+            $("#Aop").prop("checked", false);
+            $("#Test").prop("checked", false);
+            $("#Remarks").prop("checked", false);
             PermissionString = "";
         }
 
-        $('#UserForm').submit(function (e)
-        {
+        $('#UserForm').submit(function (e) {
             debugger;
             event.preventDefault();
             if (IsValid() == true) {
@@ -249,7 +239,7 @@
                     Aop: $('#Aop').is(':checked') ? 1 : 0,
                     Test: $('#Test').is(':checked') ? 1 : 0,
                     Remarks: $('#Remarks').is(':checked') ? 1 : 0,
-                    PermissionString : PermissionString,
+                    PermissionString: PermissionString,
                     CreateDate: moment(Date.now()).format("DD/MM/YYYY")
                 };
 
@@ -276,8 +266,7 @@
                     }
                 });
             }
-            else
-            {
+            else {
                 alert("Select Atleast One Criteria!!!");
                 return;
             }
@@ -286,16 +275,14 @@
 
         $("#deleteBtn").click(function () {
             event.preventDefault();
-            if ($('#UserTable tbody tr').hasClass('selected'))
-            {
+            if ($('#UserTable tbody tr').hasClass('selected')) {
                 $.ajax({
                     type: "POST",
                     url: "/UserManagement/Delete",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     data: UserTable.rows('.selected').data()[0].Id,
-                    success: function (response)
-                    {
+                    success: function (response) {
                         if (response == "Success") {
                             UserTable.row('.selected').remove().draw(false);
                             alert("Delete Successfully!!!");
@@ -311,8 +298,7 @@
                     }
                 });
             }
-            else
-            {
+            else {
                 alert("Please Select A Row!!!");
                 return;
             }
@@ -322,6 +308,112 @@
         $("#resetBtn").click(function () {
             event.preventDefault();
             Reset();
+
+        });
+
+        $('#UserTable tbody').on('click', 'tr', function () {
+
+            $(this).toggleClass('selected');
+
+            if ($(this).hasClass('selected')) {
+                var rowdata = UserTable.row(this).data();
+            }
+
+            if (UserTable.data().any()) {
+                Setvalue(rowdata);
+                $('#saveBtn').prop("disabled", true);
+                $('#updateBtn').prop("disabled", false);
+            }
+            else {
+                $('#saveBtn').prop("disabled", false);
+                $('#updateBtn').prop("disabled", true);
+            }
+
+        });
+
+        function Setvalue(rowdata) {
+            debugger;
+            Reset();
+            $("#UserName").val(rowdata.UserName);
+            $("#Password").val(rowdata.Password);
+
+            if (rowdata.Fabric == 1)
+                $('#Fabric').prop('checked', true);
+            if (rowdata.Knitting == 1)
+                $('#Knitting').prop('checked', true);
+            if (rowdata.Dyeing == 1)
+                $('#Dyeing').prop('checked', true);
+            if (rowdata.Slitting == 1)
+                $('#Slitting').prop('checked', true);
+            if (rowdata.Stenter == 1)
+                $('#Stenter').prop('checked', true);
+            if (rowdata.Aop == 1)
+                $('#Aop').prop('checked', true);
+            if (rowdata.Test == 1)
+                $('#Test').prop('checked', true);
+            if (rowdata.Remarks == 1)
+                $('#Remarks').prop('checked', true);
+        }
+
+        $("#updateBtn").click(function () {
+            event.preventDefault();
+
+            debugger
+            if ($('#UserTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = UserTable.rows('.selected').data()[0];
+                var index = UserTable.row('.selected').index();
+
+                if (IsValid() == true)
+                {
+                    var user = {
+                        Id: Row.Id,
+                        UserName: $("#UserName").val(),
+                        Password: $("#Password").val(),
+                        Fabric: $('#Fabric').is(':checked') ? 1 : 0,
+                        Knitting: $('#Knitting').is(':checked') ? 1 : 0,
+                        Dyeing: $('#Dyeing').is(':checked') ? 1 : 0,
+                        Slitting: $('#Slitting').is(':checked') ? 1 : 0,
+                        Stenter: $('#Stenter').is(':checked') ? 1 : 0,
+                        Aop: $('#Aop').is(':checked') ? 1 : 0,
+                        Test: $('#Test').is(':checked') ? 1 : 0,
+                        Remarks: $('#Remarks').is(':checked') ? 1 : 0,
+                        PermissionString: PermissionString,
+                    };
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/UserManagement/Update",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data: JSON.stringify(user),
+                        success: function (response) {
+                            debugger
+                            if (response.data != "" && response.data != null) {
+                                debugger
+                                UserTable.row(index).data(response.data).draw();
+                                Reset();
+                            }
+                            else {
+                                alert("Failed to Update!!!");
+                                return;
+                            }
+                        },
+                        failure: function () {
+                            $("#tblItems").append(" Error when fetching data please contact administrator");
+                        }
+                    });
+                }
+                else
+                {
+                    alert("Select Atleast One Criteria!!!");
+                    return;
+                }
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
 
         });
 

@@ -55,6 +55,39 @@ namespace TextileResearchDevelopment.Controllers
         }
 
         [HttpPost]
+        public ActionResult Update(User user)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (user.Id > 0)
+                {
+                    int Id = UserBLL.EditUser(user);
+                    if (Id > 0)
+                    {
+                        user.Id = Id;
+                        Result = true;
+                    }
+                    else
+                    {
+                        Result = false;
+                    }
+                }
+
+                if (Result)
+                {
+                    return Json(new { data = user }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return View();
+            }
+
+            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public ActionResult Edit(int id)
         {
             return View();

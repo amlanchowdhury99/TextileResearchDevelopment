@@ -18,10 +18,13 @@ namespace TextileResearchDevelopment.Models
             CreateTime = DateTime.MaxValue;
             UpdateTime = DateTime.MaxValue;
             ApprovedTime = DateTime.MaxValue;
+            DeliveryDate = DateTime.MaxValue;
+            FabricCreateTime = DateTime.MaxValue;
         }
 
         public int Id { get; set; }
 
+        public int DyeingID { get; set; }
         public int FabricID { get; set; }
         public int KnitID { get; set; }
         public int BuyerID { get; set; }
@@ -31,7 +34,7 @@ namespace TextileResearchDevelopment.Models
         public int YarnCountID { get; set; }
         public int McBrandID { get; set; }
         public int KnitUnitID { get; set; }
-        public int DyeingID { get; set; }
+
         public int DyeingUnitID { get; set; }
 
         public int SoftenerID { get; set; }
@@ -87,6 +90,12 @@ namespace TextileResearchDevelopment.Models
         public decimal DIA { get; set; }
         public decimal GSM { get; set; }
 
+        public decimal StitchLength { get; set; }
+        public int MCNO { get; set; }
+        public int MCRPM { get; set; }
+        public decimal TumbleWidth { get; set; }
+        public decimal TumbleGSM { get; set; }
+        public DateTime FabricCreateTime { get; set; }
 
         public DateTime CreateTime { get; set; }
 
