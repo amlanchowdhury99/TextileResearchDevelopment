@@ -49,7 +49,7 @@ namespace TextileResearchDevelopment.Controllers
                 SoftenerTypes = new List<SoftenerType>();
             }
 
-            return Json(SoftenerTypes, JsonRequestBehavior.AllowGet);
+            return Json(new { data = SoftenerTypes }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -281,7 +281,7 @@ namespace TextileResearchDevelopment.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeletePrintType(int Id)
+        public ActionResult DeleteSoftenerType(int Id)
         {
             Boolean Result = false;
             try

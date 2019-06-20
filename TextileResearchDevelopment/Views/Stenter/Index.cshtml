@@ -29,7 +29,7 @@
         <li><a tabindex="-1" href="#">Approve</a></li>
     </ul>
 
-    <div class="modal fade" id="modalSoftener" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div class="modal fade" id="modalSoftenerUnit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
@@ -42,28 +42,28 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">Add Softener</div>
                                 <div class="panel-body">
-                                    <form id="SoftenerForm">
+                                    <form id="SoftenerUnitForm">
                                         <div class=" form-group">
                                             <div class="form-group col-xs-12 form-inline">
-                                                <label for="SoftenerMD" class="control-label" style="width:35%;">Dyeing Unit</label>
+                                                <label for="SoftenerUnitMD" class="control-label" style="width:35%;">Softener Unit</label>
                                                 <div style="display: inline;">
-                                                    <input type="text" class=" form-control" style="width:60%;" id="SoftenerMD" placeholder="Softener" required autofocus>
+                                                    <input type="text" class=" form-control" style="width:60%;" id="SoftenerUnitMD" placeholder="Softener" required autofocus>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class=" form-group">
                                             <div class="form-group col-xs-12 form-inline">
-                                                <button class="btn btn-warning btn-sm" style="width:30%;" disabled id="editSoftenerBtn">Update</button>
-                                                <button class="btn btn-danger btn-sm" style="width:30%;" disabled id="deleteSoftenerBtn">Delete</button>
+                                                <button class="btn btn-warning btn-sm" style="width:30%;" disabled id="editSoftenerUnitBtn">Update</button>
+                                                <button class="btn btn-danger btn-sm" style="width:30%;" disabled id="deleteSoftenerUnitBtn">Delete</button>
                                                 <div style="display: inline;">
-                                                    <button type="submit" id="saveSoftenerBtn" class="btn btn-primary btn-sm" style="width:30%;">Save</button>
+                                                    <button type="submit" id="saveSoftenerUnitBtn" class="btn btn-primary btn-sm" style="width:30%;">Save</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                             </div>
-                            <table id="SoftenerTable" class="stripe hover order-column" style="width: 100%">
+                            <table id="SoftenerTable" class="display nowrap stripe hover order-column" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -76,8 +76,8 @@
                     </div>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                    <button type="button" id="resetSoftenerBtn" class="btn btn-info">Reset</button>
-                    <button type="submit" id="okaySoftenerBtn" class="btn btn-success">Okay</button>
+                    <button type="button" id="resetSoftenerUnitBtn" class="btn btn-info">Reset</button>
+                    <button type="submit" id="okaySoftenerUnitBtn" class="btn btn-success">Okay</button>
                 </div>
             </div>
         </div>
@@ -442,9 +442,12 @@
                 </div>
                 <div class=" form-group">
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="SoftenerName" class="control-label" style="width:35%;">Softener Name</label>
+                        <label for="SoftenerUnit" class="control-label" style="width:35%;">Softener Name</label>
                         <div style="display: inline;">
-                            <input type="number" class="form-control" style="width:60%;" id="SoftenerName" min="0" step="1" data-bind="value:SoftenerName" placeholder="Softener Name" required autofocus>
+                            <select name="SoftenerUnit" id="SoftenerUnit" style="width:50%;" class="form-control input-sm" required autofocus></select>
+                            <a href="#" class="btn-sm btn-info" id="mdSoftenerUnit" data-toggle="modal" data-target="#modalSoftenerUnit" style="width:10%;">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
@@ -508,7 +511,7 @@
                 <th>Batch No</th>
                 <th>WidthSet</th>
                 <th>OverFeed</th>
-                <th>Temparature</th>
+                <th>Temp</th>
                 <th>Speed</th>
                 <th>Peder</th>
                 <th>Blower</th>
@@ -548,7 +551,7 @@
                 <th>Batch No</th>
                 <th>WidthSet</th>
                 <th>OverFeed</th>
-                <th>Temparature</th>
+                <th>Temp</th>
                 <th>Speed</th>
                 <th>Peder</th>
                 <th>Blower</th>
@@ -582,11 +585,230 @@
             format: 'DD/MM/YYYY'
         });
 
-        $('#modalSoftener').on('shown.bs.modal', function () {
+        $('#modalSoftenerUnit').on('shown.bs.modal', function () {
             SoftenerTable.columns.adjust();
         });
 
-        loadDyeingUnitList();
+        $("#mdSoftenerUnit").click(function () {
+            debugger;
+            SoftenerTable = $('#SoftenerTable').DataTable({
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    'colvis'
+                ],
+                "ajax":
+                {
+                    "url": "/Stenter/GetSoftenerUnit",
+                    "type": "GET",
+                    "dataType": "JSON"
+                },
+                "dom": 'Bfrtip',
+                "scrollY": true,
+                "scrollX": true,
+                "Sorting": true,
+                "searching": true,
+                "destroy": true,
+                "select": {
+                    style: 'single'
+                },
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        "searchable": false,
+                        "orderable": false
+                    },
+                    {
+                        "targets": [1],
+                        "searchable": false,
+                        "orderable": false,
+                        "visible": false
+                    }
+                ],
+                "columns": [
+                    {
+                        "render": function (data, type, full, meta) {
+                            return SoftenerTable.data().count();
+                        }
+                    },
+                    { "data": "Id" },
+                    { "data": "Softener" }
+                ]
+            });
+        });
+
+        $('#SoftenerTable tbody').on('click', 'tr', function () {
+
+            if (SoftenerTable.data().any()) {
+                $(this).toggleClass('selected');
+
+                if ($(this).hasClass('selected')) {
+                    debugger
+                    var rowdata = SoftenerTable.row(this).data();
+                    $('#SoftenerUnitMD').val(rowdata.Softener)
+                    $('#editSoftenerUnitBtn').prop("disabled", false);
+                    $('#deleteSoftenerUnitBtn').prop("disabled", false);
+                    $('#saveSoftenerUnitBtn').prop("disabled", true);
+                }
+                else {
+                    $('#editSoftenerUnitBtn').prop("disabled", true);
+                    $('#deleteSoftenerUnitBtn').prop("disabled", true);
+                    $('#saveSoftenerUnitBtn').prop("disabled", false);
+                }
+            }
+        });
+
+        $('#SoftenerUnitForm').submit(function (e) {
+
+            event.preventDefault();
+            debugger
+            var SoftenerUnitObj = {
+                Id: '0',
+                Softener: $("#SoftenerUnitMD").val()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Stenter/AddSoftenerType",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(SoftenerUnitObj),
+                success: function (response) {
+                    debugger
+                    if (response.data != "" && response.data != null) {
+                        SoftenerTable.row.add(response.data).draw();
+                        $("#SoftenerUnitMD").val("");
+                    }
+                    else {
+                        alert("Failed to Save!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        });
+
+        $("#editSoftenerUnitBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#SoftenerTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = SoftenerTable.rows('.selected').data()[0];
+                var index = SoftenerTable.row('.selected').index();
+
+                var SoftenerUnitObj =
+                {
+                    Id: Row.Id,
+                    Softener: $("#SoftenerUnitMD").val()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Stenter/AddSoftenerType",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(SoftenerUnitObj),
+                    success: function (response) {
+                        debugger
+                        if (response.data != "" && response.data != null) {
+                            debugger
+                            SoftenerTable.row(index).data(response.data).draw();
+                            $("#SoftenerUnitMD").val("");
+                        }
+                        else {
+                            alert("Failed to Update!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#deleteSoftenerUnitBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#SoftenerTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = SoftenerTable.rows('.selected').data()[0];
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Stenter/DeleteSoftenerType",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify({ Id: Row.Id }),
+                    success: function (response) {
+                        debugger
+                        if (response == "Success") {
+                            SoftenerTable.row('.selected').remove().draw(false);
+                            $("#SoftenerUnitMD").val("");
+                        }
+                        else {
+                            alert("Failed to Update!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#resetSoftenerUnitBtn").click(function () {
+            $("#SoftenerUnitMD").val("");
+            $('#editSoftenerUnitBtn').prop("disabled", true);
+            $('#deleteSoftenerUnitBtn').prop("disabled", true);
+            $('#saveSoftenerUnitBtn').prop("disabled", false);
+        });
+
+        $("#okaySoftenerUnitBtn").click(function () {
+            $("#modalSoftenerUnit .close").click();
+            loadSoftenerUnitList();
+        });
+
+        loadSoftenerUnitList();
+
+        function loadSoftenerUnitList(){
+            $.ajax({
+                type: "GET",
+                url: "/Stenter/GetSoftenerUnit",
+                data: "{}",
+                success: function (data) {
+                    debugger;
+                    var data = data.data;
+                    var s = '<option value="">Select Softener</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].Softener + '</option>';
+                    }
+                    $("#SoftenerUnit").html(s);
+                    loadDyeingUnitList();
+                }
+            });
+        }
 
         function loadDyeingUnitList() {
             $.ajax({
@@ -809,7 +1031,7 @@
 
                 { "data": "WidthSet" },
                 { "data": "OverFeed" },
-                { "data": "Temparature" },
+                { "data": "Temp" },
                 { "data": "Speed" },
                 { "data": "Peder" },
                 { "data": "Blower" },
@@ -868,7 +1090,8 @@
         $("#DyeingSelection").click(function () {
 
             selectedDyeingRowId = 0;
-
+            ResetDyeing();
+            DyeingSelectionTable.clear().draw();
             DyeingSelectionTable = $('#DyeingSelectionTable').DataTable({
                 dom: 'Bfrtip',
                 buttons: [
@@ -1103,6 +1326,173 @@
                 alert('Please Select A Row.')
                 return;
             }
+        });
+
+        $('#StenterForm').submit(function (e) {
+
+            event.preventDefault();
+            debugger;
+            if ($('#hidden').is(':checked') == true) {
+                var stenter = {
+                    Id: '0',
+                    BarCode: $('#BarCode').val(),
+                    DyeingID: selectedDyeingRowId,
+                    SoftenerID: $("#SoftenerUnit  option:selected").val(),
+                    WidthSet: $("#WidthSet").val(),
+                    Overfeed: $("#Overfeed").val(),
+                    Temp: $("#Temp").val(),
+                    Speed: $("#Speed").val(),
+                    Blower: $("#Blower").val(),
+                    Peder: $("#Peder").val(),
+                    SoftenerGL: $("#SoftenerGL").val(),
+                    DIA: $("#DIA").val(),
+                    GSM: $("#GSM").val(),
+                    CreateTime: moment(Date.now()).format("DD/MM/YYYY h:mm a")
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Stenter/Create",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(stenter),
+                    success: function (response) {
+                        debugger
+                        if (response.data != "" && response.data != null) {
+                            StenterTable.row.add(response.data);
+                            StenterTable.draw();
+                            Reset();
+                        }
+                        else {
+                            alert("Failed to Save! Please Check Connection State!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select knitting!!!");
+                return;
+            }
+        });
+
+        $("#updateBtn").click(function () {
+            event.preventDefault();
+
+            debugger
+            if ($('#StenterTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = StenterTable.rows('.selected').data()[0];
+                var index = StenterTable.row('.selected').index();
+
+                var dyeingObj = {
+                    Id: Row.Id,
+                    BarCode: Row.BarCode,
+                    DyeingID: Row.DyeingID,
+                    SoftenerID: $("#SoftenerUnit  option:selected").val(),
+                    WidthSet: $("#WidthSet").val(),
+                    Overfeed: $("#Overfeed").val(),
+                    Temp: $("#Temp").val(),
+                    Speed: $("#Speed").val(),
+                    Blower: $("#Blower").val(),
+                    Peder: $("#Peder").val(),
+                    SoftenerGL: $("#SoftenerGL").val(),
+                    DIA: $("#DIA").val(),
+                    GSM: $("#GSM").val(),
+                    UpdateTime: moment(Date.now()).format("DD/MM/YYYY h:mm a")
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Stenter/Edit",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(dyeingObj),
+                    success: function (response) {
+                        debugger
+                        if (response.data != "" && response.data != null) {
+                            debugger
+                            StenterTable.row(index).data(response.data).draw();
+                            Reset();
+                        }
+                        else {
+                            alert("Failed to Update!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+
+
+        });
+
+        $("#reviseBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#StenterTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = StenterTable.rows('.selected').data()[0];
+
+                var dyeingObj = {
+                    Id: Row.Id,
+                    BarCode: Row.BarCode,
+                    DyeingID: selectedDyeingRowId,
+                    SoftenerID: $("#SoftenerUnit  option:selected").val(),
+                    WidthSet: $("#WidthSet").val(),
+                    Overfeed: $("#Overfeed").val(),
+                    Temp: $("#Temp").val(),
+                    Speed: $("#Speed").val(),
+                    Blower: $("#Blower").val(),
+                    Peder: $("#Peder").val(),
+                    SoftenerGL: $("#SoftenerGL").val(),
+                    DIA: $("#DIA").val(),
+                    GSM: $("#GSM").val(),
+                    CreateTime: moment(Date.now()).format("DD/MM/YYYY h:mm a")
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Dyeing/Revise",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(dyeingObj),
+                    success: function (response) {
+                        debugger
+                        if (response.data != "" && response.data != null) {
+                            debugger
+                            StenterTable.row.add(response.data).draw();
+                            Reset();
+                        }
+                        else {
+                            alert("Failed to Revise!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#resetBtn").click(function () {
+            Reset();
         });
 
     });

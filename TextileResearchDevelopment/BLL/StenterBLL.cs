@@ -72,7 +72,7 @@ namespace TextileResearchDevelopment.BLL
                     {
                         Stenter Stenter = new Stenter();
                         Stenter.Id = Convert.ToInt32(reader["Id"]);
-                        Stenter.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
+                        Stenter.DyeingID = Convert.ToInt32(reader["DyeingID"]);
                         Stenter.BuyerName = reader["BuyerName"].ToString();
                         Stenter.FabricName = reader["FabricName"].ToString();
                         Stenter.OrderNo = reader["OrderNo"].ToString();
@@ -533,7 +533,7 @@ namespace TextileResearchDevelopment.BLL
                         {
                             Dyeing dyeing = new Dyeing();
 
-                            dyeing.Id = Convert.ToInt32(reader["KnitId"]);
+                            dyeing.Id = Convert.ToInt32(reader["Id"]);
                             dyeing.BuyerName = reader["BuyerName"].ToString();
                             dyeing.FabricName = reader["FabricName"].ToString();
                             dyeing.OrderNo = reader["OrderNo"].ToString();
@@ -541,6 +541,7 @@ namespace TextileResearchDevelopment.BLL
                             dyeing.ChallanNo = reader["ChallanNo"].ToString();
                             dyeing.DeliveryDate = Convert.ToDateTime(reader["DeliveryDate"]);
                             dyeing.FabricID = Convert.ToInt32(reader["FabricID"]);
+                            dyeing.KnitID = Convert.ToInt32(reader["KnitID"]);
 
                             dyeing.BarCode = reader["BarCode"].ToString();
 

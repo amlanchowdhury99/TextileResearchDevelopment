@@ -64,7 +64,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <table id="DyeingUnitTable" class="stripe hover order-column" style="width: 100%">
+                            <table id="DyeingUnitTable" class="display nowrap stripe hover order-column" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -678,7 +678,7 @@
         $("#KnitSelection").click(function () {
 
             selectedKnitRowId = 0;
-
+            knitSelectionTable.clear().draw();
             knitSelectionTable = $('#knitSelectionTable').DataTable({
                 dom: 'Bfrtip',
                 buttons: [
@@ -1112,7 +1112,7 @@
                     BatchNo: $("#BatchNo").val(),
                     BatchQty: $("#BatchQty").val(),
                     SerialNo: $("#Serial").val(),
-                    CreateTime: moment(Date.now()).format("DD/MM/YYYY h:mm a")
+                    UpdateTime: moment(Date.now()).format("DD/MM/YYYY h:mm a")
                 };
 
                 $.ajax({
@@ -1302,6 +1302,21 @@
         $("#mdDyeingUnit").click(function () {
             debugger;
             DyeingUnitTable = $('#DyeingUnitTable').DataTable({
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    'colvis'
+                ],
                 "ajax":
                 {
                     "url": "/Dyeing/GetDyeingUnitList",
