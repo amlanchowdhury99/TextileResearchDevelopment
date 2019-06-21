@@ -1199,40 +1199,20 @@
             Reset();
         });
 
-        $("#DyeingTable tbody").contextMenu({
-            menuSelector: "#MainContextMenu",
-            menuSelected: function (invokedOn, selectedMenu) {
-                debugger;
-
-                var ApprovedStatus = DyeingTable.rows('.selected').data()[0].ApprovedStatus;
-                if (ApprovedStatus == 0) {
-                    if (selectedMenu.text() == "Delete")
-                        DeleteRow();
-                    if (selectedMenu.text() == "Approve")
-                        ApproveRow();
-
-                }
-                else {
-                    alert("This order is already approved!!!");
-                    return;
-                }
-            }
-        });
-
         $("#resetKnitBtn").click(function () {
             ResetKnit();
         });
 
         $("#DyeingTable tbody").contextMenu({
-            menuSelector: "#contextMenu",
+            menuSelector: "#MainContextMenu",
             menuSelected: function (invokedOn, selectedMenu) {
                 debugger;
 
                 var ApprovedBy = DyeingTable.rows('.selected').data()[0].ApprovedBy;
                 if (ApprovedBy == 0) {
-                    if (selectedMenu.text == "Delete")
+                    if (selectedMenu.text() == "Delete")
                         DeleteRow();
-                    if (selectedMenu.text == "Approve")
+                    if (selectedMenu.text() == "Approve")
                         ApproveRow();
 
                 }

@@ -396,7 +396,7 @@
                     <div class="form-group col-xs-4 form-inline">
                         <label for="BatchNo" class="control-label" style="width:35%;">Batch No</label>
                         <div style="display: inline;">
-                            <input type="text" class="form-control" style="width:60%;" id="BatchNo" placeholder="Batch No" autofocus>
+                            <input type="text" class="form-control" style="width:60%;" id="BatchNo" placeholder="Batch No" autofocus readonly>
                         </div>
                     </div>
                 </div>
@@ -579,6 +579,63 @@
         var selectedDyeingRowId = 0;
         var DyeingSelectionTable = $('#DyeingSelectionTable').DataTable();
         var SoftenerTable = $('#SoftenerTable').DataTable();
+
+        (function ($, window) {
+
+            $.fn.contextMenu = function (settings) {
+
+                return this.each(function () {
+
+                    // Open context menu
+                    $(this).on("contextmenu", function (e) {
+                        // return native menu if pressing control
+                        if (e.ctrlKey) return;
+
+                        if ($('#StenterTable tbody tr').hasClass('selected') == false) return;
+
+                        //open menu
+                        var $menu = $(settings.menuSelector)
+                            .data("invokedOn", $(e.target))
+                            .show()
+                            .css({
+                                position: "absolute",
+                                left: getMenuPosition(e.clientX, 'width', 'scrollLeft'),
+                                top: getMenuPosition(e.clientY, 'height', 'scrollTop')
+                            })
+                            .off('click')
+                            .on('click', 'a', function (e) {
+                                $menu.hide();
+
+                                var $invokedOn = $menu.data("invokedOn");
+                                var $selectedMenu = $(e.target);
+
+                                settings.menuSelected.call(this, $invokedOn, $selectedMenu);
+                            });
+
+                        return false;
+                    });
+
+                    //make sure menu closes on any click
+                    $('body').click(function () {
+                        $(settings.menuSelector).hide();
+                    });
+                });
+
+                function getMenuPosition(mouse, direction, scrollDir) {
+                    var win = $(window)[direction](),
+                        scroll = $(window)[scrollDir](),
+                        menu = $(settings.menuSelector)[direction](),
+                        position = mouse + scroll;
+
+                    // opening menu would pass the side of the page
+                    if (mouse + menu > win && menu < mouse)
+                        position -= menu;
+
+                    return position;
+                }
+
+            };
+        })(jQuery, window);
 
         $('#DeliveryDateSL, #FabricOrderDateSL, #KnitOrderDateSL').datetimepicker({
             defaultDate: new Date(),
@@ -1339,7 +1396,7 @@
                     DyeingID: selectedDyeingRowId,
                     SoftenerID: $("#SoftenerUnit  option:selected").val(),
                     WidthSet: $("#WidthSet").val(),
-                    Overfeed: $("#Overfeed").val(),
+                    OverFeed: $("#OverFeed").val(),
                     Temp: $("#Temp").val(),
                     Speed: $("#Speed").val(),
                     Blower: $("#Blower").val(),
@@ -1394,7 +1451,7 @@
                     DyeingID: Row.DyeingID,
                     SoftenerID: $("#SoftenerUnit  option:selected").val(),
                     WidthSet: $("#WidthSet").val(),
-                    Overfeed: $("#Overfeed").val(),
+                    OverFeed: $("#OverFeed").val(),
                     Temp: $("#Temp").val(),
                     Speed: $("#Speed").val(),
                     Blower: $("#Blower").val(),
@@ -1444,13 +1501,13 @@
                 debugger
                 var Row = StenterTable.rows('.selected').data()[0];
 
-                var dyeingObj = {
+                var stenter = {
                     Id: Row.Id,
                     BarCode: Row.BarCode,
-                    DyeingID: selectedDyeingRowId,
+                    DyeingID: Row.DyeingID,
                     SoftenerID: $("#SoftenerUnit  option:selected").val(),
                     WidthSet: $("#WidthSet").val(),
-                    Overfeed: $("#Overfeed").val(),
+                    OverFeed: $("#OverFeed").val(),
                     Temp: $("#Temp").val(),
                     Speed: $("#Speed").val(),
                     Blower: $("#Blower").val(),
@@ -1463,10 +1520,10 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "/Dyeing/Revise",
+                    url: "/Stenter/Revise",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    data: JSON.stringify(dyeingObj),
+                    data: JSON.stringify(stenter),
                     success: function (response) {
                         debugger
                         if (response.data != "" && response.data != null) {
@@ -1494,6 +1551,154 @@
         $("#resetBtn").click(function () {
             Reset();
         });
+
+        $("#StenterTable tbody").contextMenu({
+            menuSelector: "#MainContextMenu",
+            menuSelected: function (invokedOn, selectedMenu) {
+                debugger;
+
+                var ApprovedBy = StenterTable.rows('.selected').data()[0].ApprovedBy;
+                if (ApprovedBy == 0) {
+                    if (selectedMenu.text() == "Delete")
+                        DeleteRow();
+                    if (selectedMenu.text() == "Approve")
+                        ApproveRow();
+
+                }
+                else {
+                    alert("This order is already approved!!!");
+                    return;
+                }
+            }
+        });
+
+        $('#StenterTable tbody').on('click', 'tr', function () {
+
+            $(this).toggleClass('selected');
+
+            if ($(this).hasClass('selected')) {
+                var rowdata = StenterTable.row(this).data();
+            }
+
+            if (StenterTable.data().any()) {
+                Setvalue(rowdata);
+                $('#saveBtn').prop("disabled", true);
+                $('#updateBtn').prop("disabled", false);
+                $('#reviseBtn').prop("disabled", false);
+            }
+            else {
+                $('#saveBtn').prop("disabled", false);
+                $('#updateBtn').prop("disabled", true);
+                $('#reviseBtn').prop("disabled", true);
+            }
+
+        });
+
+        function Setvalue(rowdata) {
+            debugger;
+            $("#WidthSet").val(rowdata.WidthSet);
+            $("#OverFeed").val(rowdata.OverFeed);
+            $("#Temp").val(rowdata.Temp);
+            $("#Speed").val(rowdata.Speed);
+            $("#Peder").val(rowdata.Peder);
+            $("#Blower").val(rowdata.Blower);
+            $("#SoftenerUnit").val(rowdata.SoftenerID);
+            $("#SoftenerGL").val(rowdata.SoftenerGL);
+            $("#DIA").val(rowdata.DIA);
+            $("#GSM").val(rowdata.GSM);
+        }
+
+        function Reset() {
+            $("#BarCode").val("");
+            $("#OrderNo").val("");
+            $("#Color").val("");
+            $("#FabricName").val("");
+            $("#BuyerName").val("");
+            $("#DiaGauge").val("");
+            $("#YarnCount").val("");
+            $("#YarnBrand").val("");
+            $("#YarnLot").val("");
+            $("#KnitUnit").val("");
+            $("#Brand").val("");
+            $("#GreyWidth").val("");
+            $("#GreyGSM").val("");
+            $("#WidthSet").val("");
+            $("#OverFeed").val("");
+            $("#Temp").val("");
+            $("#Speed").val("");
+            $("#Peder").val("");
+            $("#Blower").val("");
+            $("#SoftenerUnit").val("");
+            $("#SoftenerGL").val("");
+            $("#DIA").val("");
+            $("#GSM").val("");
+            $('#hidden').prop('checked', false);
+        }
+
+        function DeleteRow() {
+            event.preventDefault();
+            var Id = StenterTable.rows('.selected').data()[0].Id;
+
+            $.ajax({
+                type: "POST",
+                url: "/Stenter/Delete",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({ "Id": Id }),
+                success: function (response) {
+                    debugger
+                    if (response = "Success") {
+                        debugger;
+                        StenterTable.row('.selected').remove().draw(false);
+                        Reset();
+                    }
+                    else {
+                        alert("Failed to Delete!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        };
+
+        function ApproveRow() {
+            debugger
+            event.preventDefault();
+
+            var Row = StenterTable.rows('.selected').data()[0];
+            var index = StenterTable.row('.selected').index();
+
+            var stenter =
+            {
+                Id: Row.Id,
+                ApprovedTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Stenter/Approve",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(stenter),
+                success: function (response) {
+                    debugger
+                    if (response.data != "" && response.data != null) {
+                        debugger
+                        StenterTable.row(index).data(response.data).draw();
+                        Reset();
+                    }
+                    else {
+                        alert("Failed to Approve!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        }
 
     });
 
