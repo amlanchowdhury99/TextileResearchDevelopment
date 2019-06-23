@@ -104,6 +104,10 @@
                             }
                             if (parseInt(result[i]) == 9)
                             {
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Report", "Index", "Report", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                            }
+                            if (parseInt(result[i]) == 10)
+                            {
                                 $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("UserManagement", "Index", "UserManagement", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
                             }
                         }

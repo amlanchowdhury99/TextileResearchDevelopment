@@ -141,6 +141,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KnittingController.cs" />
     <Compile Include="Controllers\RemarksController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\SlittingController.cs" />
     <Compile Include="Controllers\StenterController.cs" />
     <Compile Include="Controllers\TestReportController.cs" />
@@ -180,6 +181,7 @@
     <Content Include="Content\Carousel\jquery.marquee.js" />
     <Content Include="Content\Carousel\liMarquee.css" />
     <Content Include="Content\Custom.css" />
+    <Content Include="Content\daterangepicker.css" />
     <Content Include="Content\icomoon\fonts\icomoon.svg" />
     <Content Include="Content\icomoon\styles.css" />
     <Content Include="Content\images\arrow.png" />
@@ -228,6 +230,7 @@
     <Content Include="Content\_bootstrap-datetimepicker.less" />
     <Content Include="Content\bootstrap-datetimepicker-build.less" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\daterangepicker.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -272,6 +275,7 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Home\LoginForm.cshtml" />
     <Content Include="Views\UserManagement\Index.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -306,7 +310,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1715</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:1715/</IISUrl>
+          <IISUrl>http://localhost:19782/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

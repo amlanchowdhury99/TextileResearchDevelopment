@@ -21,7 +21,8 @@ namespace TextileResearchDevelopment
                         "~/Scripts/dataTables.select.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/moment").Include(
-                        "~/Scripts/moment.js"));
+                        "~/Scripts/moment.js",
+                        "~/Scripts/daterangepicker.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
@@ -48,7 +49,8 @@ namespace TextileResearchDevelopment
                       "~/Content/select.dataTables.min.css",
                       "~/Content/bootstrapValidator.min.css",
                       "~/Content/site.css",
-                      "~/Content/bootstrap-datetimepicker.min.css"));
+                      "~/Content/bootstrap-datetimepicker.min.css",
+                      "~/Content/daterangepicker.css"));
         }
     }
 }

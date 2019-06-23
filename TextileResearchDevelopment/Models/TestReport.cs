@@ -19,7 +19,18 @@ namespace TextileResearchDevelopment.Models
             UpdateTime = DateTime.MaxValue;
             ApprovedTime = DateTime.MaxValue;
             DeliveryDate = DateTime.MaxValue;
-            FabricCreateTime = DateTime.MaxValue;
+            FabricCreateTimeStart  = DateTime.MaxValue;
+
+            KnitCreateTimeStart = DateTime.MaxValue;
+            DyeingCreateTimeStart = DateTime.MaxValue;
+            SlittingCreateTimeStart = DateTime.MaxValue;
+            StenterCreateTimeStart = DateTime.MaxValue;
+            AopCreateTimeStart = DateTime.MaxValue;
+            TestReportCreateTimeStart = DateTime.MaxValue;
+            RemarksCreateTimeStart = DateTime.MaxValue;
+
+            DeliveryDateStart = DateTime.MaxValue;
+            DeliveryDateEnd = DateTime.MaxValue;
         }
 
         public int Id { get; set; }
@@ -82,16 +93,28 @@ namespace TextileResearchDevelopment.Models
         public int MCRPM { get; set; }
         public decimal TumbleWidth { get; set; }
         public decimal TumbleGSM { get; set; }
-        public DateTime FabricCreateTime { get; set; }
+        public DateTime DeliveryDateStart { get; set; }
+        public DateTime DeliveryDateEnd { get; set; }
+
+
         public string DyeingUnit { get; set; }
         public string BatchNo { get; set; }
         public int BatchQty { get; set; }
         public int SerialNo { get; set; }
 
         public string SoftenerName { get; set; }
+        public decimal SoftenerGL { get; set; }
+        public decimal WidthSet { get; set; }
+        public decimal OverFeed { get; set; }
+        public decimal Temp { get; set; }
+        public decimal Speed { get; set; }
+        public string Peder { get; set; }
+        public decimal Blower { get; set; }
+        public decimal DIA { get; set; }
+        public decimal GSM { get; set; }
+
         public string PrintName { get; set; }
         public string MachineName { get; set; }
-
         public DateTime CreateTime { get; set; }
 
 

@@ -1,0 +1,393 @@
+﻿@{
+    if (Request.IsAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<head>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+</head>
+
+<div id="MainDiv" class="panel panel-default ">
+    <h2>Master Report</h2>
+
+    <div class="modal fade" id="modalReport" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Select Stenter</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Report Search Result</div>
+                                <div class="panel-body">
+                                    <table id="ReportTable" class="stripe hover order-column" style="width: 100%">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Id</th>
+                                                <th>StenterID</th>
+                                                <th>DyeingUnitID</th>
+                                                <th>BarCode</th>
+                                                <th>Buyer Name</th>
+                                                <th>Fabric Type</th>
+                                                <th>Order No</th>
+                                                <th>Color</th>
+                                                <th>Dia Guage</th>
+                                                <th>Yarn Count</th>
+                                                <th>Yarn Brand</th>
+                                                <th>Yarn Lot</th>
+                                                <th>Knit Unit</th>
+                                                <th>Grey Width</th>
+                                                <th>Grey GSM</th>
+                                                <th>Mc Brand</th>
+                                                <th>Dyeing Unit</th>
+                                                <th>Batch No</th>
+                                                <th>Peder</th>
+                                                <th>Blower</th>
+                                                <th>SoftenerName</th>
+                                                <th>SoftenerGL</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit" id="okayBtn" class="btn btn-success">Okay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default ">
+        <div class="panel-heading">
+            <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Searching Criteria</h5>
+        </div>
+        <div class="panel-body">
+            <form id="AopForm">
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="BarCodeSL" class="control-label" style="width:35%;">BarCode</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="BarCodeSL" placeholder="Bar Code" autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="BuyerSL" class="control-label" style="width:35%;">Buyer</label>
+                        <div style=" display: inline;">
+                            <select name="BuyerSL" id="BuyerSL" style="width:60%;" class="form-control input-sm" required autofocus></select>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="FabricSL" class="control-label" style="width:35%;">Fabric</label>
+                        <div style="display: inline;">
+                            <select name="FabricSL" id="FabricSL" style="width:60%;" class="form-control" autofocus></select>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline ">
+                        <label for="OrderNoSL" class="control-label" style="width:35%;">Order No</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="OrderNoSL" placeholder="Order No" autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="ColorSL" class="control-label" style="width:35%;">Color</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="ColorSL" placeholder="Color" autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="ChallanSL" class="control-label" style="width:35%;">Challan No</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="ChallanSL" placeholder="Challan No" autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="DiaGaugeSL" class="control-label" style="width:35%;">Dia-Guage</label>
+                        <div style="display: inline;">
+                            <select name="DiaGaugeSL" id="DiaGaugeSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="YarnCountSL" class="control-label" style="width:35%;">Yarn Count</label>
+                        <div style="display: inline;">
+                            <select name="YarnCountSL" id="YarnCountSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="YarnBrandSL" class="control-label" style="width:35%;">Yarn Brand</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control input-sm" style="width:60%;" id="YarnBrandSL" placeholder="Yarn Brand" autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="YarnLotSL" class="control-label" style="width:35%;">Yarn Lot</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="YarnLotSL" name="YarnLotSL" placeholder="Yarn Lot">
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="GreyWidthSL" class="control-label" style="width:35%;">Grey Width</label>
+                        <div style="display: inline;">
+                            <input type="number" class="form-control" style="width:60%;" id="GreyWidthSL" min="0" step="1" data-bind="value:GreyWidth" placeholder="Grey Width" autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="GreyGSMSL" class="control-label" style="width:35%;">Grey GSM</label>
+                        <div style="display: inline;">
+                            <input type="number" class="form-control" style="width:60%;" id="GreyGSMSL" min="0" step="1" data-bind="value:GreyGSM" placeholder="Grey GSM" autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="KnitUnitSL" class="control-label" style="width:35%;">Knit Unit</label>
+                        <div style="display: inline;">
+                            <select name="KnitUnitSL" id="KnitUnitSL" style="width:60%;" class="form-control" autofocus></select>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="BrandSL" class="control-label" style="width:35%;">MC Brand</label>
+                        <div style="display: inline;">
+                            <select name="BrandSL" id="BrandSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="DyeingUnitSL" class="control-label" style="width:35%;">DyeingUnit</label>
+                        <div style="display: inline;">
+                            <select name="DyeingUnitSL" id="DyeingUnitSL" style="width:60%;" class="form-control" autofocus></select>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="BatchNoSL" class="control-label" style="width:35%;">Batch No</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="BatchNoSL" name="BatchNoSL" placeholder="Batch No">
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="SoftenerUnitSL" class="control-label" style="width:35%;">Softener</label>
+                        <div style="display: inline;">
+                            <select name="SoftenerUnitSL" id="SoftenerUnitSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="SoftenerGLSL" class="control-label" style="width:35%;">Softener GL</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="SoftenerGLSL" name="SoftenerGLSL" placeholder="Softener GL">
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="BlowerSL" class="control-label" style="width:35%;">Blower</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="BlowerSL" name="BlowerSL" placeholder="Blower">
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="PrintUnitSL" class="control-label" style="width:35%;">Print Type</label>
+                        <div style="display: inline;">
+                            <select name="PrintUnitSL" id="PrintUnitSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="MachineUnitSL" class="control-label" style="width:35%;">Machine Type</label>
+                        <div style="display: inline;">
+                            <select name="MachineUnitSL" id="MachineUnitSL" style="width:60%;" class="form-control" autofocus></select>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="FinalWidthSL" class="control-label" style="width:35%;">Final Width</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="FinalWidthSL" name="FinalWidthSL" placeholder="Final Width">
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="FinalGSMSL" class="control-label" style="width:35%;">Final GSM</label>
+                        <div style="display: inline;">
+                            <select name="FinalGSMSL" id="FinalGSMSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="TumbleSPSL" class="control-label" style="width:35%;">Tumble SP</label>
+                        <div style="display: inline;">
+                            <select name="TumbleSPSL" id="TumbleSPSL" style="width:60%;" class="form-control" autofocus></select>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <input type="checkbox" id="DeliveryDateCheckBox" style="width:5%;">
+                        <label for="DeliveryDateSL" class="control-label" style="width:30%;">Delivery Date</label>
+                        <div class='input-group date' id='DeliveryDateSL' style="width:60%;">
+                            <input type='text' class="form-control" id="DeliveryDateTextSL" disabled placeholder="Delivey Date" autofocus />
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <input type="checkbox" id="FabricOrderDateCheckBox" style="width:5%;">
+                        <label for="FabricOrderDateSL" class="control-label" style="width:30%;">Fabric Order Date</label>
+                        <div class='input-group date' id='FabricOrderDateSL' style="width:60%;">
+                            <input type='text' class="form-control" id="FabricOrderDateTextSL" disabled placeholder="Fabric Order Date" autofocus />
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <input type="checkbox" id="KnitOrderDateCheckBox" style="width:5%;">
+                        <label for="KnitOrderDateSL" class="control-label" style="width:30%;">Knit Order Date</label>
+                        <div class='input-group date' id='KnitOrderDateSL' style="width:60%;">
+                            <input type='text' class="form-control" id="KnitOrderDateTextSL" disabled placeholder="Knit Order Date" autofocus />
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <input type="checkbox" id="DyeingOrderDateCheckBox" style="width:5%;">
+                        <label for="DyeingOrderDateSL" class="control-label" style="width:30%;">Dyeing Order Date</label>
+                        <div class='input-group date' id='DyeingOrderDateSL' style="width:60%;">
+                            <input type='text' class="form-control" id="DyeingOrderDateTextSL" disabled placeholder="Dyeing Order Date" autofocus />
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <input type="checkbox" id="SlittingOrderDateCheckBox" style="width:5%;">
+                        <label for="SlittingOrderDateSL" class="control-label" style="width:30%;">Slitting Order Date</label>
+                        <div class='input-group date' id='SlittingOrderDateSL' style="width:60%;">
+                            <input type='text' class="form-control" id="SlittingOrderDateTextSL" disabled placeholder="Slitting Order Date" autofocus />
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <input type="checkbox" id="StenterOrderDateCheckBox" style="width:5%;">
+                        <label for="StenterOrderDateSL" class="control-label" style="width:30%;">Stenter Order Date</label>
+                        <div class='input-group date' id='StenterOrderDateSL' style="width:60%;">
+                            <input type='text' class="form-control" id="StenterOrderDateTextSL" disabled placeholder="Stenter Order Date" autofocus />
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <input type="checkbox" id="AopOrderDateCheckBox" style="width:5%;">
+                        <label for="AopOrderDateSL" class="control-label" style="width:30%;">Aop Order Date</label>
+                        <div class='input-group date' id='AopOrderDateSL' style="width:60%;">
+                            <input type='text' class="form-control" id="AopOrderDateTextSL" disabled placeholder="Aop Order Date" autofocus />
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <input type="checkbox" id="TestOrderDateCheckBox" style="width:5%;">
+                        <label for="TestOrderDateSL" class="control-label" style="width:30%;">Test Order Date</label>
+                        <div class='input-group date' id='TestOrderDateSL' style="width:60%;">
+                            <input type='text' class="form-control" id="TestOrderDateTextSL" disabled placeholder="Test Order Date" autofocus />
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <input type="checkbox" id="RemarksOrderDateCheckBox" style="width:5%;">
+                        <label for="RemarksOrderDateSL" class="control-label" style="width:30%;">Remarks Order Date</label>
+                        <div class='input-group date' id='RemarksOrderDateSL' style="width:60%;">
+                            <input type='text' class="form-control" id="RemarksOrderDateTextSL" disabled placeholder="Remarks Order Date" autofocus />
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <button class="btn btn-warning btn-sm" style="width:35%;" id="resetAopBtn">Reset</button>
+                        <div style="display: inline;">
+                            <button type="submit" id="searchAopBtn" class="btn btn-primary btn-sm" style="width:60%;" data-toggle="modal" data-target="#modalReport">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        var ReportTable = $('#ReportTable').DataTable();
+
+        $('#DeliveryDateTextSL, #FabricOrderDateTextSL, #KnitOrderDateTextSL, #DyeingOrderDateTextSL, #SlittingOrderDateTextSL, #StenterOrderDateTextSL, #AopOrderDateTextSL, #TestOrderDateTextSL,  #RemarksOrderDateTextSL').daterangepicker({
+            locale: {
+                format: 'DD/MM/YYYY'
+                //format: 'MMM D, YYYY'
+            }
+        });
+
+        $("#searchAopBtn").click(function () {
+            debugger;
+            ReportTable = $('#ReportTable').DataTable({
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    'colvis'
+                ],
+                "ajax":
+                {
+                    "url": "/Report/GetSearchResult",
+                    "type": "GET",
+                    "dataType": "JSON"
+                },
+                "dom": 'Bfrtip',
+                "scrollY": true,
+                "scrollX": true,
+                "Sorting": true,
+                "searching": true,
+                "destroy": true,
+                "select": {
+                    style: 'single'
+                },
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        "searchable": false,
+                        "orderable": false
+                    },
+                    {
+                        "targets": [1],
+                        "searchable": false,
+                        "orderable": false,
+                        "visible": false
+                    }
+                ],
+                "columns": [
+                    {
+                        "render": function (data, type, full, meta) {
+                            return MachineTypeTable.data().count();
+                        }
+                    },
+                    { "data": "Id" },
+                    { "data": "MachineName" }
+                ]
+            });
+        });
+
+    });
+
+</script>
