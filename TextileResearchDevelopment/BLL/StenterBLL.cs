@@ -405,7 +405,6 @@ namespace TextileResearchDevelopment.BLL
             {
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
                 string GetReviseQuery = "SELECT ReviseStatus FROM Stenter WHERE Id = " + stenter.Id;
-                string GetStenterID = "SELECT StenterID FROM Stenter WHERE Id = " + stenter.Id;
 
                 string query = " INSERT INTO Stenter (DyeingID, BarCode, WidthSet, OverFeed, Temp, Speed, Peder, Blower, SoftenerID, SoftenerGL, DIA, GSM, ReviseStatus, CreateTime, CreateBy, ApprovedStatus, ApprovedBy, UpdateBy) " +
                                " VALUES(" + stenter.DyeingID + "," + stenter.BarCode + "," + stenter.WidthSet + "," + stenter.OverFeed + "," + stenter.Temp + "," + stenter.Speed + ",'" + stenter.Peder + "'," + stenter.Blower + "," + stenter.SoftenerID + "," + stenter.SoftenerGL + "," + stenter.DIA + "," + stenter.GSM + ", ((" + GetReviseQuery + ") +1),'" + stenter.CreateTime.ToString("yyyy/MM/dd HH:mm") + "', (" + GetCreateByQuery + "), 0, 0, 0 )";

@@ -19,14 +19,14 @@ namespace TextileResearchDevelopment.Controllers
         [HttpPost]
         public JsonResult GetSearchResult(TestReport searchObj)
         {
-            List<Stenter> data = new List<Stenter>();
+            List<TestReport> data = new List<TestReport>();
             try
             {
                 data = ReportBLL.Search(searchObj);
             }
             catch (Exception ex)
             {
-                data = new List<Stenter>();
+                data = new List<TestReport>();
             }
 
             return Json(data, JsonRequestBehavior.AllowGet);

@@ -228,78 +228,10 @@
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="TumbleSPSL" class="control-label" style="width:35%;">Tumble SP</label>
-                        <div style="display: inline;">
-                            <select name="TumbleSPSL" id="TumbleSPSL" style="width:60%;" class="form-control" autofocus></select>
-                        </div>
-                    </div>
-                </div>
-                <div class=" form-group">
-                    <div class="form-group col-xs-4 form-inline">
                         <input type="checkbox" id="DeliveryDateCheckBox" style="width:5%;">
                         <label for="DeliveryDateSL" class="control-label" style="width:30%;">Delivery Date</label>
                         <div class='input-group date' id='DeliveryDateSL' style="width:60%;">
                             <input type='text' class="form-control" id="DeliveryDateTextSL" disabled placeholder="Delivey Date" autofocus />
-                        </div>
-                    </div>
-                    <div class="form-group col-xs-4 form-inline">
-                        <input type="checkbox" id="FabricOrderDateCheckBox" style="width:5%;">
-                        <label for="FabricOrderDateSL" class="control-label" style="width:30%;">Fabric Order Date</label>
-                        <div class='input-group date' id='FabricOrderDateSL' style="width:60%;">
-                            <input type='text' class="form-control" id="FabricOrderDateTextSL" disabled placeholder="Fabric Order Date" autofocus />
-                        </div>
-                    </div>
-                    <div class="form-group col-xs-4 form-inline">
-                        <input type="checkbox" id="KnitOrderDateCheckBox" style="width:5%;">
-                        <label for="KnitOrderDateSL" class="control-label" style="width:30%;">Knit Order Date</label>
-                        <div class='input-group date' id='KnitOrderDateSL' style="width:60%;">
-                            <input type='text' class="form-control" id="KnitOrderDateTextSL" disabled placeholder="Knit Order Date" autofocus />
-                        </div>
-                    </div>
-                </div>
-                <div class=" form-group">
-                    <div class="form-group col-xs-4 form-inline">
-                        <input type="checkbox" id="DyeingOrderDateCheckBox" style="width:5%;">
-                        <label for="DyeingOrderDateSL" class="control-label" style="width:30%;">Dyeing Order Date</label>
-                        <div class='input-group date' id='DyeingOrderDateSL' style="width:60%;">
-                            <input type='text' class="form-control" id="DyeingOrderDateTextSL" disabled placeholder="Dyeing Order Date" autofocus />
-                        </div>
-                    </div>
-                    <div class="form-group col-xs-4 form-inline">
-                        <input type="checkbox" id="SlittingOrderDateCheckBox" style="width:5%;">
-                        <label for="SlittingOrderDateSL" class="control-label" style="width:30%;">Slitting Order Date</label>
-                        <div class='input-group date' id='SlittingOrderDateSL' style="width:60%;">
-                            <input type='text' class="form-control" id="SlittingOrderDateTextSL" disabled placeholder="Slitting Order Date" autofocus />
-                        </div>
-                    </div>
-                    <div class="form-group col-xs-4 form-inline">
-                        <input type="checkbox" id="StenterOrderDateCheckBox" style="width:5%;">
-                        <label for="StenterOrderDateSL" class="control-label" style="width:30%;">Stenter Order Date</label>
-                        <div class='input-group date' id='StenterOrderDateSL' style="width:60%;">
-                            <input type='text' class="form-control" id="StenterOrderDateTextSL" disabled placeholder="Stenter Order Date" autofocus />
-                        </div>
-                    </div>
-                </div>
-                <div class=" form-group">
-                    <div class="form-group col-xs-4 form-inline">
-                        <input type="checkbox" id="AopOrderDateCheckBox" style="width:5%;">
-                        <label for="AopOrderDateSL" class="control-label" style="width:30%;">Aop Order Date</label>
-                        <div class='input-group date' id='AopOrderDateSL' style="width:60%;">
-                            <input type='text' class="form-control" id="AopOrderDateTextSL" disabled placeholder="Aop Order Date" autofocus />
-                        </div>
-                    </div>
-                    <div class="form-group col-xs-4 form-inline">
-                        <input type="checkbox" id="TestOrderDateCheckBox" style="width:5%;">
-                        <label for="TestOrderDateSL" class="control-label" style="width:30%;">Test Order Date</label>
-                        <div class='input-group date' id='TestOrderDateSL' style="width:60%;">
-                            <input type='text' class="form-control" id="TestOrderDateTextSL" disabled placeholder="Test Order Date" autofocus />
-                        </div>
-                    </div>
-                    <div class="form-group col-xs-4 form-inline">
-                        <input type="checkbox" id="RemarksOrderDateCheckBox" style="width:5%;">
-                        <label for="RemarksOrderDateSL" class="control-label" style="width:30%;">Remarks Order Date</label>
-                        <div class='input-group date' id='RemarksOrderDateSL' style="width:60%;">
-                            <input type='text' class="form-control" id="RemarksOrderDateTextSL" disabled placeholder="Remarks Order Date" autofocus />
                         </div>
                     </div>
                 </div>
@@ -332,6 +264,9 @@
 
         $("#searchAopBtn").click(function () {
             debugger;
+
+
+
             ReportTable = $('#ReportTable').DataTable({
                 buttons: [
                     {

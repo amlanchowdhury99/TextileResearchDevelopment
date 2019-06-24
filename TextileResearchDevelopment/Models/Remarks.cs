@@ -25,6 +25,7 @@ namespace TextileResearchDevelopment.Models
 
         public int Id { get; set; }
 
+        public int TestReportID { get; set; }
         public int AopID { get; set; }
 
         public int FabricID { get; set; }
@@ -90,13 +91,27 @@ namespace TextileResearchDevelopment.Models
         public int SerialNo { get; set; }
 
         public string SoftenerName { get; set; }
+        public decimal SoftenerGL { get; set; }
+        public decimal WidthSet { get; set; }
+        public decimal OverFeed { get; set; }
+        public decimal Temp { get; set; }
+        public decimal Speed { get; set; }
+        public string Peder { get; set; }
+        public decimal Blower { get; set; }
+        public decimal DIA { get; set; }
+        public decimal GSM { get; set; }
+
         public string PrintName { get; set; }
         public string MachineName { get; set; }
 
         public DateTime CreateTime { get; set; }
 
-        public int FinalWidth { get; set; }
-        public int FinalGSM { get; set; }
+        public decimal FinalWidth { get; set; }
+        public decimal FinalGSM { get; set; }
+        public decimal TLength { get; set; }
+        public decimal TWidth { get; set; }
+        public decimal TSP { get; set; }
+
 
         public string UserRemarks { get; set; }
 

@@ -19,15 +19,6 @@ namespace TextileResearchDevelopment.Models
             UpdateTime = DateTime.MaxValue;
             ApprovedTime = DateTime.MaxValue;
             DeliveryDate = DateTime.MaxValue;
-            FabricCreateTimeStart  = DateTime.MaxValue;
-
-            KnitCreateTimeStart = DateTime.MaxValue;
-            DyeingCreateTimeStart = DateTime.MaxValue;
-            SlittingCreateTimeStart = DateTime.MaxValue;
-            StenterCreateTimeStart = DateTime.MaxValue;
-            AopCreateTimeStart = DateTime.MaxValue;
-            TestReportCreateTimeStart = DateTime.MaxValue;
-            RemarksCreateTimeStart = DateTime.MaxValue;
 
             DeliveryDateStart = DateTime.MaxValue;
             DeliveryDateEnd = DateTime.MaxValue;
@@ -123,6 +114,8 @@ namespace TextileResearchDevelopment.Models
         public decimal TLength { get; set; }
         public decimal TWidth { get; set; }
         public decimal TSP { get; set; }
+
+        public string Remarks { get; set; }
 
 
         public int CreateBy { get; set; }

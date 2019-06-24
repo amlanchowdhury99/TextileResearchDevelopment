@@ -33,7 +33,6 @@ namespace TextileResearchDevelopment.BLL
                             TestReport report = new TestReport();
 
                             report.Id = Convert.ToInt32(reader["Id"]);
-                            report.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             report.BuyerName = reader["BuyerName"].ToString();
                             report.FabricName = reader["FabricName"].ToString();
                             report.OrderNo = reader["OrderNo"].ToString();
@@ -59,18 +58,20 @@ namespace TextileResearchDevelopment.BLL
 
                             report.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
                             report.SoftenerName = reader["SoftenerName"].ToString();
+                            report.SoftenerGL = Convert.ToDecimal(reader["SoftenerGL"]);
 
                             report.PrintID = Convert.ToInt32(reader["PrintID"]);
                             report.PrintName = reader["PrintName"].ToString();
                             report.MachineID = Convert.ToInt32(reader["MachineID"]);
                             report.MachineName = reader["MachineName"].ToString();
 
-                            report.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
-                            report.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
-                            report.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
-                            report.CreateByName = reader["CreateByName"].ToString();
-                            report.UpdateByName = reader["UpdateByName"].ToString();
-                            report.ApprovedByName = reader["ApprovedByName"].ToString();
+                            report.FinalWidth = Convert.ToDecimal(reader["FinalWidth"]);
+                            report.FinalGSM = Convert.ToDecimal(reader["FinalGSM"]);
+                            report.TLength = Convert.ToDecimal(reader["TLength"]);
+                            report.TWidth = Convert.ToDecimal(reader["TWidth"]);
+                            report.TSP = Convert.ToDecimal(reader["TSP"]);
+
+                            report.Remarks = reader["Remarks"].ToString();
 
                             report.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
                             report.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
@@ -161,10 +162,10 @@ namespace TextileResearchDevelopment.BLL
                     query = query + " ChallanNo = '" + searchObj.ChallanNo + "'";
                 }
 
-                if (searchObj.DeliveryDateStart!= DateTime.MaxValue && searchObj.DeliveryDateEnd != DateTime.MaxValue)
+                if (searchObj.DeliveryDateStart != DateTime.MaxValue && searchObj.DeliveryDateEnd != DateTime.MaxValue)
                 {
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " DeliveryDate = '" + searchObj.DeliveryDate + "'";
+                    query = query + " DeliveryDate BETWEEN '" + searchObj.DeliveryDateStart + "' AND " + searchObj.DeliveryDateEnd + "'";
                 }
 
                 if (searchObj.CreateTime != DateTime.MaxValue && searchObj.CreateTime != null)

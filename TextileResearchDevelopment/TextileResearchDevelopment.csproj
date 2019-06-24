@@ -131,6 +131,8 @@
     <Compile Include="BLL\DyeingBLL.cs" />
     <Compile Include="BLL\FabricBLL.cs" />
     <Compile Include="BLL\KnittingBLL.cs" />
+    <Compile Include="BLL\RemarksBLL.cs" />
+    <Compile Include="BLL\ReportBLL.cs" />
     <Compile Include="BLL\StenterBLL.cs" />
     <Compile Include="BLL\TestBLL.cs" />
     <Compile Include="BLL\UserBLL.cs" />

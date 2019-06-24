@@ -29,7 +29,7 @@ namespace TextileResearchDevelopment.BLL
             SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader; cm.Connection = cn; cn.Open();
             try
             {
-                aops = new List<Aop>();
+                tests = new List<TestReport>();
                 string query = "SELECT * FROM TestView";
                 cm.CommandText = query;
                 reader = cm.ExecuteReader();
@@ -362,7 +362,6 @@ namespace TextileResearchDevelopment.BLL
             {
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
                 string GetReviseQuery = "SELECT ReviseStatus FROM Test WHERE Id = " + test.Id;
-                string GetAOPID = "SELECT AOPID FROM Test WHERE Id = " + test.Id;
 
                 string query = " INSERT INTO Aop (AOPID, BarCode, FinalWidth, FinalGSM, TumbleLength, TumbleWidth, TumbleSP, ReviseStatus, CreateTime, CreateBy, ApprovedStatus, ApprovedBy, UpdateBy) " +
                                " VALUES(" + test.AopID + "," + test.BarCode + "," + test.FinalWidth + "," + test.FinalGSM + "," + test.TLength + "," + test.TWidth + "," + test.TSP + ", ((" + GetReviseQuery + ") +1),'" + test.CreateTime.ToString("yyyy/MM/dd HH:mm") + "',(" + GetCreateByQuery + "), 0, 0, 0 )";
