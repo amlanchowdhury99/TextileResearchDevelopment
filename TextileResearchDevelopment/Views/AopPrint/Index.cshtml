@@ -22,7 +22,7 @@
 </head>
 
 <div id="MainDiv" class="panel panel-default ">
-    <h2>Aop Print Entry Form</h2>
+    <h2>AopPrint Print Entry Form</h2>
 
     <ul id="MainContextMenu" class="dropdown-menu" role="menu" style="display:none">
         <li><a tabindex="-1" href="#">Delete</a></li>
@@ -319,7 +319,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <table id="StenterSelectionTable" class="stripe hover order-column" style="width: 100%">
+                            <table id="StenterSelectionTable" class="display nowrap stripe hover order-column" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -516,7 +516,7 @@
         </div>
     </div>
 
-    <table id="AopTable" class="stripe hover order-column " style="width: 1000px;">
+    <table id="AopTable" class="display nowrap stripe hover order-column " style="width: 1000px;">
         <thead>
             <tr>
                 <th></th>
@@ -712,7 +712,7 @@
                 ],
                 "ajax":
                 {
-                    "url": "/Aop/GetPrintTypeList",
+                    "url": "/AopPrint/GetPrintTypeList",
                     "type": "GET",
                     "dataType": "JSON"
                 },
@@ -782,7 +782,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/Aop/AddPrintType",
+                url: "/AopPrint/AddPrintType",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 data: JSON.stringify(printType),
@@ -819,7 +819,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "/Aop/AddPrintType",
+                    url: "/AopPrint/AddPrintType",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     data: JSON.stringify(printType),
@@ -855,7 +855,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "/Aop/DeletePrintType",
+                    url: "/AopPrint/DeletePrintType",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     data: JSON.stringify({ Id: Row.Id }),
@@ -917,7 +917,7 @@
                 ],
                 "ajax":
                 {
-                    "url": "/Aop/GetMachineTypeList",
+                    "url": "/AopPrint/GetMachineTypeList",
                     "type": "GET",
                     "dataType": "JSON"
                 },
@@ -987,7 +987,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/Aop/AddMachineType",
+                url: "/AopPrint/AddMachineType",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 data: JSON.stringify(machineType),
@@ -1024,7 +1024,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "/Aop/AddMachineType",
+                    url: "/AopPrint/AddMachineType",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     data: JSON.stringify(machineType),
@@ -1060,7 +1060,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "/Aop/DeleteMachineType",
+                    url: "/AopPrint/DeleteMachineType",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     data: JSON.stringify({ Id: Row.Id }),
@@ -1122,12 +1122,12 @@
 
             $.ajax({
                 type: "GET",
-                url: "/Aop/GetPrintType",
+                url: "/AopPrint/GetPrintTypeList",
                 data: "{}",
                 success: function (data) {
                     var s = '<option value="">Select Print</option>';
                     for (var i = 0; i < data.length; i++) {
-                        s += '<option value="' + data[i].Id + '">' + data[i].PrintUnit + '</option>';
+                        s += '<option value="' + data[i].Id + '">' + data[i].PrintName + '</option>';
                     }
                     $("#PrintUnit").html(s);
                     loadMachineTypeList();
@@ -1140,12 +1140,12 @@
 
             $.ajax({
                 type: "GET",
-                url: "/Aop/GetMachineType",
+                url: "/AopPrint/GetMachineTypeList",
                 data: "{}",
                 success: function (data) {
                     var s = '<option value="">Select Machine</option>';
                     for (var i = 0; i < data.length; i++) {
-                        s += '<option value="' + data[i].Id + '">' + data[i].MachineUnit + '</option>';
+                        s += '<option value="' + data[i].Id + '">' + data[i].MachineName + '</option>';
                     }
                     $("#MachineUnit").html(s);
                     loadDyeingUnitList();
@@ -1474,7 +1474,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "/Aop/BarCodeAuthorization",
+                    url: "/AopPrint/BarCodeAuthorization",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     data: JSON.stringify({ BarCode: barCode }),
@@ -1638,7 +1638,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "/Aop/Create",
+                    url: "/AopPrint/Create",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     data: JSON.stringify(aop),
@@ -1685,7 +1685,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "/Aop/Edit",
+                    url: "/AopPrint/Edit",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     data: JSON.stringify(dyeingObj),
@@ -1733,7 +1733,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "/Aop/Revise",
+                    url: "/AopPrint/Revise",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     data: JSON.stringify(stenter),
@@ -1839,7 +1839,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/Aop/Delete",
+                url: "/AopPrint/Delete",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 data: JSON.stringify({ "Id": Id }),
@@ -1876,7 +1876,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/Aop/Approve",
+                url: "/AopPrint/Approve",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 data: JSON.stringify(stenter),

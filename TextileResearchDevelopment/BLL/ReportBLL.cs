@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -97,6 +98,30 @@ namespace TextileResearchDevelopment.BLL
             return reports;
         }
 
+        internal static bool BarCodeAuthorization(int BarCode)
+        {
+            try
+            {
+                string query = "SELECT * FROM Remarks WHERE BarCode = " + BarCode;
+                if (!DBGateway.recordExist(query))
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+            return false;
+        }
+
         private static string GetReportSearchQuery(TestReport searchObj)
         {
             try
@@ -165,7 +190,7 @@ namespace TextileResearchDevelopment.BLL
                 if (searchObj.DeliveryDateStart != DateTime.MaxValue && searchObj.DeliveryDateEnd != DateTime.MaxValue)
                 {
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " DeliveryDate BETWEEN '" + searchObj.DeliveryDateStart + "' AND " + searchObj.DeliveryDateEnd + "'";
+                    query = query + " DeliveryDate BETWEEN '" + searchObj.DeliveryDateStart + "' AND '" + searchObj.DeliveryDateEnd + "'";
                 }
 
                 if (searchObj.CreateTime != DateTime.MaxValue && searchObj.CreateTime != null)

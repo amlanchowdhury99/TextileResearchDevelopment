@@ -32,5 +32,33 @@ namespace TextileResearchDevelopment.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public ActionResult BarCodeAuthorization(int BarCode)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (BarCode > 0)
+                {
+                    Result = ReportBLL.BarCodeAuthorization(BarCode);
+                }
+                if (BarCode == 0)
+                {
+                    Result = true;
+                }
+
+                if (Result)
+                {
+                    return Json("true", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("false", JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
