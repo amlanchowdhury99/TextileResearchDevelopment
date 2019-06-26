@@ -386,6 +386,12 @@
             ]
         });
 
+        $('#DeliveryDateTextSL').daterangepicker({
+            locale: {
+                format: 'DD/MM/YYYY'
+            }
+        });
+
         loadSoftenerUnitList();
 
         function loadSoftenerUnitList() {
@@ -416,7 +422,7 @@
                     var data = data.data;
                     var s = '<option value="">Select Print</option>';
                     for (var i = 0; i < data.length; i++) {
-                        s += '<option value="' + data[i].Id + '">' + data[i].PrintName+ '</option>';
+                        s += '<option value="' + data[i].Id + '">' + data[i].PrintName + '</option>';
                     }
                     $("#PrintUnitSL").html(s);
                     loadMachineTypeList();
@@ -561,13 +567,6 @@
             });
         }
 
-        $('#DeliveryDateTextSL, #FabricOrderDateTextSL, #KnitOrderDateTextSL, #DyeingOrderDateTextSL, #SlittingOrderDateTextSL, #StenterOrderDateTextSL, #AopOrderDateTextSL, #TestOrderDateTextSL,  #RemarksOrderDateTextSL').daterangepicker({
-            locale: {
-                format: 'DD/MM/YYYY'
-                //format: 'MMM D, YYYY'
-            }
-        });
-
         $('#DeliveryDateCheckBox').change(function () {
             debugger;
             if ($(this).is(":checked")) {
@@ -675,7 +674,7 @@
             $("#GreyWidthSL").val("");
             $("#GreyGSMSL").val("");
             $("#ChallaNoSL").val("");
-            $("#DeliveryDateTextSL").val("");
+            $("#DeliveryDateCheckBox").prop('checked',true);
             $("#DyeingUnitSL").val("");
             $("#BatchNoSL").val("");
             $("#SoftenerUnitSL").val("");

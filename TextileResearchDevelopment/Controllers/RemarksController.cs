@@ -188,7 +188,7 @@ namespace TextileResearchDevelopment.Controllers
         }
 
         [HttpPost]
-        public JsonResult StenterSearch(TestReport testSearchObj)
+        public JsonResult TestReportSearch(TestReport testSearchObj)
         {
 
             List<TestReport> data = new List<TestReport>();

@@ -30,7 +30,7 @@
         <li><a tabindex="-1" href="#">Approve</a></li>
     </ul>
 
-    <div class="modal fade" id="modalDyeingSelection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div class="modal fade" id="modalTestSelection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -90,9 +90,6 @@
                                             <label for="DeliveryDateSL" class="control-label" style="width:30%;">Delivery Date</label>
                                             <div class='input-group date' id='DeliveryDateSL' style="width:60%;">
                                                 <input type='text' class="form-control" id="DeliveryDateTextSL" disabled placeholder="Delivey Date" autofocus />
-                                                <span class="input-group-addon">
-                                                    <span class="glyphicon glyphicon-calendar"></span>
-                                                </span>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
@@ -104,7 +101,7 @@
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="YarnCountSL" class="control-label" style="width:35%;">Yarn Count</label>
                                             <div style="display: inline;">
-                                                <select name="YarnCountSL" id="YarnCountSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                                                <select name="YarnCountSL" id="YarnCountSL" style="width:60%;" class="form-control" autofocus></select>
                                             </div>
                                         </div>
                                     </div>
@@ -112,7 +109,7 @@
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="YarnBrandSL" class="control-label" style="width:35%;">Yarn Brand</label>
                                             <div style="display: inline;">
-                                                <input type="text" class="typeahead form-control input-sm" style="width:60%;" id="YarnBrandSL" placeholder="Yarn Brand" autofocus>
+                                                <input type="text" class="typeahead form-control " style="width:60%;" id="YarnBrandSL" placeholder="Yarn Brand" autofocus>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
@@ -142,17 +139,23 @@
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
-                                            <label for="BrandSL" class="control-label" style="width:35%;">MC Brand</label>
+                                            <label for="McNoSL" class="control-label" style="width:35%;">MC No</label>
                                             <div style="display: inline;">
-                                                <select name="BrandSL" id="BrandSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                                                <input type="number" class="form-control" style="width:60%;" id="McNoSL" min="0" step="1" data-bind="value:McNoSL" placeholder="MC No" autofocus>
                                             </div>
                                         </div>
                                     </div>
                                     <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
+                                            <label for="BrandSL" class="control-label" style="width:35%;">MC Brand</label>
+                                            <div style="display: inline;">
+                                                <select name="BrandSL" id="BrandSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-4 form-inline">
                                             <label for="DyeingUnitSL" class="control-label" style="width:35%;">DyeingUnit</label>
                                             <div style="display: inline;">
-                                                <select name="DyeingUnitSL" id="DyeingUnitSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                                                <select name="DyeingUnitSL" id="DyeingUnitSL" style="width:60%;" class="form-control" autofocus></select>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
@@ -161,14 +164,14 @@
                                                 <input type="text" class="typeahead form-control" style="width:60%;" id="BatchNoSL" name="BatchNoSL" placeholder="Batch No">
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="SoftenerUnitSL" class="control-label" style="width:35%;">Softener</label>
                                             <div style="display: inline;">
                                                 <select name="SoftenerUnitSL" id="SoftenerUnitSL" style="width:60%;" class="form-control input-sm" autofocus></select>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="SoftenerGLSL" class="control-label" style="width:35%;">Softener GL</label>
                                             <div style="display: inline;">
@@ -181,14 +184,14 @@
                                                 <input type="text" class="typeahead form-control" style="width:60%;" id="BlowerSL" name="SoftenerGLSL" placeholder="Blower">
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="PrintUnitSL" class="control-label" style="width:35%;">Print Type</label>
                                             <div style="display: inline;">
                                                 <select name="PrintUnitSL" id="PrintUnitSL" style="width:60%;" class="form-control input-sm" autofocus></select>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="MachineUnitSL" class="control-label" style="width:35%;">Machine Type</label>
                                             <div style="display: inline;">
@@ -201,14 +204,14 @@
                                                 <input type="number" class="form-control" style="width:60%;" id="FinalWidthSL" min="0" step="1" data-bind="value:FinalWidthSL" placeholder="Grey Width" autofocus>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="FinalGSMSL" class="control-label" style="width:35%;">Final GSM</label>
                                             <div style="display: inline;">
                                                 <input type="number" class="form-control" style="width:60%;" id="FinalGSMSL" min="0" step="1" data-bind="value:FinalGSMSL" placeholder="Final GSM" autofocus>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
                                             <button class="btn btn-warning btn-sm" style="width:35%;" id="resetTestBtn">Reset</button>
                                             <div style="display: inline;">
@@ -218,12 +221,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <table id="DyeingSelectionTable" class="display nowrap stripe hover order-column" style="width: 100%">
+                            <table id="TestSelectionTable" class="display nowrap stripe hover order-column" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th></th>
                                         <th>Id</th>
-                                        <th>AOPID</th>
                                         <th>BarCode</th>
                                         <th>Buyer Name</th>
                                         <th>Fabric Type</th>
@@ -236,6 +238,10 @@
                                         <th>Knit Unit</th>
                                         <th>Grey Width</th>
                                         <th>Grey GSM</th>
+                                        <th>Tumble Width</th>
+                                        <th>Tumble GSM</th>
+                                        <th>Delivery Date</th>
+                                        <th>Mc No</th>
                                         <th>Mc Brand</th>
                                         <th>Dyeing Unit</th>
                                         <th>Batch No</th>
@@ -247,6 +253,7 @@
                                         <th>MachineType</th>
                                         <th>FinalWidth</th>
                                         <th>FinalGSM</th>
+                                        <th>TumbleSP</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -261,7 +268,7 @@
     </div>
 
     <div class="text-left">
-        <button href="" id="AopSelection" class="btn-info sm-4" data-toggle="modal" data-target="#modalTestSelection">
+        <button href="" id="TestSelection" class="btn-info sm-4" data-toggle="modal" data-target="#modalTestSelection">
             Select Test Report
         </button>
     </div>
@@ -270,10 +277,10 @@
 
     <div class="panel panel-default ">
         <div class="panel-heading">
-            <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Create AOP Order</h5>
+            <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Create Remarks Order</h5>
         </div>
         <div class="panel-body">
-            <form id="AopForm">
+            <form id="RemarksForm">
                 <div class=" form-group">
                     <div class="form-group col-xs-4 form-inline">
                         <label for="BarCode" class="control-label" style="width:35%;">BarCode</label>
@@ -438,7 +445,7 @@
         </div>
     </div>
 
-    <table id="AopTable" class="display nowrap stripe hover order-column " style="width: 1000px;">
+    <table id="RemarksTable" class="display nowrap stripe hover order-column " style="width: 1000px;">
         <thead>
             <tr>
                 <th></th>
@@ -464,6 +471,7 @@
                 <th>MachineType/th>
                 <th>FinalWidth</th>
                 <th>FinalGSM/th>
+                <th>TumbleSP/th>
                 <th>Remarks</th>
                 <th>Revise</th>
                 <th>CreateTime</th>
@@ -499,6 +507,7 @@
                 <th>MachineType/th>
                 <th>FinalWidth</th>
                 <th>FinalGSM/th>
+                <th>TumbleSP/th>
                 <th>Remarks</th>
                 <th>Revise</th>
                 <th>CreateTime</th>
@@ -512,4 +521,924 @@
     </table>
 
 </div>
+
+<script>
+
+    $(document).ready(function () {
+
+        debugger;
+        var TestSelectionTable = $('#TestSelectionTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                'colvis'
+            ],
+            "scrollY": true,
+            "scrollX": true,
+            "Sorting": true,
+            "searching": true,
+            "select": {
+                style: 'single'
+            },
+            "destroy": true,
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "searchable": false,
+                    "orderable": false,
+                },
+                {
+                    "targets": [1],
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    "targets": "_all",
+                    "width": "100px"
+                }
+
+            ],
+            "columns": [
+                {
+                    "searchable": false,
+                    "render": function (data, type, full, meta) {
+                        return TestSelectionTable.data().count();
+                    }
+                },
+                { "data": "Id" },
+                { "data": "BarCode" },
+                { "data": "BuyerName" },
+                { "data": "FabricName" },
+                { "data": "OrderNo" },
+                { "data": "Color" },
+                { "data": "McDiaGauge" },
+                { "data": "YarnCount" },
+                { "data": "YarnBrand" },
+                { "data": "YarnLot" },
+                { "data": "KnitUnit" },
+                { "data": "MCNO" },
+                { "data": "McBrand" },
+                { "data": "GreyWidth" },
+                { "data": "GreyGSM" },
+                { "data": "TumbleWidth" },
+                { "data": "TumbleGSM" },
+                {
+                    data: "DeliveryDate",
+                    render: function (data, type, row) {
+                        return moment(data).format("DD/MM/YYYY  h:mm a");
+                    }
+                },
+                { "data": "DyeingUnit" },
+                { "data": "BatchNo" },
+                { "data": "Peder" },
+                { "data": "Blower" },
+                { "data": "SoftenerName" },
+                { "data": "SoftenerGL" },
+                { "data": "PrintName" },
+                { "data": "MachineName" },
+                { "data": "FinalWidth" },
+                { "data": "FinalGSM" },
+                { "data": "TSP" }
+            ]
+        });
+
+        var selectedTestRowId = 0;
+
+        $('#DeliveryDateTextSL').daterangepicker({
+            locale: {
+                format: 'DD/MM/YY'
+            }
+        });
+
+        (function ($, window) {
+
+            $.fn.contextMenu = function (settings) {
+
+                return this.each(function () {
+
+                    // Open context menu
+                    $(this).on("contextmenu", function (e) {
+                        // return native menu if pressing control
+                        if (e.ctrlKey) return;
+
+                        if ($('#RemarksTable tbody tr').hasClass('selected') == false) return;
+
+                        //open menu
+                        var $menu = $(settings.menuSelector)
+                            .data("invokedOn", $(e.target))
+                            .show()
+                            .css({
+                                position: "absolute",
+                                left: getMenuPosition(e.clientX, 'width', 'scrollLeft'),
+                                top: getMenuPosition(e.clientY, 'height', 'scrollTop')
+                            })
+                            .off('click')
+                            .on('click', 'a', function (e) {
+                                $menu.hide();
+
+                                var $invokedOn = $menu.data("invokedOn");
+                                var $selectedMenu = $(e.target);
+
+                                settings.menuSelected.call(this, $invokedOn, $selectedMenu);
+                            });
+
+                        return false;
+                    });
+
+                    //make sure menu closes on any click
+                    $('body').click(function () {
+                        $(settings.menuSelector).hide();
+                    });
+                });
+
+                function getMenuPosition(mouse, direction, scrollDir) {
+                    var win = $(window)[direction](),
+                        scroll = $(window)[scrollDir](),
+                        menu = $(settings.menuSelector)[direction](),
+                        position = mouse + scroll;
+
+                    // opening menu would pass the side of the page
+                    if (mouse + menu > win && menu < mouse)
+                        position -= menu;
+
+                    return position;
+                }
+
+            };
+        })(jQuery, window);
+
+        loadSoftenerUnitList();
+
+        function loadSoftenerUnitList() {
+            $.ajax({
+                type: "GET",
+                url: "/Stenter/GetSoftenerUnit",
+                data: "{}",
+                success: function (data) {
+                    debugger;
+                    var data = data.data;
+                    var s = '<option value="">Select Softener</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].Softener + '</option>';
+                    }
+                    $("#SoftenerUnitSL").html(s);
+                    loadPrintTypeList();
+                }
+            });
+        }
+
+        function loadPrintTypeList() {
+            $.ajax({
+                type: "GET",
+                url: "/AopPrint/GetPrintTypeList",
+                data: "{}",
+                success: function (data) {
+                    debugger;
+                    var data = data.data;
+                    var s = '<option value="">Select Print</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].PrintName + '</option>';
+                    }
+                    $("#PrintUnitSL").html(s);
+                    loadMachineTypeList();
+                }
+            });
+
+        }
+
+        function loadMachineTypeList() {
+
+            $.ajax({
+                type: "GET",
+                url: "/AopPrint/GetMachineTypeList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select Machine</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].MachineName + '</option>';
+                    }
+                    $("#MachineUnitSL").html(s);
+                    loadDyeingUnitList();
+                }
+            });
+
+        }
+
+        function loadDyeingUnitList() {
+            $.ajax({
+                type: "GET",
+                url: "/Dyeing/GetDyeingUnit",
+                data: "{}",
+                success: function (data) {
+                    debugger;
+                    var s = '<option value="">Select Dyeing</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].DyeingUnit + '</option>';
+                    }
+                    $("#DyeingUnitSL").html(s);
+                    loadBuyerList();
+                }
+            });
+        }
+
+        function loadBuyerList() {
+            $.ajax({
+                type: "GET",
+                url: "/Fabric/GetBuyerList",
+                data: "{}",
+                success: function (data) {
+                    debugger;
+                    var s = '<option value="">Select Buyer</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].BuyerName + '</option>';
+                    }
+                    $("#BuyerSL").html(s);
+                    loadFabricTypeList();
+                }
+            });
+        }
+
+        function loadFabricTypeList() {
+            $.ajax({
+                type: "GET",
+                url: "/Fabric/GetFabricTypeList",
+                data: "{}",
+                success: function (data) {
+                    var s = '<option value="">Select Fabric</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].FabricTypeName + '</option>';
+                    }
+                    $("#FabricSL").html(s);
+                    loadMCDIAList();
+                }
+            });
+        }
+
+        function loadMCDIAList() {
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetMCDIAList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select DiaGauge</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].McDiaGauge + '</option>';
+                    }
+                    $("#DiaGaugeSL").html(s);
+                    loadYarnCountList();
+                }
+            });
+        }
+
+        function loadYarnCountList() {
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetYarnCountList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select Yarn Count</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].YarnCount + '</option>';
+                    }
+                    $("#YarnCountSL").html(s);
+                    loadKnitUnitList();
+                }
+            });
+        }
+
+        function loadKnitUnitList() {
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetKnitUnitList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select KnitUnit</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].KnitUnit + '</option>';
+                    }
+                    $("#KnitUnitSL").html(s);
+                    loadMcBrandList();
+                }
+            });
+        }
+
+        function loadMcBrandList() {
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetMcBrandList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select McBrand</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].McBrand + '</option>';
+                    }
+                    $("#BrandSL").html(s);
+                }
+            });
+        }
+
+        $('#DeliveryDateCheckBox').change(function () {
+            debugger;
+            if ($(this).is(":checked")) {
+                $('#DeliveryDateTextSL').prop('disabled', false);
+            }
+            else {
+                $('#DeliveryDateTextSL').prop('disabled', true);
+            }
+        });
+
+        var RemarksTable = $('#RemarksTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                'colvis'
+            ],
+            "ajax":
+            {
+                "url": "/Remarks/GetData",
+                "type": "GET",
+                "dataType": "JSON"
+            },
+            "scrollY": true,
+            "scrollX": true,
+            "Sorting": true,
+            "searching": true,
+            "destroy": true,
+            "select": {
+                style: 'single'
+            },
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "searchable": false,
+                    "orderable": false,
+                },
+                {
+                    "targets": [1, 2],
+                    "visible": false,
+                    "searchable": false
+                }
+
+            ],
+
+            "columns": [
+                {
+                    "searchable": false,
+                    "render": function (data, type, full, meta) {
+                        return RemarksTable.data().count();
+                    }
+                },
+                { "data": "Id" },
+                { "data": "TestReportID" },
+                { "data": "BarCode" },
+                { "data": "BuyerName" },
+                { "data": "FabricName" },
+                { "data": "OrderNo" },
+                { "data": "Color" },
+                { "data": "McDiaGauge" },
+                { "data": "YarnCount" },
+                { "data": "YarnBrand" },
+                { "data": "YarnLot" },
+                { "data": "KnitUnit" },
+                { "data": "GreyWidth" },
+                { "data": "GreyGSM" },
+                { "data": "McBrand" },
+                { "data": "DyeingUnit" },
+                { "data": "BatchNo" },
+                { "data": "SoftenerName" },
+                { "data": "PrintUnit" },
+                { "data": "MachineUnit" },
+                { "data": "FinalWidth" },
+                { "data": "FinalGSM" },
+                { "data": "TSP" },
+                { "data": "UserRemakrs" },
+                { "data": "ReviseStatus" },
+                {
+                    data: "CreateTime",
+                    render: function (data, type, row) {
+                        return moment(data).format("DD/MM/YYYY h:mm a");
+                    }
+                },
+                { "data": "CreateByName" },
+                {
+                    data: "UpdateTime",
+                    render: function (data, type, row) {
+                        if (data != null)
+                            return moment(data).format("DD/MM/YYYY h:mm a");
+                        else
+                            return "N/A"
+                    }
+                },
+                {
+                    "data": "UpdateByName",
+                    render: function (data, type, row) {
+                        if (data != "")
+                            return data;
+                        else
+                            return "N/A"
+                    }
+                },
+                {
+                    data: "ApprovedTime",
+                    render: function (data, type, row) {
+                        if (data != null)
+                            return moment(data).format("DD/MM/YYYY h:mm a");
+                        else
+                            return "N/A"
+                    }
+                },
+                {
+                    "data": "ApprovedByName",
+                    render: function (data, type, row) {
+                        if (data != "")
+                            return data;
+                        else
+                            return "N/A"
+                    }
+                }
+            ]
+        });
+
+        $("#TestSelection").click(function () {
+            debugger;
+            event.preventDefault();
+            selectedTestRowId = 0;
+            ResetTest();
+            TestSelectionTable.clear().draw();
+        });
+
+        $("#searchTestBtn").click(function () {
+            debugger;
+            event.preventDefault();
+
+            if (ValidateTestReportSelectionForm() == true) {
+
+                var barCode = $('#BarCodeSL').val() == "" ? 0 : parseInt($('#BarCodeSL').val());
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Remarks/BarCodeAuthorization",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify({ BarCode: barCode }),
+                    success: function (response) {
+                        debugger;
+                        if (response == "true") {
+                            debugger;
+                            var testSearchObj = {
+                                BarCode: $("#BarCodeSL").val().toString(),
+                                BuyerID: $("#BuyerSL  option:selected").val(),
+                                FabricTypeID: $("#FabricSL  option:selected").val(),
+                                OrderNo: $("#OrderNoSL").val().length > 0 ? $("#OrderNoSL").val().toString() : '',
+                                Color: $("#ColorSL").val().length > 0 ? $("#ColorSL").val().toString() : '',
+                                ChallanNo: $("#ChallanSL").val().length > 0 ? $("#ChallanSL").val().toString() : '',
+                                DeliveryDateStart: $('#DeliveryDateCheckBox').is(":checked") == true ? $('#DeliveryDateTextSL').data('daterangepicker').startDate.format('DD/MM/YYYY') : '',
+                                DeliveryDateEnd: $('#DeliveryDateCheckBox').is(":checked") == true ? $('#DeliveryDateTextSL').data('daterangepicker').endDate.format('DD/MM/YYYY') : '',
+                                McDiaGauge: $("#DiaGaugeSL  option:selected").val(),
+                                YarnCountID: $("#YarnCountSL  option:selected").val(),
+                                YarnBrand: $("#YarnBrandSL").val().toString(),
+                                MCNO: $("#McNoSL").val().toString(),
+                                YarnLot: $("#YarnLotSL").val().toString(),
+                                KnitUnitID: $("#KnitUnitSL  option:selected").val(),
+                                GreyWidth: $("#GreyWidthSL").val().toString(),
+                                GreyGSM: $("#GreyGSMSL").val().toString(),
+                                McBrandID: $("#BrandSL  option:selected").val(),
+                                DyeingUnitID: $("#DyeingUnitSL  option:selected").val(),
+                                BatchNo: $("#BatchNoSL  option:selected").val(),
+                                Softener: $("#SoftenerUnitSL  option:selected").val(),
+                                SoftenerGL: $("#SoftenerGLSL").val().toString(),
+                                Blower: $("#BlowerSL").val().toString(),
+                                PrintID: $("#PrintUnitSL option:selected").val(),
+                                MachineID: $("#MachineUnitSL option:selected").val(),
+                                FinalWidth: $("#FinalWidthSL").val(),
+                                FinalGSM: $("#FinalGSMSL").val()
+                            };
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/Remarks/TestReportSearch",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                data: JSON.stringify(testSearchObj),
+                                success: function (response) {
+                                    if (response != "" && response != null) {
+                                        debugger
+                                        TestSelectionTable.clear().draw();
+                                        TestSelectionTable.rows.add(response).draw();
+                                    }
+                                    else {
+                                        alert("Failed to Save! Please Check Connection State!!!");
+                                        return;
+                                    }
+                                },
+                                failure: function () {
+                                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                                }
+                            });
+                        }
+                        if (response == "false") {
+                            alert("This Barcode is already used in another dyeing order!!!");
+                            return;
+                        }
+                        if (response == "" || response == null) {
+                            alert("Connection problem!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select Atleast One Criteria!!!");
+                return;
+            }
+        });
+
+        function ResetTest() {
+            $("#BarCodeSL").val("");
+            $("#OrderNoSL").val("");
+            $("#ColorSL").val("");
+            $("#FabricNameSL").val("");
+            $("#BuyerNameSL").val("");
+            $("#DiaGaugeSL").val("");
+            $("#YarnCountSL").val("");
+            $("#YarnBrandSL").val("");
+            $("#YarnLotSL").val("");
+            $("#KnitUnitSL").val("");
+            $("#BrandSL").val("");
+            $("#GreyWidthSL").val("");
+            $("#GreyGSMSL").val("");
+            $("#ChallaNoSL").val("");
+            $("#DeliveryDateCheckBox").prop('checked',true);
+            $("#DyeingUnitSL").val("");
+            $("#BatchNoSL").val("");
+            $("#SoftenerUnitSL").val("");
+            $("#SoftenerGLSL").val("");
+            $("#BlowerSL").val("");
+            $("#PrintUnitSL").val("");
+            $("#MachineUnitSL").val("");
+            $("#FinalWidthSL").val("");
+            $("#FinalGSMSL").val("");
+            $("#McNoSL").val("");
+        }
+
+        function ValidateTestReportSelectionForm() {
+            debugger;
+            if ($("#DiaGaugeSL  option:selected").val() == "" && $("#YarnCountSL  option:selected").val() == "" && $("#BrandSL  option:selected").val() == "" && $("#KnitUnitSL  option:selected").val() == "" &&
+                $("#BarCodeSL").val() == "" && $("#YarnBrandSL").val() == "" && $("#YarnLotSL").val() == "" && $("#ChallanSL").val() == "" && $("#GreyWidthSL").val() == "" && $('#DeliveryDateCheckBox').is(":checked") == false &&
+                $("#GreyGSMSL").val() == "" && $("#BuyerSL option:selected").val() == "" && $("#FabricSL option:selected").val() == "" && $("#OrderNoSL").val() == "" && $("#ColorSL").val() == "" && $("#DyeingUnitSL option:selected").val() == "" && $("#BatchNoSL").val() == "" && $("#SoftenerUnitSL option:selected").val() == "" && $("#PrintUnitSL option:selected").val() == "" && $("#MachineUnitSL option:selected").val() == "" && $("#FinalWidthSL").val() == "" && $("#FinalGSMSL").val() == "" && $("#RemarksSL").val() == "" && $("#McNoSL").val() == "") {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        $("#resetTestBtn").click(function () {
+            ResetTest();
+        });
+
+        $("#okayBtn").click(function () {
+            debugger
+            if ($('#TestSelectionTable tbody tr').hasClass('selected')) {
+                selectedTestRowId = TestSelectionTable.rows('.selected').data()[0].Id;
+
+                $('#BarCode').val(TestSelectionTable.rows('.selected').data()[0].BarCode);
+                $('#FabricName').val(TestSelectionTable.rows('.selected').data()[0].FabricName);
+                $('#BuyerName').val(TestSelectionTable.rows('.selected').data()[0].BuyerName);
+                $('#OrderNo').val(TestSelectionTable.rows('.selected').data()[0].OrderNo);
+                $('#Color').val(TestSelectionTable.rows('.selected').data()[0].Color);
+                $('#DiaGauge').val(TestSelectionTable.rows('.selected').data()[0].McDiaGauge);
+                $('#YarnCount').val(TestSelectionTable.rows('.selected').data()[0].YarnCount);
+                $('#YarnBrand').val(TestSelectionTable.rows('.selected').data()[0].YarnBrand);
+                $('#YarnLot').val(TestSelectionTable.rows('.selected').data()[0].YarnLot);
+                $('#KnitUnit').val(TestSelectionTable.rows('.selected').data()[0].KnitUnit);
+                $('#GreyWidth').val(TestSelectionTable.rows('.selected').data()[0].GreyWidth);
+                $('#GreyGSM').val(TestSelectionTable.rows('.selected').data()[0].GreyGSM);
+                $('#Brand').val(TestSelectionTable.rows('.selected').data()[0].McBrand);
+                $('#DyeingUnit').val(TestSelectionTable.rows('.selected').data()[0].DyeingUnit);
+                $('#BatchNo').val(TestSelectionTable.rows('.selected').data()[0].BatchNo);
+                $('#Softener').val(TestSelectionTable.rows('.selected').data()[0].Softener);
+                $('#PrintUnit').val(TestSelectionTable.rows('.selected').data()[0].PrintName);
+                $('#MachineUnit').val(TestSelectionTable.rows('.selected').data()[0].MachineName);
+                $('#FinalWidth').val(TestSelectionTable.rows('.selected').data()[0].FinalWidth);
+                $('#FinalGSM').val(TestSelectionTable.rows('.selected').data()[0].FinalGSM);
+                $("#modalTestSelection .close").click();
+
+                $('#hidden').prop('checked', true);
+            }
+            else {
+                alert('Please Select A Row.')
+                return;
+            }
+        });
+
+        $('#RemarksForm').submit(function (e) {
+
+            event.preventDefault();
+            debugger;
+            if ($('#hidden').is(':checked') == true) {
+                var remark = {
+                    Id: '0',
+                    BarCode: $('#BarCode').val(),
+                    TestReportID: selectedTestRowId,
+                    UserRemarks: $("#Remarks").val(),
+                    CreateTime: moment(Date.now()).format("DD/MM/YYYY h:mm a")
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Remarks/Create",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(remark),
+                    success: function (response) {
+                        debugger
+                        if (response.data != "" && response.data != null) {
+                            RemarksTable.row.add(response.data);
+                            RemarksTable.draw();
+                            Reset();
+                        }
+                        else {
+                            alert("Failed to Save! Please Check Connection State!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select knitting!!!");
+                return;
+            }
+        });
+
+        $("#updateBtn").click(function () {
+            event.preventDefault();
+
+            debugger
+            if ($('#RemarksTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = RemarksTable.rows('.selected').data()[0];
+                var index = RemarksTable.row('.selected').index();
+
+                var dyeingObj = {
+                    Id: Row.Id,
+                    BarCode: Row.BarCode,
+                    TestReportID: Row.TestReportID,
+                    UserRemarks: $("#Remarks").val(),
+                    UpdateTime: moment(Date.now()).format("DD/MM/YYYY h:mm a")
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Remarks/Edit",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(dyeingObj),
+                    success: function (response) {
+                        debugger
+                        if (response.data != "" && response.data != null) {
+                            debugger
+                            RemarksTable.row(index).data(response.data).draw();
+                            Reset();
+                        }
+                        else {
+                            alert("Failed to Update!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+
+
+        });
+
+        $("#reviseBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#RemarksTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = RemarksTable.rows('.selected').data()[0];
+
+                var stenter = {
+                    Id: Row.Id,
+                    BarCode: Row.BarCode,
+                    TestReportID: Row.TestReportID,
+                    UserRemarks: $("#Remarks").val(),
+                    CreateTime: moment(Date.now()).format("DD/MM/YYYY h:mm a")
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Remarks/Revise",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(stenter),
+                    success: function (response) {
+                        debugger
+                        if (response.data != "" && response.data != null) {
+                            debugger
+                            RemarksTable.row.add(response.data).draw();
+                            Reset();
+                        }
+                        else {
+                            alert("Failed to Revise!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#resetBtn").click(function () {
+            Reset();
+        });
+
+        $("#RemarksTable tbody").contextMenu({
+            menuSelector: "#MainContextMenu",
+            menuSelected: function (invokedOn, selectedMenu) {
+                debugger;
+
+                var ApprovedBy = RemarksTable.rows('.selected').data()[0].ApprovedBy;
+                if (ApprovedBy == 0) {
+                    if (selectedMenu.text() == "Delete")
+                        DeleteRow();
+                    if (selectedMenu.text() == "Approve")
+                        ApproveRow();
+
+                }
+                else {
+                    alert("This order is already approved!!!");
+                    return;
+                }
+            }
+        });
+
+        $('#RemarksTable tbody').on('click', 'tr', function () {
+
+            $(this).toggleClass('selected');
+
+            if ($(this).hasClass('selected')) {
+                var rowdata = RemarksTable.row(this).data();
+            }
+
+            if (RemarksTable.data().any()) {
+                Setvalue(rowdata);
+                $('#saveBtn').prop("disabled", true);
+                $('#updateBtn').prop("disabled", false);
+                $('#reviseBtn').prop("disabled", false);
+            }
+            else {
+                $('#saveBtn').prop("disabled", false);
+                $('#updateBtn').prop("disabled", true);
+                $('#reviseBtn').prop("disabled", true);
+            }
+
+        });
+
+        function Setvalue(rowdata) {
+            debugger;
+            $("#Remarks").val(rowdata.UserRemarks)
+        }
+
+        function Reset() {
+            $("#BarCode").val("");
+            $("#OrderNo").val("");
+            $("#Color").val("");
+            $("#FabricName").val("");
+            $("#BuyerName").val("");
+            $("#DiaGauge").val("");
+            $("#YarnCount").val("");
+            $("#YarnBrand").val("");
+            $("#YarnLot").val("");
+            $("#KnitUnit").val("");
+            $("#Brand").val("");
+            $("#GreyWidth").val("");
+            $("#GreyGSM").val("");
+            $("#SoftenerName").val("");
+            $("#PrintUnit").val("");
+            $("#MachineUnit").val("");
+            $("#FinalWidth").val("");
+            $("#FinalGSM").val("");
+            $("TumbleSP").val("");
+            $("#Remarks").val("");
+            $('#hidden').prop('checked', false);
+        }
+
+        function DeleteRow() {
+            event.preventDefault();
+            var Id = RemarksTable.rows('.selected').data()[0].Id;
+
+            $.ajax({
+                type: "POST",
+                url: "/Remarks/Delete",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({ "Id": Id }),
+                success: function (response) {
+                    debugger
+                    if (response = "Success") {
+                        debugger;
+                        RemarksTable.row('.selected').remove().draw(false);
+                        Reset();
+                    }
+                    else {
+                        alert("Failed to Delete!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        };
+
+        function ApproveRow() {
+            debugger
+            event.preventDefault();
+
+            var Row = RemarksTable.rows('.selected').data()[0];
+            var index = RemarksTable.row('.selected').index();
+
+            var stenter =
+            {
+                Id: Row.Id,
+                ApprovedTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Remarks/Approve",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(stenter),
+                success: function (response) {
+                    debugger
+                    if (response.data != "" && response.data != null) {
+                        debugger
+                        RemarksTable.row(index).data(response.data).draw();
+                        Reset();
+                    }
+                    else {
+                        alert("Failed to Approve!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        }
+
+    });
+
+</script>
 
