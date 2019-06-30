@@ -27,6 +27,8 @@ namespace TextileResearchDevelopment.Models
             ChallanNo = "";
             DeliveryQty = (decimal)0.00;
             DeliveryDate = DateTime.MaxValue;
+            DeliveryDateStart = DateTime.MaxValue;
+            DeliveryDateEnd = DateTime.MaxValue;
         }
 
         private DateTime defaultDate = DateTime.Now;
@@ -46,6 +48,9 @@ namespace TextileResearchDevelopment.Models
         public decimal DeliveryQty { get; set; }
         public DateTime DeliveryDate { get; set; }
         public DateTime CreateTime { get; set; }
+
+        public DateTime DeliveryDateStart { get; set; }
+        public DateTime DeliveryDateEnd { get; set; }
 
     }
 }

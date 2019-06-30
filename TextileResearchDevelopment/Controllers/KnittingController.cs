@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TextileResearchDevelopment.DataAccessLayer;
 using TextileResearchDevelopment.Models;
 using TextileResearchDevelopment.BLL;
 using System.Web.Mvc;
@@ -126,6 +127,7 @@ namespace TextileResearchDevelopment.Controllers
             return Json(new { data = McBrands }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         public JsonResult FabricSearch(Fabric fabricSearchObj)
         {
 
@@ -486,6 +488,7 @@ namespace TextileResearchDevelopment.Controllers
             return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         public ActionResult Delete(int Id)
         {
             Boolean Result = false;
@@ -509,6 +512,7 @@ namespace TextileResearchDevelopment.Controllers
             return Json("Failed", JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         public ActionResult BarCodeAuthorization(int BarCode)
         {
             Boolean Result = false;
@@ -519,6 +523,62 @@ namespace TextileResearchDevelopment.Controllers
                     Result = KnittingBLL.BarCodeAuthorization(BarCode);
                 }
                 if(BarCode == 0)
+                {
+                    Result = true;
+                }
+
+                if (Result)
+                {
+                    return Json("true", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("false", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult Unapprove(Knitting knit)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (knit.Id > 0)
+                {
+                    int Id = KnittingBLL.UnapproveKnit(knit);
+                    if (Id > 0)
+                    {
+                        Result = true;
+                    }
+                    else
+                    {
+                        Result = false;
+                    }
+                }
+
+                if (Result)
+                {
+                    return Json(new { data = knit }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return View();
+            }
+
+            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult CheckUnapproveEligibility(Knitting knit)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (!DBGateway.recordExist("SELECT Id FROM Dyeing WHERE KnitID = "+ knit.Id))
                 {
                     Result = true;
                 }

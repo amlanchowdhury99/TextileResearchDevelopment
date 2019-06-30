@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TextileResearchDevelopment.DataAccessLayer;
 using System.Web.Mvc;
 using TextileResearchDevelopment.Models;
 using TextileResearchDevelopment.BLL;
@@ -215,6 +216,62 @@ namespace TextileResearchDevelopment.Controllers
                     Result = TestBLL.BarCodeAuthorization(BarCode);
                 }
                 if (BarCode == 0)
+                {
+                    Result = true;
+                }
+
+                if (Result)
+                {
+                    return Json("true", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("false", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult Unapprove(TestReport test)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (test.Id > 0)
+                {
+                    int Id = TestBLL.UnapproveTest(test);
+                    if (Id > 0)
+                    {
+                        Result = true;
+                    }
+                    else
+                    {
+                        Result = false;
+                    }
+                }
+
+                if (Result)
+                {
+                    return Json(new { data = test }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return View();
+            }
+
+            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult CheckUnapproveEligibility(TestReport test)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (!DBGateway.recordExist("SELECT Id FROM Remarks WHERE TestReportID = " + test.Id))
                 {
                     Result = true;
                 }

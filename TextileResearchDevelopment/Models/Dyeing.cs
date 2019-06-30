@@ -19,7 +19,8 @@ namespace TextileResearchDevelopment.Models
             UpdateTime = DateTime.MaxValue;
             ApprovedTime = DateTime.MaxValue;
             DeliveryDate = DateTime.MaxValue;
-            FabricCreateTime = DateTime.MaxValue;
+            DeliveryDateStart = DateTime.MaxValue;
+            DeliveryDateEnd = DateTime.MaxValue;
         }
 
         public int Id { get; set; }
@@ -80,7 +81,8 @@ namespace TextileResearchDevelopment.Models
         public int MCRPM { get; set; }
         public decimal TumbleWidth { get; set; }
         public decimal TumbleGSM { get; set; }
-        public DateTime FabricCreateTime { get; set; }
+        public DateTime DeliveryDateStart { get; set; }
+        public DateTime DeliveryDateEnd { get; set; }
 
 
         public DateTime CreateTime { get; set; }

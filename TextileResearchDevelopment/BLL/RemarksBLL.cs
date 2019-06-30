@@ -173,13 +173,7 @@ namespace TextileResearchDevelopment.BLL
                 if (searchObj.DeliveryDateStart != DateTime.MaxValue && searchObj.DeliveryDateEnd != DateTime.MaxValue)
                 {
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " DeliveryDate BETWEEN '" + searchObj.DeliveryDateStart + "' AND " + searchObj.DeliveryDateEnd + "'";
-                }
-
-                if (searchObj.CreateTime != DateTime.MaxValue && searchObj.CreateTime != null)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " CreateTime = '" + searchObj.CreateTime + "'";
+                    query = query + " DeliveryDate BETWEEN '" + searchObj.DeliveryDateStart.ToString("yyyy/MM/dd HH:mm") + "' AND " + searchObj.DeliveryDateEnd.ToString("yyyy/MM/dd HH:mm") + "'";
                 }
 
                 if (searchObj.YarnBrand != "" && searchObj.YarnBrand != null)
@@ -257,6 +251,90 @@ namespace TextileResearchDevelopment.BLL
             {
                 return "";
             }
+        }
+
+        internal static int UnapproveRemarks(Remarks remark)
+        {
+            int Id = -1;
+            try
+            {
+                string query = " UPDATE Remarks SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = '' WHERE Id = " + remark.Id + " AND ApprovedBy = 1 ";
+                if (DBGateway.ExecutionToDB(query, 1))
+                {
+                    query = "SELECT * FROM RemarksView WHERE Id = " + remark.Id;
+                    SqlDataReader reader = DBGateway.GetFromDB(query);
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            remark.Id = Convert.ToInt32(reader["Id"]);
+                            remark.TestReportID = Convert.ToInt32(reader["TestReportID"]);
+                            remark.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
+                            remark.BuyerName = reader["BuyerName"].ToString();
+                            remark.FabricName = reader["FabricName"].ToString();
+                            remark.OrderNo = reader["OrderNo"].ToString();
+                            remark.Color = reader["Color"].ToString();
+                            remark.ChallanNo = reader["ChallanNo"].ToString();
+                            remark.DeliveryDate = Convert.ToDateTime(reader["DeliveryDate"]);
+                            remark.FabricID = Convert.ToInt32(reader["FabricID"]);
+                            remark.BarCode = reader["BarCode"].ToString();
+                            remark.McDiaGauge = reader["McDiaGauge"].ToString();
+                            remark.YarnCount = reader["YarnCount"].ToString();
+                            remark.YarnBrand = reader["YarnBrand"].ToString();
+                            remark.YarnLot = reader["YarnLot"].ToString();
+                            remark.KnitUnit = reader["KnitUnit"].ToString();
+                            remark.GreyWidth = Convert.ToDecimal(reader["GreyWidth"]);
+                            remark.GreyGSM = Convert.ToDecimal(reader["GreyGSM"]);
+                            remark.McBrand = reader["McBrand"].ToString();
+
+                            remark.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
+                            remark.DyeingUnit = reader["DyeingUnitName"].ToString();
+                            remark.BatchNo = reader["BatchNo"].ToString();
+                            remark.BatchQty = Convert.ToInt32(reader["BatchQty"]);
+                            remark.SerialNo = Convert.ToInt32(reader["SerialNo"]);
+
+                            remark.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
+                            remark.SoftenerName = reader["SoftenerName"].ToString();
+
+                            remark.PrintID = Convert.ToInt32(reader["PrintID"]);
+                            remark.PrintName = reader["PrintName"].ToString();
+                            remark.MachineID = Convert.ToInt32(reader["MachineID"]);
+                            remark.MachineName = reader["MachineName"].ToString();
+
+                            remark.FinalWidth = Convert.ToDecimal(reader["FinalWidth"]);
+                            remark.FinalGSM = Convert.ToDecimal(reader["FinalGSM"]);
+                            remark.TLength = Convert.ToDecimal(reader["TumbleLength"]);
+                            remark.TWidth = Convert.ToDecimal(reader["TumbleWidth"]);
+                            remark.TSP = Convert.ToDecimal(reader["TumbleSP"]);
+
+                            remark.UserRemarks = reader["Remarks"].ToString();
+
+                            remark.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
+                            remark.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
+                            remark.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
+                            remark.CreateByName = reader["CreateByName"].ToString();
+                            remark.UpdateByName = reader["UpdateByName"].ToString();
+                            remark.ApprovedByName = reader["ApprovedByName"].ToString();
+
+                            remark.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
+                            remark.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                return Id;
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+            return Id;
         }
 
         internal static bool BarCodeAuthorization(int BarCode)

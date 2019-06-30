@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TextileResearchDevelopment.DataAccessLayer;
 using System.Web.Mvc;
 using TextileResearchDevelopment.Models;
 using TextileResearchDevelopment.BLL;
@@ -303,6 +304,62 @@ namespace TextileResearchDevelopment.Controllers
 
             return Json("Failed", JsonRequestBehavior.AllowGet);
         }
-        
+
+        [HttpPost]
+        public ActionResult CheckUnapproveEligibility(Stenter stenter)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (!DBGateway.recordExist("SELECT Id FROM Aop WHERE StenterID = " + stenter.Id))
+                {
+                    Result = true;
+                }
+
+                if (Result)
+                {
+                    return Json("true", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("false", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult Unapprove(Stenter stenter)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (stenter.Id > 0)
+                {
+                    int Id = StenterBLL.UnapproveStenter(stenter);
+                    if (Id > 0)
+                    {
+                        Result = true;
+                    }
+                    else
+                    {
+                        Result = false;
+                    }
+                }
+
+                if (Result)
+                {
+                    return Json(new { data = stenter }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return View();
+            }
+
+            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TextileResearchDevelopment.DataAccessLayer;
 using System.Web.Mvc;
 using TextileResearchDevelopment.Models;
 using TextileResearchDevelopment.BLL;
@@ -186,6 +187,7 @@ namespace TextileResearchDevelopment.Controllers
             return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         public ActionResult Delete(int Id)
         {
             Boolean Result = false;
@@ -209,6 +211,7 @@ namespace TextileResearchDevelopment.Controllers
             return Json("Failed", JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
         public JsonResult KnitSearch(Knitting knitSearchObj)
         {
 
@@ -323,6 +326,62 @@ namespace TextileResearchDevelopment.Controllers
             }
 
             return Json("Failed", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult Unapprove(Dyeing dyeing)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (dyeing.Id > 0)
+                {
+                    int Id = DyeingBLL.UnapproveDyeing(dyeing);
+                    if (Id > 0)
+                    {
+                        Result = true;
+                    }
+                    else
+                    {
+                        Result = false;
+                    }
+                }
+
+                if (Result)
+                {
+                    return Json(new { data = dyeing }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return View();
+            }
+
+            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult CheckUnapproveEligibility(Dyeing dyeing)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (!DBGateway.recordExist("SELECT Id FROM Stenter WHERE DyeingID = " + dyeing.Id))
+                {
+                    Result = true;
+                }
+
+                if (Result)
+                {
+                    return Json("true", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("false", JsonRequestBehavior.AllowGet);
         }
 
     }

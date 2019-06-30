@@ -262,6 +262,85 @@ namespace TextileResearchDevelopment.BLL
             return Id;
         }
 
+        internal static int UnapproveAop(Aop aop)
+        {
+            int Id = -1;
+            try
+            {
+                string query = " UPDATE Aop SET ApprovedStatus = , ApprovedBy = 0, ApprovedTime = NULL WHERE Id = " + aop.Id;
+                if (DBGateway.ExecutionToDB(query, 1))
+                {
+                    query = "SELECT * FROM AopView WHERE Id = " + aop.Id;
+                    SqlDataReader reader = DBGateway.GetFromDB(query);
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            aop.Id = Id = Convert.ToInt32(reader["Id"]);
+                            aop.BuyerName = reader["BuyerName"].ToString();
+                            aop.FabricName = reader["FabricName"].ToString();
+                            aop.OrderNo = reader["OrderNo"].ToString();
+                            aop.Color = reader["Color"].ToString();
+                            aop.ChallanNo = reader["ChallanNo"].ToString();
+                            aop.DeliveryDate = Convert.ToDateTime(reader["DeliveryDate"]);
+                            aop.FabricID = Convert.ToInt32(reader["FabricID"]);
+
+                            aop.DiaGaugeID = Convert.ToInt32(reader["DiaGaugeID"]);
+                            aop.YarnCountID = Convert.ToInt32(reader["YarnCountID"]);
+                            aop.KnitUnitID = Convert.ToInt32(reader["KnitUnitID"]);
+                            aop.McBrandID = Convert.ToInt32(reader["McBrandID"]);
+
+                            aop.McDiaGauge = reader["McDiaGauge"].ToString();
+                            aop.YarnCount = reader["YarnCount"].ToString();
+                            aop.YarnBrand = reader["YarnBrand"].ToString();
+                            aop.YarnLot = reader["YarnLot"].ToString();
+                            aop.KnitUnit = reader["KnitUnit"].ToString();
+                            aop.GreyWidth = Convert.ToDecimal(reader["GreyWidth"]);
+                            aop.GreyGSM = Convert.ToDecimal(reader["GreyGSM"]);
+                            aop.McBrand = reader["McBrand"].ToString();
+                            aop.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
+                            aop.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
+
+                            aop.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
+                            aop.DyeingUnit = reader["DyeingUnitName"].ToString();
+                            aop.BatchNo = reader["BatchNo"].ToString();
+                            aop.BatchQty = Convert.ToInt32(reader["BatchQty"]);
+                            aop.SerialNo = Convert.ToInt32(reader["SerialNo"]);
+
+                            aop.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
+                            aop.SoftenerName = Convert.ToString(reader["SoftenerName"]);
+
+                            aop.StenterID = Convert.ToInt32(reader["StenterID"]);
+                            aop.PrintID = Convert.ToInt32(reader["PrintType"]);
+                            aop.PrintName = Convert.ToString(reader["SoftenerName"]);
+                            aop.MachineID = Convert.ToInt32(reader["MachineType"]);
+                            aop.MachineName = Convert.ToString(reader["SoftenerName"]);
+
+                            aop.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
+                            aop.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
+                            aop.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
+                            aop.CreateByName = reader["CreateByName"].ToString();
+                            aop.UpdateByName = reader["UpdateByName"].ToString();
+                            aop.ApprovedByName = reader["ApprovedByName"].ToString();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                return Id;
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+            return Id;
+        }
+
         internal static int EditAop(Aop aop)
         {
             int Id = -1;
@@ -803,16 +882,10 @@ namespace TextileResearchDevelopment.BLL
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
                     query = query + " ChallanNo = '" + StenterSearchObj.ChallanNo + "'";
                 }
-                if (StenterSearchObj.DeliveryDate != DateTime.MaxValue)
+                if (StenterSearchObj.DeliveryDateStart != DateTime.MaxValue && StenterSearchObj.DeliveryDateEnd != DateTime.MaxValue)
                 {
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " DeliveryDate = '" + StenterSearchObj.DeliveryDate + "'";
-                }
-
-                if (StenterSearchObj.CreateTime != DateTime.MaxValue && StenterSearchObj.CreateTime != null)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " CreateTime = '" + StenterSearchObj.CreateTime + "'";
+                    query = query + " DeliveryDate BETWEEN '" + StenterSearchObj.DeliveryDateStart.ToString("yyyy/MM/dd HH:mm") + "' AND '" + StenterSearchObj.DeliveryDateEnd.ToString("yyyy/MM/dd HH:mm") + "'";
                 }
 
                 if (StenterSearchObj.YarnBrand != "" && StenterSearchObj.YarnBrand != null)

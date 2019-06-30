@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TextileResearchDevelopment.DataAccessLayer;
 using System.Web.Mvc;
 using TextileResearchDevelopment.Models;
 using TextileResearchDevelopment.BLL;
@@ -376,6 +377,62 @@ namespace TextileResearchDevelopment.Controllers
             }
 
             return Json("Failed", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult Unapprove(Aop aop)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (aop.Id > 0)
+                {
+                    int Id = AopBLL.UnapproveAop(aop);
+                    if (Id > 0)
+                    {
+                        Result = true;
+                    }
+                    else
+                    {
+                        Result = false;
+                    }
+                }
+
+                if (Result)
+                {
+                    return Json(new { data = aop }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return View();
+            }
+
+            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult CheckUnapproveEligibility(Aop aop)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (!DBGateway.recordExist("SELECT Id FROM Test WHERE AOPID = " + aop.Id))
+                {
+                    Result = true;
+                }
+
+                if (Result)
+                {
+                    return Json("true", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("false", JsonRequestBehavior.AllowGet);
         }
 
     }

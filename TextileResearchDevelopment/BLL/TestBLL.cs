@@ -188,6 +188,88 @@ namespace TextileResearchDevelopment.BLL
             return Id;
         }
 
+        internal static int UnapproveTest(TestReport test)
+        {
+            int Id = -1;
+            try
+            {
+                string query = " UPDATE Test SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE Id = " + test.Id;
+                if (DBGateway.ExecutionToDB(query, 1))
+                {
+                    query = "SELECT * FROM TestView WHERE Id = " + test.Id;
+                    SqlDataReader reader = DBGateway.GetFromDB(query);
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            test.Id = Convert.ToInt32(reader["Id"]);
+                            test.AopID = Convert.ToInt32(reader["AOPID"]);
+                            test.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
+                            test.BuyerName = reader["BuyerName"].ToString();
+                            test.FabricName = reader["FabricName"].ToString();
+                            test.OrderNo = reader["OrderNo"].ToString();
+                            test.Color = reader["Color"].ToString();
+                            test.ChallanNo = reader["ChallanNo"].ToString();
+                            test.DeliveryDate = Convert.ToDateTime(reader["DeliveryDate"]);
+                            test.FabricID = Convert.ToInt32(reader["FabricID"]);
+                            test.BarCode = reader["BarCode"].ToString();
+                            test.McDiaGauge = reader["McDiaGauge"].ToString();
+                            test.YarnCount = reader["YarnCount"].ToString();
+                            test.YarnBrand = reader["YarnBrand"].ToString();
+                            test.YarnLot = reader["YarnLot"].ToString();
+                            test.KnitUnit = reader["KnitUnit"].ToString();
+                            test.GreyWidth = Convert.ToDecimal(reader["GreyWidth"]);
+                            test.GreyGSM = Convert.ToDecimal(reader["GreyGSM"]);
+                            test.McBrand = reader["McBrand"].ToString();
+
+                            test.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
+                            test.DyeingUnit = reader["DyeingUnitName"].ToString();
+                            test.BatchNo = reader["BatchNo"].ToString();
+                            test.BatchQty = Convert.ToInt32(reader["BatchQty"]);
+                            test.SerialNo = Convert.ToInt32(reader["SerialNo"]);
+
+                            test.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
+                            test.SoftenerName = reader["SoftenerName"].ToString();
+
+                            test.PrintID = Convert.ToInt32(reader["PrintID"]);
+                            test.PrintName = reader["PrintName"].ToString();
+                            test.MachineID = Convert.ToInt32(reader["MachineID"]);
+                            test.MachineName = reader["MachineName"].ToString();
+
+                            test.FinalWidth = Convert.ToDecimal(reader["FinalWidth"]);
+                            test.FinalGSM = Convert.ToDecimal(reader["FinalGSM"]);
+                            test.TLength = Convert.ToDecimal(reader["TumbleLength"]);
+                            test.TWidth = Convert.ToDecimal(reader["TumbleWidth"]);
+                            test.TSP = Convert.ToDecimal(reader["TumbleSP"]);
+
+                            test.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
+                            test.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
+                            test.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
+                            test.CreateByName = reader["CreateByName"].ToString();
+                            test.UpdateByName = reader["UpdateByName"].ToString();
+                            test.ApprovedByName = reader["ApprovedByName"].ToString();
+
+                            test.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
+                            test.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                return Id;
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+            return Id;
+        }
+
         internal static int EditTest(TestReport test)
         {
             int Id = -1;
@@ -638,16 +720,10 @@ namespace TextileResearchDevelopment.BLL
                     query = query + " ChallanNo = '" + aopSearchObj.ChallanNo + "'";
                 }
 
-                if (aopSearchObj.DeliveryDate != DateTime.MaxValue)
+                if (aopSearchObj.DeliveryDateStart != DateTime.MaxValue && aopSearchObj.DeliveryDateEnd != DateTime.MaxValue)
                 {
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " DeliveryDate = '" + aopSearchObj.DeliveryDate + "'";
-                }
-
-                if (aopSearchObj.CreateTime != DateTime.MaxValue && aopSearchObj.CreateTime != null)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " CreateTime = '" + aopSearchObj.CreateTime + "'";
+                    query = query + " DeliveryDate BETWEEN '" + aopSearchObj.DeliveryDateStart.ToString("yyyy/MM/dd HH:mm") + "' AND '" + aopSearchObj.DeliveryDateEnd.ToString("yyyy/MM/dd HH:mm") + "'";
                 }
 
                 if (aopSearchObj.YarnBrand != "" && aopSearchObj.YarnBrand != null)

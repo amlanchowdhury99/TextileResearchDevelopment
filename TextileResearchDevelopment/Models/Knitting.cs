@@ -39,7 +39,8 @@ namespace TextileResearchDevelopment.Models
             CreateTime = DateTime.MaxValue;
             UpdateTime = DateTime.MaxValue;
             ApprovedTime = DateTime.MaxValue;
-            FabricCreateTime = DateTime.MaxValue;
+            DeliveryDateStart = DateTime.MaxValue;
+            DeliveryDateEnd = DateTime.MaxValue;
         }
 
         private DateTime defaultDate = DateTime.Now;
@@ -98,7 +99,8 @@ namespace TextileResearchDevelopment.Models
 
         public string ApprovedByName { get; set; }
 
-        public DateTime FabricCreateTime { get; set; }
+        public DateTime DeliveryDateStart { get; set; }
+        public DateTime DeliveryDateEnd { get; set; }
 
 
         public int DiaGaugeID { get; set; }

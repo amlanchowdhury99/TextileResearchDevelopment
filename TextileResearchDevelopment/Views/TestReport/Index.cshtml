@@ -190,7 +190,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <table id="AopSelectionTable" class="stripe hover order-column" style="width: 100%">
+                            <table id="AopSelectionTable" class="display nowrap stripe hover order-column" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -511,12 +511,7 @@
                         columns: ':visible'
                     }
                 },
-                {
-                    extend: 'pdfHtml5',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
+                
                 'colvis'
             ],
             "scrollY": true,
@@ -844,12 +839,6 @@
                         columns: ':visible'
                     }
                 },
-                {
-                    extend: 'pdfHtml5',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
                 'colvis'
             ],
             "ajax":
@@ -973,7 +962,7 @@
 
             if (ValidateAopSelectionForm() == true) {
 
-                var barCode = $('#BarCodeSL').val() == "" ? 0 : parseInt($('#BarCodeSL').val());
+                var barCode = $('#BarCodeSL').val() == "" ? 0 : $('#BarCodeSL').val();
 
                 $.ajax({
                     type: "POST",
@@ -1353,6 +1342,7 @@
             $("TumbleSP").val("");
             $("#TestReport").val("");
             $('#hidden').prop('checked', false);
+            $('#DeliveryDateCheckBox').prop('disabled', true);
         }
 
         function DeleteRow() {

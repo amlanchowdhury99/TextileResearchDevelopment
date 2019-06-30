@@ -343,6 +343,76 @@ namespace TextileResearchDevelopment.BLL
             return Id;
         }
 
+        internal static int UnapproveKnit(Knitting knit)
+        {
+            int Id = -1;
+            try
+            {
+                string query = " UPDATE Knitting SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE Id = " + knit.Id;
+                if (DBGateway.ExecutionToDB(query, 1))
+                {
+                    query = "SELECT * FROM KnitView WHERE KnitId = " + knit.Id;
+                    SqlDataReader reader = DBGateway.GetFromDB(query);
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            knit.Id = Id = Convert.ToInt32(reader["KnitId"]);
+                            knit.BuyerName = reader["BuyerName"].ToString();
+                            knit.FabricName = reader["FabricName"].ToString();
+                            knit.OrderNo = reader["OrderNo"].ToString();
+                            knit.Color = reader["Color"].ToString();
+                            knit.ChallanNo = reader["ChallanNo"].ToString();
+                            knit.DeliveryDate = Convert.ToDateTime(reader["DeliveryDate"]);
+                            knit.FabricID = Convert.ToInt32(reader["FabricID"]);
+                            knit.BarCode = reader["BarCode"].ToString();
+
+                            knit.DiaGaugeID = Convert.ToInt32(reader["DiaGaugeID"]);
+                            knit.YarnCountID = Convert.ToInt32(reader["YarnCountID"]);
+                            knit.KnitUnitID = Convert.ToInt32(reader["KnitUnitID"]);
+                            knit.McBrandID = Convert.ToInt32(reader["McBrandID"]);
+
+                            knit.McDiaGauge = reader["McDiaGauge"].ToString();
+                            knit.YarnCount = reader["YarnCount"].ToString();
+                            knit.YarnBrand = reader["YarnBrand"].ToString();
+                            knit.YarnLot = reader["YarnLot"].ToString();
+                            knit.StitchLength = Convert.ToDecimal(reader["StitchLength"]);
+                            knit.KnitUnit = reader["KnitUnit"].ToString();
+                            knit.MCNO = Convert.ToInt32(reader["MCNO"]);
+                            knit.MCRPM = Convert.ToInt32(reader["MCRPM"]);
+                            knit.GreyWidth = Convert.ToDecimal(reader["GreyWidth"]);
+                            knit.GreyGSM = Convert.ToDecimal(reader["GreyGSM"]);
+                            knit.TumbleWidth = Convert.ToDecimal(reader["TumbleWidth"]);
+                            knit.TumbleGSM = Convert.ToDecimal(reader["TumbleGSM"]);
+                            knit.McBrand = reader["McBrand"].ToString();
+                            knit.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
+                            knit.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
+
+                            knit.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
+                            knit.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
+                            knit.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
+                            knit.CreateByName = reader["CreateByName"].ToString();
+                            knit.UpdateByName = reader["UpdateByName"].ToString();
+                            knit.ApprovedByName = reader["ApprovedByName"].ToString();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                return Id;
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+            return Id;
+        }
+
         internal static bool BarCodeAuthorization(int BarCode)
         {
             try
@@ -640,10 +710,10 @@ namespace TextileResearchDevelopment.BLL
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
                     query = query + " ChallanNo = '" + fabricearchObj.ChallanNo + "'";
                 }
-                if (fabricearchObj.DeliveryDate != DateTime.MaxValue && fabricearchObj.DeliveryDate != null)
+                if (fabricearchObj.DeliveryDateStart != DateTime.MaxValue && fabricearchObj.DeliveryDateEnd != DateTime.MaxValue)
                 {
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " DeliveryDate = '" + fabricearchObj.DeliveryDate + "'";
+                    query = query + " DeliveryDate BETWEEN '" + fabricearchObj.DeliveryDateStart.ToString("yyyy/MM/dd HH:mm") + "' AND '" + fabricearchObj.DeliveryDateEnd.ToString("yyyy/MM/dd HH:mm") + "'";
                 }
 
                 return query;

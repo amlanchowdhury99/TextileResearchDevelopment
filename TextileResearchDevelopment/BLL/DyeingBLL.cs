@@ -225,6 +225,77 @@ namespace TextileResearchDevelopment.BLL
             return Id;
         }
 
+        internal static int UnapproveDyeing(Dyeing dyeing)
+        {
+            int Id = -1;
+            try
+            {
+                string query = " UPDATE Dyeing SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE Id = " + dyeing.Id;
+                if (DBGateway.ExecutionToDB(query, 1))
+                {
+                    query = "SELECT * FROM DyeingView WHERE Id = " + dyeing.Id;
+                    SqlDataReader reader = DBGateway.GetFromDB(query);
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            dyeing.Id = Id = Convert.ToInt32(reader["Id"]);
+                            dyeing.BuyerName = reader["BuyerName"].ToString();
+                            dyeing.FabricName = reader["FabricName"].ToString();
+                            dyeing.OrderNo = reader["OrderNo"].ToString();
+                            dyeing.Color = reader["Color"].ToString();
+                            dyeing.ChallanNo = reader["ChallanNo"].ToString();
+                            dyeing.DeliveryDate = Convert.ToDateTime(reader["DeliveryDate"]);
+                            dyeing.FabricID = Convert.ToInt32(reader["FabricID"]);
+                            dyeing.BarCode = reader["BarCode"].ToString();
+
+                            dyeing.DiaGaugeID = Convert.ToInt32(reader["DiaGaugeID"]);
+                            dyeing.YarnCountID = Convert.ToInt32(reader["YarnCountID"]);
+                            dyeing.KnitUnitID = Convert.ToInt32(reader["KnitUnitID"]);
+                            dyeing.McBrandID = Convert.ToInt32(reader["McBrandID"]);
+
+                            dyeing.McDiaGauge = reader["McDiaGauge"].ToString();
+                            dyeing.YarnCount = reader["YarnCount"].ToString();
+                            dyeing.YarnBrand = reader["YarnBrand"].ToString();
+                            dyeing.YarnLot = reader["YarnLot"].ToString();
+                            dyeing.KnitUnit = reader["KnitUnit"].ToString();
+                            dyeing.GreyWidth = Convert.ToDecimal(reader["GreyWidth"]);
+                            dyeing.GreyGSM = Convert.ToDecimal(reader["GreyGSM"]);
+                            dyeing.McBrand = reader["McBrand"].ToString();
+                            dyeing.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
+                            dyeing.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
+
+                            dyeing.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
+                            dyeing.DyeingUnit = reader["DyeingUnitName"].ToString();
+                            dyeing.BatchNo = reader["BatchNo"].ToString();
+                            dyeing.BatchQty = Convert.ToInt32(reader["BatchQty"]);
+                            dyeing.SerialNo = Convert.ToInt32(reader["SerialNo"]);
+
+                            dyeing.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
+                            dyeing.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
+                            dyeing.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
+                            dyeing.CreateByName = reader["CreateByName"].ToString();
+                            dyeing.UpdateByName = reader["UpdateByName"].ToString();
+                            dyeing.ApprovedByName = reader["ApprovedByName"].ToString();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                return Id;
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+            return Id;
+        }
+
         internal static int ApproveDyeing(Dyeing dyeing)
         {
             int Id = -1;
@@ -677,24 +748,11 @@ namespace TextileResearchDevelopment.BLL
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
                     query = query + " ChallanNo = '" + knitSearchObj.ChallanNo + "'";
                 }
-                if (knitSearchObj.DeliveryDate != DateTime.MaxValue)
+                if (knitSearchObj.DeliveryDateStart != DateTime.MaxValue && knitSearchObj.DeliveryDateEnd != DateTime.MaxValue)
                 {
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " DeliveryDate = '" + knitSearchObj.DeliveryDate + "'";
+                    query = query + " DeliveryDate BETWEEN '" + knitSearchObj.DeliveryDateStart.ToString("yyyy/MM/dd HH:mm") + "' AND '" + knitSearchObj.DeliveryDateEnd.ToString("yyyy/MM/dd HH:mm") + "'";
                 }
-
-                if (knitSearchObj.CreateTime != DateTime.MaxValue && knitSearchObj.CreateTime != null)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " CreateTime = '" + knitSearchObj.CreateTime + "'";
-                }
-
-                if (knitSearchObj.FabricCreateTime != DateTime.MaxValue && knitSearchObj.FabricCreateTime != null)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " FabricCreateTime = '" + knitSearchObj.FabricCreateTime + "'";
-                }
-
                 if (knitSearchObj.YarnBrand != "" && knitSearchObj.YarnBrand != null)
                 {
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";

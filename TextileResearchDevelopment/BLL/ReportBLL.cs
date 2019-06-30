@@ -193,12 +193,6 @@ namespace TextileResearchDevelopment.BLL
                     query = query + " DeliveryDate BETWEEN '" + searchObj.DeliveryDateStart + "' AND '" + searchObj.DeliveryDateEnd + "'";
                 }
 
-                if (searchObj.CreateTime != DateTime.MaxValue && searchObj.CreateTime != null)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " CreateTime = '" + searchObj.CreateTime + "'";
-                }
-
                 if (searchObj.YarnBrand != "" && searchObj.YarnBrand != null)
                 {
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";

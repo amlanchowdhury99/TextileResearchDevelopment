@@ -222,6 +222,92 @@ namespace TextileResearchDevelopment.BLL
             return Id;
         }
 
+        internal static int UnapproveStenter(Stenter stenter)
+        {
+            int Id = -1;
+            try
+            {
+                string query = " UPDATE Stenter SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE Id = " + stenter.Id;
+                if (DBGateway.ExecutionToDB(query, 1))
+                {
+                    query = "SELECT * FROM StenterView WHERE Id = " + stenter.Id;
+                    SqlDataReader reader = DBGateway.GetFromDB(query);
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            stenter.Id = Id = Convert.ToInt32(reader["Id"]);
+                            stenter.DyeingID = Convert.ToInt32(reader["DyeingID"]);
+                            stenter.BuyerName = reader["BuyerName"].ToString();
+                            stenter.FabricName = reader["FabricName"].ToString();
+                            stenter.OrderNo = reader["OrderNo"].ToString();
+                            stenter.Color = reader["Color"].ToString();
+                            stenter.ChallanNo = reader["ChallanNo"].ToString();
+                            stenter.DeliveryDate = Convert.ToDateTime(reader["DeliveryDate"]);
+                            stenter.FabricID = Convert.ToInt32(reader["FabricID"]);
+
+                            stenter.BarCode = reader["BarCode"].ToString();
+
+                            stenter.DiaGaugeID = Convert.ToInt32(reader["DiaGaugeID"]);
+                            stenter.YarnCountID = Convert.ToInt32(reader["YarnCountID"]);
+                            stenter.KnitUnitID = Convert.ToInt32(reader["KnitUnitID"]);
+                            stenter.McBrandID = Convert.ToInt32(reader["McBrandID"]);
+
+                            stenter.McDiaGauge = reader["McDiaGauge"].ToString();
+                            stenter.YarnCount = reader["YarnCount"].ToString();
+                            stenter.YarnBrand = reader["YarnBrand"].ToString();
+                            stenter.YarnLot = reader["YarnLot"].ToString();
+                            stenter.KnitUnit = reader["KnitUnit"].ToString();
+                            stenter.GreyWidth = Convert.ToDecimal(reader["GreyWidth"]);
+                            stenter.GreyGSM = Convert.ToDecimal(reader["GreyGSM"]);
+                            stenter.McBrand = reader["McBrand"].ToString();
+                            stenter.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
+                            stenter.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
+
+                            stenter.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
+                            stenter.DyeingUnit = reader["DyeingUnitName"].ToString();
+                            stenter.BatchNo = reader["BatchNo"].ToString();
+                            stenter.BatchQty = Convert.ToInt32(reader["BatchQty"]);
+                            stenter.SerialNo = Convert.ToInt32(reader["SerialNo"]);
+
+                            stenter.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
+                            stenter.SoftenerName = Convert.ToString(reader["SoftenerName"]);
+                            stenter.SoftenerGL = Convert.ToDecimal(reader["SoftenerGL"]);
+
+                            stenter.WidthSet = Convert.ToDecimal(reader["WidthSet"]);
+                            stenter.OverFeed = Convert.ToDecimal(reader["OverFeed"]);
+                            stenter.Temp = Convert.ToDecimal(reader["Temp"]);
+                            stenter.Speed = Convert.ToDecimal(reader["Speed"]);
+                            stenter.Peder = Convert.ToString(reader["Peder"]);
+                            stenter.Blower = Convert.ToDecimal(reader["Blower"]);
+                            stenter.DIA = Convert.ToDecimal(reader["DIA"]);
+                            stenter.GSM = Convert.ToDecimal(reader["GSM"]);
+
+                            stenter.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
+                            stenter.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
+                            stenter.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
+                            stenter.CreateByName = reader["CreateByName"].ToString();
+                            stenter.UpdateByName = reader["UpdateByName"].ToString();
+                            stenter.ApprovedByName = reader["ApprovedByName"].ToString();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                return Id;
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+            return Id;
+        }
+
         internal static int EditStenter(Stenter stenter)
         {
             int Id = -1;
@@ -735,18 +821,11 @@ namespace TextileResearchDevelopment.BLL
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
                     query = query + " ChallanNo = '" + dyeingSearchObj.ChallanNo + "'";
                 }
-                if (dyeingSearchObj.DeliveryDate != DateTime.MaxValue)
+                if (dyeingSearchObj.DeliveryDateStart != DateTime.MaxValue && dyeingSearchObj.DeliveryDateEnd != DateTime.MaxValue)
                 {
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " DeliveryDate = '" + dyeingSearchObj.DeliveryDate + "'";
+                    query = query + " DeliveryDate BETWEEN '" + dyeingSearchObj.DeliveryDateStart.ToString("yyyy/MM/dd HH:mm") + "' AND '" + dyeingSearchObj.DeliveryDateEnd.ToString("yyyy/MM/dd HH:mm") + "'";
                 }
-
-                if (dyeingSearchObj.CreateTime != DateTime.MaxValue && dyeingSearchObj.CreateTime != null)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " CreateTime = '" + dyeingSearchObj.CreateTime + "'";
-                }
-
                 if (dyeingSearchObj.YarnBrand != "" && dyeingSearchObj.YarnBrand != null)
                 {
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";

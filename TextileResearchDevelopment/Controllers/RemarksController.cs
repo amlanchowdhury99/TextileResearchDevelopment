@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TextileResearchDevelopment.DataAccessLayer;
 using TextileResearchDevelopment.Models;
 using TextileResearchDevelopment.BLL;
 
@@ -230,6 +231,38 @@ namespace TextileResearchDevelopment.Controllers
             }
 
             return Json("false", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult Unapprove(Remarks remark)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (remark.Id > 0)
+                {
+                    int Id = RemarksBLL.UnapproveRemarks(remark);
+                    if (Id > 0)
+                    {
+                        Result = true;
+                    }
+                    else
+                    {
+                        Result = false;
+                    }
+                }
+
+                if (Result)
+                {
+                    return Json(new { data = remark }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return View();
+            }
+
+            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
         }
 
     }
