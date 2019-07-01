@@ -92,6 +92,14 @@ namespace TextileResearchDevelopment.Models
         public int BatchQty { get; set; }
         public int SerialNo { get; set; }
 
+        public decimal WidthSet { get; set; }
+        public decimal OverFeed { get; set; }
+        public decimal Temp { get; set; }
+        public decimal Speed { get; set; }
+        public string Peder { get; set; }
+        public decimal Blower { get; set; }
+
+        public decimal SoftenerGL { get; set; }
         public string SoftenerName { get; set; }
         public string PrintName { get; set; }
         public string MachineName { get; set; }

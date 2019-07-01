@@ -28,6 +28,7 @@
     <ul id="MainContextMenu" class="dropdown-menu" role="menu" style="display:none">
         <li><a tabindex="-1" href="#">Delete</a></li>
         <li><a tabindex="-1" href="#">Approve</a></li>
+        <li><a tabindex="-1" href="#">Unapprove</a></li>
     </ul>
 
     <div class="modal fade" id="modalTestSelection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -86,13 +87,6 @@
                                     </div>
                                     <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
-                                            <input type="checkbox" id="DeliveryDateCheckBox" style="width:5%;">
-                                            <label for="DeliveryDateSL" class="control-label" style="width:30%;">Delivery Date</label>
-                                            <div class='input-group date' id='DeliveryDateSL' style="width:60%;">
-                                                <input type='text' class="form-control" id="DeliveryDateTextSL" disabled placeholder="Delivey Date" autofocus />
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-xs-4 form-inline">
                                             <label for="DiaGaugeSL" class="control-label" style="width:35%;">Dia-Guage</label>
                                             <div style="display: inline;">
                                                 <select name="DiaGaugeSL" id="DiaGaugeSL" style="width:60%;" class="form-control input-sm" autofocus></select>
@@ -149,7 +143,7 @@
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="BrandSL" class="control-label" style="width:35%;">MC Brand</label>
                                             <div style="display: inline;">
-                                                <select name="BrandSL" id="BrandSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                                                <select name="BrandSL" id="BrandSL" style="width:60%;" class="form-control" autofocus></select>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
@@ -169,7 +163,7 @@
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="SoftenerUnitSL" class="control-label" style="width:35%;">Softener</label>
                                             <div style="display: inline;">
-                                                <select name="SoftenerUnitSL" id="SoftenerUnitSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                                                <select name="SoftenerUnitSL" id="SoftenerUnitSL" style="width:60%;" class="form-control" autofocus></select>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
@@ -189,7 +183,7 @@
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="PrintUnitSL" class="control-label" style="width:35%;">Print Type</label>
                                             <div style="display: inline;">
-                                                <select name="PrintUnitSL" id="PrintUnitSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                                                <select name="PrintUnitSL" id="PrintUnitSL" style="width:60%;" class="form-control" autofocus></select>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
@@ -210,6 +204,13 @@
                                             <label for="FinalGSMSL" class="control-label" style="width:35%;">Final GSM</label>
                                             <div style="display: inline;">
                                                 <input type="number" class="form-control" style="width:60%;" id="FinalGSMSL" min="0" step="1" data-bind="value:FinalGSMSL" placeholder="Final GSM" autofocus>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <input type="checkbox" id="DeliveryDateCheckBox" style="width:5%;">
+                                            <label for="DeliveryDateSL" class="control-label" style="width:30%;">Delivery Date</label>
+                                            <div class='input-group date' id='DeliveryDateSL' style="width:60%;">
+                                                <input type='text' class="form-control" id="DeliveryDateTextSL" disabled placeholder="Delivey Date" autofocus />
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
@@ -468,7 +469,7 @@
                 <th>BatchNo</th>
                 <th>SoftenerName</th>
                 <th>PrintType</th>
-                <th>MachineType/th>
+                <th>MachineType</th>
                 <th>FinalWidth</th>
                 <th>FinalGSM/th>
                 <th>TumbleSP/th>
@@ -504,7 +505,7 @@
                 <th>BatchNo</th>
                 <th>SoftenerName</th>
                 <th>PrintType</th>
-                <th>MachineType/th>
+                <th>MachineType</th>
                 <th>FinalWidth</th>
                 <th>FinalGSM/th>
                 <th>TumbleSP/th>
@@ -536,12 +537,7 @@
                         columns: ':visible'
                     }
                 },
-                {
-                    extend: 'pdfHtml5',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
+
                 'colvis'
             ],
             "scrollY": true,
@@ -872,12 +868,7 @@
                         columns: ':visible'
                     }
                 },
-                {
-                    extend: 'pdfHtml5',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
+
                 'colvis'
             ],
             "ajax":
@@ -933,12 +924,12 @@
                 { "data": "DyeingUnit" },
                 { "data": "BatchNo" },
                 { "data": "SoftenerName" },
-                { "data": "PrintUnit" },
-                { "data": "MachineUnit" },
+                { "data": "PrintName" },
+                { "data": "MachineName" },
                 { "data": "FinalWidth" },
                 { "data": "FinalGSM" },
                 { "data": "TSP" },
-                { "data": "UserRemakrs" },
+                { "data": "UserRemarks" },
                 { "data": "ReviseStatus" },
                 {
                     data: "CreateTime",
@@ -1098,7 +1089,8 @@
             $("#GreyWidthSL").val("");
             $("#GreyGSMSL").val("");
             $("#ChallaNoSL").val("");
-            $("#DeliveryDateCheckBox").prop('checked',true);
+            $('#DeliveryDateCheckBox').prop('checked', false);
+            $('#DeliveryDateTextSL').prop('disabled', true);
             $("#DyeingUnitSL").val("");
             $("#BatchNoSL").val("");
             $("#SoftenerUnitSL").val("");
@@ -1147,7 +1139,7 @@
                 $('#Brand').val(TestSelectionTable.rows('.selected').data()[0].McBrand);
                 $('#DyeingUnit').val(TestSelectionTable.rows('.selected').data()[0].DyeingUnit);
                 $('#BatchNo').val(TestSelectionTable.rows('.selected').data()[0].BatchNo);
-                $('#Softener').val(TestSelectionTable.rows('.selected').data()[0].Softener);
+                $('#SoftenerName').val(TestSelectionTable.rows('.selected').data()[0].SoftenerName);
                 $('#PrintUnit').val(TestSelectionTable.rows('.selected').data()[0].PrintName);
                 $('#MachineUnit').val(TestSelectionTable.rows('.selected').data()[0].MachineName);
                 $('#FinalWidth').val(TestSelectionTable.rows('.selected').data()[0].FinalWidth);
@@ -1213,7 +1205,7 @@
                 var Row = RemarksTable.rows('.selected').data()[0];
                 var index = RemarksTable.row('.selected').index();
 
-                var dyeingObj = {
+                var remark = {
                     Id: Row.Id,
                     BarCode: Row.BarCode,
                     TestReportID: Row.TestReportID,
@@ -1226,7 +1218,7 @@
                     url: "/Remarks/Edit",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    data: JSON.stringify(dyeingObj),
+                    data: JSON.stringify(remark),
                     success: function (response) {
                         debugger
                         if (response.data != "" && response.data != null) {
@@ -1260,7 +1252,7 @@
                 debugger
                 var Row = RemarksTable.rows('.selected').data()[0];
 
-                var stenter = {
+                var remark = {
                     Id: Row.Id,
                     BarCode: Row.BarCode,
                     TestReportID: Row.TestReportID,
@@ -1273,7 +1265,7 @@
                     url: "/Remarks/Revise",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    data: JSON.stringify(stenter),
+                    data: JSON.stringify(remark),
                     success: function (response) {
                         debugger
                         if (response.data != "" && response.data != null) {
@@ -1307,17 +1299,26 @@
             menuSelected: function (invokedOn, selectedMenu) {
                 debugger;
 
-                var ApprovedBy = RemarksTable.rows('.selected').data()[0].ApprovedBy;
-                if (ApprovedBy == 0) {
+                var ApprovedStatus = RemarksTable.rows('.selected').data()[0].ApprovedStatus;
+                if (ApprovedStatus == 0) {
                     if (selectedMenu.text() == "Delete")
                         DeleteRow();
                     if (selectedMenu.text() == "Approve")
                         ApproveRow();
+                    if (selectedMenu.text() == "Unapprove")
+                        alert("This order is not approved yet!!!")
 
                 }
                 else {
-                    alert("This order is already approved!!!");
-                    return;
+
+                    if (selectedMenu.text() == "Unapprove") {
+                        UnapproveRow();
+                    }
+                    else {
+                        alert("This order is already approved!!!");
+                        return;
+                    }
+
                 }
             }
         });
@@ -1349,7 +1350,9 @@
             $("#Remarks").val(rowdata.UserRemarks)
         }
 
-        function Reset() {
+        function Reset()
+        {
+            event.preventDefault();
             $("#BarCode").val("");
             $("#OrderNo").val("");
             $("#Color").val("");
@@ -1363,6 +1366,8 @@
             $("#Brand").val("");
             $("#GreyWidth").val("");
             $("#GreyGSM").val("");
+            $("#DyeingUnit").val("");
+            $("#BatchNo").val("");
             $("#SoftenerName").val("");
             $("#PrintUnit").val("");
             $("#MachineUnit").val("");
@@ -1371,6 +1376,10 @@
             $("TumbleSP").val("");
             $("#Remarks").val("");
             $('#hidden').prop('checked', false);
+            $('#saveBtn').prop("disabled", false);
+            $('#updateBtn').prop("disabled", true);
+            $('#reviseBtn').prop("disabled", true);
+            $('#RemarksTable tbody tr').removeClass('selected');
         }
 
         function DeleteRow() {
@@ -1429,6 +1438,42 @@
                     }
                     else {
                         alert("Failed to Approve!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        }
+
+        function UnapproveRow() {
+            debugger
+            event.preventDefault();
+
+            var Row = RemarksTable.rows('.selected').data()[0];
+            var index = RemarksTable.row('.selected').index();
+
+            var remark =
+            {
+                Id: Row.Id
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Remarks/Unapprove",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(remark),
+                success: function (response) {
+                    debugger
+                    if (response.data != "" && response.data != null) {
+                        debugger
+                        RemarksTable.row(index).data(response.data).draw();
+                        Reset();
+                    }
+                    else {
+                        alert("Failed to Unapprove!!!");
                         return;
                     }
                 },

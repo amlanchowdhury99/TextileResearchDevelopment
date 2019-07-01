@@ -60,15 +60,14 @@ namespace TextileResearchDevelopment.BLL
                         aop.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                         aop.DyeingUnit = reader["DyeingUnitName"].ToString();
                         aop.BatchNo = reader["BatchNo"].ToString();
-                        aop.BatchQty = Convert.ToInt32(reader["BatchQty"]);
                         aop.SerialNo = Convert.ToInt32(reader["SerialNo"]);
 
                         aop.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
                         aop.SoftenerName = reader["SoftenerName"].ToString();
 
-                        aop.PrintID = Convert.ToInt32(reader["PrintID"]);
+                        aop.PrintID = Convert.ToInt32(reader["PrintType"]);
                         aop.PrintName = reader["PrintName"].ToString();
-                        aop.MachineID = Convert.ToInt32(reader["MachineID"]);
+                        aop.MachineID = Convert.ToInt32(reader["MachineType"]);
                         aop.MachineName = reader["MachineName"].ToString();
 
                         aop.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
@@ -103,7 +102,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string GetReviseQuery = "SELECT ReviseStatus FROM Aop WHERE Id = " + aop.Id;
+                string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM Aop WHERE BarCode = '" + aop.BarCode + "'";
                 string GetStenterID = "SELECT StenterID FROM Aop WHERE Id = " + aop.Id;
 
                 string query = " INSERT INTO Aop (StenterID, BarCode, PrintType, MachineType, ReviseStatus, CreateTime, CreateBy, ApprovedStatus, ApprovedBy, UpdateBy) " +
@@ -117,7 +116,9 @@ namespace TextileResearchDevelopment.BLL
                     {
                         while (reader.Read())
                         {
-                            aop.Id = Id = Convert.ToInt32(reader["Id"]);
+                            aop.Id = Convert.ToInt32(reader["Id"]);
+                            Id = aop.Id;
+                            aop.BarCode = reader["BarCode"].ToString();
                             aop.BuyerName = reader["BuyerName"].ToString();
                             aop.FabricName = reader["FabricName"].ToString();
                             aop.OrderNo = reader["OrderNo"].ToString();
@@ -145,7 +146,6 @@ namespace TextileResearchDevelopment.BLL
                             aop.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             aop.DyeingUnit = reader["DyeingUnitName"].ToString();
                             aop.BatchNo = reader["BatchNo"].ToString();
-                            aop.BatchQty = Convert.ToInt32(reader["BatchQty"]);
                             aop.SerialNo = Convert.ToInt32(reader["SerialNo"]);
 
                             aop.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
@@ -188,7 +188,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string GetApproveByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " UPDATE Aop SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + aop.ApprovedTime?.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + aop.Id + " AND ApprovedBy = 0 ";
+                string query = " UPDATE Aop SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + aop.ApprovedTime?.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + aop.Id + " AND ApprovedStatus = 0 ";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT * FROM AopView WHERE Id = " + aop.Id;
@@ -197,7 +197,9 @@ namespace TextileResearchDevelopment.BLL
                     {
                         while (reader.Read())
                         {
-                            aop.Id = Id = Convert.ToInt32(reader["Id"]);
+                            aop.Id = Convert.ToInt32(reader["Id"]);
+                            Id = aop.Id;
+                            aop.BarCode = reader["BarCode"].ToString();
                             aop.BuyerName = reader["BuyerName"].ToString();
                             aop.FabricName = reader["FabricName"].ToString();
                             aop.OrderNo = reader["OrderNo"].ToString();
@@ -225,7 +227,6 @@ namespace TextileResearchDevelopment.BLL
                             aop.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             aop.DyeingUnit = reader["DyeingUnitName"].ToString();
                             aop.BatchNo = reader["BatchNo"].ToString();
-                            aop.BatchQty = Convert.ToInt32(reader["BatchQty"]);
                             aop.SerialNo = Convert.ToInt32(reader["SerialNo"]);
 
                             aop.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
@@ -267,7 +268,7 @@ namespace TextileResearchDevelopment.BLL
             int Id = -1;
             try
             {
-                string query = " UPDATE Aop SET ApprovedStatus = , ApprovedBy = 0, ApprovedTime = NULL WHERE Id = " + aop.Id;
+                string query = " UPDATE Aop SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE Id = " + aop.Id;
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT * FROM AopView WHERE Id = " + aop.Id;
@@ -277,6 +278,8 @@ namespace TextileResearchDevelopment.BLL
                         while (reader.Read())
                         {
                             aop.Id = Id = Convert.ToInt32(reader["Id"]);
+                            Id = aop.Id;
+                            aop.BarCode = reader["BarCode"].ToString();
                             aop.BuyerName = reader["BuyerName"].ToString();
                             aop.FabricName = reader["FabricName"].ToString();
                             aop.OrderNo = reader["OrderNo"].ToString();
@@ -304,7 +307,6 @@ namespace TextileResearchDevelopment.BLL
                             aop.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             aop.DyeingUnit = reader["DyeingUnitName"].ToString();
                             aop.BatchNo = reader["BatchNo"].ToString();
-                            aop.BatchQty = Convert.ToInt32(reader["BatchQty"]);
                             aop.SerialNo = Convert.ToInt32(reader["SerialNo"]);
 
                             aop.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
@@ -357,7 +359,9 @@ namespace TextileResearchDevelopment.BLL
                     {
                         while (reader.Read())
                         {
-                            aop.Id = Id = Convert.ToInt32(reader["Id"]);
+                            aop.Id = Convert.ToInt32(reader["Id"]);
+                            Id = aop.Id;
+                            aop.BarCode = reader["BarCode"].ToString();
                             aop.BuyerName = reader["BuyerName"].ToString();
                             aop.FabricName = reader["FabricName"].ToString();
                             aop.OrderNo = reader["OrderNo"].ToString();
@@ -385,7 +389,6 @@ namespace TextileResearchDevelopment.BLL
                             aop.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             aop.DyeingUnit = reader["DyeingUnitName"].ToString();
                             aop.BatchNo = reader["BatchNo"].ToString();
-                            aop.BatchQty = Convert.ToInt32(reader["BatchQty"]);
                             aop.SerialNo = Convert.ToInt32(reader["SerialNo"]);
 
                             aop.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
@@ -429,7 +432,7 @@ namespace TextileResearchDevelopment.BLL
             {
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
                 string query = " INSERT INTO Aop (StenterID, BarCode, PrintType, MachineType, ReviseStatus, CreateTime, CreateBy, ApprovedStatus, ApprovedBy, UpdateBy) " +
-                               " VALUES(" + aop.StenterID + "," + aop.BarCode + "," + aop.PrintID + "," + aop.MachineID + aop.ReviseStatus + ",'" + aop.CreateTime.ToString("yyyy/MM/dd HH:mm") + "',(" + GetCreateByQuery + "), 0, 0, 0 )";
+                               " VALUES(" + aop.StenterID + "," + aop.BarCode + "," + aop.PrintID + "," + aop.MachineID + "," + aop.ReviseStatus + ",'" + aop.CreateTime.ToString("yyyy/MM/dd HH:mm") + "',(" + GetCreateByQuery + "), 0, 0, 0 )";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT TOP 1* FROM AopView order by Id desc";
@@ -438,7 +441,8 @@ namespace TextileResearchDevelopment.BLL
                     {
                         while (reader.Read())
                         {
-                            aop.Id = Id = Convert.ToInt32(reader["Id"]);
+                            aop.Id = Convert.ToInt32(reader["Id"]);
+                            Id = aop.Id;
                             aop.BuyerName = reader["BuyerName"].ToString();
                             aop.FabricName = reader["FabricName"].ToString();
                             aop.OrderNo = reader["OrderNo"].ToString();
@@ -446,6 +450,7 @@ namespace TextileResearchDevelopment.BLL
                             aop.ChallanNo = reader["ChallanNo"].ToString();
                             aop.DeliveryDate = Convert.ToDateTime(reader["DeliveryDate"]);
                             aop.FabricID = Convert.ToInt32(reader["FabricID"]);
+                            aop.BarCode = reader["BarCode"].ToString();
 
                             aop.DiaGaugeID = Convert.ToInt32(reader["DiaGaugeID"]);
                             aop.YarnCountID = Convert.ToInt32(reader["YarnCountID"]);
@@ -466,7 +471,6 @@ namespace TextileResearchDevelopment.BLL
                             aop.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             aop.DyeingUnit = reader["DyeingUnitName"].ToString();
                             aop.BatchNo = reader["BatchNo"].ToString();
-                            aop.BatchQty = Convert.ToInt32(reader["BatchQty"]);
                             aop.SerialNo = Convert.ToInt32(reader["SerialNo"]);
 
                             aop.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
@@ -474,9 +478,9 @@ namespace TextileResearchDevelopment.BLL
 
                             aop.StenterID = Convert.ToInt32(reader["StenterID"]);
                             aop.PrintID = Convert.ToInt32(reader["PrintType"]);
-                            aop.PrintName = Convert.ToString(reader["SoftenerName"]);
+                            aop.PrintName = Convert.ToString(reader["PrintName"]);
                             aop.MachineID = Convert.ToInt32(reader["MachineType"]);
-                            aop.MachineName = Convert.ToString(reader["SoftenerName"]);
+                            aop.MachineName = Convert.ToString(reader["MachineName"]);
 
                             aop.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
                             aop.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
@@ -507,7 +511,7 @@ namespace TextileResearchDevelopment.BLL
         {
             try
             {
-                string query = "DELETE FROM Aop WHERE Id = " + Id + " AND ApprovedBy = 0";
+                string query = "DELETE FROM Aop WHERE Id = " + Id + " AND ApprovedStatus = 0";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     return true;
@@ -568,15 +572,14 @@ namespace TextileResearchDevelopment.BLL
                             Stenter.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             Stenter.DyeingUnit = reader["DyeingUnitName"].ToString();
                             Stenter.BatchNo = reader["BatchNo"].ToString();
-                            Stenter.BatchQty = Convert.ToInt32(reader["BatchQty"]);
                             Stenter.SerialNo = Convert.ToInt32(reader["SerialNo"]);
 
                             Stenter.WidthSet = Convert.ToInt32(reader["WidthSet"]);
                             Stenter.OverFeed = Convert.ToInt32(reader["OverFeed"]);
                             Stenter.Temp = Convert.ToDecimal(reader["Temp"]);
-                            Stenter.Speed = Convert.ToInt32(reader["Speed"]);
+                            Stenter.Speed = Convert.ToDecimal(reader["Speed"]);
                             Stenter.Peder = reader["Peder"].ToString();
-                            Stenter.Blower = Convert.ToInt32(reader["Blower"]);
+                            Stenter.Blower = Convert.ToDecimal(reader["Blower"]);
                             Stenter.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
                             Stenter.SoftenerGL = Convert.ToDecimal(reader["SoftenerGL"]);
                             Stenter.SoftenerName = reader["SoftenerName"].ToString();

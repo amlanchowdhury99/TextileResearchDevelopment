@@ -27,6 +27,7 @@
     <ul id="MainContextMenu" class="dropdown-menu" role="menu" style="display:none">
         <li><a tabindex="-1" href="#">Delete</a></li>
         <li><a tabindex="-1" href="#">Approve</a></li>
+        <li><a tabindex="-1" href="#">Unapprove</a></li>
     </ul>
 
     <div class="modal fade" id="modalPrintUnit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -193,13 +194,6 @@
                                     </div>
                                     <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
-                                            <input type="checkbox" id="DeliveryDateCheckBox" style="width:5%;">
-                                            <label for="DeliveryDateSL" class="control-label" style="width:30%;">Delivery Date</label>
-                                            <div class='input-group date' id='DeliveryDateSL' style="width:60%;">
-                                                <input type='text' class="form-control" id="DeliveryDateTextSL" disabled placeholder="Delivey Date" autofocus />
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-xs-4 form-inline">
                                             <label for="DiaGaugeSL" class="control-label" style="width:35%;">Dia-Guage</label>
                                             <div style="display: inline;">
                                                 <select name="DiaGaugeSL" id="DiaGaugeSL" style="width:60%;" class="form-control input-sm" autofocus></select>
@@ -211,14 +205,14 @@
                                                 <select name="YarnCountSL" id="YarnCountSL" style="width:60%;" class="form-control" autofocus></select>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="YarnBrandSL" class="control-label" style="width:35%;">Yarn Brand</label>
                                             <div style="display: inline;">
                                                 <input type="text" class="typeahead form-control " style="width:60%;" id="YarnBrandSL" placeholder="Yarn Brand" autofocus>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="YarnLotSL" class="control-label" style="width:35%;">Yarn Lot</label>
                                             <div style="display: inline;">
@@ -231,14 +225,14 @@
                                                 <input type="number" class="form-control" style="width:60%;" id="GreyWidthSL" min="0" step="1" data-bind="value:GreyWidthSL" placeholder="Grey Width" autofocus>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="GreyGSMSL" class="control-label" style="width:35%;">Grey GSM</label>
                                             <div style="display: inline;">
                                                 <input type="number" class="form-control" style="width:60%;" id="GreyGSMSL" min="0" step="1" data-bind="value:GreyGSMSL" placeholder="Grey GSM" autofocus>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="KnitUnitSL" class="control-label" style="width:35%;">Knit Unit</label>
                                             <div style="display: inline;">
@@ -251,14 +245,14 @@
                                                 <input type="number" class="form-control" style="width:60%;" id="McNoSL" min="0" step="1" data-bind="value:McNoSL" placeholder="MC No" autofocus>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="BrandSL" class="control-label" style="width:35%;">MC Brand</label>
                                             <div style="display: inline;">
-                                                <select name="BrandSL" id="BrandSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                                                <select name="BrandSL" id="BrandSL" style="width:60%;" class="form-control" autofocus></select>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="DyeingUnitSL" class="control-label" style="width:35%;">DyeingUnit</label>
                                             <div style="display: inline;">
@@ -271,14 +265,14 @@
                                                 <input type="text" class="typeahead form-control" style="width:60%;" id="BatchNoSL" name="BatchNoSL" placeholder="Batch No">
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="SoftenerUnitSL" class="control-label" style="width:35%;">Softener</label>
                                             <div style="display: inline;">
-                                                <select name="SoftenerUnitSL" id="SoftenerUnitSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                                                <select name="SoftenerUnitSL" id="SoftenerUnitSL" style="width:60%;" class="form-control" autofocus></select>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="SoftenerGLSL" class="control-label" style="width:35%;">Softener GL</label>
                                             <div style="display: inline;">
@@ -293,6 +287,13 @@
                                         </div>
                                     </div>
                                     <div class=" form-group">
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <input type="checkbox" id="DeliveryDateCheckBox" style="width:5%;">
+                                            <label for="DeliveryDateSL" class="control-label" style="width:30%;">Delivery Date</label>
+                                            <div class='input-group date' id='DeliveryDateSL' style="width:60%;">
+                                                <input type='text' class="form-control" id="DeliveryDateTextSL" disabled placeholder="Delivey Date" autofocus />
+                                            </div>
+                                        </div>
                                         <div class="form-group col-xs-4 form-inline">
                                             <button class="btn btn-warning btn-sm" style="width:35%;" id="resetStenterBtn">Reset</button>
                                             <div style="display: inline;">
@@ -433,7 +434,7 @@
                     <div class="form-group col-xs-4 form-inline">
                         <label for="GreyWidth" class="control-label" style="width:35%;">Grey Width</label>
                         <div style="display: inline;">
-                            <input type="number" class="form-control" style="width:60%;" id="GreyWidth" min="0" step="1" autofocus readonly>
+                            <input type="number" class="form-control" style="width:60%;" id="GreyWidth"  autofocus readonly>
                         </div>
                     </div>
                 </div>
@@ -441,7 +442,7 @@
                     <div class="form-group col-xs-4 form-inline">
                         <label for="GreyGSM" class="control-label" style="width:35%;">Grey GSM</label>
                         <div style="display: inline;">
-                            <input type="number" class="form-control" style="width:60%;" id="GreyGSM" min="0" step="1" data-bind="value:GreyGSM" placeholder="Grey GSM" autofocus readonly>
+                            <input type="number" class="form-control" style="width:60%;" id="GreyGSM"  autofocus readonly>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
@@ -453,7 +454,7 @@
                     <div class="form-group col-xs-4 form-inline">
                         <label for="BatchNo" class="control-label" style="width:35%;">Batch No</label>
                         <div style="display: inline;">
-                            <input type="text" class="form-control" style="width:60%;" id="BatchNo" placeholder="Batch No" autofocus>
+                            <input type="text" class="form-control" style="width:60%;" id="BatchNo"  autofocus readonly>
                         </div>
                     </div>
                 </div>
@@ -461,13 +462,13 @@
                     <div class="form-group col-xs-4 form-inline">
                         <label for="SoftenerName" class="control-label" style="width:35%;">Softener Name</label>
                         <div style="display: inline;">
-                            <input type="text" class="form-control" style="width:60%;" id="SoftenerName" placeholder="Softener Name" autofocus>
+                            <input type="text" class="form-control" style="width:60%;" id="SoftenerName"  autofocus readonly>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
                         <label for="PrintUnit" class="control-label" style="width:35%;">Print Type</label>
                         <div style="display: inline;">
-                            <input type="number" class="form-control" style="width:60%;" id="PrintUnit" min="0" step="1" data-bind="value:PrintUnit" placeholder="Print Type" required autofocus>
+                            <select name="PrintUnit" id="PrintUnit" style="width:50%;" class="form-control" required autofocus></select>
                             <a href="#" class="btn-sm btn-info" id="mdPrintUnit" data-toggle="modal" data-target="#modalPrintUnit" style="width:10%;">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </a>
@@ -476,7 +477,7 @@
                     <div class="form-group col-xs-4 form-inline">
                         <label for="MachineUnit" class="control-label" style="width:35%;">Machine Type</label>
                         <div style="display: inline;">
-                            <input type="number" class="form-control" style="width:60%;" id="MachineUnit" min="0" step="1" data-bind="value:MachineUnit" placeholder="Machine Type" required autofocus>
+                            <select name="MachineUnit" id="MachineUnit" style="width:50%;" class="form-control" required autofocus></select>
                             <a href="#" class="btn-sm btn-info" id="mdMachineUnit" data-toggle="modal" data-target="#modalMachineUnit" style="width:10%;">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </a>
@@ -526,7 +527,7 @@
                 <th>BatchNo</th>
                 <th>SoftenerName</th>
                 <th>PrintType</th>
-                <th>MachineType/th>
+                <th>MachineType</th>
                 <th>Revise</th>
                 <th>CreateTime</th>
                 <th>CreateBy</th>
@@ -560,7 +561,7 @@
                 <th>BatchNo</th>
                 <th>SoftenerName</th>
                 <th>PrintType</th>
-                <th>MachineType/th>
+                <th>MachineType</th>
                 <th>Revise</th>
                 <th>CreateTime</th>
                 <th>CreateBy</th>
@@ -669,6 +670,29 @@
             }
         });
 
+        $('input[type=number]').keydown(function (event) {
+            debugger;
+            if (event.shiftKey) {
+                event.preventDefault();
+            }
+
+            if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 110) {
+
+            }
+            else {
+                if (event.keyCode < 95) {
+                    if (event.keyCode < 48 || event.keyCode > 57) {
+                        event.preventDefault();
+                    }
+                }
+                else {
+                    if (event.keyCode < 96 || event.keyCode > 105) {
+                        event.preventDefault();
+                    }
+                }
+            }
+        });
+
         (function ($, window) {
 
             $.fn.contextMenu = function (settings) {
@@ -680,7 +704,7 @@
                         // return native menu if pressing control
                         if (e.ctrlKey) return;
 
-                        if ($('#DyeingTable tbody tr').hasClass('selected') == false) return;
+                        if ($('#AopTable tbody tr').hasClass('selected') == false) return;
 
                         //open menu
                         var $menu = $(settings.menuSelector)
@@ -726,31 +750,12 @@
             };
         })(jQuery, window);
 
-
         $('#DeliveryDateCheckBox').change(function () {
             if ($(this).is(":checked")) {
                 $('#DeliveryDateTextSL').prop('disabled', false);
             }
             else {
                 $('#DeliveryDateTextSL').prop('disabled', true);
-            }
-        });
-
-        $('#FabricOrderDateCheckBox').change(function () {
-            if ($(this).is(":checked")) {
-                $('#FabricOrderDateTextSL').prop('disabled', false);
-            }
-            else {
-                $('#FabricOrderDateTextSL').prop('disabled', true);
-            }
-        });
-
-        $('#KnitOrderDateCheckBox').change(function () {
-            if ($(this).is(":checked")) {
-                $('#KnitOrderDateTextSL').prop('disabled', false);
-            }
-            else {
-                $('#KnitOrderDateTextSL').prop('disabled', true);
             }
         });
 
@@ -1191,6 +1196,7 @@
                 url: "/AopPrint/GetPrintTypeList",
                 data: "{}",
                 success: function (data) {
+                    var data = data.data;
                     var s = '<option value="">Select Print</option>';
                     for (var i = 0; i < data.length; i++) {
                         s += '<option value="' + data[i].Id + '">' + data[i].PrintName + '</option>';
@@ -1209,6 +1215,7 @@
                 url: "/AopPrint/GetMachineTypeList",
                 data: "{}",
                 success: function (data) {
+                    var data = data.data;
                     var s = '<option value="">Select Machine</option>';
                     for (var i = 0; i < data.length; i++) {
                         s += '<option value="' + data[i].Id + '">' + data[i].MachineName + '</option>';
@@ -1337,6 +1344,17 @@
         }
 
         var AopTable = $('#AopTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+
+                'colvis'
+            ],
             "ajax":
             {
                 "url": "/AopPrint/GetData",
@@ -1374,8 +1392,8 @@
                 },
                 { "data": "Id" },
                 { "data": "StenterID" },
-                { "data": "PrintTypeID" },
-                { "data": "MachineTypeID" },
+                { "data": "PrintID" },
+                { "data": "MachineID" },
                 { "data": "BarCode" },
                 { "data": "BuyerName" },
                 { "data": "FabricName" },
@@ -1392,8 +1410,8 @@
                 { "data": "DyeingUnit" },
                 { "data": "BatchNo" },
                 { "data": "SoftenerName" },
-                { "data": "PrintUnit" },
-                { "data": "MachineUnit" },
+                { "data": "PrintName" },
+                { "data": "MachineName" },
                 { "data": "ReviseStatus" },
                 {
                     data: "CreateTime",
@@ -1442,7 +1460,7 @@
         });
 
         $("#StenterSelection").click(function () {
-
+            event.preventDefault();
             selectedStenterRowId = 0;
             ResetStenter();
             StenterSelectionTable.clear().draw();
@@ -1534,11 +1552,12 @@
         });
 
         function ResetStenter() {
+            event.preventDefault();
             $("#BarCodeSL").val("");
             $("#OrderNoSL").val("");
             $("#ColorSL").val("");
-            $("#FabricNameSL").val("");
-            $("#BuyerNameSL").val("");
+            $("#FabricSL").val("");
+            $("#BuyerSL").val("");
             $("#DiaGaugeSL").val("");
             $("#YarnCountSL").val("");
             $("#YarnBrandSL").val("");
@@ -1547,8 +1566,9 @@
             $("#BrandSL").val("");
             $("#GreyWidthSL").val("");
             $("#GreyGSMSL").val("");
-            $("#ChallaNoSL").val("");
-            $("#DeliveryDateCheckBox").prop('checked',true);
+            $("#ChallanSL").val("");
+            $('#DeliveryDateCheckBox').prop('checked', false);
+            $('#DeliveryDateTextSL').prop('disabled', true);
             $("#DyeingUnitSL").val("");
             $("#BatchNoSL").val("");
             $("#SoftenerUnitSL").val("");
@@ -1594,7 +1614,7 @@
                 $('#Brand').val(StenterSelectionTable.rows('.selected').data()[0].McBrand);
                 $('#DyeingUnit').val(StenterSelectionTable.rows('.selected').data()[0].DyeingUnit);
                 $('#BatchNo').val(StenterSelectionTable.rows('.selected').data()[0].BatchNo);
-                $('#SoftenerSL').val(StenterSelectionTable.rows('.selected').data()[0].Softener);
+                $('#SoftenerName').val(StenterSelectionTable.rows('.selected').data()[0].SoftenerName);
                 $("#modalStenterSelection .close").click();
 
                 $('#hidden').prop('checked', true);
@@ -1657,7 +1677,7 @@
                 var Row = AopTable.rows('.selected').data()[0];
                 var index = AopTable.row('.selected').index();
 
-                var dyeingObj = {
+                var aop = {
                     Id: Row.Id,
                     BarCode: Row.BarCode,
                     StenterID: Row.StenterID,
@@ -1671,7 +1691,7 @@
                     url: "/AopPrint/Edit",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    data: JSON.stringify(dyeingObj),
+                    data: JSON.stringify(aop),
                     success: function (response) {
                         debugger
                         if (response.data != "" && response.data != null) {
@@ -1705,7 +1725,7 @@
                 debugger
                 var Row = AopTable.rows('.selected').data()[0];
 
-                var stenter = {
+                var aop = {
                     Id: Row.Id,
                     BarCode: Row.BarCode,
                     StenterID: Row.StenterID,
@@ -1719,7 +1739,7 @@
                     url: "/AopPrint/Revise",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    data: JSON.stringify(stenter),
+                    data: JSON.stringify(aop),
                     success: function (response) {
                         debugger
                         if (response.data != "" && response.data != null) {
@@ -1753,17 +1773,49 @@
             menuSelected: function (invokedOn, selectedMenu) {
                 debugger;
 
-                var ApprovedBy = AopTable.rows('.selected').data()[0].ApprovedBy;
-                if (ApprovedBy == 0) {
+                var ApprovedStatus = AopTable.rows('.selected').data()[0].ApprovedStatus;
+                if (ApprovedStatus == 0) {
                     if (selectedMenu.text() == "Delete")
                         DeleteRow();
                     if (selectedMenu.text() == "Approve")
                         ApproveRow();
+                    if (selectedMenu.text() == "Unapprove")
+                        alert("This order is not approved yet!!!")
 
                 }
                 else {
-                    alert("This order is already approved!!!");
-                    return;
+
+                    if (selectedMenu.text() == "Unapprove") {
+                        var aop =
+                        {
+                            Id: AopTable.rows('.selected').data()[0].Id
+                        };
+                        $.ajax({
+                            type: "POST",
+                            url: "/AopPrint/CheckUnapproveEligibility",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(aop),
+                            success: function (response) {
+                                debugger
+                                if (response == "true") {
+                                    UnapproveRow();
+                                }
+                                else {
+                                    alert("This order is already used in Dyeing!!!");
+                                    return;
+                                }
+                            },
+                            failure: function () {
+                                $("#tblItems").append(" Error when fetching data please contact administrator");
+                            }
+                        });
+                    }
+                    else {
+                        alert("This order is already approved!!!");
+                        return;
+                    }
+
                 }
             }
         });
@@ -1797,6 +1849,7 @@
         }
 
         function Reset() {
+            event.preventDefault();
             $("#BarCode").val("");
             $("#OrderNo").val("");
             $("#Color").val("");
@@ -1810,10 +1863,16 @@
             $("#Brand").val("");
             $("#GreyWidth").val("");
             $("#GreyGSM").val("");
+            $("#DyeingUnit").val("");
+            $("#BatchNo").val("");
             $("#SoftenerName").val("");
             $("#PrintUnit").val("");
             $("#MachineUnit").val("");
             $('#hidden').prop('checked', false);
+            $('#saveBtn').prop("disabled", false);
+            $('#updateBtn').prop("disabled", true);
+            $('#reviseBtn').prop("disabled", true);
+            $('#AopTable tbody tr').removeClass('selected');
         }
 
         function DeleteRow() {
@@ -1851,7 +1910,7 @@
             var Row = AopTable.rows('.selected').data()[0];
             var index = AopTable.row('.selected').index();
 
-            var stenter =
+            var aop =
             {
                 Id: Row.Id,
                 ApprovedTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
@@ -1862,7 +1921,7 @@
                 url: "/AopPrint/Approve",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify(stenter),
+                data: JSON.stringify(aop),
                 success: function (response) {
                     debugger
                     if (response.data != "" && response.data != null) {
@@ -1872,6 +1931,42 @@
                     }
                     else {
                         alert("Failed to Approve!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        }
+
+        function UnapproveRow() {
+            debugger
+            event.preventDefault();
+
+            var Row = AopTable.rows('.selected').data()[0];
+            var index = AopTable.row('.selected').index();
+
+            var aop =
+            {
+                Id: Row.Id
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/AopPrint/Unapprove",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(aop),
+                success: function (response) {
+                    debugger
+                    if (response.data != "" && response.data != null) {
+                        debugger
+                        AopTable.row(index).data(response.data).draw();
+                        Reset();
+                    }
+                    else {
+                        alert("Failed to Unapprove!!!");
                         return;
                     }
                 },

@@ -5,12 +5,29 @@
     }
 }
 
+<head>
+    <style>
+        .btn {
+            padding: 10px 20px;
+            font-size: 15px;
+            border-radius: 5px;
+        }
+
+        tfoot input {
+            width: 100%;
+            padding: 3px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
 <div id="MainDiv" class="panel panel-default ">
     <h2>Test Report Entry Form</h2>
 
     <ul id="MainContextMenu" class="dropdown-menu" role="menu" style="display:none">
         <li><a tabindex="-1" href="#">Delete</a></li>
         <li><a tabindex="-1" href="#">Approve</a></li>
+        <li><a tabindex="-1" href="#">Unapprove</a></li>
     </ul>
 
     <div class="modal fade" id="modalAopSelection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -69,13 +86,6 @@
                                     </div>
                                     <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
-                                            <input type="checkbox" id="DeliveryDateCheckBox" style="width:5%;">
-                                            <label for="DeliveryDateSL" class="control-label" style="width:30%;">Delivery Date</label>
-                                            <div class='input-group date' id='DeliveryDateSL' style="width:60%;">
-                                                <input type='text' class="form-control" id="DeliveryDateTextSL" disabled placeholder="Delivey Date" autofocus />
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-xs-4 form-inline">
                                             <label for="DiaGaugeSL" class="control-label" style="width:35%;">Dia-Guage</label>
                                             <div style="display: inline;">
                                                 <select name="DiaGaugeSL" id="DiaGaugeSL" style="width:60%;" class="form-control input-sm" autofocus></select>
@@ -132,7 +142,7 @@
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="BrandSL" class="control-label" style="width:35%;">MC Brand</label>
                                             <div style="display: inline;">
-                                                <select name="BrandSL" id="BrandSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                                                <select name="BrandSL" id="BrandSL" style="width:60%;" class="form-control" autofocus></select>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
@@ -152,7 +162,7 @@
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="SoftenerUnitSL" class="control-label" style="width:35%;">Softener</label>
                                             <div style="display: inline;">
-                                                <select name="SoftenerUnitSL" id="SoftenerUnitSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                                                <select name="SoftenerUnitSL" id="SoftenerUnitSL" style="width:60%;" class="form-control" autofocus></select>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
@@ -172,13 +182,23 @@
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="PrintUnitSL" class="control-label" style="width:35%;">Print Type</label>
                                             <div style="display: inline;">
-                                                <select name="PrintUnitSL" id="PrintUnitSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                                                <select name="PrintUnitSL" id="PrintUnitSL" style="width:60%;" class="form-control" autofocus></select>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="MachineUnitSL" class="control-label" style="width:35%;">Machine Type</label>
                                             <div style="display: inline;">
                                                 <select name="MachineUnitSL" id="MachineUnitSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class=" form-group">
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <input type="checkbox" id="DeliveryDateCheckBox" style="width:5%;">
+                                            <label for="DeliveryDateSL" class="control-label" style="width:30%;">Delivery Date</label>
+                                            <div class='input-group date' id='DeliveryDateSL' style="width:60%;">
+                                                <input type='text' class="form-control" id="DeliveryDateTextSL" disabled placeholder="Delivey Date" autofocus />
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
@@ -381,23 +401,23 @@
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="TumbleWidth" class="control-label" style="width:35%;">Tumble Width</label>
+                        <label for="TumbleLength" class="control-label" style="width:35%;">Tumble Width</label>
                         <div style="display: inline;">
-                            <input type="number" class="typeahead form-control" style="width:60%;" id="TumbleWidth" min="0" step="1" data-bind="value:TumbleWidth" name="FinalGSM" placeholder="Tumble Width">
+                            <input type="number" class="typeahead form-control" style="width:60%;" id="TumbleLength" min="0" step="1" data-bind="value:TumbleLength" name="TumbleLength" placeholder="Tumble Width">
                         </div>
                     </div>
                 </div>
                 <div class=" form-group">
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="TumbleGSM" class="control-label" style="width:35%;">Tumble GSM</label>
+                        <label for="TumbleWidth" class="control-label" style="width:35%;">Tumble GSM</label>
                         <div style="display: inline;">
-                            <input type="number" class="typeahead form-control" style="width:60%;" id="TumbleGSM" min="0" step="1" data-bind="value:TumbleGSM" name="TumbleGSM" placeholder="Tumble GSM">
+                            <input type="number" class="typeahead form-control" style="width:60%;" id="TumbleWidth" min="0" step="1" data-bind="value:TumbleWidth" name="TumbleWidth" placeholder="Tumble GSM">
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
                         <label for="TumbleSP" class="control-label" style="width:35%;">Tumble SP</label>
                         <div style="display: inline;">
-                            <input type="number" class="typeahead form-control" style="width:60%;" id="TumbleSP" min="0" step="1" data-bind="value:TumbleSP" name="TumbleSP" placeholder="Tumble SP">
+                            <input type="number" class="typeahead form-control" style="width:60%;" id="TumbleSP" data-bind="value:TumbleSP" name="TumbleSP" placeholder="Tumble SP">
                         </div>
                     </div>
                 </div>
@@ -445,8 +465,8 @@
                 <th>MachineType/th>
                 <th>FinalWidth</th>
                 <th>FinalGSM</th>
+                <th>TumbleLength</th>
                 <th>TumbleWidth</th>
-                <th>TumbleGSM</th>
                 <th>TumbleSP</th>
                 <th>Revise</th>
                 <th>CreateTime</th>
@@ -482,8 +502,8 @@
                 <th>MachineType/th>
                 <th>FinalWidth</th>
                 <th>FinalGSM</th>
+                <th>TumbleLength</th>
                 <th>TumbleWidth</th>
-                <th>TumbleGSM</th>
                 <th>TumbleSP</th>
                 <th>Revise</th>
                 <th>CreateTime</th>
@@ -511,7 +531,7 @@
                         columns: ':visible'
                     }
                 },
-                
+
                 'colvis'
             ],
             "scrollY": true,
@@ -561,8 +581,8 @@
                 { "data": "McBrand" },
                 { "data": "GreyWidth" },
                 { "data": "GreyGSM" },
+                { "data": "TumbleLength" },
                 { "data": "TumbleWidth" },
-                { "data": "TumbleGSM" },
                 {
                     data: "DeliveryDate",
                     render: function (data, type, row) {
@@ -877,7 +897,7 @@
                     }
                 },
                 { "data": "Id" },
-                { "data": "AOPID" },
+                { "data": "AopID" },
                 { "data": "BarCode" },
                 { "data": "BuyerName" },
                 { "data": "FabricName" },
@@ -894,13 +914,13 @@
                 { "data": "DyeingUnit" },
                 { "data": "BatchNo" },
                 { "data": "SoftenerName" },
-                { "data": "PrintUnit" },
-                { "data": "MachineUnit" },
+                { "data": "PrintName" },
+                { "data": "MachineName" },
                 { "data": "FinalWidth" },
                 { "data": "FinalGSM" },
-                { "data": "TumbleWidth" },
-                { "data": "TumbleGSM" },
-                { "data": "TumbleSP" },
+                { "data": "TLength" },
+                { "data": "TWidth" },
+                { "data": "TSP" },
                 { "data": "ReviseStatus" },
                 {
                     data: "CreateTime",
@@ -974,7 +994,7 @@
                         debugger;
                         if (response == "true") {
                             debugger;
-                            var testSearchObj = {
+                            var aopSearchObj = {
                                 BarCode: $("#BarCodeSL").val().toString(),
                                 BuyerID: $("#BuyerSL  option:selected").val(),
                                 FabricTypeID: $("#FabricSL  option:selected").val(),
@@ -1003,10 +1023,10 @@
 
                             $.ajax({
                                 type: "POST",
-                                url: "/TestReport/TestReportSearch",
+                                url: "/TestReport/AopSearch",
                                 contentType: "application/json; charset=utf-8",
                                 dataType: "json",
-                                data: JSON.stringify(testSearchObj),
+                                data: JSON.stringify(aopSearchObj),
                                 success: function (response) {
                                     if (response != "" && response != null) {
                                         debugger
@@ -1014,7 +1034,7 @@
                                         AopSelectionTable.rows.add(response).draw();
                                     }
                                     else {
-                                        alert("Failed to Save! Please Check Connection State!!!");
+                                        alert("Failed to Search!!! No Data Found!!!");
                                         return;
                                     }
                                 },
@@ -1024,7 +1044,7 @@
                             });
                         }
                         if (response == "false") {
-                            alert("This Barcode is already used in another dyeing order!!!");
+                            alert("This Barcode is already used in another test report order!!!");
                             return;
                         }
                         if (response == "" || response == null) {
@@ -1047,8 +1067,8 @@
             $("#BarCodeSL").val("");
             $("#OrderNoSL").val("");
             $("#ColorSL").val("");
-            $("#FabricNameSL").val("");
-            $("#BuyerNameSL").val("");
+            $("#FabricSL").val("");
+            $("#BuyerSL").val("");
             $("#DiaGaugeSL").val("");
             $("#YarnCountSL").val("");
             $("#YarnBrandSL").val("");
@@ -1057,8 +1077,8 @@
             $("#BrandSL").val("");
             $("#GreyWidthSL").val("");
             $("#GreyGSMSL").val("");
-            $("#ChallaNoSL").val("");
-            $("#DeliveryDateCheckBox").prop('checked', true);
+            $("#ChallaSL").val("");
+            $("#DeliveryDateCheckBox").prop('checked', false);
             $("#DyeingUnitSL").val("");
             $("#BatchNoSL").val("");
             $("#SoftenerUnitSL").val("");
@@ -1105,10 +1125,10 @@
                 $('#Brand').val(AopSelectionTable.rows('.selected').data()[0].McBrand);
                 $('#DyeingUnit').val(AopSelectionTable.rows('.selected').data()[0].DyeingUnit);
                 $('#BatchNo').val(AopSelectionTable.rows('.selected').data()[0].BatchNo);
-                $('#Softener').val(AopSelectionTable.rows('.selected').data()[0].Softener);
+                $('#SoftenerName').val(AopSelectionTable.rows('.selected').data()[0].SoftenerName);
                 $('#PrintUnit').val(AopSelectionTable.rows('.selected').data()[0].PrintName);
                 $('#MachineUnit').val(AopSelectionTable.rows('.selected').data()[0].MachineName);
-                
+
                 $("#modalAopSelection .close").click();
 
                 $('#hidden').prop('checked', true);
@@ -1130,9 +1150,9 @@
                     AOPID: selectedAopRowId,
                     FinalWidth: $("#FinalWidth").val(),
                     FinalGSM: $("#FinalGSM").val(),
-                    TumbleWidth: $("#TumbleWidth").val(),
-                    TumbleGSM: $("#TumbleGSM").val(),
-                    TumbleSP: $("#TumbleSP").val(),
+                    TLength: $("#TumbleLength").val(),
+                    TWidth: $("#TumbleWidth").val(),
+                    TSP: $("#TumbleSP").val(),
                     CreateTime: moment(Date.now()).format("DD/MM/YYYY h:mm a")
                 };
 
@@ -1174,15 +1194,15 @@
                 var Row = TestTable.rows('.selected').data()[0];
                 var index = TestTable.row('.selected').index();
 
-                var dyeingObj = {
+                var test = {
                     Id: Row.Id,
                     BarCode: Row.BarCode,
-                    AOPID: Row.AOPID,
+                    AOPID: Row.AopID,
                     FinalWidth: $("#FinalWidth").val(),
                     FinalGSM: $("#FinalGSM").val(),
-                    TumbleWidth: $("#TumbleWidth").val(),
-                    TumbleGSM: $("#TumbleGSM").val(),
-                    TumbleSP: $("#TumbleSP").val(),
+                    TLength: $("#TumbleLength").val(),
+                    TWidth: $("#TumbleWidth").val(),
+                    TSP: $("#TumbleSP").val(),
                     UpdateTime: moment(Date.now()).format("DD/MM/YYYY h:mm a")
                 };
 
@@ -1191,7 +1211,7 @@
                     url: "/TestReport/Edit",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    data: JSON.stringify(dyeingObj),
+                    data: JSON.stringify(test),
                     success: function (response) {
                         debugger
                         if (response.data != "" && response.data != null) {
@@ -1225,15 +1245,15 @@
                 debugger
                 var Row = TestTable.rows('.selected').data()[0];
 
-                var stenter = {
+                var test = {
                     Id: Row.Id,
                     BarCode: Row.BarCode,
-                    AOPID: Row.AOPID,
+                    AOPID: Row.AopID,
                     FinalWidth: $("#FinalWidth").val(),
                     FinalGSM: $("#FinalGSM").val(),
-                    TumbleWidth: $("#TumbleWidth").val(),
-                    TumbleGSM: $("#TumbleGSM").val(),
-                    TumbleSP: $("#TumbleSP").val(),
+                    TLength: $("#TumbleLength").val(),
+                    TWidth: $("#TumbleWidth").val(),
+                    TSP: $("#TumbleSP").val(),
                     CreateTime: moment(Date.now()).format("DD/MM/YYYY h:mm a")
                 };
 
@@ -1242,7 +1262,7 @@
                     url: "/TestReport/Revise",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    data: JSON.stringify(stenter),
+                    data: JSON.stringify(test),
                     success: function (response) {
                         debugger
                         if (response.data != "" && response.data != null) {
@@ -1276,17 +1296,49 @@
             menuSelected: function (invokedOn, selectedMenu) {
                 debugger;
 
-                var ApprovedBy = TestTable.rows('.selected').data()[0].ApprovedBy;
-                if (ApprovedBy == 0) {
+                var ApprovedStatus = TestTable.rows('.selected').data()[0].ApprovedStatus;
+                if (ApprovedStatus == 0) {
                     if (selectedMenu.text() == "Delete")
                         DeleteRow();
                     if (selectedMenu.text() == "Approve")
                         ApproveRow();
+                    if (selectedMenu.text() == "Unapprove")
+                        alert("This order is not approved yet!!!")
 
                 }
                 else {
-                    alert("This order is already approved!!!");
-                    return;
+
+                    if (selectedMenu.text() == "Unapprove") {
+                        var test =
+                        {
+                            Id: TestTable.rows('.selected').data()[0].Id
+                        };
+                        $.ajax({
+                            type: "POST",
+                            url: "/TestReport/CheckUnapproveEligibility",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(test),
+                            success: function (response) {
+                                debugger
+                                if (response == "true") {
+                                    UnapproveRow();
+                                }
+                                else {
+                                    alert("This order is already used in Remarks!!!");
+                                    return;
+                                }
+                            },
+                            failure: function () {
+                                $("#tblItems").append(" Error when fetching data please contact administrator");
+                            }
+                        });
+                    }
+                    else {
+                        alert("This order is already approved!!!");
+                        return;
+                    }
+
                 }
             }
         });
@@ -1315,10 +1367,16 @@
 
         function Setvalue(rowdata) {
             debugger;
-            $("#TestReport").val(rowdata.UserRemarks)
+            $("#FinalWidth").val(rowdata.FinalWidth);
+            $("#FinalGSM").val(rowdata.FinalGSM);
+            $("#TumbleLength").val(rowdata.TLength);
+            $("#TumbleWidth").val(rowdata.TWidth);
+            $("#TumbleSP").val(rowdata.TSP);
         }
 
         function Reset() {
+            event.preventDefault();
+            debugger;
             $("#BarCode").val("");
             $("#OrderNo").val("");
             $("#Color").val("");
@@ -1332,17 +1390,22 @@
             $("#Brand").val("");
             $("#GreyWidth").val("");
             $("#GreyGSM").val("");
+            $("#DyeingUnit").val("");
+            $("#BatchNo").val("");
             $("#SoftenerName").val("");
             $("#PrintUnit").val("");
             $("#MachineUnit").val("");
             $("#FinalWidth").val("");
             $("#FinalGSM").val("");
+            $("#TumbleLength").val("");
             $("#TumbleWidth").val("");
-            $("#TumbleGSM").val("");
-            $("TumbleSP").val("");
+            $("#TumbleSP").val("");
             $("#TestReport").val("");
             $('#hidden').prop('checked', false);
-            $('#DeliveryDateCheckBox').prop('disabled', true);
+            $('#saveBtn').prop("disabled", false);
+            $('#updateBtn').prop("disabled", true);
+            $('#reviseBtn').prop("disabled", true);
+            $('#TestTable tbody tr').removeClass('selected');
         }
 
         function DeleteRow() {
@@ -1401,6 +1464,42 @@
                     }
                     else {
                         alert("Failed to Approve!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        }
+
+        function UnapproveRow() {
+            debugger
+            event.preventDefault();
+
+            var Row = TestTable.rows('.selected').data()[0];
+            var index = TestTable.row('.selected').index();
+
+            var test =
+            {
+                Id: Row.Id
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/TestReport/Unapprove",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(test),
+                success: function (response) {
+                    debugger
+                    if (response.data != "" && response.data != null) {
+                        debugger
+                        TestTable.row(index).data(response.data).draw();
+                        Reset();
+                    }
+                    else {
+                        alert("Failed to Unapprove!!!");
                         return;
                     }
                 },

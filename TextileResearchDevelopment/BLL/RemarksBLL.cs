@@ -55,23 +55,25 @@ namespace TextileResearchDevelopment.BLL
                             remark.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             remark.DyeingUnit = reader["DyeingUnitName"].ToString();
                             remark.BatchNo = reader["BatchNo"].ToString();
-                            remark.BatchQty = Convert.ToInt32(reader["BatchQty"]);
                             remark.SerialNo = Convert.ToInt32(reader["SerialNo"]);
 
-                            remark.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
                             remark.SoftenerName = reader["SoftenerName"].ToString();
                             remark.SoftenerGL = Convert.ToDecimal(reader["SoftenerGL"]);
+                            remark.Temp = Convert.ToDecimal(reader["Temp"]);
+                            remark.Speed = Convert.ToDecimal(reader["Speed"]);
+                            remark.Peder = reader["Peder"].ToString();
+                            remark.Blower = Convert.ToDecimal(reader["Blower"]);
 
-                            remark.PrintID = Convert.ToInt32(reader["PrintID"]);
+                            remark.PrintID = Convert.ToInt32(reader["PrintType"]);
                             remark.PrintName = reader["PrintName"].ToString();
-                            remark.MachineID = Convert.ToInt32(reader["MachineID"]);
+                            remark.MachineID = Convert.ToInt32(reader["MachineType"]);
                             remark.MachineName = reader["MachineName"].ToString();
 
                             remark.FinalWidth =  Convert.ToDecimal(reader["FinalWidth"]);
                             remark.FinalGSM = Convert.ToDecimal(reader["FinalGSM"]);
-                            remark.TLength = Convert.ToDecimal(reader["TLength"]);
-                            remark.TWidth = Convert.ToDecimal(reader["TWidth"]);
-                            remark.TSP = Convert.ToDecimal(reader["TSP"]);
+                            remark.TLength = Convert.ToDecimal(reader["TumbleLength"]);
+                            remark.TWidth = Convert.ToDecimal(reader["TumbleWidth"]);
+                            remark.TSP = Convert.ToDecimal(reader["TumbleSP"]);
 
                             //remark.UserRemarks = reader["Remarks"].ToString();
 
@@ -258,7 +260,7 @@ namespace TextileResearchDevelopment.BLL
             int Id = -1;
             try
             {
-                string query = " UPDATE Remarks SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = '' WHERE Id = " + remark.Id + " AND ApprovedBy = 1 ";
+                string query = " UPDATE Remarks SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE Id = " + remark.Id + " AND ApprovedStatus = 1 ";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT * FROM RemarksView WHERE Id = " + remark.Id;
@@ -268,8 +270,8 @@ namespace TextileResearchDevelopment.BLL
                         while (reader.Read())
                         {
                             remark.Id = Convert.ToInt32(reader["Id"]);
+                            Id = remark.Id;
                             remark.TestReportID = Convert.ToInt32(reader["TestReportID"]);
-                            remark.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             remark.BuyerName = reader["BuyerName"].ToString();
                             remark.FabricName = reader["FabricName"].ToString();
                             remark.OrderNo = reader["OrderNo"].ToString();
@@ -290,15 +292,13 @@ namespace TextileResearchDevelopment.BLL
                             remark.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             remark.DyeingUnit = reader["DyeingUnitName"].ToString();
                             remark.BatchNo = reader["BatchNo"].ToString();
-                            remark.BatchQty = Convert.ToInt32(reader["BatchQty"]);
                             remark.SerialNo = Convert.ToInt32(reader["SerialNo"]);
 
-                            remark.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
                             remark.SoftenerName = reader["SoftenerName"].ToString();
 
-                            remark.PrintID = Convert.ToInt32(reader["PrintID"]);
+                            remark.PrintID = Convert.ToInt32(reader["PrintType"]);
                             remark.PrintName = reader["PrintName"].ToString();
-                            remark.MachineID = Convert.ToInt32(reader["MachineID"]);
+                            remark.MachineID = Convert.ToInt32(reader["MachineType"]);
                             remark.MachineName = reader["MachineName"].ToString();
 
                             remark.FinalWidth = Convert.ToDecimal(reader["FinalWidth"]);
@@ -376,7 +376,7 @@ namespace TextileResearchDevelopment.BLL
                     {
                         Remarks remark = new Remarks();
                         remark.Id = Convert.ToInt32(reader["Id"]);
-                        remark.AopID = Convert.ToInt32(reader["AOPID"]);
+                        remark.TestReportID = Convert.ToInt32(reader["TestReportID"]);
                         remark.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                         remark.BuyerName = reader["BuyerName"].ToString();
                         remark.FabricName = reader["FabricName"].ToString();
@@ -398,15 +398,13 @@ namespace TextileResearchDevelopment.BLL
                         remark.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                         remark.DyeingUnit = reader["DyeingUnitName"].ToString();
                         remark.BatchNo = reader["BatchNo"].ToString();
-                        remark.BatchQty = Convert.ToInt32(reader["BatchQty"]);
                         remark.SerialNo = Convert.ToInt32(reader["SerialNo"]);
 
-                        remark.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
                         remark.SoftenerName = reader["SoftenerName"].ToString();
 
-                        remark.PrintID = Convert.ToInt32(reader["PrintID"]);
+                        remark.PrintID = Convert.ToInt32(reader["PrintType"]);
                         remark.PrintName = reader["PrintName"].ToString();
-                        remark.MachineID = Convert.ToInt32(reader["MachineID"]);
+                        remark.MachineID = Convert.ToInt32(reader["MachineType"]);
                         remark.MachineName = reader["MachineName"].ToString();
 
                         remark.FinalWidth = Convert.ToDecimal(reader["FinalWidth"]);
@@ -460,8 +458,8 @@ namespace TextileResearchDevelopment.BLL
                         while (reader.Read())
                         {
                             remark.Id = Convert.ToInt32(reader["Id"]);
+                            Id = remark.Id;
                             remark.TestReportID = Convert.ToInt32(reader["TestReportID"]);
-                            remark.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             remark.BuyerName = reader["BuyerName"].ToString();
                             remark.FabricName = reader["FabricName"].ToString();
                             remark.OrderNo = reader["OrderNo"].ToString();
@@ -482,15 +480,13 @@ namespace TextileResearchDevelopment.BLL
                             remark.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             remark.DyeingUnit = reader["DyeingUnitName"].ToString();
                             remark.BatchNo = reader["BatchNo"].ToString();
-                            remark.BatchQty = Convert.ToInt32(reader["BatchQty"]);
                             remark.SerialNo = Convert.ToInt32(reader["SerialNo"]);
 
-                            remark.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
                             remark.SoftenerName = reader["SoftenerName"].ToString();
 
-                            remark.PrintID = Convert.ToInt32(reader["PrintID"]);
+                            remark.PrintID = Convert.ToInt32(reader["PrintType"]);
                             remark.PrintName = reader["PrintName"].ToString();
-                            remark.MachineID = Convert.ToInt32(reader["MachineID"]);
+                            remark.MachineID = Convert.ToInt32(reader["MachineType"]);
                             remark.MachineName = reader["MachineName"].ToString();
 
                             remark.FinalWidth = Convert.ToDecimal(reader["FinalWidth"]);
@@ -546,8 +542,8 @@ namespace TextileResearchDevelopment.BLL
                         while (reader.Read())
                         {
                             remark.Id = Convert.ToInt32(reader["Id"]);
+                            Id = remark.Id;
                             remark.TestReportID = Convert.ToInt32(reader["TestReportID"]);
-                            remark.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             remark.BuyerName = reader["BuyerName"].ToString();
                             remark.FabricName = reader["FabricName"].ToString();
                             remark.OrderNo = reader["OrderNo"].ToString();
@@ -568,15 +564,13 @@ namespace TextileResearchDevelopment.BLL
                             remark.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             remark.DyeingUnit = reader["DyeingUnitName"].ToString();
                             remark.BatchNo = reader["BatchNo"].ToString();
-                            remark.BatchQty = Convert.ToInt32(reader["BatchQty"]);
                             remark.SerialNo = Convert.ToInt32(reader["SerialNo"]);
 
-                            remark.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
                             remark.SoftenerName = reader["SoftenerName"].ToString();
 
-                            remark.PrintID = Convert.ToInt32(reader["PrintID"]);
+                            remark.PrintID = Convert.ToInt32(reader["PrintType"]);
                             remark.PrintName = reader["PrintName"].ToString();
-                            remark.MachineID = Convert.ToInt32(reader["MachineID"]);
+                            remark.MachineID = Convert.ToInt32(reader["MachineType"]);
                             remark.MachineName = reader["MachineName"].ToString();
 
                             remark.FinalWidth = Convert.ToDecimal(reader["FinalWidth"]);
@@ -621,7 +615,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string GetApproveByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " UPDATE Remarks SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + remark.ApprovedTime?.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + remark.Id + " AND ApprovedBy = 0 ";
+                string query = " UPDATE Remarks SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + remark.ApprovedTime?.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + remark.Id + " AND ApprovedStatus = 0 ";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT * FROM RemarksView WHERE Id = " + remark.Id;
@@ -631,8 +625,8 @@ namespace TextileResearchDevelopment.BLL
                         while (reader.Read())
                         {
                             remark.Id = Convert.ToInt32(reader["Id"]);
+                            Id = remark.Id;
                             remark.TestReportID = Convert.ToInt32(reader["TestReportID"]);
-                            remark.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             remark.BuyerName = reader["BuyerName"].ToString();
                             remark.FabricName = reader["FabricName"].ToString();
                             remark.OrderNo = reader["OrderNo"].ToString();
@@ -653,15 +647,13 @@ namespace TextileResearchDevelopment.BLL
                             remark.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             remark.DyeingUnit = reader["DyeingUnitName"].ToString();
                             remark.BatchNo = reader["BatchNo"].ToString();
-                            remark.BatchQty = Convert.ToInt32(reader["BatchQty"]);
                             remark.SerialNo = Convert.ToInt32(reader["SerialNo"]);
 
-                            remark.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
                             remark.SoftenerName = reader["SoftenerName"].ToString();
 
-                            remark.PrintID = Convert.ToInt32(reader["PrintID"]);
+                            remark.PrintID = Convert.ToInt32(reader["PrintType"]);
                             remark.PrintName = reader["PrintName"].ToString();
-                            remark.MachineID = Convert.ToInt32(reader["MachineID"]);
+                            remark.MachineID = Convert.ToInt32(reader["MachineType"]);
                             remark.MachineName = reader["MachineName"].ToString();
 
                             remark.FinalWidth = Convert.ToDecimal(reader["FinalWidth"]);
@@ -706,9 +698,9 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string GetReviseQuery = "SELECT ReviseStatus FROM Test WHERE Id = " + remark.Id;
+                string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM Remarks WHERE BarCode = '" + remark.BarCode + "'";
 
-                string query = " INSERT INTO Remarks (TestReportID, BarCode, Remarks ReviseStatus, CreateTime, CreateBy, ApprovedStatus, ApprovedBy, UpdateBy) " +
+                string query = " INSERT INTO Remarks (TestReportID, BarCode, Remarks, ReviseStatus, CreateTime, CreateBy, ApprovedStatus, ApprovedBy, UpdateBy) " +
                                " VALUES(" + remark.TestReportID + "," + remark.BarCode + ",'" + remark.UserRemarks + "', ((" + GetReviseQuery + ") +1),'" + remark.CreateTime.ToString("yyyy/MM/dd HH:mm") + "',(" + GetCreateByQuery + "), 0, 0, 0 )";
 
                 if (DBGateway.ExecutionToDB(query, 1))
@@ -720,8 +712,8 @@ namespace TextileResearchDevelopment.BLL
                         while (reader.Read())
                         {
                             remark.Id = Convert.ToInt32(reader["Id"]);
-                            remark.AopID = Convert.ToInt32(reader["AOPID"]);
-                            remark.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
+                            Id = remark.Id;
+                            remark.TestReportID = Convert.ToInt32(reader["TestReportID"]);
                             remark.BuyerName = reader["BuyerName"].ToString();
                             remark.FabricName = reader["FabricName"].ToString();
                             remark.OrderNo = reader["OrderNo"].ToString();
@@ -742,15 +734,13 @@ namespace TextileResearchDevelopment.BLL
                             remark.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             remark.DyeingUnit = reader["DyeingUnitName"].ToString();
                             remark.BatchNo = reader["BatchNo"].ToString();
-                            remark.BatchQty = Convert.ToInt32(reader["BatchQty"]);
                             remark.SerialNo = Convert.ToInt32(reader["SerialNo"]);
 
-                            remark.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
                             remark.SoftenerName = reader["SoftenerName"].ToString();
 
-                            remark.PrintID = Convert.ToInt32(reader["PrintID"]);
+                            remark.PrintID = Convert.ToInt32(reader["PrintType"]);
                             remark.PrintName = reader["PrintName"].ToString();
-                            remark.MachineID = Convert.ToInt32(reader["MachineID"]);
+                            remark.MachineID = Convert.ToInt32(reader["MachineType"]);
                             remark.MachineName = reader["MachineName"].ToString();
 
                             remark.FinalWidth = Convert.ToDecimal(reader["FinalWidth"]);
@@ -793,7 +783,7 @@ namespace TextileResearchDevelopment.BLL
         {
             try
             {
-                string query = "DELETE FROM Remarks WHERE Id = " + Id + " AND ApprovedBy = 0";
+                string query = "DELETE FROM Remarks WHERE Id = " + Id + " AND ApprovedStatus = 0";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     return true;

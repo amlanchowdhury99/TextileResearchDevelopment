@@ -150,7 +150,8 @@ namespace TextileResearchDevelopment.BLL
                     {
                         while (reader.Read())
                         {
-                            stenter.Id = Id = Convert.ToInt32(reader["Id"]);
+                            stenter.Id = Convert.ToInt32(reader["Id"]);
+                            Id = stenter.Id;
                             stenter.DyeingID = Convert.ToInt32(reader["DyeingID"]);
                             stenter.BuyerName = reader["BuyerName"].ToString();
                             stenter.FabricName = reader["FabricName"].ToString();
@@ -237,6 +238,7 @@ namespace TextileResearchDevelopment.BLL
                         while (reader.Read())
                         {
                             stenter.Id = Id = Convert.ToInt32(reader["Id"]);
+                            Id = stenter.Id;
                             stenter.DyeingID = Convert.ToInt32(reader["DyeingID"]);
                             stenter.BuyerName = reader["BuyerName"].ToString();
                             stenter.FabricName = reader["FabricName"].ToString();
@@ -325,7 +327,8 @@ namespace TextileResearchDevelopment.BLL
                     {
                         while (reader.Read())
                         {
-                            stenter.Id = Id = Convert.ToInt32(reader["Id"]);
+                            stenter.Id = Convert.ToInt32(reader["Id"]);
+                            Id = stenter.Id;
                             stenter.DyeingID = Convert.ToInt32(reader["DyeingID"]);
                             stenter.BuyerName = reader["BuyerName"].ToString();
                             stenter.FabricName = reader["FabricName"].ToString();
@@ -403,7 +406,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string GetApproveByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " UPDATE Stenter SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + stenter.ApprovedTime?.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + stenter.Id + " AND ApprovedBy = 0 ";
+                string query = " UPDATE Stenter SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + stenter.ApprovedTime?.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + stenter.Id + " AND ApprovedStatus = 0 ";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT * FROM StenterView WHERE Id = " + stenter.Id;
@@ -412,7 +415,8 @@ namespace TextileResearchDevelopment.BLL
                     {
                         while (reader.Read())
                         {
-                            stenter.Id = Id = Convert.ToInt32(reader["Id"]);
+                            stenter.Id = Convert.ToInt32(reader["Id"]);
+                            Id = stenter.Id;
                             stenter.DyeingID = Convert.ToInt32(reader["DyeingID"]);
                             stenter.BuyerName = reader["BuyerName"].ToString();
                             stenter.FabricName = reader["FabricName"].ToString();
@@ -490,7 +494,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string GetReviseQuery = "SELECT ReviseStatus FROM Stenter WHERE Id = " + stenter.Id;
+                string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM Stenter WHERE BarCode = '" + stenter.BarCode + "'";
 
                 string query = " INSERT INTO Stenter (DyeingID, BarCode, WidthSet, OverFeed, Temp, Speed, Peder, Blower, SoftenerID, SoftenerGL, DIA, GSM, ReviseStatus, CreateTime, CreateBy, ApprovedStatus, ApprovedBy, UpdateBy) " +
                                " VALUES(" + stenter.DyeingID + "," + stenter.BarCode + "," + stenter.WidthSet + "," + stenter.OverFeed + "," + stenter.Temp + "," + stenter.Speed + ",'" + stenter.Peder + "'," + stenter.Blower + "," + stenter.SoftenerID + "," + stenter.SoftenerGL + "," + stenter.DIA + "," + stenter.GSM + ", ((" + GetReviseQuery + ") +1),'" + stenter.CreateTime.ToString("yyyy/MM/dd HH:mm") + "', (" + GetCreateByQuery + "), 0, 0, 0 )";
@@ -503,7 +507,8 @@ namespace TextileResearchDevelopment.BLL
                     {
                         while (reader.Read())
                         {
-                            stenter.Id = Id = Convert.ToInt32(reader["Id"]);
+                            stenter.Id = Convert.ToInt32(reader["Id"]);
+                            Id = stenter.Id;
                             stenter.DyeingID = Convert.ToInt32(reader["DyeingID"]);
                             stenter.BuyerName = reader["BuyerName"].ToString();
                             stenter.FabricName = reader["FabricName"].ToString();
@@ -579,7 +584,7 @@ namespace TextileResearchDevelopment.BLL
         {
             try
             {
-                string query = "DELETE FROM Stenter WHERE Id = " + Id + " AND ApprovedBy = 0";
+                string query = "DELETE FROM Stenter WHERE Id = " + Id + " AND ApprovedStatus  = 0";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     return true;

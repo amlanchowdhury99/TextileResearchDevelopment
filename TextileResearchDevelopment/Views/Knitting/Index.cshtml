@@ -51,9 +51,10 @@
                                     <form id="DiaGaugeForm">
                                         <div class=" form-group">
                                             <div class="form-group col-xs-12 form-inline">
-                                                <label for="DiaGaugeMD" class="control-label" style="width:35%;">Brand</label>
+                                                <label for="DiaGaugeMD" class="control-label" style="width:35%;">Dia Gauge</label>
                                                 <div style="display: inline;">
-                                                    <input type="text" class="form-control" style="width:60%;" id="DiaGaugeMD" placeholder="Dia Guage" required autofocus>
+                                                    <input type="number" class="form-control form-inline" style="width:30%;" id="DiaMD" placeholder="Dia" required autofocus>
+                                                    <input type="number" class="form-control form-inline" style="width:30%;" id="GaugeMD" placeholder="Guage" required autofocus>
                                                 </div>
                                             </div>
                                         </div>
@@ -819,7 +820,18 @@
 
         $("#mdYarnCount").click(function () {
             debugger;
+            $("#resetYarnCountBtn").click();
             YarnCountTable = $('#YarnCountTable').DataTable({
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    
+                    'colvis'
+                ],
                 "ajax":
                 {
                     "url": "/Knitting/GetYarnCountList",
@@ -862,7 +874,18 @@
 
         $("#mdDiaGauge").click(function () {
             debugger;
+            $("#resetDiaGaugeBtn").click();
             DiaGaugeTable = $('#DiaGaugeTable').DataTable({
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    
+                    'colvis'
+                ],
                 "ajax":
                 {
                     "url": "/Knitting/GetMCDIAList",
@@ -905,7 +928,18 @@
 
         $("#mdKnitUnit").click(function () {
             debugger;
+            $("#resetKnitUnitBtn").click();
             KnitUnitTable = $('#KnitUnitTable').DataTable({
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    
+                    'colvis'
+                ],
                 "ajax":
                 {
                     "url": "/Knitting/GetKnitUnitList",
@@ -948,7 +982,18 @@
 
         $("#mdBrand").click(function () {
             debugger;
+            $("#resetBrandBtn").click();
             BrandTable = $('#BrandTable').DataTable({
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    
+                    'colvis'
+                ],
                 "ajax":
                 {
                     "url": "/Knitting/GetMcBrandList",
@@ -1169,7 +1214,8 @@
                 if ($(this).hasClass('selected')) {
                     debugger
                     var rowdata = DiaGaugeTable.row(this).data();
-                    $('#DiaGaugeMD').val(rowdata.McDiaGauge)
+                    $('#DiaMD').val(rowdata.McDiaGauge.split('*')[0]);
+                    $('#GaugeMD').val(rowdata.McDiaGauge.split('*')[1])
                     $('#editDiaGaugeBtn').prop("disabled", false);
                     $('#deleteDiaGaugeBtn').prop("disabled", false);
                     $('#saveDiaGaugeBtn').prop("disabled", true);
@@ -1466,7 +1512,7 @@
                     GreyGSM: $("#GreyGSM").val(),
                     TumbleWidth: $("#TumbleWidth").val(),
                     TumbleGSM: $("#TumbleGSM").val(),
-                    UpdateTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
+                    CreateTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
                 };
 
                 $.ajax({
@@ -1592,7 +1638,7 @@
             event.preventDefault();
             var diaObj = {
                 Id: '0',
-                McDiaGauge: $("#DiaGaugeMD").val()
+                McDiaGauge: $("#DiaMD").val() + "*" +$("#GaugeMD").val()
             };
 
             $.ajax({
@@ -1605,7 +1651,7 @@
                     debugger
                     if (response.data != "" && response.data != null) {
                         DiaGaugeTable.row.add(response.data).draw();
-                        $("#DiaGaugeMD").val("");
+                        $("#DiaMD").val(""); $("#GaugeMD").val("");
                     }
                     else {
                         alert("Failed to Save!!!");
@@ -1771,7 +1817,7 @@
                 var Obj =
                 {
                     Id: Row.Id,
-                    McDiaGauge: $("#DiaGaugeMD").val()
+                    McDiaGauge: $("#DiaMD").val() + "*" +$("#GaugeMD").val()
                 };
 
                 $.ajax({
@@ -1785,7 +1831,7 @@
                         if (response.data != "" && response.data != null) {
                             debugger
                             DiaGaugeTable.row(index).data(response.data).draw();
-                            $("#YarnCountMD").val("");
+                            $("#DiaMD").val(""); $("#GaugeMD").val("");
                         }
                         else {
                             alert("Failed to Update!!!");
@@ -1820,7 +1866,7 @@
                         debugger
                         if (response == "Success") {
                             DiaGaugeTable.row('.selected').remove().draw(false);
-                            $("#DiaGaugeMD").val("");
+                            $("#DiaMD").val(""); $("#GaugeMD").val("");
                         }
                         else {
                             alert("Failed to Update!!!");
@@ -1999,6 +2045,7 @@
             $('#editYarnCountBtn').prop("disabled", true);
             $('#deleteYarnCountBtn').prop("disabled", true);
             $('#saveYarnCountBtn').prop("disabled", false);
+            $('#YarnCountTable tbody tr').removeClass('selected');
         });
 
         $("#okayYarnCountBtn").click(function () {
@@ -2007,10 +2054,11 @@
         });
 
         $("#resetDiaGaugeBtn").click(function () {
-            $("#DiaGaugeMD").val("");
+            $("#DiaMD").val(""); $("#GaugeMD").val("");
             $('#editDiaGaugeBtn').prop("disabled", true);
             $('#deleteDiaGaugeBtn').prop("disabled", true);
             $('#saveDiaGaugeBtn').prop("disabled", false);
+            $('#DiaGaugeTable tbody tr').removeClass('selected');
         });
 
         $("#okayDiaGaugeBtn").click(function () {
@@ -2023,6 +2071,7 @@
             $('#editKnitUnitBtn').prop("disabled", true);
             $('#deleteKnitUnitBtn').prop("disabled", true);
             $('#saveKnitUnitBtn').prop("disabled", false);
+            $('#KnitUnitTable tbody tr').removeClass('selected');
         });
 
         $("#okayKnitUnitBtn").click(function () {
@@ -2035,6 +2084,7 @@
             $('#editBrandBtn').prop("disabled", true);
             $('#deleteBrandBtn').prop("disabled", true);
             $('#saveBrandBtn').prop("disabled", false);
+            $('#BrandTable tbody tr').removeClass('selected');
         });
 
         $("#okayBrandBtn").click(function () {
@@ -2187,10 +2237,11 @@
         }
 
         function ResetFabric() {
+            event.preventDefault();
             $("#BarCodeSL").val("");
             $("#OrderNoSL").val("");
             $("#ColorSL").val("");
-            $("#ChallanNoSL").val("");
+            $("#ChallanSL").val("");
             $("#FabricSL").val("");
             $("#BuyerSL").val("");
             $('#DeliveryDateCheckBox').prop('checked', false);
@@ -2226,7 +2277,6 @@
                         ApproveRow();
                     if (selectedMenu.text() == "Unapprove")
                         alert("This order is not approved yet!!!")
-
                 }
                 else {
                     if (selectedMenu.text() == "Unapprove") {
@@ -2242,7 +2292,7 @@
                             data: JSON.stringify(knitObj),
                             success: function (response) {
                                 debugger
-                                if (response == "false") {
+                                if (response == "true") {
                                     UnapproveRow();
                                 }
                                 else {

@@ -61,15 +61,13 @@ namespace TextileResearchDevelopment.BLL
                         test.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                         test.DyeingUnit = reader["DyeingUnitName"].ToString();
                         test.BatchNo = reader["BatchNo"].ToString();
-                        test.BatchQty = Convert.ToInt32(reader["BatchQty"]);
                         test.SerialNo = Convert.ToInt32(reader["SerialNo"]);
 
-                        test.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
                         test.SoftenerName = reader["SoftenerName"].ToString();
 
-                        test.PrintID = Convert.ToInt32(reader["PrintID"]);
+                        test.PrintID = Convert.ToInt32(reader["PrintType"]);
                         test.PrintName = reader["PrintName"].ToString();
-                        test.MachineID = Convert.ToInt32(reader["MachineID"]);
+                        test.MachineID = Convert.ToInt32(reader["MachineType"]);
                         test.MachineName = reader["MachineName"].ToString();
 
                         test.FinalWidth = Convert.ToDecimal(reader["FinalWidth"]);
@@ -110,7 +108,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " INSERT INTO Aop (AOPID, BarCode, FinalWidth, FinalGSM, TumbleLength, TumbleWidth, TumbleSP, ReviseStatus, CreateTime, CreateBy, ApprovedStatus, ApprovedBy, UpdateBy) " +
+                string query = " INSERT INTO Test (AOPID, BarCode, FinalWidth, FinalGSM, TumbleLength, TumbleWidth, TumbleSP, ReviseStatus, CreateTime, CreateBy, ApprovedStatus, ApprovedBy, UpdateBy) " +
                                " VALUES(" + test.AopID + "," + test.BarCode + "," + test.FinalWidth + "," + test.FinalGSM + "," + test.TLength + "," + test.TWidth + "," + test.TSP + "," + test.ReviseStatus + ",'" + test.CreateTime.ToString("yyyy/MM/dd HH:mm") + "',(" + GetCreateByQuery + "), 0, 0, 0 )";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
@@ -121,6 +119,7 @@ namespace TextileResearchDevelopment.BLL
                         while (reader.Read())
                         {
                             test.Id = Convert.ToInt32(reader["Id"]);
+                            Id = test.Id;
                             test.AopID = Convert.ToInt32(reader["AOPID"]);
                             test.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             test.BuyerName = reader["BuyerName"].ToString();
@@ -143,15 +142,13 @@ namespace TextileResearchDevelopment.BLL
                             test.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             test.DyeingUnit = reader["DyeingUnitName"].ToString();
                             test.BatchNo = reader["BatchNo"].ToString();
-                            test.BatchQty = Convert.ToInt32(reader["BatchQty"]);
                             test.SerialNo = Convert.ToInt32(reader["SerialNo"]);
 
-                            test.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
                             test.SoftenerName = reader["SoftenerName"].ToString();
 
-                            test.PrintID = Convert.ToInt32(reader["PrintID"]);
+                            test.PrintID = Convert.ToInt32(reader["PrintType"]);
                             test.PrintName = reader["PrintName"].ToString();
-                            test.MachineID = Convert.ToInt32(reader["MachineID"]);
+                            test.MachineID = Convert.ToInt32(reader["MachineType"]);
                             test.MachineName = reader["MachineName"].ToString();
 
                             test.FinalWidth = Convert.ToDecimal(reader["FinalWidth"]);
@@ -203,6 +200,7 @@ namespace TextileResearchDevelopment.BLL
                         while (reader.Read())
                         {
                             test.Id = Convert.ToInt32(reader["Id"]);
+                            Id = test.Id;
                             test.AopID = Convert.ToInt32(reader["AOPID"]);
                             test.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             test.BuyerName = reader["BuyerName"].ToString();
@@ -225,15 +223,13 @@ namespace TextileResearchDevelopment.BLL
                             test.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             test.DyeingUnit = reader["DyeingUnitName"].ToString();
                             test.BatchNo = reader["BatchNo"].ToString();
-                            test.BatchQty = Convert.ToInt32(reader["BatchQty"]);
                             test.SerialNo = Convert.ToInt32(reader["SerialNo"]);
 
-                            test.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
                             test.SoftenerName = reader["SoftenerName"].ToString();
 
-                            test.PrintID = Convert.ToInt32(reader["PrintID"]);
+                            test.PrintID = Convert.ToInt32(reader["PrintType"]);
                             test.PrintName = reader["PrintName"].ToString();
-                            test.MachineID = Convert.ToInt32(reader["MachineID"]);
+                            test.MachineID = Convert.ToInt32(reader["MachineType"]);
                             test.MachineName = reader["MachineName"].ToString();
 
                             test.FinalWidth = Convert.ToDecimal(reader["FinalWidth"]);
@@ -287,6 +283,7 @@ namespace TextileResearchDevelopment.BLL
                         while (reader.Read())
                         {
                             test.Id = Convert.ToInt32(reader["Id"]);
+                            Id = test.Id;
                             test.AopID = Convert.ToInt32(reader["AOPID"]);
                             test.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             test.BuyerName = reader["BuyerName"].ToString();
@@ -309,15 +306,13 @@ namespace TextileResearchDevelopment.BLL
                             test.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             test.DyeingUnit = reader["DyeingUnitName"].ToString();
                             test.BatchNo = reader["BatchNo"].ToString();
-                            test.BatchQty = Convert.ToInt32(reader["BatchQty"]);
                             test.SerialNo = Convert.ToInt32(reader["SerialNo"]);
 
-                            test.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
                             test.SoftenerName = reader["SoftenerName"].ToString();
 
-                            test.PrintID = Convert.ToInt32(reader["PrintID"]);
+                            test.PrintID = Convert.ToInt32(reader["PrintType"]);
                             test.PrintName = reader["PrintName"].ToString();
-                            test.MachineID = Convert.ToInt32(reader["MachineID"]);
+                            test.MachineID = Convert.ToInt32(reader["MachineType"]);
                             test.MachineName = reader["MachineName"].ToString();
 
                             test.FinalWidth = Convert.ToDecimal(reader["FinalWidth"]);
@@ -360,7 +355,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string GetApproveByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " UPDATE Test SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + test.ApprovedTime?.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + test.Id + " AND ApprovedBy = 0 ";
+                string query = " UPDATE Test SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + test.ApprovedTime?.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + test.Id + " AND ApprovedStatus = 0 ";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT * FROM TestView WHERE Id = " + test.Id;
@@ -370,6 +365,7 @@ namespace TextileResearchDevelopment.BLL
                         while (reader.Read())
                         {
                             test.Id = Convert.ToInt32(reader["Id"]);
+                            Id = test.Id;
                             test.AopID = Convert.ToInt32(reader["AOPID"]);
                             test.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             test.BuyerName = reader["BuyerName"].ToString();
@@ -392,15 +388,13 @@ namespace TextileResearchDevelopment.BLL
                             test.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             test.DyeingUnit = reader["DyeingUnitName"].ToString();
                             test.BatchNo = reader["BatchNo"].ToString();
-                            test.BatchQty = Convert.ToInt32(reader["BatchQty"]);
                             test.SerialNo = Convert.ToInt32(reader["SerialNo"]);
 
-                            test.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
                             test.SoftenerName = reader["SoftenerName"].ToString();
 
-                            test.PrintID = Convert.ToInt32(reader["PrintID"]);
+                            test.PrintID = Convert.ToInt32(reader["PrintType"]);
                             test.PrintName = reader["PrintName"].ToString();
-                            test.MachineID = Convert.ToInt32(reader["MachineID"]);
+                            test.MachineID = Convert.ToInt32(reader["MachineType"]);
                             test.MachineName = reader["MachineName"].ToString();
 
                             test.FinalWidth = Convert.ToDecimal(reader["FinalWidth"]);
@@ -443,9 +437,9 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string GetReviseQuery = "SELECT ReviseStatus FROM Test WHERE Id = " + test.Id;
+                string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM Test WHERE BarCode = '" + test.BarCode + "'";
 
-                string query = " INSERT INTO Aop (AOPID, BarCode, FinalWidth, FinalGSM, TumbleLength, TumbleWidth, TumbleSP, ReviseStatus, CreateTime, CreateBy, ApprovedStatus, ApprovedBy, UpdateBy) " +
+                string query = " INSERT INTO Test (AOPID, BarCode, FinalWidth, FinalGSM, TumbleLength, TumbleWidth, TumbleSP, ReviseStatus, CreateTime, CreateBy, ApprovedStatus, ApprovedBy, UpdateBy) " +
                                " VALUES(" + test.AopID + "," + test.BarCode + "," + test.FinalWidth + "," + test.FinalGSM + "," + test.TLength + "," + test.TWidth + "," + test.TSP + ", ((" + GetReviseQuery + ") +1),'" + test.CreateTime.ToString("yyyy/MM/dd HH:mm") + "',(" + GetCreateByQuery + "), 0, 0, 0 )";
 
                 if (DBGateway.ExecutionToDB(query, 1))
@@ -457,6 +451,7 @@ namespace TextileResearchDevelopment.BLL
                         while (reader.Read())
                         {
                             test.Id = Convert.ToInt32(reader["Id"]);
+                            Id = test.Id;
                             test.AopID = Convert.ToInt32(reader["AOPID"]);
                             test.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             test.BuyerName = reader["BuyerName"].ToString();
@@ -479,15 +474,13 @@ namespace TextileResearchDevelopment.BLL
                             test.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             test.DyeingUnit = reader["DyeingUnitName"].ToString();
                             test.BatchNo = reader["BatchNo"].ToString();
-                            test.BatchQty = Convert.ToInt32(reader["BatchQty"]);
                             test.SerialNo = Convert.ToInt32(reader["SerialNo"]);
 
-                            test.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
                             test.SoftenerName = reader["SoftenerName"].ToString();
 
-                            test.PrintID = Convert.ToInt32(reader["PrintID"]);
+                            test.PrintID = Convert.ToInt32(reader["PrintType"]);
                             test.PrintName = reader["PrintName"].ToString();
-                            test.MachineID = Convert.ToInt32(reader["MachineID"]);
+                            test.MachineID = Convert.ToInt32(reader["MachineType"]);
                             test.MachineName = reader["MachineName"].ToString();
 
                             test.FinalWidth = Convert.ToDecimal(reader["FinalWidth"]);
@@ -528,7 +521,7 @@ namespace TextileResearchDevelopment.BLL
         {
             try
             {
-                string query = "DELETE FROM Test WHERE Id = " + Id + " AND ApprovedBy = 0";
+                string query = "DELETE FROM Test WHERE Id = " + Id + " AND ApprovedStatus = 0";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     return true;
@@ -569,6 +562,7 @@ namespace TextileResearchDevelopment.BLL
 
                             aop.Id = Convert.ToInt32(reader["Id"]);
                             aop.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
+                            aop.StenterID = Convert.ToInt32(reader["StenterID"]);
                             aop.BuyerName = reader["BuyerName"].ToString();
                             aop.FabricName = reader["FabricName"].ToString();
                             aop.OrderNo = reader["OrderNo"].ToString();
@@ -586,18 +580,21 @@ namespace TextileResearchDevelopment.BLL
                             aop.GreyGSM = Convert.ToDecimal(reader["GreyGSM"]);
                             aop.McBrand = reader["McBrand"].ToString();
 
-                            aop.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                             aop.DyeingUnit = reader["DyeingUnitName"].ToString();
                             aop.BatchNo = reader["BatchNo"].ToString();
-                            aop.BatchQty = Convert.ToInt32(reader["BatchQty"]);
                             aop.SerialNo = Convert.ToInt32(reader["SerialNo"]);
 
                             aop.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
                             aop.SoftenerName = reader["SoftenerName"].ToString();
+                            aop.SoftenerGL = Convert.ToDecimal(reader["SoftenerGL"]);
+                            aop.Temp = Convert.ToDecimal(reader["Temp"]);
+                            aop.Speed = Convert.ToDecimal(reader["Speed"]);
+                            aop.Peder = reader["Peder"].ToString();
+                            aop.Blower = Convert.ToDecimal(reader["Blower"]);
 
-                            aop.PrintID = Convert.ToInt32(reader["PrintID"]);
+                            aop.PrintID = Convert.ToInt32(reader["PrintType"]);
                             aop.PrintName = reader["PrintName"].ToString();
-                            aop.MachineID = Convert.ToInt32(reader["MachineID"]);
+                            aop.MachineID = Convert.ToInt32(reader["MachineType"]);
                             aop.MachineName = reader["MachineName"].ToString();
 
                             aop.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
@@ -659,7 +656,7 @@ namespace TextileResearchDevelopment.BLL
         {
             try
             {
-                string query = "SELECT * FROM TestView ";
+                string query = "SELECT * FROM AopView ";
                 if (aopSearchObj.BarCode != "" && aopSearchObj.BarCode != null)
                 {
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";

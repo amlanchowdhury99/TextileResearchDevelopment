@@ -60,8 +60,8 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " INSERT INTO Dyeing (FabricID, KnitID, BarCode, DyeingUnitID, BatchNo, BatchQty, SerialNo, ReviseStatus, CreateTime, CreateBy, ApprovedStatus, ApprovedBy, UpdateBy) " +
-                               " VALUES(" + dyeing.FabricID + "," + dyeing.KnitID + "," + dyeing.BarCode + "," + dyeing.DyeingUnitID + ",'" + dyeing.BatchNo + "'," + dyeing.BatchQty + "," + dyeing.SerialNo + "," + dyeing.ReviseStatus + ",'" + dyeing.CreateTime.ToString("yyyy/MM/dd HH:mm") + "',(" + GetCreateByQuery + "), 0, 0, 0 )";
+                string query = " INSERT INTO Dyeing (KnitID, BarCode, DyeingUnitID, BatchNo, BatchQty, SerialNo, ReviseStatus, CreateTime, CreateBy, ApprovedStatus, ApprovedBy, UpdateBy) " +
+                               " VALUES(" + dyeing.KnitID + "," + dyeing.BarCode + "," + dyeing.DyeingUnitID + ",'" + dyeing.BatchNo + "'," + dyeing.BatchQty + "," + dyeing.SerialNo + "," + dyeing.ReviseStatus + ",'" + dyeing.CreateTime.ToString("yyyy/MM/dd HH:mm") + "',(" + GetCreateByQuery + "), 0, 0, 0 )";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT TOP 1* FROM DyeingView order by Id desc";
@@ -70,7 +70,9 @@ namespace TextileResearchDevelopment.BLL
                     {
                         while (reader.Read())
                         {
-                            dyeing.Id = Id = Convert.ToInt32(reader["KnitId"]);
+                            dyeing.Id = Convert.ToInt32(reader["Id"]);
+                            Id = dyeing.Id;
+                            dyeing.KnitID = Convert.ToInt32(reader["KnitID"]);
                             dyeing.BuyerName = reader["BuyerName"].ToString();
                             dyeing.FabricName = reader["FabricName"].ToString();
                             dyeing.OrderNo = reader["OrderNo"].ToString();
@@ -130,7 +132,7 @@ namespace TextileResearchDevelopment.BLL
         {
             try
             {
-                string query = "DELETE FROM Dyeing WHERE Id = " + Id + " AND ApprovedBy = 0";
+                string query = "DELETE FROM Dyeing WHERE Id = " + Id + " AND ApprovedStatus = 0";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     return true;
@@ -156,10 +158,10 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string GetReviseQuery = "SELECT ReviseStatus FROM Dyeing WHERE Id = " + dyeing.Id;
+                string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM Dyeing WHERE BarCode = '" + dyeing.BarCode + "'";
                 string GetknitID = "SELECT KnitID FROM Dyeing WHERE Id = " + dyeing.Id;
-                string query = " INSERT INTO Dyeing (FabricID, KnitID, BarCode, DyeingUnitID, BatchNo, BatchQty, SerialNo, ReviseStatus, CreateTime, CreateBy, ApprovedStatus, ApprovedBy, UpdateBy) " +
-                               " VALUES(" + dyeing.FabricID + ",(" + GetknitID + ")," + dyeing.BarCode + "," + dyeing.DyeingUnitID + ",'" + dyeing.BatchNo + "'," + dyeing.BatchQty + "," + dyeing.SerialNo + ",((" + GetReviseQuery + ") + 1),'" + dyeing.CreateTime.ToString("yyyy/MM/dd HH:mm") + "',(" + GetCreateByQuery + "), 0, 0, 0 )";
+                string query = " INSERT INTO Dyeing (KnitID, BarCode, DyeingUnitID, BatchNo, BatchQty, SerialNo, ReviseStatus, CreateTime, CreateBy, ApprovedStatus, ApprovedBy, UpdateBy) " +
+                               " VALUES(" + dyeing.KnitID + "," + dyeing.BarCode + "," + dyeing.DyeingUnitID + ",'" + dyeing.BatchNo + "'," + dyeing.BatchQty + "," + dyeing.SerialNo + ",((" + GetReviseQuery + ") + 1),'" + dyeing.CreateTime.ToString("yyyy/MM/dd HH:mm") + "',(" + GetCreateByQuery + "), 0, 0, 0 )";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT TOP 1* FROM DyeingView order by Id desc";
@@ -168,7 +170,9 @@ namespace TextileResearchDevelopment.BLL
                     {
                         while (reader.Read())
                         {
-                            dyeing.Id = Id = Convert.ToInt32(reader["Id"]);
+                            dyeing.Id = Convert.ToInt32(reader["Id"]);
+                            Id = dyeing.Id;
+                            dyeing.KnitID = Id = Convert.ToInt32(reader["KnitID"]);
                             dyeing.BuyerName = reader["BuyerName"].ToString();
                             dyeing.FabricName = reader["FabricName"].ToString();
                             dyeing.OrderNo = reader["OrderNo"].ToString();
@@ -240,6 +244,7 @@ namespace TextileResearchDevelopment.BLL
                         while (reader.Read())
                         {
                             dyeing.Id = Id = Convert.ToInt32(reader["Id"]);
+                            Id = dyeing.Id;
                             dyeing.BuyerName = reader["BuyerName"].ToString();
                             dyeing.FabricName = reader["FabricName"].ToString();
                             dyeing.OrderNo = reader["OrderNo"].ToString();
@@ -302,7 +307,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string GetApproveByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " UPDATE Dyeing SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + dyeing.ApprovedTime?.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + dyeing.Id + " AND ApprovedBy = 0 ";
+                string query = " UPDATE Dyeing SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + dyeing.ApprovedTime?.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + dyeing.Id + " AND ApprovedStatus = 0 ";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT * FROM DyeingView WHERE Id = " + dyeing.Id;
@@ -311,7 +316,9 @@ namespace TextileResearchDevelopment.BLL
                     {
                         while (reader.Read())
                         {
-                            dyeing.Id = Id = Convert.ToInt32(reader["Id"]);
+                            dyeing.Id = Convert.ToInt32(reader["Id"]);
+                            Id = dyeing.Id;
+                            dyeing.KnitID = Convert.ToInt32(reader["KnitID"]);
                             dyeing.BuyerName = reader["BuyerName"].ToString();
                             dyeing.FabricName = reader["FabricName"].ToString();
                             dyeing.OrderNo = reader["OrderNo"].ToString();
@@ -383,7 +390,9 @@ namespace TextileResearchDevelopment.BLL
                     {
                         while (reader.Read())
                         {
-                            dyeing.Id = Id = Convert.ToInt32(reader["Id"]);
+                            dyeing.Id = Convert.ToInt32(reader["Id"]);
+                            Id = dyeing.Id;
+                            dyeing.KnitID = Convert.ToInt32(reader["KnitID"]);
                             dyeing.BuyerName = reader["BuyerName"].ToString();
                             dyeing.FabricName = reader["FabricName"].ToString();
                             dyeing.OrderNo = reader["OrderNo"].ToString();
@@ -640,6 +649,7 @@ namespace TextileResearchDevelopment.BLL
                     {
                         Dyeing dyeing = new Dyeing();
                         dyeing.Id = Convert.ToInt32(reader["Id"]);
+                        dyeing.KnitID = Convert.ToInt32(reader["KnitID"]);
                         dyeing.DyeingUnitID = Convert.ToInt32(reader["DyeingUnitID"]);
                         dyeing.BuyerName = reader["BuyerName"].ToString();
                         dyeing.FabricName = reader["FabricName"].ToString();
