@@ -294,7 +294,7 @@
                     <div class="form-group col-xs-4 form-inline">
                         <button class="btn btn-warning btn-sm" style="width:35%;" id="resetBtn">Reset</button>
                         <div style="display: inline;">
-                            <button type="submit" id="searchAopBtn" class="btn btn-primary btn-sm" style="width:60%;">Search</button>
+                            <button type="submit" id="searchBtn" class="btn btn-primary btn-sm" style="width:60%;">Search</button>
                         </div>
                     </div>
                 </div>
@@ -577,9 +577,10 @@
             }
         });
 
-        $("#searchAopBtn").click(function () {
+        $("#searchBtn").click(function () {
             debugger;
-
+            event.preventDefault();
+            $('#modalReport').modal('show');
             if (ValidateSearchingCriteria() == true) {
                 debugger;
                 var searchObj =
@@ -614,7 +615,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "/Report/GetSearchResult",
+                    url: "/Report/ExportReport",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     data: JSON.stringify(searchObj),
@@ -658,7 +659,7 @@
         });
 
         $("#resetBtn").click(function () {
-
+            event.preventDefault();
             $("#BarCodeSL").val("");
             $("#OrderNoSL").val("");
             $("#ColorSL").val("");

@@ -346,7 +346,7 @@
                     <div class="form-group col-xs-4 form-inline">
                         <label for="GreyGSM" class="control-label" style="width:35%;">Grey GSM</label>
                         <div style="display: inline;">
-                            <input type="number" class="form-control" style="width:60%;" id="GreyGSM"  autofocus readonly>
+                            <input type="number" class="form-control" style="width:60%;" id="GreyGSM" autofocus readonly>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
@@ -691,7 +691,7 @@
                             columns: ':visible'
                         }
                     },
-                    
+
                     'colvis'
                 ],
                 "scrollY": true,
@@ -848,7 +848,7 @@
                         columns: ':visible'
                     }
                 },
-                
+
                 'colvis'
             ],
             "ajax":
@@ -968,10 +968,16 @@
             }
 
             if (DyeingTable.data().any()) {
-                Setvalue(rowdata);
+                if (rowdata.ApprovedStatus != 0) {
+                    $('#updateBtn').prop("disabled", true);
+                    $('#reviseBtn').prop("disabled", true);
+                }
+                else {
+                    Setvalue(rowdata);
+                    $('#updateBtn').prop("disabled", false);
+                    $('#reviseBtn').prop("disabled", false);
+                }
                 $('#saveBtn').prop("disabled", true);
-                $('#updateBtn').prop("disabled", false);
-                $('#reviseBtn').prop("disabled", false);
             }
             else {
                 $('#saveBtn').prop("disabled", false);
@@ -1303,7 +1309,7 @@
                             columns: ':visible'
                         }
                     },
-                    
+
                     'colvis'
                 ],
                 "ajax":

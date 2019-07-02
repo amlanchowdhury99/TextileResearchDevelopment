@@ -434,7 +434,7 @@
                     <div class="form-group col-xs-4 form-inline">
                         <label for="GreyWidth" class="control-label" style="width:35%;">Grey Width</label>
                         <div style="display: inline;">
-                            <input type="number" class="form-control" style="width:60%;" id="GreyWidth"  autofocus readonly>
+                            <input type="number" class="form-control" style="width:60%;" id="GreyWidth" autofocus readonly>
                         </div>
                     </div>
                 </div>
@@ -442,7 +442,7 @@
                     <div class="form-group col-xs-4 form-inline">
                         <label for="GreyGSM" class="control-label" style="width:35%;">Grey GSM</label>
                         <div style="display: inline;">
-                            <input type="number" class="form-control" style="width:60%;" id="GreyGSM"  autofocus readonly>
+                            <input type="number" class="form-control" style="width:60%;" id="GreyGSM" autofocus readonly>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
@@ -454,7 +454,7 @@
                     <div class="form-group col-xs-4 form-inline">
                         <label for="BatchNo" class="control-label" style="width:35%;">Batch No</label>
                         <div style="display: inline;">
-                            <input type="text" class="form-control" style="width:60%;" id="BatchNo"  autofocus readonly>
+                            <input type="text" class="form-control" style="width:60%;" id="BatchNo" autofocus readonly>
                         </div>
                     </div>
                 </div>
@@ -462,7 +462,7 @@
                     <div class="form-group col-xs-4 form-inline">
                         <label for="SoftenerName" class="control-label" style="width:35%;">Softener Name</label>
                         <div style="display: inline;">
-                            <input type="text" class="form-control" style="width:60%;" id="SoftenerName"  autofocus readonly>
+                            <input type="text" class="form-control" style="width:60%;" id="SoftenerName" autofocus readonly>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
@@ -1829,10 +1829,17 @@
             }
 
             if (AopTable.data().any()) {
-                Setvalue(rowdata);
+                if (rowdata.ApprovedStatus != 0) {
+                    $('#updateBtn').prop("disabled", true);
+                    $('#reviseBtn').prop("disabled", true);
+                }
+                else {
+                    Setvalue(rowdata);
+                    $('#updateBtn').prop("disabled", false);
+                    $('#reviseBtn').prop("disabled", false);
+                }
+
                 $('#saveBtn').prop("disabled", true);
-                $('#updateBtn').prop("disabled", false);
-                $('#reviseBtn').prop("disabled", false);
             }
             else {
                 $('#saveBtn').prop("disabled", false);

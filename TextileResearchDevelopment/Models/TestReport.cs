@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TextileResearchDevelopment.DataAccessLayer;
+using TextileResearchDevelopment.Models;
 
 namespace TextileResearchDevelopment.Models
 {

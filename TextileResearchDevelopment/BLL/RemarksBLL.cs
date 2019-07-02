@@ -532,7 +532,7 @@ namespace TextileResearchDevelopment.BLL
             {
                 string GetUpdateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
 
-                string query = " UPDATE Remarks SET Remarks = " + remark.UserRemarks + ", UpdateBy = (" + GetUpdateByQuery + "), UpdateTime = '" + remark.UpdateTime?.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + remark.Id + " AND ApprovedStatus = 0";
+                string query = " UPDATE Remarks SET Remarks = '" + remark.UserRemarks + "', UpdateBy = (" + GetUpdateByQuery + "), UpdateTime = '" + remark.UpdateTime?.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + remark.Id + " AND ApprovedStatus = 0";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT * FROM RemarksView WHERE Id = " + remark.Id;

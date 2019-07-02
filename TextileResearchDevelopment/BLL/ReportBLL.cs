@@ -57,20 +57,19 @@ namespace TextileResearchDevelopment.BLL
                             report.BatchQty = Convert.ToInt32(reader["BatchQty"]);
                             report.SerialNo = Convert.ToInt32(reader["SerialNo"]);
 
-                            report.SoftenerID = Convert.ToInt32(reader["SoftenerID"]);
                             report.SoftenerName = reader["SoftenerName"].ToString();
                             report.SoftenerGL = Convert.ToDecimal(reader["SoftenerGL"]);
 
-                            report.PrintID = Convert.ToInt32(reader["PrintID"]);
+                            report.PrintID = Convert.ToInt32(reader["PrintType"]);
                             report.PrintName = reader["PrintName"].ToString();
-                            report.MachineID = Convert.ToInt32(reader["MachineID"]);
+                            report.MachineID = Convert.ToInt32(reader["MachineType"]);
                             report.MachineName = reader["MachineName"].ToString();
 
                             report.FinalWidth = Convert.ToDecimal(reader["FinalWidth"]);
                             report.FinalGSM = Convert.ToDecimal(reader["FinalGSM"]);
-                            report.TLength = Convert.ToDecimal(reader["TLength"]);
-                            report.TWidth = Convert.ToDecimal(reader["TWidth"]);
-                            report.TSP = Convert.ToDecimal(reader["TSP"]);
+                            report.TLength = Convert.ToDecimal(reader["TumbleLength"]);
+                            report.TWidth = Convert.ToDecimal(reader["TumbleWidth"]);
+                            report.TSP = Convert.ToDecimal(reader["TumbleSP"]);
 
                             report.Remarks = reader["Remarks"].ToString();
 
@@ -126,7 +125,7 @@ namespace TextileResearchDevelopment.BLL
         {
             try
             {
-                string query = "SELECT * FROM TestView ";
+                string query = "SELECT * FROM RemarksView ";
                 if (searchObj.BarCode != "" && searchObj.BarCode != null)
                 {
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";

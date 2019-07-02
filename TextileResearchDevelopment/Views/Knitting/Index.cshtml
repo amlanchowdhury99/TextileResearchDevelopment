@@ -829,7 +829,7 @@
                             columns: ':visible'
                         }
                     },
-                    
+
                     'colvis'
                 ],
                 "ajax":
@@ -883,7 +883,7 @@
                             columns: ':visible'
                         }
                     },
-                    
+
                     'colvis'
                 ],
                 "ajax":
@@ -937,7 +937,7 @@
                             columns: ':visible'
                         }
                     },
-                    
+
                     'colvis'
                 ],
                 "ajax":
@@ -991,7 +991,7 @@
                             columns: ':visible'
                         }
                     },
-                    
+
                     'colvis'
                 ],
                 "ajax":
@@ -1172,10 +1172,16 @@
                 Reset();
 
                 if (knitTable.data().any()) {
-                    Setvalue(rowdata);
+                    if (rowdata.ApprovedStatus != 0) {
+                        $('#updateBtn').prop("disabled", true);
+                        $('#reviseBtn').prop("disabled", true);
+                    }
+                    else {
+                        Setvalue(rowdata);
+                        $('#updateBtn').prop("disabled", false);
+                        $('#reviseBtn').prop("disabled", false);
+                    }
                     $('#saveBtn').prop("disabled", true);
-                    $('#updateBtn').prop("disabled", false);
-                    $('#reviseBtn').prop("disabled", false);
                 }
                 else {
                     $('#saveBtn').prop("disabled", false);
@@ -1638,7 +1644,7 @@
             event.preventDefault();
             var diaObj = {
                 Id: '0',
-                McDiaGauge: $("#DiaMD").val() + "*" +$("#GaugeMD").val()
+                McDiaGauge: $("#DiaMD").val() + "*" + $("#GaugeMD").val()
             };
 
             $.ajax({
@@ -1817,7 +1823,7 @@
                 var Obj =
                 {
                     Id: Row.Id,
-                    McDiaGauge: $("#DiaMD").val() + "*" +$("#GaugeMD").val()
+                    McDiaGauge: $("#DiaMD").val() + "*" + $("#GaugeMD").val()
                 };
 
                 $.ajax({

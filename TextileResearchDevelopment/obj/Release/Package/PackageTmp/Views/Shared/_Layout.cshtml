@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Textile Research Development </title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/dataTables")
+    @Scripts.Render("~/bundles/moment")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/fileExport")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div id="ActionLinkBar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                </ul>
+                <p>
+                    <p id="SignOutUserName" style="color:white; display:none"></p>
+                    <a id="SignOutBtn" style="float:right;" href="#" class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-log-out"></span> Log out
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content" id="MainDiv">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Textile Research Development</p>
+        </footer>
+    </div>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+        debugger;
+
+        GetUserAccess();
+
+        function GetUserAccess() {
+
+            $.ajax({
+                url: "/Home/GetUserAccess",
+                type: 'GET',
+                dataType: "json",
+                success: function (result) {
+                    if (result != null && result != "")
+                    {
+                        var result = result.split(',');
+                        for (let i = 0; i < result.length; i++)
+                        {
+                            if (parseInt(result[i]) == 1)
+                            {
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Fabric", "Index", "Fabric", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                            }
+                            if (parseInt(result[i]) == 2)
+                            {
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Knitting", "Index", "Knitting", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                            }
+                            if (parseInt(result[i]) == 3)
+                            {
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Dyeing", "Index", "Dyeing", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                            }
+                            if (parseInt(result[i]) == 4)
+                            {
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Slitting", "Index", "Slitting", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                            }
+                            if (parseInt(result[i]) == 5)
+                            {
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Stenter", "Index", "Stenter", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                            }
+                            if (parseInt(result[i]) == 6)
+                            {
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Aop-Print", "Index", "AopPrint", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                            }
+                            if (parseInt(result[i]) == 7)
+                            {
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Test-Report", "Index", "TestReport", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                            }
+                            if (parseInt(result[i]) == 8)
+                            {
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Remarks", "Index", "Remarks", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                            }
+                            if (parseInt(result[i]) == 9)
+                            {
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Report", "Index", "Report", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                            }
+                            if (parseInt(result[i]) == 10)
+                            {
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("UserManagement", "Index", "UserManagement", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                            }
+                        }
+                    }
+                    else
+                    {
+                        alert("Connection Problem!");
+                        signout();
+                    }
+                }
+            });
+
+        }
+
+        $('#SignOutBtn').click(function (){
+            signout();
+        });
+
+        function signout()
+        {
+            $.ajax({
+                url: "/Home/LogOut",
+                type: 'GET',
+                dataType: "json",
+                success: function (result) {
+                    if (result == "Success")
+                    {
+                        window.location.href = "/Home/LoginForm";
+                    }
+                    else
+                    {
+                        alert("LogOut Is Failed!!!");
+                        return false;
+                    }
+                }
+            });
+        }
+
+    });
+
+
+</script>

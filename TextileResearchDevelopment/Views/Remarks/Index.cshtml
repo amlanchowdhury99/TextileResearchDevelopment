@@ -471,8 +471,8 @@
                 <th>PrintType</th>
                 <th>MachineType</th>
                 <th>FinalWidth</th>
-                <th>FinalGSM/th>
-                <th>TumbleSP/th>
+                <th>FinalGSM</th>
+                <th>TumbleSP</th>
                 <th>Remarks</th>
                 <th>Revise</th>
                 <th>CreateTime</th>
@@ -507,8 +507,8 @@
                 <th>PrintType</th>
                 <th>MachineType</th>
                 <th>FinalWidth</th>
-                <th>FinalGSM/th>
-                <th>TumbleSP/th>
+                <th>FinalGSM</th>
+                <th>TumbleSP</th>
                 <th>Remarks</th>
                 <th>Revise</th>
                 <th>CreateTime</th>
@@ -1331,11 +1331,20 @@
                 var rowdata = RemarksTable.row(this).data();
             }
 
-            if (RemarksTable.data().any()) {
-                Setvalue(rowdata);
+            if (RemarksTable.data().any())
+            {
+                if (rowdata.ApprovedStatus != 0) {
+                    $('#updateBtn').prop("disabled", true);
+                    $('#reviseBtn').prop("disabled", true);
+                }
+                else {
+                    Setvalue(rowdata);
+                    $('#updateBtn').prop("disabled", false);
+                    $('#reviseBtn').prop("disabled", false);
+                }
+
                 $('#saveBtn').prop("disabled", true);
-                $('#updateBtn').prop("disabled", false);
-                $('#reviseBtn').prop("disabled", false);
+
             }
             else {
                 $('#saveBtn').prop("disabled", false);
@@ -1350,8 +1359,7 @@
             $("#Remarks").val(rowdata.UserRemarks)
         }
 
-        function Reset()
-        {
+        function Reset() {
             event.preventDefault();
             $("#BarCode").val("");
             $("#OrderNo").val("");
