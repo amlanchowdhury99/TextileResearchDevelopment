@@ -50,6 +50,12 @@
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.2\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
@@ -58,6 +64,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -151,7 +158,39 @@
     <Compile Include="Controllers\StenterController.cs" />
     <Compile Include="Controllers\TestReportController.cs" />
     <Compile Include="Controllers\UserManagementController.cs" />
-    <Compile Include="MasterReport.cs">
+    <Compile Include="Models\RemarksView.cs">
+      <DependentUpon>ReportModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ReportModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ReportModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ReportModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ReportView.cs">
+      <DependentUpon>ReportModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReportDataset\GeneralReport.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GeneralReport.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\CrystalReport1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CrystalReport1.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reporting\MasterReport.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MasterReport.rpt</DependentUpon>
@@ -168,7 +207,6 @@
     <Compile Include="Models\Knitting.cs" />
     <Compile Include="Models\Members.cs" />
     <Compile Include="Models\Remarks.cs" />
-    <Compile Include="Models\Report.cs" />
     <Compile Include="Models\Stenter.cs" />
     <Compile Include="Models\TestReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -207,6 +245,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\ReportModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ReportModel.edmx</DependentUpon>
+      <LastGenOutput>ReportModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ReportModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ReportModel.edmx</DependentUpon>
+      <LastGenOutput>ReportModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -241,7 +289,25 @@
     <Content Include="Content\icomoon\fonts\icomoon.woff" />
     <Content Include="Content\_bootstrap-datetimepicker.less" />
     <Content Include="Content\bootstrap-datetimepicker-build.less" />
+    <EntityDeploy Include="Models\ReportModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ReportModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ReportModel.edmx.diagram">
+      <DependentUpon>ReportModel.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <Content Include="ReportDataset\GeneralReport.xsc">
+      <DependentUpon>GeneralReport.xsd</DependentUpon>
+    </Content>
+    <None Include="ReportDataset\GeneralReport.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GeneralReport.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="ReportDataset\GeneralReport.xss">
+      <DependentUpon>GeneralReport.xsd</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\daterangepicker.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -303,10 +369,15 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MasterReport.rpt">
+    <EmbeddedResource Include="Reporting\CrystalReport1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CrystalReport1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporting\MasterReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>MasterReport.cs</LastGenOutput>
     </EmbeddedResource>

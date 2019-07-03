@@ -51,10 +51,11 @@
                                     <form id="DiaGaugeForm">
                                         <div class=" form-group">
                                             <div class="form-group col-xs-12 form-inline">
-                                                <label for="DiaGaugeMD" class="control-label" style="width:35%;">Dia Gauge</label>
+                                                <label for="DiaGaugeMD" class="control-label" style="width:35%;">Mc Dia Gauge</label>
                                                 <div style="display: inline;">
-                                                    <input type="number" class="form-control form-inline" style="width:30%;" id="DiaMD" placeholder="Dia" required autofocus>
-                                                    <input type="number" class="form-control form-inline" style="width:30%;" id="GaugeMD" placeholder="Guage" required autofocus>
+                                                    <input type="number" class="form-control form-inline" style="width:20%;" id="McNoMD" placeholder="Mc No" required autofocus>
+                                                    <input type="number" class="form-control form-inline" style="width:20%;" id="DiaMD" placeholder="Dia" required autofocus>
+                                                    <input type="number" class="form-control form-inline" style="width:20%;" id="GaugeMD" placeholder="Guage" required autofocus>
                                                 </div>
                                             </div>
                                         </div>
@@ -75,6 +76,7 @@
                                     <tr>
                                         <th></th>
                                         <th>Id</th>
+                                        <th>Machine No</th>
                                         <th>Dia Guage</th>
                                     </tr>
                                 </thead>
@@ -397,7 +399,7 @@
                     <div class="form-group col-xs-4 form-inline">
                         <label for="DiaGauge" class="control-label" style="width:35%;">MC Dia-Guage</label>
                         <div style="display: inline;">
-                            <select name="DiaGauge" id="DiaGauge" style="width:50%;" class="form-control input-sm" required autofocus></select>
+                            <input type="text" class=" form-control" style="width:50%;" id="DiaGauge" placeholder="Dia Gauge " readonly required autofocus>
                             <a href="#" class="btn-sm btn-info" style="width:10%;" id="mdDiaGauge" data-toggle="modal" data-target="#modalDiaGauge">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </a>
@@ -446,7 +448,7 @@
                     <div class="form-group col-xs-4 form-inline">
                         <label for="MCNO" class="control-label" style="width:35%;">Mc-No</label>
                         <div style="display: inline;">
-                            <input type="number" class="form-control" style="width:60%;" id="MCNO" min="0" step="1" data-bind="value:MCNO" placeholder="Mc No" required autofocus>
+                            <select name="MCNO" id="MCNO" style="width:60%;" class="form-control input-sm" required autofocus></select>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
@@ -697,7 +699,28 @@
             };
         })(jQuery, window);
 
-        loadMCDIAList();
+        $('#MCNO').change(function () {
+            debugger;
+            var a = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetMCDIAList",
+                data: "{}",
+                success: function (data) {
+                    debugger
+                    var data = data.data;
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].Id == parseInt(a)) {
+                            $("#DiaGauge").val(data[i].McDiaGauge);
+                        }
+                    }
+
+                }
+            });
+            $("#DiaGauge").val(a.McDiaGauge);
+        });
+
+        loadMcList();
 
         function loadMCDIAList() {
             debugger;
@@ -713,6 +736,24 @@
                         s += '<option value="' + data[i].Id + '">' + data[i].McDiaGauge + '</option>';
                     }
                     $("#DiaGauge").html(s);
+                    loadYarnCountList();
+                }
+            });
+        }
+
+        function loadMcList() {
+            debugger;
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetMCDIAList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select Machine</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].MCNO + '</option>';
+                    }
+                    $("#MCNO").html(s);
                     loadYarnCountList();
                 }
             });
@@ -921,6 +962,7 @@
                         }
                     },
                     { "data": "Id" },
+                    { "data": "MCNO" },
                     { "data": "McDiaGauge" }
                 ]
             });
@@ -1220,6 +1262,7 @@
                 if ($(this).hasClass('selected')) {
                     debugger
                     var rowdata = DiaGaugeTable.row(this).data();
+                    $('#McNoMD').val(rowdata.MCNO);
                     $('#DiaMD').val(rowdata.McDiaGauge.split('*')[0]);
                     $('#GaugeMD').val(rowdata.McDiaGauge.split('*')[1])
                     $('#editDiaGaugeBtn').prop("disabled", false);
@@ -1560,7 +1603,7 @@
             if ($('#hidden').is(':checked') == true) {
                 var knitObj = {
                     Id: '0',
-                    DiaGaugeID: $("#DiaGauge  option:selected").val(),
+                    MCNOID: $("#MCNO  option:selected").val(),
                     YarnCountID: $("#YarnCount  option:selected").val(),
                     McBrandID: $("#Brand  option:selected").val(),
                     KnitUnitID: $("#KnitUnit  option:selected").val(),
@@ -1644,6 +1687,7 @@
             event.preventDefault();
             var diaObj = {
                 Id: '0',
+                MCNO: $("#McNoMD").val(),
                 McDiaGauge: $("#DiaMD").val() + "*" + $("#GaugeMD").val()
             };
 
@@ -1657,7 +1701,7 @@
                     debugger
                     if (response.data != "" && response.data != null) {
                         DiaGaugeTable.row.add(response.data).draw();
-                        $("#DiaMD").val(""); $("#GaugeMD").val("");
+                        $("#McNoMD").val(""); $("#DiaMD").val(""); $("#GaugeMD").val("");
                     }
                     else {
                         alert("Failed to Save!!!");
@@ -1823,6 +1867,7 @@
                 var Obj =
                 {
                     Id: Row.Id,
+                    MCNO: $("#McNoMD").val(),
                     McDiaGauge: $("#DiaMD").val() + "*" + $("#GaugeMD").val()
                 };
 
@@ -1872,7 +1917,7 @@
                         debugger
                         if (response == "Success") {
                             DiaGaugeTable.row('.selected').remove().draw(false);
-                            $("#DiaMD").val(""); $("#GaugeMD").val("");
+                            $("#McNoMD").val(""), $("#DiaMD").val(""); $("#GaugeMD").val("");
                         }
                         else {
                             alert("Failed to Update!!!");

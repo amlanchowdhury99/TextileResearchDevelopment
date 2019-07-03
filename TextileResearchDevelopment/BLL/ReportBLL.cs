@@ -13,6 +13,7 @@ namespace TextileResearchDevelopment.BLL
     {
         static string connectionStr = DBGateway.connectionString;
         public static List<TestReport> reports = new List<TestReport>();
+        public static Remarks data = new Remarks();
 
         internal static List<TestReport> Search(TestReport searchObj)
         {
@@ -286,5 +287,77 @@ namespace TextileResearchDevelopment.BLL
                 return "";
             }
         }
+
+
+        internal static Remarks GetData()
+        {
+            SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader; cm.Connection = cn; cn.Open();
+            try
+            {
+                cm.CommandText = "SELECT * FROM RemarksView";
+                reader = cm.ExecuteReader();
+                data = new Remarks();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        data.Id = Convert.ToInt32(reader["Id"]);
+                        data.BuyerName = reader["BuyerName"].ToString();
+                        data.FabricName = reader["FabricName"].ToString();
+                        data.OrderNo = reader["OrderNo"].ToString();
+                        data.Color = reader["Color"].ToString();
+                        //data.Note = reader["Note"].ToString();
+
+                        data.BarCode = reader["BarCode"].ToString();
+
+                        //data.RequiredWidth = reader["RequiredWidth"].ToString();
+                        //data.RequiredGSM = reader["RequiredGSM"].ToString();
+
+                        //data.ChallanNo = reader["ChallanNo"].ToString();
+                        //data.DeliveryDate = Convert.ToDateTime(reader["DeliveryDate"]);
+                        //data.BarCode = reader["BarCode"].ToString();
+                        //data.McDiaGauge = reader["McDiaGauge"].ToString();
+                        //data.YarnCount = reader["YarnCount"].ToString();
+                        //data.YarnBrand = reader["YarnBrand"].ToString();
+                        //data.YarnLot = reader["YarnLot"].ToString();
+                        //data.KnitUnit = reader["KnitUnit"].ToString();
+                        //data.GreyWidth = Convert.ToDecimal(reader["GreyWidth"]);
+                        //data.GreyGSM = Convert.ToDecimal(reader["GreyGSM"]);
+                        //data.McBrand = reader["McBrand"].ToString();
+
+                        //data.DyeingUnit = reader["DyeingUnitName"].ToString();
+                        //data.BatchNo = reader["BatchNo"].ToString();
+                        //data.BatchQty = Convert.ToInt32(reader["BatchQty"]);
+                        //data.SerialNo = Convert.ToInt32(reader["SerialNo"]);
+
+                        //data.SoftenerName = reader["SoftenerName"].ToString();
+                        //data.SoftenerGL = Convert.ToDecimal(reader["SoftenerGL"]);
+
+                        //data.PrintName = reader["PrintName"].ToString();
+                        //data.MachineID = Convert.ToInt32(reader["MachineType"]);
+
+                        //data.FinalWidth = Convert.ToDecimal(reader["FinalWidth"]);
+                        //data.FinalGSM = Convert.ToDecimal(reader["FinalGSM"]);
+                        //data.TLength = Convert.ToDecimal(reader["TumbleLength"]);
+                        //data.TWidth = Convert.ToDecimal(reader["TumbleWidth"]);
+                        //data.TSP = Convert.ToDecimal(reader["TumbleSP"]);
+
+                        //data.Remarks = reader["Remarks"].ToString();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                reports = new List<TestReport>();
+            }
+            finally
+            {
+                cn.Close();
+            }
+
+            return data;
+        }
+
     }
 }

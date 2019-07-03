@@ -111,6 +111,10 @@
         </div>
     </div>
 
+    <a href="@Url.Action("ExportReport", "Report")" class="elements">
+        <span>Reports</span>
+    </a>
+
     <div class="panel panel-default ">
         <div class="panel-heading">
             <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Searching Criteria</h5>
@@ -580,7 +584,7 @@
         $("#searchBtn").click(function () {
             debugger;
             event.preventDefault();
-            $('#modalReport').modal('show');
+            //$('#modalReport').modal('show');
             if (ValidateSearchingCriteria() == true) {
                 debugger;
                 var searchObj =

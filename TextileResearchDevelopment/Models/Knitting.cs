@@ -104,6 +104,7 @@ namespace TextileResearchDevelopment.Models
 
 
         public int DiaGaugeID { get; set; }
+        public int MCNOID { get; set; }
         public int YarnCountID { get; set; }
         public int McBrandID { get; set; }
         public int KnitUnitID { get; set; }

@@ -1,0 +1,396 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TextileResearchDevelopmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TextileResearchDevelopment.dbo.RemarksView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="RemarksView">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="TestReportID" />
+      <PropertyRef Name="BarCode" />
+      <PropertyRef Name="ReviseStatus" />
+      <PropertyRef Name="Remarks" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="TestReportID" Type="int" Nullable="false" />
+    <Property Name="BarCode" Type="bigint" Nullable="false" />
+    <Property Name="ReviseStatus" Type="int" Nullable="false" />
+    <Property Name="CreateTime" Type="datetime" />
+    <Property Name="Remarks" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreateBy" Type="int" />
+    <Property Name="UpdateTime" Type="datetime" />
+    <Property Name="UpdateBy" Type="int" />
+    <Property Name="ApprovedTime" Type="datetime" />
+    <Property Name="ApprovedBy" Type="int" />
+    <Property Name="AOPID" Type="int" />
+    <Property Name="FinalWidth" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="FinalGSM" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TumbleLength" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TumbleWidth" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TumbleSP" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="PrintName" Type="varchar" MaxLength="50" />
+    <Property Name="MachineName" Type="varchar" MaxLength="50" />
+    <Property Name="StenterID" Type="int" />
+    <Property Name="PrintType" Type="int" />
+    <Property Name="MachineType" Type="int" />
+    <Property Name="SoftenerGL" Type="varchar" MaxLength="50" />
+    <Property Name="SoftenerName" Type="varchar" MaxLength="50" />
+    <Property Name="DyeingID" Type="int" />
+    <Property Name="GreyWidth" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="GreyGSM" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="YarnBrand" Type="varchar" MaxLength="50" />
+    <Property Name="YarnLot" Type="varchar" MaxLength="50" />
+    <Property Name="YarnCount" Type="varchar" MaxLength="50" />
+    <Property Name="KnitUnit" Type="varchar" MaxLength="50" />
+    <Property Name="McBrand" Type="varchar" MaxLength="50" />
+    <Property Name="Color" Type="varchar" MaxLength="50" />
+    <Property Name="OrderNo" Type="varchar" MaxLength="50" />
+    <Property Name="FabricName" Type="varchar" MaxLength="50" />
+    <Property Name="BuyerName" Type="varchar" MaxLength="50" />
+    <Property Name="ChallanNo" Type="varchar" MaxLength="50" />
+    <Property Name="DeliveryDate" Type="date" />
+    <Property Name="McDiaGauge" Type="varchar" MaxLength="50" />
+    <Property Name="FabricTypeID" Type="int" />
+    <Property Name="BuyerID" Type="int" />
+    <Property Name="FabricCreateTime" Type="datetime" />
+    <Property Name="DiaGaugeID" Type="int" />
+    <Property Name="YarnCountID" Type="int" />
+    <Property Name="KnitUnitID" Type="int" />
+    <Property Name="McBrandID" Type="int" />
+    <Property Name="KnitID" Type="int" />
+    <Property Name="FabricID" Type="int" />
+    <Property Name="DyeingUnitID" Type="int" />
+    <Property Name="BatchNo" Type="varchar" MaxLength="50" />
+    <Property Name="SerialNo" Type="int" />
+    <Property Name="DyeingUnitName" Type="varchar" MaxLength="50" />
+    <Property Name="Temp" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Speed" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Peder" Type="varchar" MaxLength="50" />
+    <Property Name="Blower" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ApprovedStatus" Type="int" />
+    <Property Name="CreateByName" Type="varchar" MaxLength="50" />
+    <Property Name="UpdateByName" Type="varchar" MaxLength="50" />
+    <Property Name="ApprovedByName" Type="varchar" MaxLength="50" />
+    <Property Name="DIA" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="GSM" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="BatchQty" Type="int" />
+    <Property Name="WidthSet" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="OverFeed" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="DeliveryQty" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Note" Type="varchar" MaxLength="50" />
+    <Property Name="LabdipStatus" Type="varchar" MaxLength="50" />
+    <Property Name="TumbleGSM" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="MCRPM" Type="int" />
+    <Property Name="MCNO" Type="int" />
+    <Property Name="StitchLength" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="RequiredGSM" Type="int" />
+    <Property Name="RequiredWidth" Type="varchar" MaxLength="50" />
+    <Property Name="TumbleWidthKnit" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TextileResearchDevelopment.dbo.ReportView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ReportView">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="FabridID" />
+      <PropertyRef Name="KnitID" />
+      <PropertyRef Name="DyeingID" />
+      <PropertyRef Name="StenterID" />
+      <PropertyRef Name="AOPID" />
+      <PropertyRef Name="TesReportID" />
+      <PropertyRef Name="RemarksID" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="FabridID" Type="int" Nullable="false" />
+    <Property Name="KnitID" Type="int" Nullable="false" />
+    <Property Name="DyeingID" Type="int" Nullable="false" />
+    <Property Name="StenterID" Type="int" Nullable="false" />
+    <Property Name="AOPID" Type="int" Nullable="false" />
+    <Property Name="TesReportID" Type="int" Nullable="false" />
+    <Property Name="RemarksID" Type="int" Nullable="false" />
+    <Property Name="CreateTime" Type="date" />
+    <Property Name="CreateBy" Type="int" />
+    <Property Name="CreateByKnit" Type="int" />
+    <Property Name="CreateTimeKnit" Type="datetime" />
+    <Property Name="UpdateTimeKnit" Type="datetime" />
+    <Property Name="UpdateByKnit" Type="int" />
+    <Property Name="ApprovedTimeKnit" Type="datetime" />
+    <Property Name="ApprovedByKnit" Type="int" />
+    <Property Name="CreateByDyeing" Type="int" />
+    <Property Name="UpdateTimeDyeing" Type="datetime" />
+    <Property Name="UpdateByDyeing" Type="int" />
+    <Property Name="ApprovedTimeDyeing" Type="datetime" />
+    <Property Name="ApprovedByDyeing" Type="int" />
+    <Property Name="CreateTimeDyeing" Type="datetime" />
+    <Property Name="CreateTimeStenter" Type="datetime" />
+    <Property Name="CreateByStenter" Type="int" />
+    <Property Name="UpdateTimeStenter" Type="datetime" />
+    <Property Name="UpdateByStenter" Type="int" />
+    <Property Name="ApprovedTimeStenter" Type="datetime" />
+    <Property Name="ApprovedByStenter" Type="int" />
+    <Property Name="CreateTimeAop" Type="date" />
+    <Property Name="CreateByAop" Type="int" />
+    <Property Name="UpdateTimeAop" Type="date" />
+    <Property Name="UpdateByAop" Type="int" />
+    <Property Name="ApprovedTimeAop" Type="date" />
+    <Property Name="ApprovedByAop" Type="int" />
+    <Property Name="CreateTimeTest" Type="datetime" />
+    <Property Name="CreateByTest" Type="int" />
+    <Property Name="UpdateTimeTest" Type="datetime" />
+    <Property Name="UpdateByTest" Type="int" />
+    <Property Name="ApprovedTimeTest" Type="datetime" />
+    <Property Name="ApprovedByTest" Type="int" />
+    <Property Name="CreateTimeRemarks" Type="datetime" />
+    <Property Name="CreateByRemarks" Type="int" />
+    <Property Name="UpdateTimeRemarks" Type="datetime" />
+    <Property Name="UpdateByRemarks" Type="int" />
+    <Property Name="ApprovedTimeRemarks" Type="datetime" />
+    <Property Name="ApprovedByRemarks" Type="int" />
+    <Property Name="Expr1" Type="int" />
+    <Property Name="BarCode" Type="bigint" />
+    <Property Name="Remarks" Type="varchar" MaxLength="50" />
+    <Property Name="FinalWidth" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="FinalGSM" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TumbleLength" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TumbleWidth" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TumbleSP" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="PrintName" Type="varchar" MaxLength="50" />
+    <Property Name="MachineName" Type="varchar" MaxLength="50" />
+    <Property Name="PrintType" Type="int" />
+    <Property Name="MachineType" Type="int" />
+    <Property Name="SoftenerGL" Type="varchar" MaxLength="50" />
+    <Property Name="SoftenerName" Type="varchar" MaxLength="50" />
+    <Property Name="GreyWidth" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="GreyGSM" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="YarnBrand" Type="varchar" MaxLength="50" />
+    <Property Name="YarnLot" Type="varchar" MaxLength="50" />
+    <Property Name="YarnCount" Type="varchar" MaxLength="50" />
+    <Property Name="KnitUnit" Type="varchar" MaxLength="50" />
+    <Property Name="McBrand" Type="varchar" MaxLength="50" />
+    <Property Name="Color" Type="varchar" MaxLength="50" />
+    <Property Name="OrderNo" Type="varchar" MaxLength="50" />
+    <Property Name="FabricName" Type="varchar" MaxLength="50" />
+    <Property Name="BuyerName" Type="varchar" MaxLength="50" />
+    <Property Name="ChallanNo" Type="varchar" MaxLength="50" />
+    <Property Name="DeliveryDate" Type="date" />
+    <Property Name="McDiaGauge" Type="varchar" MaxLength="50" />
+    <Property Name="DiaGaugeID" Type="int" />
+    <Property Name="YarnCountID" Type="int" />
+    <Property Name="KnitUnitID" Type="int" />
+    <Property Name="McBrandID" Type="int" />
+    <Property Name="DyeingUnitID" Type="int" />
+    <Property Name="BatchNo" Type="varchar" MaxLength="50" />
+    <Property Name="SerialNo" Type="int" />
+    <Property Name="DyeingUnitName" Type="varchar" MaxLength="50" />
+    <Property Name="Temp" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Speed" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Peder" Type="varchar" MaxLength="50" />
+    <Property Name="Blower" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="DIA" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="GSM" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="BatchQty" Type="int" />
+    <Property Name="WidthSet" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="OverFeed" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="DeliveryQty" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Note" Type="varchar" MaxLength="50" />
+    <Property Name="LabdipStatus" Type="varchar" MaxLength="50" />
+    <Property Name="TumbleGSM" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="MCRPM" Type="int" />
+    <Property Name="MCNO" Type="int" />
+    <Property Name="StitchLength" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="RequiredGSM" Type="int" />
+    <Property Name="RequiredWidth" Type="varchar" MaxLength="50" />
+    <Property Name="TumbleWidthKnit" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="FabricTypeID" Type="int" />
+    <Property Name="BuyerID" Type="int" />
+    <Property Name="FabricID" Type="int" />
+  </EntityType>
+  <EntityContainer Name="TextileResearchDevelopmentModelStoreContainer">
+    <EntitySet Name="RemarksView" EntityType="Self.RemarksView" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [RemarksView].[Id] AS [Id], 
+    [RemarksView].[TestReportID] AS [TestReportID], 
+    [RemarksView].[BarCode] AS [BarCode], 
+    [RemarksView].[ReviseStatus] AS [ReviseStatus], 
+    [RemarksView].[CreateTime] AS [CreateTime], 
+    [RemarksView].[Remarks] AS [Remarks], 
+    [RemarksView].[CreateBy] AS [CreateBy], 
+    [RemarksView].[UpdateTime] AS [UpdateTime], 
+    [RemarksView].[UpdateBy] AS [UpdateBy], 
+    [RemarksView].[ApprovedTime] AS [ApprovedTime], 
+    [RemarksView].[ApprovedBy] AS [ApprovedBy], 
+    [RemarksView].[AOPID] AS [AOPID], 
+    [RemarksView].[FinalWidth] AS [FinalWidth], 
+    [RemarksView].[FinalGSM] AS [FinalGSM], 
+    [RemarksView].[TumbleLength] AS [TumbleLength], 
+    [RemarksView].[TumbleWidth] AS [TumbleWidth], 
+    [RemarksView].[TumbleSP] AS [TumbleSP], 
+    [RemarksView].[PrintName] AS [PrintName], 
+    [RemarksView].[MachineName] AS [MachineName], 
+    [RemarksView].[StenterID] AS [StenterID], 
+    [RemarksView].[PrintType] AS [PrintType], 
+    [RemarksView].[MachineType] AS [MachineType], 
+    [RemarksView].[SoftenerGL] AS [SoftenerGL], 
+    [RemarksView].[SoftenerName] AS [SoftenerName], 
+    [RemarksView].[DyeingID] AS [DyeingID], 
+    [RemarksView].[GreyWidth] AS [GreyWidth], 
+    [RemarksView].[GreyGSM] AS [GreyGSM], 
+    [RemarksView].[YarnBrand] AS [YarnBrand], 
+    [RemarksView].[YarnLot] AS [YarnLot], 
+    [RemarksView].[YarnCount] AS [YarnCount], 
+    [RemarksView].[KnitUnit] AS [KnitUnit], 
+    [RemarksView].[McBrand] AS [McBrand], 
+    [RemarksView].[Color] AS [Color], 
+    [RemarksView].[OrderNo] AS [OrderNo], 
+    [RemarksView].[FabricName] AS [FabricName], 
+    [RemarksView].[BuyerName] AS [BuyerName], 
+    [RemarksView].[ChallanNo] AS [ChallanNo], 
+    [RemarksView].[DeliveryDate] AS [DeliveryDate], 
+    [RemarksView].[McDiaGauge] AS [McDiaGauge], 
+    [RemarksView].[FabricTypeID] AS [FabricTypeID], 
+    [RemarksView].[BuyerID] AS [BuyerID], 
+    [RemarksView].[FabricCreateTime] AS [FabricCreateTime], 
+    [RemarksView].[DiaGaugeID] AS [DiaGaugeID], 
+    [RemarksView].[YarnCountID] AS [YarnCountID], 
+    [RemarksView].[KnitUnitID] AS [KnitUnitID], 
+    [RemarksView].[McBrandID] AS [McBrandID], 
+    [RemarksView].[KnitID] AS [KnitID], 
+    [RemarksView].[FabricID] AS [FabricID], 
+    [RemarksView].[DyeingUnitID] AS [DyeingUnitID], 
+    [RemarksView].[BatchNo] AS [BatchNo], 
+    [RemarksView].[SerialNo] AS [SerialNo], 
+    [RemarksView].[DyeingUnitName] AS [DyeingUnitName], 
+    [RemarksView].[Temp] AS [Temp], 
+    [RemarksView].[Speed] AS [Speed], 
+    [RemarksView].[Peder] AS [Peder], 
+    [RemarksView].[Blower] AS [Blower], 
+    [RemarksView].[ApprovedStatus] AS [ApprovedStatus], 
+    [RemarksView].[CreateByName] AS [CreateByName], 
+    [RemarksView].[UpdateByName] AS [UpdateByName], 
+    [RemarksView].[ApprovedByName] AS [ApprovedByName], 
+    [RemarksView].[DIA] AS [DIA], 
+    [RemarksView].[GSM] AS [GSM], 
+    [RemarksView].[BatchQty] AS [BatchQty], 
+    [RemarksView].[WidthSet] AS [WidthSet], 
+    [RemarksView].[OverFeed] AS [OverFeed], 
+    [RemarksView].[DeliveryQty] AS [DeliveryQty], 
+    [RemarksView].[Note] AS [Note], 
+    [RemarksView].[LabdipStatus] AS [LabdipStatus], 
+    [RemarksView].[TumbleGSM] AS [TumbleGSM], 
+    [RemarksView].[MCRPM] AS [MCRPM], 
+    [RemarksView].[MCNO] AS [MCNO], 
+    [RemarksView].[StitchLength] AS [StitchLength], 
+    [RemarksView].[RequiredGSM] AS [RequiredGSM], 
+    [RemarksView].[RequiredWidth] AS [RequiredWidth], 
+    [RemarksView].[TumbleWidthKnit] AS [TumbleWidthKnit]
+    FROM [dbo].[RemarksView] AS [RemarksView]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ReportView" EntityType="Self.ReportView" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ReportView].[Id] AS [Id], 
+    [ReportView].[FabridID] AS [FabridID], 
+    [ReportView].[KnitID] AS [KnitID], 
+    [ReportView].[DyeingID] AS [DyeingID], 
+    [ReportView].[StenterID] AS [StenterID], 
+    [ReportView].[AOPID] AS [AOPID], 
+    [ReportView].[TesReportID] AS [TesReportID], 
+    [ReportView].[RemarksID] AS [RemarksID], 
+    [ReportView].[CreateTime] AS [CreateTime], 
+    [ReportView].[CreateBy] AS [CreateBy], 
+    [ReportView].[CreateByKnit] AS [CreateByKnit], 
+    [ReportView].[CreateTimeKnit] AS [CreateTimeKnit], 
+    [ReportView].[UpdateTimeKnit] AS [UpdateTimeKnit], 
+    [ReportView].[UpdateByKnit] AS [UpdateByKnit], 
+    [ReportView].[ApprovedTimeKnit] AS [ApprovedTimeKnit], 
+    [ReportView].[ApprovedByKnit] AS [ApprovedByKnit], 
+    [ReportView].[CreateByDyeing] AS [CreateByDyeing], 
+    [ReportView].[UpdateTimeDyeing] AS [UpdateTimeDyeing], 
+    [ReportView].[UpdateByDyeing] AS [UpdateByDyeing], 
+    [ReportView].[ApprovedTimeDyeing] AS [ApprovedTimeDyeing], 
+    [ReportView].[ApprovedByDyeing] AS [ApprovedByDyeing], 
+    [ReportView].[CreateTimeDyeing] AS [CreateTimeDyeing], 
+    [ReportView].[CreateTimeStenter] AS [CreateTimeStenter], 
+    [ReportView].[CreateByStenter] AS [CreateByStenter], 
+    [ReportView].[UpdateTimeStenter] AS [UpdateTimeStenter], 
+    [ReportView].[UpdateByStenter] AS [UpdateByStenter], 
+    [ReportView].[ApprovedTimeStenter] AS [ApprovedTimeStenter], 
+    [ReportView].[ApprovedByStenter] AS [ApprovedByStenter], 
+    [ReportView].[CreateTimeAop] AS [CreateTimeAop], 
+    [ReportView].[CreateByAop] AS [CreateByAop], 
+    [ReportView].[UpdateTimeAop] AS [UpdateTimeAop], 
+    [ReportView].[UpdateByAop] AS [UpdateByAop], 
+    [ReportView].[ApprovedTimeAop] AS [ApprovedTimeAop], 
+    [ReportView].[ApprovedByAop] AS [ApprovedByAop], 
+    [ReportView].[CreateTimeTest] AS [CreateTimeTest], 
+    [ReportView].[CreateByTest] AS [CreateByTest], 
+    [ReportView].[UpdateTimeTest] AS [UpdateTimeTest], 
+    [ReportView].[UpdateByTest] AS [UpdateByTest], 
+    [ReportView].[ApprovedTimeTest] AS [ApprovedTimeTest], 
+    [ReportView].[ApprovedByTest] AS [ApprovedByTest], 
+    [ReportView].[CreateTimeRemarks] AS [CreateTimeRemarks], 
+    [ReportView].[CreateByRemarks] AS [CreateByRemarks], 
+    [ReportView].[UpdateTimeRemarks] AS [UpdateTimeRemarks], 
+    [ReportView].[UpdateByRemarks] AS [UpdateByRemarks], 
+    [ReportView].[ApprovedTimeRemarks] AS [ApprovedTimeRemarks], 
+    [ReportView].[ApprovedByRemarks] AS [ApprovedByRemarks], 
+    [ReportView].[Expr1] AS [Expr1], 
+    [ReportView].[BarCode] AS [BarCode], 
+    [ReportView].[Remarks] AS [Remarks], 
+    [ReportView].[FinalWidth] AS [FinalWidth], 
+    [ReportView].[FinalGSM] AS [FinalGSM], 
+    [ReportView].[TumbleLength] AS [TumbleLength], 
+    [ReportView].[TumbleWidth] AS [TumbleWidth], 
+    [ReportView].[TumbleSP] AS [TumbleSP], 
+    [ReportView].[PrintName] AS [PrintName], 
+    [ReportView].[MachineName] AS [MachineName], 
+    [ReportView].[PrintType] AS [PrintType], 
+    [ReportView].[MachineType] AS [MachineType], 
+    [ReportView].[SoftenerGL] AS [SoftenerGL], 
+    [ReportView].[SoftenerName] AS [SoftenerName], 
+    [ReportView].[GreyWidth] AS [GreyWidth], 
+    [ReportView].[GreyGSM] AS [GreyGSM], 
+    [ReportView].[YarnBrand] AS [YarnBrand], 
+    [ReportView].[YarnLot] AS [YarnLot], 
+    [ReportView].[YarnCount] AS [YarnCount], 
+    [ReportView].[KnitUnit] AS [KnitUnit], 
+    [ReportView].[McBrand] AS [McBrand], 
+    [ReportView].[Color] AS [Color], 
+    [ReportView].[OrderNo] AS [OrderNo], 
+    [ReportView].[FabricName] AS [FabricName], 
+    [ReportView].[BuyerName] AS [BuyerName], 
+    [ReportView].[ChallanNo] AS [ChallanNo], 
+    [ReportView].[DeliveryDate] AS [DeliveryDate], 
+    [ReportView].[McDiaGauge] AS [McDiaGauge], 
+    [ReportView].[DiaGaugeID] AS [DiaGaugeID], 
+    [ReportView].[YarnCountID] AS [YarnCountID], 
+    [ReportView].[KnitUnitID] AS [KnitUnitID], 
+    [ReportView].[McBrandID] AS [McBrandID], 
+    [ReportView].[DyeingUnitID] AS [DyeingUnitID], 
+    [ReportView].[BatchNo] AS [BatchNo], 
+    [ReportView].[SerialNo] AS [SerialNo], 
+    [ReportView].[DyeingUnitName] AS [DyeingUnitName], 
+    [ReportView].[Temp] AS [Temp], 
+    [ReportView].[Speed] AS [Speed], 
+    [ReportView].[Peder] AS [Peder], 
+    [ReportView].[Blower] AS [Blower], 
+    [ReportView].[DIA] AS [DIA], 
+    [ReportView].[GSM] AS [GSM], 
+    [ReportView].[BatchQty] AS [BatchQty], 
+    [ReportView].[WidthSet] AS [WidthSet], 
+    [ReportView].[OverFeed] AS [OverFeed], 
+    [ReportView].[DeliveryQty] AS [DeliveryQty], 
+    [ReportView].[Note] AS [Note], 
+    [ReportView].[LabdipStatus] AS [LabdipStatus], 
+    [ReportView].[TumbleGSM] AS [TumbleGSM], 
+    [ReportView].[MCRPM] AS [MCRPM], 
+    [ReportView].[MCNO] AS [MCNO], 
+    [ReportView].[StitchLength] AS [StitchLength], 
+    [ReportView].[RequiredGSM] AS [RequiredGSM], 
+    [ReportView].[RequiredWidth] AS [RequiredWidth], 
+    [ReportView].[TumbleWidthKnit] AS [TumbleWidthKnit], 
+    [ReportView].[FabricTypeID] AS [FabricTypeID], 
+    [ReportView].[BuyerID] AS [BuyerID], 
+    [ReportView].[FabricID] AS [FabricID]
+    FROM [dbo].[ReportView] AS [ReportView]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

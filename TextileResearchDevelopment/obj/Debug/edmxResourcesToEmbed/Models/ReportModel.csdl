@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TextileResearchDevelopmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="RemarksView">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="TestReportID" />
+      <PropertyRef Name="BarCode" />
+      <PropertyRef Name="ReviseStatus" />
+      <PropertyRef Name="Remarks" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="TestReportID" Type="Int32" Nullable="false" />
+    <Property Name="BarCode" Type="Int64" Nullable="false" />
+    <Property Name="ReviseStatus" Type="Int32" Nullable="false" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+    <Property Name="Remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="ApprovedTime" Type="DateTime" Precision="3" />
+    <Property Name="ApprovedBy" Type="Int32" />
+    <Property Name="AOPID" Type="Int32" />
+    <Property Name="FinalWidth" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="FinalGSM" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TumbleLength" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TumbleWidth" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TumbleSP" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="PrintName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MachineName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="StenterID" Type="Int32" />
+    <Property Name="PrintType" Type="Int32" />
+    <Property Name="MachineType" Type="Int32" />
+    <Property Name="SoftenerGL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SoftenerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DyeingID" Type="Int32" />
+    <Property Name="GreyWidth" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="GreyGSM" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="YarnBrand" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="YarnLot" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="YarnCount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="KnitUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="McBrand" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="OrderNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabricName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BuyerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ChallanNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DeliveryDate" Type="DateTime" Precision="0" />
+    <Property Name="McDiaGauge" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabricTypeID" Type="Int32" />
+    <Property Name="BuyerID" Type="Int32" />
+    <Property Name="FabricCreateTime" Type="DateTime" Precision="3" />
+    <Property Name="DiaGaugeID" Type="Int32" />
+    <Property Name="YarnCountID" Type="Int32" />
+    <Property Name="KnitUnitID" Type="Int32" />
+    <Property Name="McBrandID" Type="Int32" />
+    <Property Name="KnitID" Type="Int32" />
+    <Property Name="FabricID" Type="Int32" />
+    <Property Name="DyeingUnitID" Type="Int32" />
+    <Property Name="BatchNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SerialNo" Type="Int32" />
+    <Property Name="DyeingUnitName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Temp" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Speed" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Peder" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Blower" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="ApprovedStatus" Type="Int32" />
+    <Property Name="CreateByName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UpdateByName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ApprovedByName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DIA" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="GSM" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="BatchQty" Type="Int32" />
+    <Property Name="WidthSet" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="OverFeed" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="DeliveryQty" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LabdipStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TumbleGSM" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="MCRPM" Type="Int32" />
+    <Property Name="MCNO" Type="Int32" />
+    <Property Name="StitchLength" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="RequiredGSM" Type="Int32" />
+    <Property Name="RequiredWidth" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TumbleWidthKnit" Type="Decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="ReportView">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="FabridID" />
+      <PropertyRef Name="KnitID" />
+      <PropertyRef Name="DyeingID" />
+      <PropertyRef Name="StenterID" />
+      <PropertyRef Name="AOPID" />
+      <PropertyRef Name="TesReportID" />
+      <PropertyRef Name="RemarksID" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="FabridID" Type="Int32" Nullable="false" />
+    <Property Name="KnitID" Type="Int32" Nullable="false" />
+    <Property Name="DyeingID" Type="Int32" Nullable="false" />
+    <Property Name="StenterID" Type="Int32" Nullable="false" />
+    <Property Name="AOPID" Type="Int32" Nullable="false" />
+    <Property Name="TesReportID" Type="Int32" Nullable="false" />
+    <Property Name="RemarksID" Type="Int32" Nullable="false" />
+    <Property Name="CreateTime" Type="DateTime" Precision="0" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="CreateByKnit" Type="Int32" />
+    <Property Name="CreateTimeKnit" Type="DateTime" Precision="3" />
+    <Property Name="UpdateTimeKnit" Type="DateTime" Precision="3" />
+    <Property Name="UpdateByKnit" Type="Int32" />
+    <Property Name="ApprovedTimeKnit" Type="DateTime" Precision="3" />
+    <Property Name="ApprovedByKnit" Type="Int32" />
+    <Property Name="CreateByDyeing" Type="Int32" />
+    <Property Name="UpdateTimeDyeing" Type="DateTime" Precision="3" />
+    <Property Name="UpdateByDyeing" Type="Int32" />
+    <Property Name="ApprovedTimeDyeing" Type="DateTime" Precision="3" />
+    <Property Name="ApprovedByDyeing" Type="Int32" />
+    <Property Name="CreateTimeDyeing" Type="DateTime" Precision="3" />
+    <Property Name="CreateTimeStenter" Type="DateTime" Precision="3" />
+    <Property Name="CreateByStenter" Type="Int32" />
+    <Property Name="UpdateTimeStenter" Type="DateTime" Precision="3" />
+    <Property Name="UpdateByStenter" Type="Int32" />
+    <Property Name="ApprovedTimeStenter" Type="DateTime" Precision="3" />
+    <Property Name="ApprovedByStenter" Type="Int32" />
+    <Property Name="CreateTimeAop" Type="DateTime" Precision="0" />
+    <Property Name="CreateByAop" Type="Int32" />
+    <Property Name="UpdateTimeAop" Type="DateTime" Precision="0" />
+    <Property Name="UpdateByAop" Type="Int32" />
+    <Property Name="ApprovedTimeAop" Type="DateTime" Precision="0" />
+    <Property Name="ApprovedByAop" Type="Int32" />
+    <Property Name="CreateTimeTest" Type="DateTime" Precision="3" />
+    <Property Name="CreateByTest" Type="Int32" />
+    <Property Name="UpdateTimeTest" Type="DateTime" Precision="3" />
+    <Property Name="UpdateByTest" Type="Int32" />
+    <Property Name="ApprovedTimeTest" Type="DateTime" Precision="3" />
+    <Property Name="ApprovedByTest" Type="Int32" />
+    <Property Name="CreateTimeRemarks" Type="DateTime" Precision="3" />
+    <Property Name="CreateByRemarks" Type="Int32" />
+    <Property Name="UpdateTimeRemarks" Type="DateTime" Precision="3" />
+    <Property Name="UpdateByRemarks" Type="Int32" />
+    <Property Name="ApprovedTimeRemarks" Type="DateTime" Precision="3" />
+    <Property Name="ApprovedByRemarks" Type="Int32" />
+    <Property Name="Expr1" Type="Int32" />
+    <Property Name="BarCode" Type="Int64" />
+    <Property Name="Remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FinalWidth" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="FinalGSM" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TumbleLength" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TumbleWidth" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TumbleSP" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="PrintName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MachineName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PrintType" Type="Int32" />
+    <Property Name="MachineType" Type="Int32" />
+    <Property Name="SoftenerGL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SoftenerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="GreyWidth" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="GreyGSM" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="YarnBrand" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="YarnLot" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="YarnCount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="KnitUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="McBrand" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="OrderNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabricName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BuyerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ChallanNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DeliveryDate" Type="DateTime" Precision="0" />
+    <Property Name="McDiaGauge" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DiaGaugeID" Type="Int32" />
+    <Property Name="YarnCountID" Type="Int32" />
+    <Property Name="KnitUnitID" Type="Int32" />
+    <Property Name="McBrandID" Type="Int32" />
+    <Property Name="DyeingUnitID" Type="Int32" />
+    <Property Name="BatchNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SerialNo" Type="Int32" />
+    <Property Name="DyeingUnitName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Temp" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Speed" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Peder" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Blower" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="DIA" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="GSM" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="BatchQty" Type="Int32" />
+    <Property Name="WidthSet" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="OverFeed" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="DeliveryQty" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Note" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LabdipStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TumbleGSM" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="MCRPM" Type="Int32" />
+    <Property Name="MCNO" Type="Int32" />
+    <Property Name="StitchLength" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="RequiredGSM" Type="Int32" />
+    <Property Name="RequiredWidth" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TumbleWidthKnit" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="FabricTypeID" Type="Int32" />
+    <Property Name="BuyerID" Type="Int32" />
+    <Property Name="FabricID" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="TextileResearchDevelopmentEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="RemarksViews" EntityType="Self.RemarksView" />
+    <EntitySet Name="ReportViews" EntityType="Self.ReportView" />
+  </EntityContainer>
+</Schema>

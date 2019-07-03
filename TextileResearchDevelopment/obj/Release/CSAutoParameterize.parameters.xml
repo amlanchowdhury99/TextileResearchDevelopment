@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <parameter name="MyConnectionString-Web.config Connection String" description="MyConnectionString Connection String used in web.config by the application to access the database." defaultValue="data source=(local);database=TextileResearchDevelopment;User Id=sa;Password=123;Integrated Security=True;MultipleActiveResultSets=True;" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="G:\\Projects\\TextileResearchDevelopment\\TextileResearchDevelopment\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='MyConnectionString']/@connectionString" />
-  </parameter>
-</parameters>

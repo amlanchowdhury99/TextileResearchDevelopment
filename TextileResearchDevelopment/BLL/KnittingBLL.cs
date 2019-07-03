@@ -110,7 +110,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " INSERT INTO Knitting (FabricID, DiaGaugeID, YarnCountID, YarnBrand, YarnLot, StitchLength, KnitUnitID, MCNO, MCRPM, GreyWidth, GreyGSM, TumbleWidth, TumbleGSM, McBrandID, ReviseStatus, ApprovedStatus, CreateBy, CreateTime, BarCode, ApprovedBy, UpdateBy) " +
+                string query = " INSERT INTO Knitting (FabricID, MCNOID, YarnCountID, YarnBrand, YarnLot, StitchLength, KnitUnitID, MCNO, MCRPM, GreyWidth, GreyGSM, TumbleWidth, TumbleGSM, McBrandID, ReviseStatus, ApprovedStatus, CreateBy, CreateTime, BarCode, ApprovedBy, UpdateBy) " +
                                " VALUES(" + knit.FabricID + "," + knit.DiaGaugeID + "," + knit.YarnCountID + ",'" + knit.YarnBrand + "','" + knit.YarnLot + "'," + knit.StitchLength + "," + knit.KnitUnitID + "," + knit.MCNO + "," + knit.MCRPM + "," + knit.GreyWidth + "," + knit.GreyGSM + "," + knit.TumbleWidth + "," + knit.TumbleGSM + "," + knit.McBrandID + "," + knit.ReviseStatus + "," + knit.ApprovedStatus + ", (" + GetCreateByQuery + "), '" + knit.CreateTime.ToString("yyyy/MM/dd HH:mm") + "'," + knit.BarCode + ", 0, 0)";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
@@ -735,7 +735,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string query = "";
-                query = dia.Id == 0 ? "INSERT INTO McDia (McDiaGauge) VALUES('" + dia.McDiaGauge + "')" : "UPDATE McDia SET McDiaGauge = '" + dia.McDiaGauge + "' WHERE Id = " + dia.Id;
+                query = dia.Id == 0 ? "INSERT INTO McDia (McDiaGauge, MCNO) VALUES('" + dia.McDiaGauge + "', " + dia.MCNO + ")" : "UPDATE McDia SET MCNO = "+dia.MCNO+", McDiaGauge = '" + dia.McDiaGauge + "' WHERE Id = " + dia.Id;
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT TOP 1 (Id) AS Id FROM McDia order by Id desc";
@@ -884,6 +884,7 @@ namespace TextileResearchDevelopment.BLL
                     {
                         McDiaGaugeType McDiaGauge = new McDiaGaugeType();
                         McDiaGauge.Id = Convert.ToInt32(reader["Id"]);
+                        McDiaGauge.MCNO = Convert.ToInt32(reader["MCNO"]);
                         McDiaGauge.McDiaGauge = reader["McDiaGauge"].ToString();
 
                         McDiaGauges.Add(McDiaGauge);

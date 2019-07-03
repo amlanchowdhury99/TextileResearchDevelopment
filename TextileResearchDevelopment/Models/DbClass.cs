@@ -43,6 +43,7 @@ namespace TextileResearchDevelopment.Models
     public class McDiaGaugeType
     {
         public int Id { get; set; }
+        public int MCNO { get; set; }
         public string McDiaGauge { get; set; }
     }
 

@@ -11,6 +11,7 @@ using TextileResearchDevelopment.DataAccessLayer;
 using System.IO;
 using System.Data;
 using System.Data.SqlClient;
+using TextileResearchDevelopment.ReportDataset;
 
 namespace TextileResearchDevelopment.Controllers
 {
@@ -19,7 +20,9 @@ namespace TextileResearchDevelopment.Controllers
 
         private ReportDocument objReportDocument = new ReportDocument();
         private ExportFormatType objExportFormatType = ExportFormatType.NoFormat;
-
+        Remarks remark = new Remarks();
+        TextileResearchDevelopmentEntities db = new TextileResearchDevelopmentEntities();
+        
 
         // GET: Report
         public ActionResult Index()
@@ -71,7 +74,7 @@ namespace TextileResearchDevelopment.Controllers
             return Json("false", JsonRequestBehavior.AllowGet);
         }
 
-        public FileStreamResult ShowReport (string pFileDownloadName)
+        public FileStreamResult ShowReport(string pFileDownloadName)
         {
 
             Response.Buffer = false;
@@ -96,28 +99,28 @@ namespace TextileResearchDevelopment.Controllers
 
         }
 
-        public ActionResult ExportReport(Report report)
+        public ActionResult ExportReport()
         {
-            string connectionStr = DBGateway.connectionString;
-            string strPath = Path.Combine(Server.MapPath("~/MasterReport.rpt"));
-            objReportDocument.Load(strPath);
+            GeneralReport ds = new GeneralReport();
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reporting"), "MasterReport.rpt"));
 
-            string query = "SELECT * FROM Remarksview ";
-            SqlDataReader reader = DBGateway.GetFromDB(query);
-            DBGateway.connection.Close();
-            DataTable dt = new DataTable();
-            dt.Load(reader);
-            
+            var c = db.RemarksViews.Where(a => a.Id == 4).ToList();
 
-            DataSet objDataSet = null;
-            objReportDocument.SetDataSource(dt);
+            foreach (var item in c)
+            {
+                ds.GeneralRpt.AddGeneralRptRow(
+                item.PrintName,
+                item.MachineName);
+            }
 
-            objReportDocument.SetDatabaseLogon("sa", "123");
+            rd.SetDataSource(ds);
 
+            rd.SetDatabaseLogon("sa", "x123@slts");
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();
-            Stream stream = objReportDocument.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+            Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
             stream.Seek(0, SeekOrigin.Begin);
 
             return File(stream, "application/pdf", "FabricProcessingSheet.pdf");
