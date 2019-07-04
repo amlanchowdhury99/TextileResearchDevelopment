@@ -7,6 +7,7 @@ using TextileResearchDevelopment.DataAccessLayer;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.Configuration;
+using System.Web.Mvc;
 
 namespace TextileResearchDevelopment.BLL
 {
@@ -125,6 +126,49 @@ namespace TextileResearchDevelopment.BLL
                 }
             }
             return Id;
+        }
+
+        internal static Boolean HasRight(string text)
+        {
+            try
+            {
+                //string GetUserNameQuery = "SELECT UserName FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
+                if (DBGateway.recordExist("SELECT Id FROM UserRole WHERE UserName = '"+ HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'"))
+                {
+                    SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader; cm.Connection = cn; cn.Open();
+                    string query = "SELECT "+ text + " AS Role FROM UserRole WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
+                    cm.CommandText = query;
+                    reader = cm.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            if(Convert.ToInt32(reader["Role"]) > 0)
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                    cn.Close();
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return false;
         }
 
         internal static string GetUserAccess(string UserName)

@@ -132,5 +132,31 @@ namespace TextileResearchDevelopment.Controllers
 
         }
 
+        [HttpPost]
+        public JsonResult HasRight(string text)
+        {
+            Boolean Result = false;
+            List<User> data = new List<User>();
+
+            try
+            {
+                Result = UserBLL.HasRight(text);
+
+                if (Result)
+                {
+                    return Json("true", JsonRequestBehavior.AllowGet);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return Json("false", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("false", JsonRequestBehavior.AllowGet);
+
+        }
+
+
     }
 }

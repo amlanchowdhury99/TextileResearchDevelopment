@@ -99,24 +99,46 @@ namespace TextileResearchDevelopment.Controllers
 
         }
 
-        public ActionResult ExportReport()
+        public ActionResult ExportReport(int Id)
         {
             GeneralReport ds = new GeneralReport();
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath("~/Reporting"), "MasterReport.rpt"));
 
-            var c = db.RemarksViews.Where(a => a.Id == 4).ToList();
+            var c = db.RemarksViews.Where(a => a.Id == Id).ToList();
 
             foreach (var item in c)
             {
                 ds.GeneralRpt.AddGeneralRptRow(
-                item.PrintName,
-                item.MachineName);
-            }
+                item.BuyerName,
+                item.FabricName,
+                item.OrderNo,
+                item.Color,
+                item.Note,
+                item.RequiredWidth,
+                item.RequiredGSM.ToString(),
+                item.LabdipStatus,
+                item.ChallanNo,
+                item.DeliveryQty.ToString(),
+                item.DeliveryDate.ToString(),
+                item.McDiaGauge,
+                item.YarnCount,
+                item.YarnBrand,
+                item.YarnLot,
+                item.StitchLength.ToString(),
+                item.KnitUnit,
+                item.MCNO.ToString(),
+                item.MCRPM.ToString(),
+                item.GreyWidth.ToString(),
+                item.GreyGSM.ToString(),
+                item.TumbleWidthKnit.ToString(),
+                item.TumbleGSM.ToString(),
+                item.McBrand);
+            };
 
             rd.SetDataSource(ds);
 
-            rd.SetDatabaseLogon("sa", "x123@slts");
+            rd.SetDatabaseLogon("sa", "123");
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();

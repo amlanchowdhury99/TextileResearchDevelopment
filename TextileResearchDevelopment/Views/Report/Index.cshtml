@@ -22,6 +22,7 @@
                     <h4 class="modal-title" id="myModalLabel">Search Result</h4>
                 </div>
                 <div class="modal-body">
+                    <a href="@Url.Action("ExportReport", "Report", new { id = 4 } )" class="btn btn-primary btn-md" role="button" aria-disabled="true">Export Report</a>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="panel panel-default">
@@ -65,7 +66,7 @@
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th style="visibility:hidden;"></th>123
+                                                <th style="visibility:hidden;"></th>
                                                 <th>BarCode</th>
                                                 <th>Buyer Name</th>
                                                 <th>FabricType</th>
@@ -110,10 +111,6 @@
             </div>
         </div>
     </div>
-
-    <a href="@Url.Action("ExportReport", "Report")" class="elements">
-        <span>Reports</span>
-    </a>
 
     <div class="panel panel-default ">
         <div class="panel-heading">
@@ -319,13 +316,7 @@
                     extend: 'excelHtml5',
                     exportOptions: {
                         columns: ':visible'
-                    }
-                },
-                {
-                    extend: 'pdfHtml5',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
+                    },
                 },
                 'colvis'
             ],
@@ -584,7 +575,7 @@
         $("#searchBtn").click(function () {
             debugger;
             event.preventDefault();
-            //$('#modalReport').modal('show');
+            
             if (ValidateSearchingCriteria() == true) {
                 debugger;
                 var searchObj =
@@ -619,7 +610,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: "/Report/ExportReport",
+                    url: "/Report/GetSearchResult",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     data: JSON.stringify(searchObj),
@@ -628,10 +619,10 @@
                             debugger
                             ReportTable.clear().draw();
                             ReportTable.rows.add(response).draw();
-                            $("#modalReport .open").click();
+                            $('#modalReport').modal('show');
                         }
                         else {
-                            alert("Failed to Save! Please Check Connection State!!!");
+                            alert("Failed to Search! No Date Found!!!");
                         }
                     },
                     failure: function () {

@@ -1528,31 +1528,50 @@
         function ApproveRow() {
             debugger
             event.preventDefault();
-
-            var Row = DyeingTable.rows('.selected').data()[0];
-            var index = DyeingTable.row('.selected').index();
-
-            var dyeingObj =
-            {
-                Id: Row.Id,
-                ApprovedTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
-            };
-
             $.ajax({
                 type: "POST",
-                url: "/Dyeing/Approve",
+                url: "/UserManagement/HasRight",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify(dyeingObj),
+                data: JSON.stringify({ text: "Dyeing" }),
                 success: function (response) {
                     debugger
-                    if (response.data != "" && response.data != null) {
+                    if (response == "true") {
                         debugger
-                        DyeingTable.row(index).data(response.data).draw();
-                        Reset();
+                        var Row = DyeingTable.rows('.selected').data()[0];
+                        var index = DyeingTable.row('.selected').index();
+
+                        var dyeingObj =
+                        {
+                            Id: Row.Id,
+                            ApprovedTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
+                        };
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/Dyeing/Approve",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(dyeingObj),
+                            success: function (response) {
+                                debugger
+                                if (response.data != "" && response.data != null) {
+                                    debugger
+                                    DyeingTable.row(index).data(response.data).draw();
+                                    Reset();
+                                }
+                                else {
+                                    alert("Failed to Approve!!!");
+                                    return;
+                                }
+                            },
+                            failure: function () {
+                                $("#tblItems").append(" Error when fetching data please contact administrator");
+                            }
+                        });
                     }
                     else {
-                        alert("Failed to Approve!!!");
+                        alert("You are not authorized to approve!!!");
                         return;
                     }
                 },
@@ -1566,29 +1585,50 @@
             debugger
             event.preventDefault();
 
-            var DyeingRow = DyeingTable.rows('.selected').data()[0];
-            var index = DyeingTable.row('.selected').index();
-
-            var dyeing =
-            {
-                Id: DyeingRow.Id
-            };
-
             $.ajax({
                 type: "POST",
-                url: "/Dyeing/Unapprove",
+                url: "/UserManagement/HasRight",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify(dyeing),
+                data: JSON.stringify({ text: "Dyeing" }),
                 success: function (response) {
                     debugger
-                    if (response.data != "" && response.data != null) {
+                    if (response == "true") {
                         debugger
-                        DyeingTable.row(index).data(response.data).draw();
-                        Reset();
+                        var Row = DyeingTable.rows('.selected').data()[0];
+                        var index = DyeingTable.row('.selected').index();
+
+                        var dyeingObj =
+                        {
+                            Id: Row.Id,
+                            ApprovedTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
+                        };
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/Dyeing/Unapprove",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(dyeingObj),
+                            success: function (response) {
+                                debugger
+                                if (response.data != "" && response.data != null) {
+                                    debugger
+                                    DyeingTable.row(index).data(response.data).draw();
+                                    Reset();
+                                }
+                                else {
+                                    alert("Failed to Unapprove!!!");
+                                    return;
+                                }
+                            },
+                            failure: function () {
+                                $("#tblItems").append(" Error when fetching data please contact administrator");
+                            }
+                        });
                     }
                     else {
-                        alert("Failed to Unapprove!!!");
+                        alert("You are not authorized to approve!!!");
                         return;
                     }
                 },

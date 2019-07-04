@@ -1913,31 +1913,50 @@
         function ApproveRow() {
             debugger
             event.preventDefault();
-
-            var Row = AopTable.rows('.selected').data()[0];
-            var index = AopTable.row('.selected').index();
-
-            var aop =
-            {
-                Id: Row.Id,
-                ApprovedTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
-            };
-
             $.ajax({
                 type: "POST",
-                url: "/AopPrint/Approve",
+                url: "/UserManagement/HasRight",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify(aop),
+                data: JSON.stringify({ text: "Aop" }),
                 success: function (response) {
                     debugger
-                    if (response.data != "" && response.data != null) {
+                    if (response == "true") {
                         debugger
-                        AopTable.row(index).data(response.data).draw();
-                        Reset();
+                        var Row = AopTable.rows('.selected').data()[0];
+                        var index = AopTable.row('.selected').index();
+
+                        var aop =
+                        {
+                            Id: Row.Id,
+                            ApprovedTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
+                        };
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/AopPrint/Approve",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(aop),
+                            success: function (response) {
+                                debugger
+                                if (response.data != "" && response.data != null) {
+                                    debugger
+                                    AopTable.row(index).data(response.data).draw();
+                                    Reset();
+                                }
+                                else {
+                                    alert("Failed to Approve!!!");
+                                    return;
+                                }
+                            },
+                            failure: function () {
+                                $("#tblItems").append(" Error when fetching data please contact administrator");
+                            }
+                        });
                     }
                     else {
-                        alert("Failed to Approve!!!");
+                        alert("You are not authorized to approve!!!");
                         return;
                     }
                 },
@@ -1951,29 +1970,50 @@
             debugger
             event.preventDefault();
 
-            var Row = AopTable.rows('.selected').data()[0];
-            var index = AopTable.row('.selected').index();
-
-            var aop =
-            {
-                Id: Row.Id
-            };
-
             $.ajax({
                 type: "POST",
-                url: "/AopPrint/Unapprove",
+                url: "/UserManagement/HasRight",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify(aop),
+                data: JSON.stringify({ text: "Aop" }),
                 success: function (response) {
                     debugger
-                    if (response.data != "" && response.data != null) {
+                    if (response == "true") {
                         debugger
-                        AopTable.row(index).data(response.data).draw();
-                        Reset();
+                        var Row = AopTable.rows('.selected').data()[0];
+                        var index = AopTable.row('.selected').index();
+
+                        var aop =
+                        {
+                            Id: Row.Id,
+                            ApprovedTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
+                        };
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/AopPrint/Unapprove",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(aop),
+                            success: function (response) {
+                                debugger
+                                if (response.data != "" && response.data != null) {
+                                    debugger
+                                    AopTable.row(index).data(response.data).draw();
+                                    Reset();
+                                }
+                                else {
+                                    alert("Failed to Unapprove!!!");
+                                    return;
+                                }
+                            },
+                            failure: function () {
+                                $("#tblItems").append(" Error when fetching data please contact administrator");
+                            }
+                        });
                     }
                     else {
-                        alert("Failed to Unapprove!!!");
+                        alert("You are not authorized to approve!!!");
                         return;
                     }
                 },

@@ -45,6 +45,7 @@ namespace TextileResearchDevelopment.Models
         public int Id { get; set; }
         public int MCNO { get; set; }
         public string McDiaGauge { get; set; }
+        public string Brand { get; set; }
     }
 
     public class YarnCountType

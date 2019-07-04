@@ -1675,31 +1675,50 @@
         function ApproveRow() {
             debugger
             event.preventDefault();
-
-            var Row = StenterTable.rows('.selected').data()[0];
-            var index = StenterTable.row('.selected').index();
-
-            var stenter =
-            {
-                Id: Row.Id,
-                ApprovedTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
-            };
-
             $.ajax({
                 type: "POST",
-                url: "/Stenter/Approve",
+                url: "/UserManagement/HasRight",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify(stenter),
+                data: JSON.stringify({ text: "Stenter" }),
                 success: function (response) {
                     debugger
-                    if (response.data != "" && response.data != null) {
+                    if (response == "true") {
                         debugger
-                        StenterTable.row(index).data(response.data).draw();
-                        Reset();
+                        var Row = StenterTable.rows('.selected').data()[0];
+                        var index = StenterTable.row('.selected').index();
+
+                        var stenter =
+                        {
+                            Id: Row.Id,
+                            ApprovedTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
+                        };
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/Stenter/Approve",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(stenter),
+                            success: function (response) {
+                                debugger
+                                if (response.data != "" && response.data != null) {
+                                    debugger
+                                    StenterTable.row(index).data(response.data).draw();
+                                    Reset();
+                                }
+                                else {
+                                    alert("Failed to Approve!!!");
+                                    return;
+                                }
+                            },
+                            failure: function () {
+                                $("#tblItems").append(" Error when fetching data please contact administrator");
+                            }
+                        });
                     }
                     else {
-                        alert("Failed to Approve!!!");
+                        alert("You are not authorized to approve!!!");
                         return;
                     }
                 },
@@ -1713,29 +1732,50 @@
             debugger
             event.preventDefault();
 
-            var Row = StenterTable.rows('.selected').data()[0];
-            var index = StenterTable.row('.selected').index();
-
-            var stenter =
-            {
-                Id: Row.Id
-            };
-
             $.ajax({
                 type: "POST",
-                url: "/Stenter/Unapprove",
+                url: "/UserManagement/HasRight",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify(stenter),
+                data: JSON.stringify({ text: "Stenter" }),
                 success: function (response) {
                     debugger
-                    if (response.data != "" && response.data != null) {
+                    if (response == "true") {
                         debugger
-                        StenterTable.row(index).data(response.data).draw();
-                        Reset();
+                        var Row = StenterTable.rows('.selected').data()[0];
+                        var index = StenterTable.row('.selected').index();
+
+                        var stenter =
+                        {
+                            Id: Row.Id,
+                            ApprovedTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
+                        };
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/Stenter/Unapprove",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(stenter),
+                            success: function (response) {
+                                debugger
+                                if (response.data != "" && response.data != null) {
+                                    debugger
+                                    StenterTable.row(index).data(response.data).draw();
+                                    Reset();
+                                }
+                                else {
+                                    alert("Failed to Unapprove!!!");
+                                    return;
+                                }
+                            },
+                            failure: function () {
+                                $("#tblItems").append(" Error when fetching data please contact administrator");
+                            }
+                        });
                     }
                     else {
-                        alert("Failed to Unapprove!!!");
+                        alert("You are not authorized to approve!!!");
                         return;
                     }
                 },

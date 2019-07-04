@@ -53,9 +53,10 @@
                                             <div class="form-group col-xs-12 form-inline">
                                                 <label for="DiaGaugeMD" class="control-label" style="width:35%;">Mc Dia Gauge</label>
                                                 <div style="display: inline;">
-                                                    <input type="number" class="form-control form-inline" style="width:20%;" id="McNoMD" placeholder="Mc No" required autofocus>
-                                                    <input type="number" class="form-control form-inline" style="width:20%;" id="DiaMD" placeholder="Dia" required autofocus>
-                                                    <input type="number" class="form-control form-inline" style="width:20%;" id="GaugeMD" placeholder="Guage" required autofocus>
+                                                    <input type="number" class="form-control form-inline" style="width:15%;" id="McNoMD" placeholder="Mc No" required autofocus>
+                                                    <input type="number" class="form-control form-inline" style="width:15%;" id="DiaMD" placeholder="Dia" required autofocus>
+                                                    <input type="number" class="form-control form-inline" style="width:15%;" id="GaugeMD" placeholder="Guage" required autofocus>
+                                                    <input type="text" class="form-control form-inline" style="width:15%;" id="BrandMD" placeholder="Brand" required autofocus>
                                                 </div>
                                             </div>
                                         </div>
@@ -78,6 +79,7 @@
                                         <th>Id</th>
                                         <th>Machine No</th>
                                         <th>Dia Guage</th>
+                                        <th>Brand</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -963,7 +965,8 @@
                     },
                     { "data": "Id" },
                     { "data": "MCNO" },
-                    { "data": "McDiaGauge" }
+                    { "data": "McDiaGauge" },
+                    { "data": "Brand" }
                 ]
             });
         });
@@ -1263,6 +1266,7 @@
                     debugger
                     var rowdata = DiaGaugeTable.row(this).data();
                     $('#McNoMD').val(rowdata.MCNO);
+                    $('#BrandMD').val(rowdata.Brand);
                     $('#DiaMD').val(rowdata.McDiaGauge.split('*')[0]);
                     $('#GaugeMD').val(rowdata.McDiaGauge.split('*')[1])
                     $('#editDiaGaugeBtn').prop("disabled", false);
@@ -1688,6 +1692,7 @@
             var diaObj = {
                 Id: '0',
                 MCNO: $("#McNoMD").val(),
+                Brand: $("#BrandMD").val(),
                 McDiaGauge: $("#DiaMD").val() + "*" + $("#GaugeMD").val()
             };
 
@@ -1701,7 +1706,7 @@
                     debugger
                     if (response.data != "" && response.data != null) {
                         DiaGaugeTable.row.add(response.data).draw();
-                        $("#McNoMD").val(""); $("#DiaMD").val(""); $("#GaugeMD").val("");
+                        $("#McNoMD").val(""); $("#DiaMD").val(""); $("#GaugeMD").val(""); $('#BrandMD').val("");
                     }
                     else {
                         alert("Failed to Save!!!");
@@ -1868,6 +1873,7 @@
                 {
                     Id: Row.Id,
                     MCNO: $("#McNoMD").val(),
+                    Brand: $('#BrandMD').val(),
                     McDiaGauge: $("#DiaMD").val() + "*" + $("#GaugeMD").val()
                 };
 
@@ -1882,7 +1888,7 @@
                         if (response.data != "" && response.data != null) {
                             debugger
                             DiaGaugeTable.row(index).data(response.data).draw();
-                            $("#DiaMD").val(""); $("#GaugeMD").val("");
+                            $("#DiaMD").val(""); $("#GaugeMD").val("");$('#BrandMD').val("");
                         }
                         else {
                             alert("Failed to Update!!!");
@@ -2105,7 +2111,7 @@
         });
 
         $("#resetDiaGaugeBtn").click(function () {
-            $("#DiaMD").val(""); $("#GaugeMD").val("");
+            $("#DiaMD").val(""); $("#GaugeMD").val(""); $('#BrandMD').val(""); $('#McNoMD').val("");
             $('#editDiaGaugeBtn').prop("disabled", true);
             $('#deleteDiaGaugeBtn').prop("disabled", true);
             $('#saveDiaGaugeBtn').prop("disabled", false);
@@ -2178,31 +2184,50 @@
         function ApproveRow() {
             debugger
             event.preventDefault();
-
-            var KnitRow = knitTable.rows('.selected').data()[0];
-            var index = knitTable.row('.selected').index();
-
-            var knitObj =
-            {
-                Id: KnitRow.Id,
-                ApprovedTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
-            };
-
             $.ajax({
                 type: "POST",
-                url: "/Knitting/Approve",
+                url: "/UserManagement/HasRight",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify(knitObj),
+                data: JSON.stringify({ text: "Knitting" }),
                 success: function (response) {
                     debugger
-                    if (response.data != "" && response.data != null) {
+                    if (response == "true") {
                         debugger
-                        knitTable.row(index).data(response.data).draw();
-                        Reset();
+                        var Row = knitTable.rows('.selected').data()[0];
+                        var index = knitTable.row('.selected').index();
+
+                        var knitObj =
+                        {
+                            Id: Row.Id,
+                            ApprovedTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
+                        };
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/Knitting/Approve",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(knitObj),
+                            success: function (response) {
+                                debugger
+                                if (response.data != "" && response.data != null) {
+                                    debugger
+                                    knitTable.row(index).data(response.data).draw();
+                                    Reset();
+                                }
+                                else {
+                                    alert("Failed to Approve!!!");
+                                    return;
+                                }
+                            },
+                            failure: function () {
+                                $("#tblItems").append(" Error when fetching data please contact administrator");
+                            }
+                        });
                     }
                     else {
-                        alert("Failed to Approve!!!");
+                        alert("You are not authorized to approve!!!");
                         return;
                     }
                 },
@@ -2216,29 +2241,50 @@
             debugger
             event.preventDefault();
 
-            var KnitRow = knitTable.rows('.selected').data()[0];
-            var index = knitTable.row('.selected').index();
-
-            var knitObj =
-            {
-                Id: KnitRow.Id
-            };
-
             $.ajax({
                 type: "POST",
-                url: "/Knitting/Unapprove",
+                url: "/UserManagement/HasRight",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify(knitObj),
+                data: JSON.stringify({ text: "Knitting" }),
                 success: function (response) {
                     debugger
-                    if (response.data != "" && response.data != null) {
+                    if (response == "true") {
                         debugger
-                        knitTable.row(index).data(response.data).draw();
-                        Reset();
+                        var Row = knitTable.rows('.selected').data()[0];
+                        var index = knitTable.row('.selected').index();
+
+                        var knitObj =
+                        {
+                            Id: Row.Id,
+                            ApprovedTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
+                        };
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/Knitting/Unapprove",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(knitObj),
+                            success: function (response) {
+                                debugger
+                                if (response.data != "" && response.data != null) {
+                                    debugger
+                                    knitTable.row(index).data(response.data).draw();
+                                    Reset();
+                                }
+                                else {
+                                    alert("Failed to Unapprove!!!");
+                                    return;
+                                }
+                            },
+                            failure: function () {
+                                $("#tblItems").append(" Error when fetching data please contact administrator");
+                            }
+                        });
                     }
                     else {
-                        alert("Failed to Unapprove!!!");
+                        alert("You are not authorized to approve!!!");
                         return;
                     }
                 },
