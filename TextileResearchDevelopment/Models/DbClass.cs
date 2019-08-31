@@ -15,12 +15,19 @@ namespace TextileResearchDevelopment.Models
         public int SuperAdmin { get; set; }
         public int Fabric { get; set; }
         public int Knitting { get; set; }
+        public int CW { get; set; }
+        public int HSP { get; set; }
+        public int Singeing { get; set; }
         public int Dyeing { get; set; }
-        public int Slitting { get; set; }
+        public int Dryer { get; set; }
         public int Stenter { get; set; }
-        public int Aop { get; set; }
-        public int Test { get; set; }
-        public int Remarks { get; set; }
+        public int Compacting { get; set; }
+
+        public int Peach { get; set; }
+        public int Brush { get; set; }
+        public int PrintInfo { get; set; }
+        public int QC { get; set; }
+
         public string PermissionString { get; set; }
         public DateTime CreateDate { get; set; }
         public int LogIn { get; set; }
@@ -40,18 +47,49 @@ namespace TextileResearchDevelopment.Models
         public string FabricTypeName { get; set; }
     }
 
+    public class CompositionType
+    {
+        public int Id { get; set; }
+        public string Composition { get; set; }
+    }
+
     public class McDiaGaugeType
     {
         public int Id { get; set; }
-        public int MCNO { get; set; }
-        public string McDiaGauge { get; set; }
-        public string Brand { get; set; }
+        public string McNo { get; set; }
+        public string McDia { get; set; }
+        public string McGauge { get; set; }
+        public string McBrand { get; set; }
     }
 
     public class YarnCountType
     {
         public int Id { get; set; }
         public string YarnCount { get; set; }
+    }
+
+    public class YarnColorType
+    {
+        public int Id { get; set; }
+        public string YarnColor { get; set; }
+    }
+
+    public class PrintFactoryType
+    {
+        public int Id { get; set; }
+        public string PrintFactory { get; set; }
+    }
+
+    public class ProductionType
+    {
+        public int Id { get; set; }
+        public string Production { get; set; }
+    }
+
+    public class YarnType
+    {
+        public int Id { get; set; }
+        public string YarnName { get; set; }
     }
 
     public class KnitUnitType
@@ -87,7 +125,7 @@ namespace TextileResearchDevelopment.Models
     public class MachineType
     {
         public int Id { get; set; }
-        public string MachineName { get; set; }
+        public string McNo { get; set; }
     }
 
 

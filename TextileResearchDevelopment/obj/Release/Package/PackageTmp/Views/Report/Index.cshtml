@@ -1,0 +1,689 @@
+﻿@{
+    if (Request.IsAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<head>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+</head>
+
+<div id="MainDiv" class="panel panel-default ">
+    <h2>Master Report</h2>
+
+    <div class="modal fade" id="modalReport" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Search Result</h4>
+                </div>
+                <div class="modal-body">
+                    <a href="@Url.Action("ExportReport", "Report", new { id = 4 } )" class="btn btn-primary btn-md" role="button" aria-disabled="true">Export Report</a>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Report Search Result</div>
+                                <div class="panel-body">
+                                    <table id="ReportTable" class="display nowrap stripe hover order-column" style="width: 100%">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>BarCode</th>
+                                                <th>Buyer Name</th>
+                                                <th>FabricType</th>
+                                                <th>Order No</th>
+                                                <th>Color</th>
+                                                <th>ChallanNo</th>
+                                                <th>FabricDeliveryDate</th>
+                                                <th>DiaGuage</th>
+                                                <th>YarnCount</th>
+                                                <th>YarnBrand</th>
+                                                <th>YarnLot</th>
+                                                <th>KnitUnit</th>
+                                                <th>McNo</th>
+                                                <th>McBrand</th>
+                                                <th>GreyWidth</th>
+                                                <th>GreyGSM</th>
+                                                <th>TumbleWidth</th>
+                                                <th>TumbleGSM</th>
+                                                <th>DyeingUnit</th>
+                                                <th>BatchNo</th>
+                                                <th>Peder</th>
+                                                <th>Blower</th>
+                                                <th>SoftenerName</th>
+                                                <th>SoftenerGL</th>
+                                                <th>PrintName</th>
+                                                <th>MachineName</th>
+                                                <th>FinalWidth</th>
+                                                <th>FinalGSM</th>
+                                                <th>TumbleSP</th>
+                                                <th>Remarks</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th style="visibility:hidden;"></th>
+                                                <th>BarCode</th>
+                                                <th>Buyer Name</th>
+                                                <th>FabricType</th>
+                                                <th>Order No</th>
+                                                <th>Color</th>
+                                                <th>ChallanNo</th>
+                                                <th>FabricDeliveryDate</th>
+                                                <th>DiaGuage</th>
+                                                <th>YarnCount</th>
+                                                <th>YarnBrand</th>
+                                                <th>YarnLot</th>
+                                                <th>KnitUnit</th>
+                                                <th>McNo</th>
+                                                <th>McBrand</th>
+                                                <th>GreyWidth</th>
+                                                <th>GreyGSM</th>
+                                                <th>TumbleWidth</th>
+                                                <th>TumbleGSM</th>
+                                                <th>DyeingUnit</th>
+                                                <th>BatchNo</th>
+                                                <th>Peder</th>
+                                                <th>Blower</th>
+                                                <th>SoftenerName</th>
+                                                <th>SoftenerGL</th>
+                                                <th>PrintName</th>
+                                                <th>MachineName</th>
+                                                <th>FinalWidth</th>
+                                                <th>FinalGSM</th>
+                                                <th>TumbleSP</th>
+                                                <th>Remarks</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button id="closeBtn" class="btn btn-danger">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default ">
+        <div class="panel-heading">
+            <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Searching Criteria</h5>
+        </div>
+        <div class="panel-body">
+            <form id="AopForm">
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="BarCodeSL" class="control-label" style="width:35%;">BarCode</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="BarCodeSL" placeholder="Bar Code" autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="BuyerSL" class="control-label" style="width:35%;">Buyer</label>
+                        <div style=" display: inline;">
+                            <select name="BuyerSL" id="BuyerSL" style="width:60%;" class="form-control input-sm" required autofocus></select>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="FabricSL" class="control-label" style="width:35%;">Fabric</label>
+                        <div style="display: inline;">
+                            <select name="FabricSL" id="FabricSL" style="width:60%;" class="form-control" autofocus></select>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline ">
+                        <label for="OrderNoSL" class="control-label" style="width:35%;">Order No</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="OrderNoSL" placeholder="Order No" autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="ColorSL" class="control-label" style="width:35%;">Color</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="ColorSL" placeholder="Color" autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="ChallanSL" class="control-label" style="width:35%;">Challan No</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="ChallanSL" placeholder="Challan No" autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="DiaGaugeSL" class="control-label" style="width:35%;">Dia-Guage</label>
+                        <div style="display: inline;">
+                            <select name="DiaGaugeSL" id="DiaGaugeSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="YarnCountSL" class="control-label" style="width:35%;">Yarn Count</label>
+                        <div style="display: inline;">
+                            <select name="YarnCountSL" id="YarnCountSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="YarnBrandSL" class="control-label" style="width:35%;">Yarn Brand</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control input-sm" style="width:60%;" id="YarnBrandSL" placeholder="Yarn Brand" autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="YarnLotSL" class="control-label" style="width:35%;">Yarn Lot</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="YarnLotSL" name="YarnLotSL" placeholder="Yarn Lot">
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="GreyWidthSL" class="control-label" style="width:35%;">Grey Width</label>
+                        <div style="display: inline;">
+                            <input type="number" class="form-control" style="width:60%;" id="GreyWidthSL" min="0" step="1" data-bind="value:GreyWidth" placeholder="Grey Width" autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="GreyGSMSL" class="control-label" style="width:35%;">Grey GSM</label>
+                        <div style="display: inline;">
+                            <input type="number" class="form-control" style="width:60%;" id="GreyGSMSL" min="0" step="1" data-bind="value:GreyGSM" placeholder="Grey GSM" autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="KnitUnitSL" class="control-label" style="width:35%;">Knit Unit</label>
+                        <div style="display: inline;">
+                            <select name="KnitUnitSL" id="KnitUnitSL" style="width:60%;" class="form-control" autofocus></select>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="McNoSL" class="control-label" style="width:35%;">MC No</label>
+                        <div style="display: inline;">
+                            <input type="number" class="form-control" style="width:60%;" id="McNoSL" min="0" step="1" data-bind="value:McNoSL" placeholder="MC No" autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="BrandSL" class="control-label" style="width:35%;">MC Brand</label>
+                        <div style="display: inline;">
+                            <select name="BrandSL" id="BrandSL" style="width:60%;" class="form-control" autofocus></select>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="DyeingUnitSL" class="control-label" style="width:35%;">DyeingUnit</label>
+                        <div style="display: inline;">
+                            <select name="DyeingUnitSL" id="DyeingUnitSL" style="width:60%;" class="form-control" autofocus></select>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="BatchNoSL" class="control-label" style="width:35%;">Batch No</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="BatchNoSL" name="BatchNoSL" placeholder="Batch No">
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="SoftenerUnitSL" class="control-label" style="width:35%;">Softener</label>
+                        <div style="display: inline;">
+                            <select name="SoftenerUnitSL" id="SoftenerUnitSL" style="width:60%;" class="form-control" autofocus></select>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="SoftenerGLSL" class="control-label" style="width:35%;">Softener GL</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="SoftenerGLSL" name="SoftenerGLSL" placeholder="Softener GL">
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="BlowerSL" class="control-label" style="width:35%;">Blower</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="BlowerSL" name="BlowerSL" placeholder="Blower">
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="PrintUnitSL" class="control-label" style="width:35%;">Print Type</label>
+                        <div style="display: inline;">
+                            <select name="PrintUnitSL" id="PrintUnitSL" style="width:60%;" class="form-control" autofocus></select>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="MachineUnitSL" class="control-label" style="width:35%;">Machine Type</label>
+                        <div style="display: inline;">
+                            <select name="MachineUnitSL" id="MachineUnitSL" style="width:60%;" class="form-control" autofocus></select>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="FinalWidthSL" class="control-label" style="width:35%;">Final Width</label>
+                        <div style="display: inline;">
+                            <input type="number" class="form-control" style="width:60%;" id="FinalWidthSL" min="0" step="1" data-bind="value:FinalWidthSL" placeholder="Final Width" autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="FinalGSMSL" class="control-label" style="width:35%;">Final GSM</label>
+                        <div style="display: inline;">
+                            <input type="number" class="form-control" style="width:60%;" id="FinalGSMSL" min="0" step="1" data-bind="value:FinalGSMSL" placeholder="Final GSM" autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <input type="checkbox" id="DeliveryDateCheckBox" style="width:5%;">
+                        <label for="DeliveryDateSL" class="control-label" style="width:30%;">Delivery Date</label>
+                        <div class='input-group date' id='DeliveryDateSL' style="width:60%;">
+                            <input type='text' class="form-control" id="DeliveryDateTextSL" disabled placeholder="Delivey Date" autofocus />
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="RemarksSL" class="control-label" style="width:35%;">Remarks</label>
+                        <div style="display: inline;">
+                            <input type='text' class="form-control" id="RemarksSL" placeholder="Remarks" autofocus />
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <button class="btn btn-warning btn-sm" style="width:35%;" id="resetBtn">Reset</button>
+                        <div style="display: inline;">
+                            <button type="submit" id="searchBtn" class="btn btn-primary btn-sm" style="width:60%;">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        debugger;
+
+        var ReportTable = $('#ReportTable').DataTable({
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: ':visible'
+                    },
+                },
+                'colvis'
+            ],
+            "dom": 'Bfrtip',
+            "scrollY": true,
+            "scrollX": true,
+            "Sorting": true,
+            "searching": true,
+            "destroy": true,
+            "select": {
+                style: 'single'
+            },
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "searchable": false,
+                    "orderable": false
+                }
+            ],
+            "columns": [
+                {
+                    "searchable": false,
+                    "render": function (data, type, full, meta) {
+                        return ReportTable.data().count();
+                    }
+                },
+                { "data": "BarCode" },
+                { "data": "BuyerName" },
+                { "data": "FabricName" },
+                { "data": "OrderNo" },
+                { "data": "Color" },
+                { "data": "ChallanNo" },
+                {
+                    data: "DeliveryDate",
+                    render: function (data, type, row) {
+                        return moment(data).format("DD/MM/YYYY  h:mm a");
+                    }
+                },
+                { "data": "McDiaGauge" },
+                { "data": "YarnCount" },
+                { "data": "YarnBrand" },
+                { "data": "YarnLot" },
+                { "data": "KnitUnit" },
+                { "data": "MCNO" },
+                { "data": "McBrand" },
+                { "data": "GreyWidth" },
+                { "data": "GreyGSM" },
+                { "data": "TumbleWidth" },
+                { "data": "TumbleGSM" },
+                { "data": "DyeingUnit" },
+                { "data": "BatchNo" },
+                { "data": "Peder" },
+                { "data": "Blower" },
+                { "data": "SoftenerName" },
+                { "data": "SoftenerGL" },
+                { "data": "PrintName" },
+                { "data": "MachineName" },
+                { "data": "FinalWidth" },
+                { "data": "FinalGSM" },
+                { "data": "TSP" },
+                { "data": "Remarks" }
+            ]
+        });
+
+        $('#DeliveryDateTextSL').daterangepicker({
+            locale: {
+                format: 'DD/MM/YYYY'
+            }
+        });
+
+        loadSoftenerUnitList();
+
+        function loadSoftenerUnitList() {
+            $.ajax({
+                type: "GET",
+                url: "/Stenter/GetSoftenerUnit",
+                data: "{}",
+                success: function (data) {
+                    debugger;
+                    var data = data.data;
+                    var s = '<option value="">Select Softener</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].Softener + '</option>';
+                    }
+                    $("#SoftenerUnitSL").html(s);
+                    loadPrintTypeList();
+                }
+            });
+        }
+
+        function loadPrintTypeList() {
+
+            $.ajax({
+                type: "GET",
+                url: "/AopPrint/GetPrintTypeList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select Print</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].PrintName + '</option>';
+                    }
+                    $("#PrintUnitSL").html(s);
+                    loadMachineTypeList();
+                }
+            });
+
+        }
+
+        function loadMachineTypeList() {
+
+            $.ajax({
+                type: "GET",
+                url: "/AopPrint/GetMachineTypeList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select Machine</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].MachineName + '</option>';
+                    }
+                    $("#MachineUnitSL").html(s);
+                    loadDyeingUnitList();
+                }
+            });
+
+        }
+
+        function loadDyeingUnitList() {
+            $.ajax({
+                type: "GET",
+                url: "/Dyeing/GetDyeingUnit",
+                data: "{}",
+                success: function (data) {
+                    debugger;
+                    var s = '<option value="">Select Dyeing</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].DyeingUnit + '</option>';
+                    }
+                    $("#DyeingUnitSL").html(s);
+                    loadBuyerList();
+                }
+            });
+        }
+
+        function loadBuyerList() {
+            $.ajax({
+                type: "GET",
+                url: "/Fabric/GetBuyerList",
+                data: "{}",
+                success: function (data) {
+                    debugger;
+                    var s = '<option value="">Select Buyer</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].BuyerName + '</option>';
+                    }
+                    $("#BuyerSL").html(s);
+                    loadFabricTypeList();
+                }
+            });
+        }
+
+        function loadFabricTypeList() {
+            $.ajax({
+                type: "GET",
+                url: "/Fabric/GetFabricTypeList",
+                data: "{}",
+                success: function (data) {
+                    var s = '<option value="">Select Fabric</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].FabricTypeName + '</option>';
+                    }
+                    $("#FabricSL").html(s);
+                    loadMCDIAList();
+                }
+            });
+        }
+
+        function loadMCDIAList() {
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetMCDIAList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select DiaGauge</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].McDiaGauge + '</option>';
+                    }
+                    $("#DiaGaugeSL").html(s);
+                    loadYarnCountList();
+                }
+            });
+        }
+
+        function loadYarnCountList() {
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetYarnCountList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select Yarn Count</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].YarnCount + '</option>';
+                    }
+                    $("#YarnCountSL").html(s);
+                    loadKnitUnitList();
+                }
+            });
+        }
+
+        function loadKnitUnitList() {
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetKnitUnitList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select KnitUnit</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].KnitUnit + '</option>';
+                    }
+                    $("#KnitUnitSL").html(s);
+                    loadMcBrandList();
+                }
+            });
+        }
+
+        function loadMcBrandList() {
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetMcBrandList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select McBrand</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].McBrand + '</option>';
+                    }
+                    $("#BrandSL").html(s);
+                }
+            });
+        }
+
+        $('#DeliveryDateCheckBox').change(function () {
+            debugger;
+            if ($(this).is(":checked")) {
+                $('#DeliveryDateTextSL').prop('disabled', false);
+            }
+            else {
+                $('#DeliveryDateTextSL').prop('disabled', true);
+            }
+        });
+
+        $("#searchBtn").click(function () {
+            debugger;
+            event.preventDefault();
+            
+            if (ValidateSearchingCriteria() == true) {
+                debugger;
+                var searchObj =
+                {
+                    BarCode: $("#BarCodeSL").val().toString(),
+                    BuyerID: $("#BuyerSL  option:selected").val(),
+                    FabricTypeID: $("#FabricSL  option:selected").val(),
+                    OrderNo: $("#OrderNoSL").val().length > 0 ? $("#OrderNoSL").val().toString() : '',
+                    Color: $("#ColorSL").val().length > 0 ? $("#ColorSL").val().toString() : '',
+                    ChallanNo: $("#ChallanSL").val().length > 0 ? $("#ChallanSL").val().toString() : '',
+                    DeliveryDateStart: $('#DeliveryDateCheckBox').is(":checked") == true ? $('#DeliveryDateTextSL').data('daterangepicker').startDate.format('DD/MM/YYYY') : '',
+                    DeliveryDateEnd: $('#DeliveryDateCheckBox').is(":checked") == true ? $('#DeliveryDateTextSL').data('daterangepicker').endDate.format('DD/MM/YYYY') : '',
+                    McDiaGauge: $("#DiaGaugeSL  option:selected").val(),
+                    YarnCountID: $("#YarnCountSL  option:selected").val(),
+                    YarnBrand: $("#YarnBrandSL").val().toString(),
+                    YarnLot: $("#YarnLotSL").val().toString(),
+                    KnitUnitID: $("#KnitUnitSL  option:selected").val(),
+                    GreyWidth: $("#GreyWidthSL").val().toString(),
+                    GreyGSM: $("#GreyGSMSL").val().toString(),
+                    MCNO: $("#McNoSL").val().toString(),
+                    McBrandID: $("#BrandSL  option:selected").val(),
+                    DyeingUnitID: $("#DyeingUnitSL  option:selected").val(),
+                    BatchNo: $("#BatchNoSL option:selected").val(),
+                    SoftenerID: $("#SoftenerUnitSL option:selected").val(),
+                    SoftenerGL: $("#SoftenerGLSL").val().toString(),
+                    Blower: $("#BlowerSL").val().toString(),
+                    PrintID: $("#PrintUnitSL option:selected").val(),
+                    MachineID: $("#MachineUnitSL option:selected").val(),
+                    FinalWidth: $("#FinalWidthSL").val(),
+                    FinalGSM: $("#FinalGSMSL").val()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Report/GetSearchResult",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(searchObj),
+                    success: function (response) {
+                        if (response != "" && response != null) {
+                            debugger
+                            ReportTable.clear().draw();
+                            ReportTable.rows.add(response).draw();
+                            $('#modalReport').modal('show');
+                        }
+                        else {
+                            alert("Failed to Search! No Date Found!!!");
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select Atleast One Criteria!!!");
+                return;
+            }
+        });
+
+        function ValidateSearchingCriteria() {
+            debugger;
+            if ($("#DiaGaugeSL  option:selected").val() == "" && $("#YarnCountSL  option:selected").val() == "" && $("#BrandSL  option:selected").val() == "" && $("#KnitUnitSL  option:selected").val() == "" &&
+                $("#BarCodeSL").val() == "" && $("#YarnBrandSL").val() == "" && $("#YarnLotSL").val() == "" && $("#ChallanSL").val() == "" && $("#GreyWidthSL").val() == "" && $('#DeliveryDateCheckBox').is(":checked") == false &&
+                $("#GreyGSMSL").val() == "" && $("#BuyerSL option:selected").val() == "" && $("#FabricSL option:selected").val() == "" && $("#OrderNoSL").val() == "" && $("#ColorSL").val() == "" && $("#DyeingUnitSL option:selected").val() == "" && $("#BatchNoSL").val() == "" && $("#SoftenerUnitSL option:selected").val() == "" && $("#PrintUnitSL option:selected").val() == "" && $("#MachineUnitSL option:selected").val() == "" && $("#FinalWidthSL").val() == "" && $("#FinalGSMSL").val() == "" && $("#RemarksSL").val() == "" && $("#McNoSL").val() == "") {
+
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        $("#closeBtn").click(function () {
+            $("#modalReport .close").click();
+        });
+
+        $("#resetBtn").click(function () {
+            event.preventDefault();
+            $("#BarCodeSL").val("");
+            $("#OrderNoSL").val("");
+            $("#ColorSL").val("");
+            $("#FabricNameSL").val("");
+            $("#BuyerNameSL").val("");
+            $("#DiaGaugeSL").val("");
+            $("#YarnCountSL").val("");
+            $("#YarnBrandSL").val("");
+            $("#YarnLotSL").val("");
+            $("#KnitUnitSL").val("");
+            $("#McNoSL").val(""),
+            $("#BrandSL").val("");
+            $("#GreyWidthSL").val("");
+            $("#GreyGSMSL").val("");
+            $("#ChallaNoSL").val("");
+            $("#DeliveryDateCheckBox").prop('checked',true);
+            $("#DyeingUnitSL").val("");
+            $("#BatchNoSL").val("");
+            $("#SoftenerUnitSL").val("");
+            $("#SoftenerGLSL").val("");
+            $("#BlowerSL").val("");
+            $("#PrintUnitSL").val("");
+            $("#MachineUnitSL").val("");
+            $("#FinalWidthSL").val("");
+            $("#FinalGSMSL").val("");
+            $("#RemarksSL").val("");
+
+        });
+
+    });
+
+</script>

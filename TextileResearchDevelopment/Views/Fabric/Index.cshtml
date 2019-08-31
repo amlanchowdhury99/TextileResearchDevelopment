@@ -6,39 +6,19 @@
 }
 
 <head>
+    <script type="text/javascript" src="~/Scripts/bootstrap3-typeahead.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap-multiselect.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-multiselect.css">
     <style>
-        .btn {
-            padding: 10px 20px;
-            font-size: 15px;
-            border-radius: 5px;
-        }
-
         tfoot input {
             width: 100%;
             padding: 3px;
             box-sizing: border-box;
         }
-
-        /*.modal-body .form-horizontal .col-sm-2,
-                .modal-body .form-horizontal .col-sm-10 {
-                    width: 100%
-                }
-
-                .modal-body .form-horizontal .control-label {
-                    text-align: left;
-                }
-
-                .modal-body .form-horizontal .col-sm-offset-2 {
-                    margin-left: 15px;
-                }*/
     </style>
 </head>
 
 <h2>Fabric Entry Form</h2>
-
-@Html.AntiForgeryToken()
-<hr />
-@Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 <div id="MainDiv">
 
@@ -63,9 +43,9 @@
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="FabricType" class="control-label" style="width:35%;">Sample Type</label>
+                        <label for="FabricType" class="control-label" style="width:35%;">Fabric Type</label>
                         <div style="display: inline;">
-                            <select name="sampleType" id="sampleType" style="width:50%;" class="form-control input-sm" required autofocus></select>
+                            <select name="FabricType" id="FabricType" style="width:50%;" class="form-control input-sm" required autofocus></select>
                             <a href="#" class="btn-sm btn-info" style="width:10%;">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </a>
@@ -86,65 +66,60 @@
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="Note" class="control-label" style="width:35%;">Sp Note</label>
+                        <label for="RefNo" class="control-label" style="width:35%;">Ref No</label>
                         <div style="display: inline;">
-                            <input type="text" class="form-control" style="width:60%;" id="Note" placeholder="Sp Note">
+                            <input type="text" class="form-control" style="width:60%;" id="RefNo" placeholder="Ref No">
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="Width" class="control-label" style="width:35%;">Required Width</label>
+                        <label for="BatchNo" class="control-label" style="width:35%;">Batch No</label>
                         <div style="display: inline;">
-                            <input type="text" class="typeahead form-control" style="width:60%;" id="Width" placeholder="Width" required autofocus>
-                        </div>
-                    </div>
-                </div>
-                <div class=" form-group">
-                    <div class="form-group col-xs-4 form-inline">
-                        <label for="GSM" class="control-label" style="width:35%;">Required GSM</label>
-                        <div style="display: inline;">
-                            <input type="number" class="typeahead form-control" style="width:60%;" id="GSM" min="0" step="1" data-bind="value:GSM" placeholder="GSM" required autofocus>
-                        </div>
-                    </div>
-                    <div class="form-group col-xs-4 form-inline">
-                        <label for="Status" class="control-label" style="width:35%;">LabDip Status</label>
-                        <div style="display: inline;">
-                            <input type="text" class="form-control" style="width:60%;" id="Status" placeholder="LabDip Status" required autofocus>
-                        </div>
-                    </div>
-                    <div class="form-group col-xs-4 form-inline">
-                        <label for="ChallanNo" class="control-label" style="width:35%;">Challan No</label>
-                        <div style="display: inline;">
-                            <input type="text" class="form-control" style="width:60%;" id="ChallanNo" placeholder="Challan No" required autofocus>
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="BatchNo" placeholder="Batch No" required autofocus>
                         </div>
                     </div>
                 </div>
                 <div class=" form-group">
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="DeliveryQty" class="control-label" style="width:35%;">Delivery Quatity</label>
+                        <label for="CompositionType" class="control-label" style="width:35%;">Composition</label>
                         <div style="display: inline;">
-                            <input type="number" class="form-control" style="width:60%;" id="DeliveryQty" min="0" step="1" data-bind="value:DeliveryQty" placeholder="Delivery Quatity" required autofocus>
+                            <select name="CompositionType" id="CompositionType" style="width:50%;" class="form-control input-sm" required autofocus></select>
+                            <a href="#" class="btn-sm btn-info" style="width:10%;">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="DeliveryDate" class="control-label" style="width:35%;">Delivery Date</label>
-                        <div class='input-group date' id='DeliveryDate' style="width:60%;">
-                            <input type='text' class="form-control" id="DeliveryDateText" placeholder="Delivey Date" required autofocus />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
+                        <label for="Version" class="control-label" style="width:35%;">Version</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="Version" placeholder="Version" required autofocus>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
-                        <button class="btn btn-warning btn-sm" style="width:35%;" id="resetBtn">Reset</button>
+                        <label for="Season" class="control-label" style="width:35%;">Season</label>
                         <div style="display: inline;">
-                            @*<button type="submit" id="saveBtn" class="btn btn-primary btn-sm" style="width:60%;">Save</button>*@
-                            <input type="submit" value="Save" class="btn btn-primary btn-sm" style="width:60%;" name="saveBtn">
+                            <input type="text" class="form-control" style="width:60%;" id="Season" placeholder="Season" required autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-xs-4 form-inline ">
+                    <label for="FP" class="control-label" style="width: 35%;">Fabric Process</label>
+                    <div style="display: inline;">
+                        <select name="FP" id="FP" multiple="multiple" style="width: 60%;display: inline;" class="form-control" required autofocus></select>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <button class="btn btn-warning btn-sm" style="width:32%;" id="resetBtn">Reset</button>
+                        <div style="display: inline;">
+                            <input type="submit" value="Update" class="btn btn-primary btn-sm" style="width:32%;" id="updateBtn">
+                        </div>
+                        <div style="display: inline;">
+                            <input type="submit" value="Save" class="btn btn-primary btn-sm" style="width:32%;" id="saveBtn">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        @*<div class="valid-tooltip">Good! Your email address looks valid.</div>*@
         <table id="fabricTable" class="stripe hover order-column" style="width: 100%">
             <thead>
                 <tr>
@@ -152,17 +127,20 @@
                     <th>Id</th>
                     <th>BuyerID</th>
                     <th>FabricTypeID</th>
+                    <th>CompositionTypeID</th>
                     <th>BuyerName</th>
                     <th>FabricType</th>
+                    <th>Composition</th>
                     <th>OrderNo</th>
                     <th>Color</th>
-                    <th>Note</th>
-                    <th>Width</th>
-                    <th>GSM</th>
-                    <th>Status</th>
-                    <th>ChallanNo</th>
-                    <th>DeliveryQty</th>
-                    <th>DeliveryDate</th>
+                    <th>RefNo</th>
+                    <th>BatchNo</th>
+                    <th>Season</th>
+                    <th>Version</th>
+                    <th>Create Time</th>
+                    <th>Create By</th>
+                    <th>Update Time</th>
+                    <th>Update By</th>
                 </tr>
             </thead>
             <tfoot>
@@ -171,21 +149,32 @@
                     <th></th>
                     <th></th>
                     <th></th>
+                    <th></th>
                     <th>BuyerName</th>
                     <th>FabricType</th>
+                    <th>Composition</th>
                     <th>OrderNo</th>
                     <th>Color</th>
-                    <th>Note</th>
-                    <th>Width</th>
-                    <th>GSM</th>
-                    <th>Status</th>
-                    <th>ChallanNo</th>
-                    <th>DeliveryQty</th>
-                    <th>DeliveryDate</th>
+                    <th>RefNo</th>
+                    <th>BatchNo</th>
+                    <th>Season</th>
+                    <th>Version</th>
+                    <th>Create Time</th>
+                    <th>Create By</th>
+                    <th>Update Time</th>
+                    <th>Update By</th>
                 </tr>
             </tfoot>
         </table>
     </form>
+
+    <div class="footer-w3l">
+        <div class="content">
+            <img src='../Content/images/logo.png' ; style="width:71px; height:40px">
+            <p class="foot">2019 © URMI IT Department. All rights reserved.</p>
+        </div>
+    </div>
+
 </div>
 
 <script>
@@ -250,7 +239,7 @@
             };
         })(jQuery, window);
 
-        $("#knitTable tbody").contextMenu({
+        $("#fabricTable tbody").contextMenu({
             menuSelector: "#contextMenu",
             menuSelected: function (invokedOn, selectedMenu) {
                 debugger;
@@ -258,7 +247,64 @@
             }
         });
 
-        loadBuyerList();
+        loadFPList();
+
+        function loadFPList() {
+            debugger;
+            var s = '';
+            for (var i = 0; i < 12; i++) {
+                if (i == 1)
+                    s += '<option value="' + i + '">Knitting</option>';
+                if (i == 2)
+                    s += '<option value="' + i + '">CW</option>';
+                if (i == 3)
+                    s += '<option value="' + i + '">HSP</option>';
+                if (i == 4)
+                    s += '<option value="' + i + '">Singeing</option>';
+                if (i == 5)
+                    s += '<option value="' + i + '">Dyeing</option>';
+                if (i == 6)
+                    s += '<option value="' + i + '">Dryer</option>';
+                if (i == 7)
+                    s += '<option value="' + i + '">Stenter</option>';
+                if (i == 8)
+                    s += '<option value="' + i + '">Compacting</option>';
+                if (i == 9)
+                    s += '<option value="' + i + '">Peach</option>';
+                if (i == 10)
+                    s += '<option value="' + i + '">Brush</option>';
+                if (i == 11)
+                    s += '<option value="' + i + '">PrintInfo</option>';
+                if (i == 12)
+                    s += '<option value="' + i + '">QC</option>';
+            }
+            $("#FP").html(s);
+            $('#FP').multiselect({
+                buttonWidth: '60%',
+                enableFiltering: true,
+                includeSelectAllOption: true
+            });
+            $('#FP').multiselect('refresh');
+            loadCompositionList();
+        }
+
+        function loadCompositionList() {
+            $.ajax({
+                type: "GET",
+                url: "/Fabric/GetCompositionTypeList",
+                data: "{}",
+                success: function (data) {
+                    debugger;
+                    var data = data.data;
+                    var s = '<option value="">Please Composition</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].Composition + '</option>';
+                    }
+                    $("#CompositionType").html(s);
+                    loadBuyerList();
+                }
+            });
+        }
 
         function loadBuyerList() {
             $.ajax({
@@ -267,6 +313,7 @@
                 data: "{}",
                 success: function (data) {
                     debugger
+                    var data = data.data;
                     var s = '<option value="">Please Buyer</option>';
                     for (var i = 0; i < data.length; i++) {
                         s += '<option value="' + data[i].Id + '">' + data[i].BuyerName + '</option>';
@@ -283,19 +330,15 @@
                 url: "/Fabric/GetFabricTypeList",
                 data: "{}",
                 success: function (data) {
+                    var data = data.data;
                     var s = '<option value="">Please Sample Type</option>';
                     for (var i = 0; i < data.length; i++) {
                         s += '<option value="' + data[i].Id + '">' + data[i].FabricTypeName + '</option>';
                     }
-                    $("#sampleType").html(s);
+                    $("#FabricType").html(s);
                 }
             });
         }
-
-        $('#DeliveryDate').datetimepicker({
-            defaultDate: new Date(),
-            format: 'DD/MM/YYYY'
-        });
 
         // Setup - add a text input to each footer cell
         $('#fabricTable tfoot th').each(function () {
@@ -304,7 +347,7 @@
         });
 
         // DataTable
-        var table = $('#fabricTable').DataTable({
+        var fabricTable = $('#fabricTable').DataTable({
             "ajax":
             {
                 "url": "/Fabric/GetData",
@@ -316,7 +359,9 @@
             "Sorting": true,
             "searching": true,
             "destroy": true,
-
+            "select": {
+                style: 'single'
+            },
             "columnDefs": [
                 {
                     "targets": [0],
@@ -324,60 +369,90 @@
                     "orderable": false,
                 },
                 {
-                    "targets": [1, 2, 3],
+                    "targets": [1, 2, 3, 4],
                     "visible": false,
                     "searchable": false
                 }
             ],
-
             "columns": [
                 {
                     "searchable": false,
                     "render": function (data, type, full, meta) {
-                        return table.data().count();
+                        return fabricTable.data().count();
                     }
                 },
                 {
                     "data": "Id"
                 },
                 {
-                    "data": "BuyerID"
+                    "data": "buyer.Id"
                 },
                 {
-                    "data": "FabricTypeID"
+                    "data": "fb.Id"
                 },
-                { "data": "BuyerName" },
-                { "data": "FabricType" },
+                {
+                    "data": "cm.Id"
+                },
+                { "data": "buyer.BuyerName" },
+                { "data": "fb.FabricTypeName" },
+                { "data": "cm.Composition" },
                 { "data": "OrderNo" },
                 { "data": "Color" },
-                { "data": "Note" },
-                { "data": "Width" },
-                { "data": "GSM" },
-                { "data": "Status" },
-                { "data": "ChallanNo" },
-                { "data": "DeliveryQty" },
+                { "data": "RefNo" },
+                { "data": "BatchNo" },
+                { "data": "Season" },
+                { "data": "Version" },
                 {
-                    data: "DeliveryDate",
+                    data: "CreateTime",
                     render: function (data, type, row) {
-                        return moment(data).format("DD/MM/YYYY h:mm a");
+                        debugger;
+                        return moment(data, "YYYY/MM/DD HH:mm").format("DD/MM/YYYY h:mm");
+                    }
+                },
+                { "data": "CreateBy" },
+                {
+                    data: "UpdateTime",
+                    render: function (data, type, row) {
+                        if (data != null)
+                            return moment(data, "YYYY/MM/DD HH:mm").format("DD/MM/YYYY h:mm");
+                        else
+                            return "N/A"
+                    }
+                },
+                {
+                    "data": "UpdateBy",
+                    render: function (data, type, row) {
+                        if (data != "")
+                            return data;
+                        else
+                            return "N/A"
                     }
                 }
             ]
         });
 
         $('#fabricTable tbody').on('click', 'tr', function () {
+            event.preventDefault();
+            if (fabricTable.data().any()) {
+                $('#fabricTable tbody tr').removeClass('selected');
+                $(this).toggleClass('selected');
 
-            $(this).toggleClass('selected');
-
-            if ($(this).hasClass('selected')) {
-                var rowdata = table.row(this).data();
-                Setvalue(rowdata)
+                if (fabricTable.rows('.selected').any()) {
+                    var rowdata = fabricTable.row(this).data();
+                    Setvalue(rowdata);
+                }
+                else {
+                    Reset();
+                }
             }
-
+            else {
+                $('#saveBtn').prop("disabled", false);
+                $('#updateBtn').prop("disabled", true);
+            }
         });
 
         // Apply the search
-        table.columns().every(function () {
+        fabricTable.columns().every(function () {
             var that = this;
 
             $('input', this.footer()).on('keyup change', function () {
@@ -388,79 +463,247 @@
         });
 
         $('#FabicForm').submit(function (e) {
-
             event.preventDefault();
-            var fabricObj = {
-                Id: '0',
-                BuyerID: $("#BuyerName").val(),
-                FabricTypeID: $("#sampleType").val(),
-                BuyerName: $("#BuyerName  option:selected").text(),
-                FabricType: $("#sampleType  option:selected").text(),
-                OrderNo: $("#OrderNo").val(),
-                Color: $("#Color").val(),
-                Note: $("#Note").val(),
-                Width: $("#Width").val(),
-                GSM: $("#GSM").val(),
-                Status: $("#Status").val(),
-                ChallanNo: $("#ChallanNo").val(),
-                DeliveryQty: $("#DeliveryQty").val(),
-                DeliveryDate: moment($("#DeliveryDateText").val()).format("YYYY/MM/DD")
-            };
 
-            $.ajax({
-                type: "POST",
-                url: "/Fabric/Create",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                data: JSON.stringify(fabricObj),
-                success: function (response) {
-                    if (response.data != "" && response.data != null) {
-                        table.row.add(response.data);
-                        table.draw();
-                        Reset();
+            debugger;
+
+            if (IsValid()) {
+                var buyer = {
+                    "Id": $("#BuyerName").val()
+                };
+                var fb = {
+                    "Id": $("#FabricType").val()
+                };
+                var cm = {
+                    "Id": $("#CompositionType").val()
+                };
+                var ua = {
+                    "Knitting": $("#FP").val()[0] == null ? 0 : 1,
+                    "CW": $("#FP").val()[1] == null ? 0 : 1,
+                    "HSP": $("#FP").val()[2] == null ? 0 : 1,
+                    "Singeing": $("#FP").val()[3] == null ? 0 : 1,
+                    "Dyeing": $("#FP").val()[4] == null ? 0 : 1,
+                    "Dryer": $("#FP").val()[5] == null ? 0 : 1,
+                    "Stenter": $("#FP").val()[6] == null ? 0 : 1,
+                    "Compacting": $("#FP").val()[7] == null ? 0 : 1,
+                    "Peach": $("#FP").val()[8] == null ? 0 : 1,
+                    "Brush": $("#FP").val()[9] == null ? 0 : 1,
+                    "PrintInfo": $("#FP").val()[10] == null ? 0 : 1,
+                    "QC": $("#FP").val()[11] == null ? 0 : 1
+                };
+
+                var fabricObj = {
+                    Id: '0',
+                    buyer: buyer,
+                    fb: fb,
+                    cm: cm,
+                    OrderNo: $("#OrderNo").val(),
+                    Color: $("#Color").val(),
+                    RefNo: $("#RefNo").val(),
+                    BatchNo: $("#BatchNo").val(),
+                    Season: $("#Season").val(),
+                    Version: $("#Version").val(),
+                    ua: ua,
+
+                    //DeliveryDate: moment($("#DeliveryDateText").val()).format("YYYY/MM/DD")
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Fabric/IsFabricDuplicate",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(fabricObj),
+                    success: function (response) {
+                        debugger;
+                        if (response == false) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/Fabric/CRUD",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                data: JSON.stringify(fabricObj),
+                                success: function (response) {
+                                    debugger;
+                                    if (response.data != "" && response.data != null) {
+                                        fabricTable.row.add(response.data);
+                                        fabricTable.draw();
+                                        Reset();
+                                    }
+                                    else {
+                                        alert("Failed to Save!!!");
+                                        return;
+                                    }
+                                },
+                                failure: function () {
+                                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                                }
+                            });
+                        }
+                        else {
+                            alert("This record already exists!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
                     }
-                    else {
-                        alert("Failed to Save!!!");
-                        return;
-                    }
-                },
-                failure: function () {
-                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                });
+            }
+        });
+
+        $("#updateBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#fabricTable tbody tr').hasClass('selected')) {
+                debugger;
+
+                if (IsValid()) {
+                    var buyer = {
+                        "Id": $("#BuyerName").val()
+                    };
+                    var fb = {
+                        "Id": $("#FabricType").val()
+                    };
+                    var cm = {
+                        "Id": $("#CompositionType").val()
+                    };
+                    var ua = {
+                        "Knitting": $("#FP").val()[0] == null ? 0 : 1,
+                        "CW": $("#FP").val()[1] == null ? 0 : 1,
+                        "HSP": $("#FP").val()[2] == null ? 0 : 1,
+                        "Singeing": $("#FP").val()[3] == null ? 0 : 1,
+                        "Dyeing": $("#FP").val()[4] == null ? 0 : 1,
+                        "Dryer": $("#FP").val()[5] == null ? 0 : 1,
+                        "Stenter": $("#FP").val()[6] == null ? 0 : 1,
+                        "Compacting": $("#FP").val()[7] == null ? 0 : 1,
+                        "Peach": $("#FP").val()[8] == null ? 0 : 1,
+                        "Brush": $("#FP").val()[9] == null ? 0 : 1,
+                        "PrintInfo": $("#FP").val()[10] == null ? 0 : 1,
+                        "QC": $("#FP").val()[11] == null ? 0 : 1
+                    };
+
+                    var fabricObj = {
+                        Id: Row.Id,
+                        buyer: buyer,
+                        fb: fb,
+                        cm: cm,
+                        OrderNo: $("#OrderNo").val(),
+                        Color: $("#Color").val(),
+                        RefNo: $("#RefNo").val(),
+                        BatchNo: $("#BatchNo").val(),
+                        Season: $("#Season").val(),
+                        Version: $("#Version").val(),
+                        ua: ua
+                    };
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Fabric/IsFabricDuplicate",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data: JSON.stringify(fabricObj),
+                        success: function (response) {
+                            debugger;
+                            if (response == false) {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/Fabric/CRUD",
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    data: JSON.stringify(fabricObj),
+                                    success: function (response) {
+                                        debugger
+                                        if (response.data != "" && response.data != null) {
+                                            fabricTable.row('.selected').data(response.data).draw();
+                                            Reset();
+                                        }
+                                        else {
+                                            alert("Failed to Update!!!");
+                                            return;
+                                        }
+                                    },
+                                    failure: function () {
+                                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                                    }
+                                });
+                            }
+                            else {
+                                alert("This record already exists!!!");
+                                return;
+                            }
+                        },
+                        failure: function () {
+                            $("#tblItems").append(" Error when fetching data please contact administrator");
+                        }
+                    });
                 }
-            });
-
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
         });
 
         function Setvalue(rowdata) {
-            $("#BuyerName").val(rowdata.BuyerID);
-            $("#sampleType").val(rowdata.FabricTypeID);
+            debugger;
+            $("#BuyerName").val(rowdata.buyer.Id);
+            $("#FabricType").val(rowdata.fb.Id);
+            $("#CompositionType").val(rowdata.cm.Id);
             $("#OrderNo").val(rowdata.OrderNo);
             $("#Color").val(rowdata.Color);
-            $("#Note").val(rowdata.Note);
-            $("#Width").val(rowdata.Width);
-            $("#GSM").val(rowdata.GSM);
-            $("#Status").val(rowdata.Status);
-            $("#ChallanNo").val(rowdata.ChallanNo);
-            $("#DeliveryQty").val(rowdata.DeliveryQty);
-            $("#DeliveryDateText").val(moment(rowdata.DeliveryDate).format("DD/MM/YYYY"));
+            $("#RefNo").val(rowdata.RefNo);
+            $("#BatchNo").val(rowdata.BatchNo);
+            $("#Season").val(rowdata.Season);
+            $("#Version").val(rowdata.Version);
+            $('#saveBtn').prop("disabled", true);
+            $('#updateBtn').prop("disabled", false);
+        }
+
+        function IsValid() {
+            if ($("#BuyerName").val() == "") {
+                alert("Please Select Buyer");
+                $("#BuyerName").focus();
+                return false;
+            }
+            if ($("#FabricType").val() == "") {
+                alert("Please Select Fabric");
+                $("#FabricType").focus();
+                return false;
+            }
+            if ($("#CompositionType").val() == "") {
+                alert("Please Select Composition");
+                $("#CompositionType").focus();
+                return false;
+            }
+            if ($("#FP").val() == "") {
+                alert("Please Choose Fabric Process");
+                $("#FP").focus();
+                return false;
+            }
+            return true;
         }
 
         $("#resetBtn").click(function () {
+            event.preventDefault();
             Reset();
         });
 
         function Reset() {
             $("#BuyerName").val("");
-            $("#sampleType").val("");
+            $("#FabricType").val("");
+            $("#CompositionType").val("");
             $("#OrderNo").val("");
             $("#Color").val("");
-            $("#Note").val("");
-            $("#Width").val("");
-            $("#GSM").val("");
-            $("#Status").val("");
-            $("#ChallanNo").val("");
-            $("#DeliveryQty").val("");
-            $("#DeliveryDateText").val("");
+            $("#RefNo").val("");
+            $("#BatchNo").val("");
+            $("#Season").val("");
+            $("#Version").val("");
+            $("#FP").val("");
+            $('#FP').multiselect('refresh');
+            $('#saveBtn').prop("disabled", false);
+            $('#updateBtn').prop("disabled", true);
+            $('#fabricTable tbody tr').removeClass('selected');
         }
 
         $('input.typeahead').keydown(function () {

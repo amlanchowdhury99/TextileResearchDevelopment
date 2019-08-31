@@ -56,8 +56,8 @@ namespace TextileResearchDevelopment.BLL
                 string query = "SELECT Count(*) As count FROM UserInfo WHERE UserName = '" + user.UserName + "'";
                 if (DBGateway.GetNumberForRows(query))
                 {
-                    query = " UPDATE UserInfo SET UserName = '" + user.UserName + "', Password = '" + user.Password + "', Fabric = " + user.Fabric + ", Knitting = " + user.Knitting + ", Dyeing = " + user.Dyeing + ", Slitting = " + user.Slitting + ", Stenter = " + user.Stenter + ", Aop = " + user.Aop + ", Test = " + user.Test + ", Remarks = " + user.Remarks + ", PermissionString = '" + user.PermissionString + "'" +
-                                                   " WHERE UserName = '" + user.UserName + "'";
+                    //query = " UPDATE UserInfo SET UserName = '" + user.UserName + "', Password = '" + user.Password + "', Fabric = " + user.Fabric + ", Knitting = " + user.Knitting + ", Dyeing = " + user.Dyeing + ", Slitting = " + user.Slitting + ", Stenter = " + user.Stenter + ", Aop = " + user.Aop + ", Test = " + user.Test + ", Remarks = " + user.Remarks + ", PermissionString = '" + user.PermissionString + "'" +
+                    //                               " WHERE UserName = '" + user.UserName + "'";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
                         Id = 1;
@@ -94,20 +94,20 @@ namespace TextileResearchDevelopment.BLL
                 string query = "SELECT * FROM UserInfo WHERE UserName = '"+ user.UserName+ "'";
                 if (!DBGateway.recordExist(query))
                 {
-                    query = " INSERT INTO UserInfo (UserName, Password, Fabric, Knitting, Dyeing, Slitting, Stenter, Aop, Test, Remarks, PermissionString, Date, LogIn) " +
-                                                   " VALUES('" + user.UserName + "','" + user.Password + "'," + user.Fabric + "," + user.Knitting + "," + user.Dyeing + "," + user.Slitting + "," + user.Stenter + "," + user.Aop + "," + user.Test + "," + user.Remarks + ",'" + user.PermissionString + "','" + user.CreateDate.ToString("yyyy/MM/dd") + "'," + user.LogIn + ")";
-                    if (DBGateway.ExecutionToDB(query, 1))
-                    {
-                        query = "SELECT TOP 1 (Id) AS Id FROM UserInfo order by Id desc";
-                        SqlDataReader reader = DBGateway.GetFromDB(query);
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                Id = Convert.ToInt32(reader["Id"]);
-                            }
-                        }
-                    }
+                    //query = " INSERT INTO UserInfo (UserName, Password, Fabric, Knitting, Dyeing, Slitting, Stenter, Aop, Test, Remarks, PermissionString, Date, LogIn) " +
+                    //                               " VALUES('" + user.UserName + "','" + user.Password + "'," + user.Fabric + "," + user.Knitting + "," + user.Dyeing + "," + user.Slitting + "," + user.Stenter + "," + user.Aop + "," + user.Test + "," + user.Remarks + ",'" + user.PermissionString + "','" + user.CreateDate.ToString("yyyy/MM/dd") + "'," + user.LogIn + ")";
+                    //if (DBGateway.ExecutionToDB(query, 1))
+                    //{
+                    //    query = "SELECT TOP 1 (Id) AS Id FROM UserInfo order by Id desc";
+                    //    SqlDataReader reader = DBGateway.GetFromDB(query);
+                    //    if (reader.HasRows)
+                    //    {
+                    //        while (reader.Read())
+                    //        {
+                    //            Id = Convert.ToInt32(reader["Id"]);
+                    //        }
+                    //    }
+                    //}
                 }
                 else
                 {
@@ -257,14 +257,14 @@ namespace TextileResearchDevelopment.BLL
                         user.LogIn = Convert.ToInt32(reader["LogIn"]);
                         user.Fabric = Convert.ToInt32(reader["Fabric"]);
                         user.Knitting = Convert.ToInt32(reader["Knitting"]);
-                        user.Dyeing = Convert.ToInt32(reader["Dyeing"]);
-                        user.Slitting = Convert.ToInt32(reader["Slitting"]);
-                        user.Stenter = Convert.ToInt32(reader["Stenter"]);
-                        user.Aop = Convert.ToInt32(reader["Aop"]);
-                        user.Test = Convert.ToInt32(reader["Test"]);
-                        user.Remarks = Convert.ToInt32(reader["Remarks"]);
-                        user.PermissionString = reader["PermissionString"].ToString();
-                        user.CreateDate = Convert.ToDateTime(reader["Date"]);
+                        //user.Dyeing = Convert.ToInt32(reader["Dyeing"]);
+                        //user.Slitting = Convert.ToInt32(reader["Slitting"]);
+                        //user.Stenter = Convert.ToInt32(reader["Stenter"]);
+                        //user.Aop = Convert.ToInt32(reader["Aop"]);
+                        //user.Test = Convert.ToInt32(reader["Test"]);
+                        //user.Remarks = Convert.ToInt32(reader["Remarks"]);
+                        //user.PermissionString = reader["PermissionString"].ToString();
+                        //user.CreateDate = Convert.ToDateTime(reader["Date"]);
 
                         users.Add(user);
                     }

@@ -1,0 +1,34 @@
+﻿.dataTable > thead > tr > th  {
+    color:sandybrown;
+}
+
+input[type="search"] {
+    background-color:wheat;
+}
+
+dt-button {
+    background-color: midnightblue;
+    color:white;
+}
+
+.footer-w3l {
+    position: fixed;
+    height: 70px;
+    background-color: white;
+    color:#006699;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin-bottom: 0px;
+    text-align: center;
+}
+
+table.dataTable.stripe tbody tr.odd.selected {
+    color: white;
+    background-color: #337ab7;
+}
+
+table.dataTable.stripe tbody tr.even.selected {
+    color: white;
+    background-color: #337ab7;
+}

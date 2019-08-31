@@ -1,0 +1,423 @@
+﻿@{
+    if (Request.IsAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<h2>User Registration Form</h2>
+
+@Html.AntiForgeryToken()
+<hr />
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+<div id="MainDiv" class="panel panel-default ">
+    <div class="panel panel-default ">
+        <div class="panel-heading">
+            <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Create Knitting Order</h5>
+        </div>
+        <div class="panel-body">
+            <form id="UserForm">
+                <div class=" form-group">
+                    <div class="form-group col-xs-6 form-inline">
+                        <label for="UserName" class="control-label" style="width:25%;">User Name</label>
+                        <div style=" display: inline;">
+                            <input type="email" class="form-control" style="width:70%;" id="UserName" required>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-6 form-inline">
+                        <label for="Password" class="control-label" style="width:25%;">Password</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:70%;" id="Password" required>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <label class="checkbox-inline" style="width:11%;">
+                        <input type="checkbox" id="Fabric" value="option1"> Fabric
+                    </label>
+                    <label class="checkbox-inline" style="width:11%;">
+                        <input type="checkbox" id="Knitting" value="option2"> Knitting
+                    </label>
+                    <label class="checkbox-inline" style="width:11%;">
+                        <input type="checkbox" id="Dyeing" value="option3"> Dyeing
+                    </label>
+                    <label class="checkbox-inline" style="width:11%;">
+                        <input type="checkbox" id="Slitting" value="option1"> Slitting
+                    </label>
+                    <label class="checkbox-inline" style="width:11%;">
+                        <input type="checkbox" id="Stenter" value="option2"> Stenter
+                    </label>
+                    <label class="checkbox-inline" style="width:11%;">
+                        <input type="checkbox" id="Aop" value="option3"> Aop-Print
+                    </label>
+                    <label class="checkbox-inline" style="width:11%;">
+                        <input type="checkbox" id="Test" value="option1"> Test Report
+                    </label>
+                    <label class="checkbox-inline" style="width:11%;">
+                        <input type="checkbox" id="Remarks" value="option2"> Remarks
+                    </label>
+                </div>
+
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <button class="btn btn-warning btn-sm" style="width:25%;" id="resetBtn">Reset</button>
+                        <div style="display: inline;">
+                            <input type="submit" value="Save" class="btn btn-success btn-sm" style="width:22%;" id="saveBtn">
+                        </div>
+                        <div style="display: inline;">
+                            <input type="submit" value="Update" class="btn btn-primary btn-sm" disabled="disabled" style="width:23%;" id="updateBtn">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <button class="btn btn-danger btn-sm" style="width:10%; margin-bottom:15px;" id="deleteBtn">Delete Row</button>
+    <table id="UserTable" class="display nowrap stripe hover order-column " style="width: 1000px;">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Id</th>
+                <th>UserName</th>
+                <th>Password</th>
+                <th>Fabric</th>
+                <th>Knitting</th>
+                <th>Dyeing</th>
+                <th>Slitting</th>
+                <th>Stenter</th>
+                <th>Aop Print</th>
+                <th>Test Report</th>
+                <th>Remarks</th>
+                <th>Create Date</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        debugger;
+        var PermissionString = "";
+        var UserTable = $('#UserTable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                'colvis'
+            ],
+            "ajax":
+            {
+                "url": "/UserManagement/GetData",
+                "type": "GET",
+                "dataType": "JSON"
+            },
+            "dom": 'Bfrtip',
+            "scrollY": true,
+            "scrollX": true,
+            "Sorting": true,
+            "searching": true,
+            "select": {
+                style: 'single'
+            },
+            "destroy": true,
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "searchable": false,
+                    "orderable": false,
+                }
+            ],
+            "columns": [
+                {
+                    "searchable": false,
+                    "render": function (data, type, full, meta) {
+                        return UserTable.data().count();
+                    }
+                },
+                {
+                    "visible": false,
+                    "searchable": false,
+                    "data": "Id"
+                },
+                { "data": "UserName" },
+                { "data": "Password" },
+                { "data": "Fabric" },
+                { "data": "Knitting" },
+                { "data": "Dyeing" },
+                { "data": "Slitting" },
+                { "data": "Stenter" },
+                { "data": "Aop" },
+                { "data": "Test" },
+                { "data": "Remarks" },
+                {
+                    data: "CreateDate",
+                    render: function (data, type, row) {
+                        return moment(data).format("DD/MM/YYYY");
+                    }
+                }
+            ]
+
+        });
+
+        function IsValid() {
+            if ($('#Fabric').is(':checked')) {
+                PermissionString = PermissionString + "1,";
+            }
+            if ($('#Knitting').is(':checked')) {
+                PermissionString = PermissionString + "2,";
+            }
+            if ($('#Dyeing').is(':checked')) {
+                PermissionString = PermissionString + "3,";
+            }
+            if ($('#Slitting').is(':checked')) {
+                PermissionString = PermissionString + "4,";
+            }
+            if ($('#Stenter').is(':checked')) {
+                PermissionString = PermissionString + "5,";
+            }
+            if ($('#Aop').is(':checked')) {
+                PermissionString = PermissionString + "6,";
+            }
+            if ($('#Test').is(':checked')) {
+                PermissionString = PermissionString + "7,";
+
+            }
+            if ($('#Remarks').is(':checked')) {
+                PermissionString = PermissionString + "8,";
+            }
+
+            if (PermissionString != "") {
+                PermissionString = PermissionString.replace(/,\s*$/, "");
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        function Reset() {
+            $("#UserName").val("");
+            $("#Password").val("");
+            $("#Fabric").prop("checked", false);
+            $("#Knitting").prop("checked", false);
+            $("#Dyeing").prop("checked", false);
+            $("#Slitting").prop("checked", false);
+            $("#Stenter").prop("checked", false);
+            $("#Aop").prop("checked", false);
+            $("#Test").prop("checked", false);
+            $("#Remarks").prop("checked", false);
+            PermissionString = "";
+        }
+
+        $('#UserForm').submit(function (e) {
+            debugger;
+            event.preventDefault();
+            if (IsValid() == true) {
+                var user = {
+                    Id: '0',
+                    UserName: $("#UserName").val(),
+                    Password: $("#Password").val(),
+                    Fabric: $('#Fabric').is(':checked') ? 1 : 0,
+                    Knitting: $('#Knitting').is(':checked') ? 1 : 0,
+                    Dyeing: $('#Dyeing').is(':checked') ? 1 : 0,
+                    Slitting: $('#Slitting').is(':checked') ? 1 : 0,
+                    Stenter: $('#Stenter').is(':checked') ? 1 : 0,
+                    Aop: $('#Aop').is(':checked') ? 1 : 0,
+                    Test: $('#Test').is(':checked') ? 1 : 0,
+                    Remarks: $('#Remarks').is(':checked') ? 1 : 0,
+                    PermissionString: PermissionString,
+                    CreateDate: moment(Date.now()).format("DD/MM/YYYY")
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/UserManagement/Create",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(user),
+                    success: function (response) {
+                        debugger
+                        if (response.data != "" && response.data != null) {
+                            UserTable.row.add(response.data);
+                            UserTable.draw();
+                            Reset();
+                        }
+                        else {
+                            alert("Failed to Save! Please Check Connection State!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Select Atleast One Criteria!!!");
+                return;
+            }
+
+        });
+
+        $("#deleteBtn").click(function () {
+            event.preventDefault();
+            if ($('#UserTable tbody tr').hasClass('selected')) {
+                $.ajax({
+                    type: "POST",
+                    url: "/UserManagement/Delete",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: UserTable.rows('.selected').data()[0].Id,
+                    success: function (response) {
+                        if (response == "Success") {
+                            UserTable.row('.selected').remove().draw(false);
+                            alert("Delete Successfully!!!");
+                            Reset();
+                        }
+                        else {
+                            alert("Failed to Delete! Please Check Connection State!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+
+        });
+
+        $("#resetBtn").click(function () {
+            event.preventDefault();
+            Reset();
+
+        });
+
+        $('#UserTable tbody').on('click', 'tr', function () {
+
+            $(this).toggleClass('selected');
+
+            if ($(this).hasClass('selected')) {
+                var rowdata = UserTable.row(this).data();
+            }
+
+            if (UserTable.data().any()) {
+                Setvalue(rowdata);
+                $('#saveBtn').prop("disabled", true);
+                $('#updateBtn').prop("disabled", false);
+            }
+            else {
+                $('#saveBtn').prop("disabled", false);
+                $('#updateBtn').prop("disabled", true);
+            }
+
+        });
+
+        function Setvalue(rowdata) {
+            debugger;
+            Reset();
+            $("#UserName").val(rowdata.UserName);
+            $("#Password").val(rowdata.Password);
+
+            if (rowdata.Fabric == 1)
+                $('#Fabric').prop('checked', true);
+            if (rowdata.Knitting == 1)
+                $('#Knitting').prop('checked', true);
+            if (rowdata.Dyeing == 1)
+                $('#Dyeing').prop('checked', true);
+            if (rowdata.Slitting == 1)
+                $('#Slitting').prop('checked', true);
+            if (rowdata.Stenter == 1)
+                $('#Stenter').prop('checked', true);
+            if (rowdata.Aop == 1)
+                $('#Aop').prop('checked', true);
+            if (rowdata.Test == 1)
+                $('#Test').prop('checked', true);
+            if (rowdata.Remarks == 1)
+                $('#Remarks').prop('checked', true);
+        }
+
+        $("#updateBtn").click(function () {
+            event.preventDefault();
+
+            debugger
+            if ($('#UserTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = UserTable.rows('.selected').data()[0];
+                var index = UserTable.row('.selected').index();
+
+                if (IsValid() == true)
+                {
+                    var user = {
+                        Id: Row.Id,
+                        UserName: $("#UserName").val(),
+                        Password: $("#Password").val(),
+                        Fabric: $('#Fabric').is(':checked') ? 1 : 0,
+                        Knitting: $('#Knitting').is(':checked') ? 1 : 0,
+                        Dyeing: $('#Dyeing').is(':checked') ? 1 : 0,
+                        Slitting: $('#Slitting').is(':checked') ? 1 : 0,
+                        Stenter: $('#Stenter').is(':checked') ? 1 : 0,
+                        Aop: $('#Aop').is(':checked') ? 1 : 0,
+                        Test: $('#Test').is(':checked') ? 1 : 0,
+                        Remarks: $('#Remarks').is(':checked') ? 1 : 0,
+                        PermissionString: PermissionString,
+                    };
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/UserManagement/Update",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data: JSON.stringify(user),
+                        success: function (response) {
+                            debugger
+                            if (response.data != "" && response.data != null) {
+                                debugger
+                                UserTable.row(index).data(response.data).draw();
+                                Reset();
+                            }
+                            else {
+                                alert("Failed to Update!!!");
+                                return;
+                            }
+                        },
+                        failure: function () {
+                            $("#tblItems").append(" Error when fetching data please contact administrator");
+                        }
+                    });
+                }
+                else
+                {
+                    alert("Select Atleast One Criteria!!!");
+                    return;
+                }
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+
+        });
+
+    });
+
+
+</script>

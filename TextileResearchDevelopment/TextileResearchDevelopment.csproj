@@ -241,6 +241,7 @@
     <Content Include="Content\jquery.dataTables.min.css" />
     <Content Include="Content\jquery.modal.min.css" />
     <Content Include="Content\select.dataTables.min.css" />
+    <Content Include="Content\UrmiStyle.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

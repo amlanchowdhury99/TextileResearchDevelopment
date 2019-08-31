@@ -747,7 +747,7 @@ namespace TextileResearchDevelopment.BLL
                     {
                         MachineType MachineType = new MachineType();
                         MachineType.Id = Convert.ToInt32(reader["Id"]);
-                        MachineType.MachineName = reader["MachineName"].ToString();
+                        //MachineType.MachineName = reader["MachineName"].ToString();
 
                         MachineTypes.Add(MachineType);
                     }
@@ -774,7 +774,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string query = "";
-                query = machineType.Id == 0 ? "INSERT INTO MachineUnit (MachineName) VALUES('" + machineType.MachineName + "')" : "UPDATE MachineUnit SET MachineName = '" + machineType.MachineName + "' WHERE Id = " + machineType.Id;
+                //query = machineType.Id == 0 ? "INSERT INTO MachineUnit (MachineName) VALUES('" + machineType.MachineName + "')" : "UPDATE MachineUnit SET MachineName = '" + machineType.MachineName + "' WHERE Id = " + machineType.Id;
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT TOP 1 (Id) AS Id FROM MachineUnit order by Id desc";

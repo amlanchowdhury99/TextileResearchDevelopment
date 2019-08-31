@@ -32,15 +32,14 @@ namespace TextileResearchDevelopment.Controllers
 
             try
             {
-                buyers = FabricBLL.GetBuyerList();
+                buyers = FabricBLL.GetBuyerTypeList();
             }
             catch (Exception ex)
             {
-                // Info
-                Console.Write(ex);
+                return Json(new { data = new List<Buyer>()}, JsonRequestBehavior.AllowGet);
             }
 
-            return Json(buyers, JsonRequestBehavior.AllowGet);
+            return Json( new { data = buyers }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -55,71 +54,206 @@ namespace TextileResearchDevelopment.Controllers
             }
             catch (Exception ex)
             {
-                // Info
-                Console.Write(ex);
+                return Json(new { data = new List<FabricType>() }, JsonRequestBehavior.AllowGet);
             }
 
-            return Json(fabricTypes, JsonRequestBehavior.AllowGet);
+            return Json(new { data = fabricTypes }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetCompositionTypeList()
+        {
+            JsonResult result = new JsonResult();
+            List<CompositionType> cms = new List<CompositionType>();
+
+            try
+            {
+                cms = FabricBLL.GetCompositionTypeList();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { data = new List<CompositionType>() }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { data = cms }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public ActionResult Create(Fabric fabric)
+        public ActionResult AddBuyerType(Buyer buyer)
+        {
+            try
+            {
+                buyer = FabricBLL.AddBuyerType(buyer);
+            }
+            catch
+            {
+                return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { data = buyer }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult AddFabricType(FabricType fb)
+        {
+            try
+            {
+                fb = FabricBLL.AddFabricType(fb);
+            }
+            catch
+            {
+                return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { data = fb }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult AddCompositionType(CompositionType cm)
+        {
+            try
+            {
+                cm = FabricBLL.AddCompositionType(cm);
+            }
+            catch
+            {
+                return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { data = cm }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult CRUD(Fabric fabric)
+        {
+            try
+            {
+                if(fabric.Id == 0)
+                {
+                    fabric.BarCode = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + FabricBLL.GetSerial((DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString()).ToString());
+                    
+                }
+                fabric = FabricBLL.CRUD(fabric);
+            }
+            catch
+            {
+                return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { data = fabric }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult IsFabricDuplicate(Fabric fabric)
+        {
+            Boolean Result = true;
+
+            try
+            {
+                Result = FabricBLL.IsFabricDuplicate(fabric);
+            }
+            catch
+            {
+                return Json(Result, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(false, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int Id)
         {
             Boolean Result = false;
             try
             {
-                fabric.BarCode = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + FabricBLL.GetSerial((DateTime.Now.Year + DateTime.Now.Month + DateTime.Now.Day).ToString());
-                if(fabric.Id == 0)
+                if (Id > 0)
                 {
-                    int Id = FabricBLL.AddFabric(fabric);
-                    if (Id > 0)
-                    {
-                        fabric.Id = Id;
-                        Result = true;
-                    }
-                    else
-                    {
-                        Result = false;
-                    }
+                    Result = FabricBLL.DeleteFabric(Id);
                 }
-                    
+
                 if (Result)
                 {
-                    return Json(new { data = fabric }, JsonRequestBehavior.AllowGet);
+                    return Json("Success", JsonRequestBehavior.AllowGet);
                 }
             }
             catch
             {
-                return View();
+                return Json("Failed", JsonRequestBehavior.AllowGet);
             }
 
-            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+            return Json("Failed", JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public ActionResult Edit(int id)
+        public ActionResult DeleteBuyerType(int Id)
         {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
+            Boolean Result = false;
             try
             {
-                // TODO: Add update logic here
+                if (Id > 0)
+                {
+                    Result = FabricBLL.DeleteBuyer(Id);
+                }
 
-                return RedirectToAction("Index");
+                if (Result)
+                {
+                    return Json("Success", JsonRequestBehavior.AllowGet);
+                }
             }
             catch
             {
-                return View();
+                return Json("Failed", JsonRequestBehavior.AllowGet);
             }
+
+            return Json("Failed", JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Delete(int id)
+        [HttpPost]
+        public ActionResult DeleteFabricType(int Id)
         {
-            return View();
+            Boolean Result = false;
+            try
+            {
+                if (Id > 0)
+                {
+                    Result = FabricBLL.DeleteFabricType(Id);
+                }
+
+                if (Result)
+                {
+                    return Json("Success", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("Failed", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteCompositionType(int Id)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (Id > 0)
+                {
+                    Result = FabricBLL.DeleteCompositionType(Id);
+                }
+
+                if (Result)
+                {
+                    return Json("Success", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("Failed", JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

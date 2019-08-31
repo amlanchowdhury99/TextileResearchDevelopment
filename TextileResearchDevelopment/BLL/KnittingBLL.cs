@@ -735,7 +735,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string query = "";
-                query = dia.Id == 0 ? "INSERT INTO McDia (McDiaGauge, MCNO, McBrand) VALUES('" + dia.McDiaGauge + "', " + dia.MCNO + "'" + dia.Brand + "')" : "UPDATE McDia SET MCNO = "+dia.MCNO+", McDiaGauge = '" + dia.McDiaGauge + "', McBrand = '" + dia.Brand + "' WHERE Id = " + dia.Id;
+                //query = dia.Id == 0 ? "INSERT INTO McDia (McDiaGauge, MCNO, McBrand) VALUES('" + dia.McDiaGauge + "', " + dia.MCNO + "'" + dia.Brand + "')" : "UPDATE McDia SET MCNO = "+dia.MCNO+", McDiaGauge = '" + dia.McDiaGauge + "', McBrand = '" + dia.Brand + "' WHERE Id = " + dia.Id;
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT TOP 1 (Id) AS Id FROM McDia order by Id desc";
@@ -884,9 +884,9 @@ namespace TextileResearchDevelopment.BLL
                     {
                         McDiaGaugeType McDiaGauge = new McDiaGaugeType();
                         McDiaGauge.Id = Convert.ToInt32(reader["Id"]);
-                        McDiaGauge.MCNO = Convert.ToInt32(reader["MCNO"]);
-                        McDiaGauge.McDiaGauge = reader["McDiaGauge"].ToString();
-                        McDiaGauge.Brand = reader["McBrand"].ToString();
+                        //McDiaGauge.MCNO = Convert.ToInt32(reader["MCNO"]);
+                        //McDiaGauge.McDiaGauge = reader["McDiaGauge"].ToString();
+                        //McDiaGauge.Brand = reader["McBrand"].ToString();
 
                         McDiaGauges.Add(McDiaGauge);
                     }
