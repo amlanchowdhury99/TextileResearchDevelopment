@@ -128,6 +128,7 @@
                     <th>BuyerID</th>
                     <th>FabricTypeID</th>
                     <th>CompositionTypeID</th>
+                    <th>FP</th>
                     <th>BuyerName</th>
                     <th>FabricType</th>
                     <th>Composition</th>
@@ -150,6 +151,7 @@
                     <th></th>
                     <th></th>
                     <th></th>
+                    <th>FP</th>
                     <th>BuyerName</th>
                     <th>FabricType</th>
                     <th>Composition</th>
@@ -369,7 +371,7 @@
                     "orderable": false,
                 },
                 {
-                    "targets": [1, 2, 3, 4],
+                    "targets": [1, 2, 3, 4, 5],
                     "visible": false,
                     "searchable": false
                 }
@@ -392,6 +394,9 @@
                 },
                 {
                     "data": "cm.Id"
+                },
+                {
+                    "data": "ua"
                 },
                 { "data": "buyer.BuyerName" },
                 { "data": "fb.FabricTypeName" },
@@ -438,6 +443,7 @@
                 $(this).toggleClass('selected');
 
                 if (fabricTable.rows('.selected').any()) {
+                    debugger;
                     var rowdata = fabricTable.row(this).data();
                     Setvalue(rowdata);
                 }
@@ -658,6 +664,45 @@
             $("#Version").val(rowdata.Version);
             $('#saveBtn').prop("disabled", true);
             $('#updateBtn').prop("disabled", false);
+            $("#FP").val("");
+            $('#FP').multiselect('refresh');
+
+            if (rowdata.ua.Knitting == 1) {
+                $("#FP").multiselect('select', 1);
+            }
+            if (rowdata.ua.CW == 1) {
+                $("#FP").multiselect('select', 2);
+            }
+            if (rowdata.ua.HSP == 1) {
+                $("#FP").multiselect('select', 3);
+            }
+            if (rowdata.ua.Singeing == 1) {
+                $("#FP").multiselect('select', 4);
+            }
+            if (rowdata.ua.Dyeing == 1) {
+                $("#FP").multiselect('select', 5);
+            }
+            if (rowdata.ua.Dryer == 1) {
+                $("#FP").multiselect('select', 6);
+            }
+            if (rowdata.ua.Stenter == 1) {
+                $("#FP").multiselect('select', 7);
+            }
+            if (rowdata.ua.Compacting == 1) {
+                $("#FP").multiselect('select', 8);
+            }
+            if (rowdata.ua.Peach == 1) {
+                $("#FP").multiselect('select', 9);
+            }
+            if (rowdata.ua.Brush == 1) {
+                $("#FP").multiselect('select', 10);
+            }
+            if (rowdata.ua.PrintInfo == 1) {
+                $("#FP").multiselect('select', 11);
+            }
+            if (rowdata.ua.QC == 1) {
+                $("#FP").multiselect('select', 12);
+            }
         }
 
         function IsValid() {

@@ -580,12 +580,102 @@
         </tfoot>
     </table>
 
+    <div id="exTab1" class="container">
+        <ul class="nav nav-pills">
+            <li class="active">
+                <a href="#1a" data-toggle="tab">Overview</a>
+            </li>
+            <li>
+                <a href="#2a" data-toggle="tab">Using nav-pills</a>
+            </li>
+        </ul>
+
+        <div class="tab-content clearfix">
+            <div class="tab-pane active" id="1a">
+                <table id="YDtable" class="display nowrap stripe hover order-column " style="width: 200px;">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Id</th>
+                            <th>YDCountID</th>
+                            <th>YDCompositionID</th>
+                            <th>YDYarnTypeID</th>
+                            <th>YDYarnColorID</th>
+                            <th>YDBrandID</th>
+                            <th>YDCount</th>
+                            <th>YDComposition</th>
+                            <th>YDYarnType</th>
+                            <th>YDYarnColor</th>
+                            <th>YDBrand</th>
+                            <th>YDLot</th>
+                            <th>YDTPI</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th style="visibility:hidden;"></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>YDCount</th>
+                            <th>YDComposition</th>
+                            <th>YDYarnType</th>
+                            <th>YDYarnColor</th>
+                            <th>YDBrand</th>
+                            <th>YDLot</th>
+                            <th>YDTPI</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="tab-pane" id="2a">
+                <table id="YDRtable" class="display nowrap stripe hover order-column " style="width: 200px;">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Id</th>
+                            <th>YDRRepeat</th>
+                            <th>YDRColor</th>
+                            <th>YDRFeederNo</th>
+                            <th>YDRMeasurement</th>
+                            <th>YDRUOM</th>
+                            <th>YDBatchNo</th>
+                            <th>YDRCK</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th style="visibility:hidden;"></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>YDCount</th>
+                            <th>YDComposition</th>
+                            <th>YDYarnType</th>
+                            <th>YDYarnColor</th>
+                            <th>YDBrand</th>
+                            <th>YDLot</th>
+                            <th>YDTPI</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
     <div class="footer-w3l">
         <div class="content">
             <img src='../Content/images/logo.png' ; style="width:71px; height:40px">
             <p class="foot">2019 © URMI IT Department. All rights reserved.</p>
         </div>
     </div>
+
 
 </div>
 
@@ -1885,7 +1975,7 @@
                         if (response.data != "" && response.data != null) {
                             debugger
                             DiaGaugeTable.row(index).data(response.data).draw();
-                            $("#DiaMD").val(""); $("#GaugeMD").val("");$('#BrandMD').val("");
+                            $("#DiaMD").val(""); $("#GaugeMD").val(""); $('#BrandMD').val("");
                         }
                         else {
                             alert("Failed to Update!!!");
