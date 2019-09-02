@@ -90,14 +90,14 @@ namespace TextileResearchDevelopment.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetKnitUnitList()
+        public JsonResult GetYarnColorList()
         {
             JsonResult result = new JsonResult();
-            List<KnitUnitType> KnitUnits = new List<KnitUnitType>();
+            List<YarnColorType> yct = new List<YarnColorType>();
 
             try
             {
-                KnitUnits = KnittingBLL.GetKnitUnitList();
+                yct = KnittingBLL.GetYarnColorList();
             }
             catch (Exception ex)
             {
@@ -105,7 +105,45 @@ namespace TextileResearchDevelopment.Controllers
                 Console.Write(ex);
             }
 
-            return Json(new { data = KnitUnits }, JsonRequestBehavior.AllowGet);
+            return Json(new { data = yct }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetYarnTypeList()
+        {
+            JsonResult result = new JsonResult();
+            List<YarnType> ytList = new List<YarnType>();
+
+            try
+            {
+                ytList = KnittingBLL.GetYarnTypeList();
+            }
+            catch (Exception ex)
+            {
+                // Info
+                Console.Write(ex);
+            }
+
+            return Json(new { data = ytList }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetYarnCompositionTypeList()
+        {
+            JsonResult result = new JsonResult();
+            List<CompositionType> cmList = new List<CompositionType>();
+
+            try
+            {
+                cmList = KnittingBLL.GetCompositionTypeList();
+            }
+            catch (Exception ex)
+            {
+                // Info
+                Console.Write(ex);
+            }
+
+            return Json(new { data = cmList }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -180,163 +218,43 @@ namespace TextileResearchDevelopment.Controllers
         [HttpPost]
         public ActionResult AddYarnCount(YarnCountType yarn)
         {
-            Boolean Result = false;
             try
             {
-                int Id = KnittingBLL.AddYarnCount(yarn);
-                if (Id > 0)
-                {
-                    yarn.Id = Id;
-                    Result = true;
-                }
-                else
-                {
-                    Result = false;
-                }
-
-                if (Result)
+                yarn = KnittingBLL.AddYarnCount(yarn);
+                if (yarn.Id > 0)
                 {
                     return Json(new { data = yarn }, JsonRequestBehavior.AllowGet);
                 }
-            }
-            catch
-            {
-                return View();
-            }
-
-            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public ActionResult DeleteYarnCount(int Id)
-        {
-            Boolean Result = false;
-            try
-            {
-                if (Id > 0)
+                else
                 {
-                    Result = KnittingBLL.DeleteYarnCount(Id);
-                }
-
-                if (Result)
-                {
-                    return Json("Success", JsonRequestBehavior.AllowGet);
+                    return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch
             {
-                return Json("Failed", JsonRequestBehavior.AllowGet);
+                return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
             }
-
-            return Json("Failed", JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public ActionResult AddMCDIA(McDiaGaugeType dia)
+        public ActionResult AddMcNo(McDiaGaugeType mc)
         {
-            Boolean Result = false;
             try
             {
-                int Id = KnittingBLL.AddMCDIA(dia);
-                if (Id > 0)
+                mc = KnittingBLL.AddMcNo(mc);
+                if(mc.Id > 0)
                 {
-                    dia.Id = Id;
-                    Result = true;
+                    return Json(new { data = mc }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    Result = false;
-                }
-
-                if (Result)
-                {
-                    return Json(new { data = dia }, JsonRequestBehavior.AllowGet);
+                    return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch
             {
-                return View();
+                return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
             }
-
-            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public ActionResult DeleteMCDIA(int Id)
-        {
-            Boolean Result = false;
-            try
-            {
-                if (Id > 0)
-                {
-                    Result = KnittingBLL.DeleteMCDIA(Id);
-                }
-
-                if (Result)
-                {
-                    return Json("Success", JsonRequestBehavior.AllowGet);
-                }
-            }
-            catch
-            {
-                return Json("Failed", JsonRequestBehavior.AllowGet);
-            }
-
-            return Json("Failed", JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public ActionResult AddKnitUnit(KnitUnitType knitType)
-        {
-            Boolean Result = false;
-            try
-            {
-                int Id = KnittingBLL.AddKnitUnit(knitType);
-                if (Id > 0)
-                {
-                    knitType.Id = Id;
-                    Result = true;
-                }
-                else
-                {
-                    Result = false;
-                }
-
-                if (Result)
-                {
-                    return Json(new { data = knitType }, JsonRequestBehavior.AllowGet);
-                }
-            }
-            catch
-            {
-                return View();
-            }
-
-            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public ActionResult DeleteKnitUnit(int Id)
-        {
-            Boolean Result = false;
-            try
-            {
-                if (Id > 0)
-                {
-                    Result = KnittingBLL.DeleteKnitUnit(Id);
-                }
-
-                if (Result)
-                {
-                    return Json("Success", JsonRequestBehavior.AllowGet);
-                }
-            }
-            catch
-            {
-                return Json("Failed", JsonRequestBehavior.AllowGet);
-            }
-
-            return Json("Failed", JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -369,6 +287,207 @@ namespace TextileResearchDevelopment.Controllers
         }
 
         [HttpPost]
+        public ActionResult AddYarnColor(YarnColorType yarn)
+        {
+            try
+            {
+                yarn = KnittingBLL.AddYarnColor(yarn);
+                if (yarn.Id > 0)
+                {
+                    return Json(new { data = yarn }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult AddYarnComposition(CompositionType yarn)
+        {
+            try
+            {
+                yarn = KnittingBLL.AddYarnComposition(yarn);
+                if (yarn.Id > 0)
+                {
+                    return Json(new { data = yarn }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult AddYarnType(YarnType yarn)
+        {
+            try
+            {
+                yarn = KnittingBLL.AddYarnType(yarn);
+                if (yarn.Id > 0)
+                {
+                    return Json(new { data = yarn }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult CRUDYD(YD yd)
+        {
+            try
+            {
+                yd = KnittingBLL.AddYD(yd);
+                if (yd.Id > 0)
+                {
+                    return Json(new { data = yd }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult CRUDYDR(YDR ydr)
+        {
+            try
+            {
+                ydr = KnittingBLL.AddYDR(ydr);
+                if (ydr.Id > 0)
+                {
+                    return Json(new { data = ydr }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult DeleteYarnCount(int Id)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (Id > 0)
+                {
+                    Result = KnittingBLL.DeleteYarnCount(Id);
+                }
+
+                if (Result)
+                {
+                    return Json("Success", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("Failed", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteYarnType(int Id)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (Id > 0)
+                {
+                    Result = KnittingBLL.DeleteYarnType(Id);
+                }
+
+                if (Result)
+                {
+                    return Json("Success", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("Failed", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteYarnColor(int Id)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (Id > 0)
+                {
+                    Result = KnittingBLL.DeleteYarnColor(Id);
+                }
+
+                if (Result)
+                {
+                    return Json("Success", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("Failed", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteYarnComposition(int Id)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (Id > 0)
+                {
+                    Result = KnittingBLL.DeleteYarnComposition(Id);
+                }
+
+                if (Result)
+                {
+                    return Json("Success", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("Failed", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public ActionResult DeleteBrand(int Id)
         {
             Boolean Result = false;
@@ -377,6 +496,54 @@ namespace TextileResearchDevelopment.Controllers
                 if (Id > 0)
                 {
                     Result = KnittingBLL.DeleteBrand(Id);
+                }
+
+                if (Result)
+                {
+                    return Json("Success", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("Failed", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteYD(int Id)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (Id > 0)
+                {
+                    Result = KnittingBLL.DeleteYD(Id);
+                }
+
+                if (Result)
+                {
+                    return Json("Success", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("Failed", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteYDR(int Id)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (Id > 0)
+                {
+                    Result = KnittingBLL.DeleteYDR(Id);
                 }
 
                 if (Result)

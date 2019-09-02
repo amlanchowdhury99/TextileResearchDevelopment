@@ -363,26 +363,6 @@
             <form id="KnitForm">
                 <div class=" form-group">
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="BarCode" class="control-label" style="width:35%;">BarCode</label>
-                        <div style=" display: inline;">
-                            <input type="text" class="form-control" style="width:60%;" id="BarCode" required readonly>
-                        </div>
-                    </div>
-                    <div class="form-group col-xs-4 form-inline">
-                        <label for="OrderNo" class="control-label" style="width:35%;">Order No</label>
-                        <div style="display: inline;">
-                            <input type="text" class="form-control" style="width:60%;" id="OrderNo" required readonly>
-                        </div>
-                    </div>
-                    <div class="form-group col-xs-4 form-inline">
-                        <label for="Color" class="control-label" style="width:35%;">Color</label>
-                        <div style="display: inline;">
-                            <input type="text" class="form-control" style="width:60%;" id="Color" required readonly>
-                        </div>
-                    </div>
-                </div>
-                <div class=" form-group">
-                    <div class="form-group col-xs-4 form-inline">
                         <label for="FabricName" class="control-label" style="width:35%;">Fabric Type</label>
                         <div style=" display: inline;">
                             <input type="text" class="form-control" style="width:60%;" id="FabricName" required readonly>
@@ -404,6 +384,26 @@
                             <a href="#" class="btn-sm btn-info" style="width:10%;" id="mdYarnCount" data-toggle="modal" data-target="#modalYarnCount">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </a>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="BarCode" class="control-label" style="width:35%;">BarCode</label>
+                        <div style=" display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="BarCode" required readonly>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="OrderNo" class="control-label" style="width:35%;">Order No</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="OrderNo" required readonly>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Color" class="control-label" style="width:35%;">Color</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="Color" required readonly>
                         </div>
                     </div>
                 </div>
@@ -580,16 +580,15 @@
         </tfoot>
     </table>
 
-    <div id="exTab1" class="container">
+    <div id="ChildsTab" class="container">
         <ul class="nav nav-pills">
             <li class="active">
-                <a href="#1a" data-toggle="tab">Overview</a>
+                <a href="#1a" data-toggle="tab">Yarn Details</a>
             </li>
             <li>
-                <a href="#2a" data-toggle="tab">Using nav-pills</a>
+                <a href="#2a" data-toggle="tab">Yarn Dyed Repeat</a>
             </li>
         </ul>
-
         <div class="tab-content clearfix">
             <div class="tab-pane active" id="1a">
                 <table id="YDtable" class="display nowrap stripe hover order-column " style="width: 200px;">
@@ -650,18 +649,13 @@
                         <tr>
                             <th style="visibility:hidden;"></th>
                             <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th>YDCount</th>
-                            <th>YDComposition</th>
-                            <th>YDYarnType</th>
-                            <th>YDYarnColor</th>
-                            <th>YDBrand</th>
-                            <th>YDLot</th>
-                            <th>YDTPI</th>
+                            <th>YDRRepeat</th>
+                            <th>YDRColor</th>
+                            <th>YDRFeederNo</th>
+                            <th>YDRMeasurement</th>
+                            <th>YDRUOM</th>
+                            <th>YDBatchNo</th>
+                            <th>YDRCK</th>
                         </tr>
                     </tfoot>
                 </table>

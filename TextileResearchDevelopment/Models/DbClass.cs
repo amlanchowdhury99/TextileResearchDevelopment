@@ -101,7 +101,7 @@ namespace TextileResearchDevelopment.Models
     public class McBrandType
     {
         public int Id { get; set; }
-        public string McBrand { get; set; }
+        public string YarnSupplier { get; set; }
     }
 
     public class DyeingUnitType
@@ -128,5 +128,47 @@ namespace TextileResearchDevelopment.Models
         public string McNo { get; set; }
     }
 
+    public class YD
+    {
+        public YD()
+        {
+            Id = 0;
+            yc = new YarnCountType();
+            yt = new YarnType();
+            cm = new CompositionType();
+            yct = new YarnColorType();
+            yb = new McBrandType();
+        }
+
+        public int Id { get; set; }
+        public int KnitID { get; set; }
+        public YarnCountType yc { get; set; }
+        public CompositionType cm { get; set; }
+        public YarnType yt { get; set; }
+        public YarnColorType yct { get; set; }
+        public McBrandType yb { get; set; }
+        public string Lot { get; set; }
+        public string TPI { get; set; }
+
+    }
+
+    public class YDR
+    {
+        public YDR()
+        {
+            Id = 0;
+        }
+
+        public int Id { get; set; }
+        public int KnitID { get; set; }
+        public string YDRRepeat { get; set; }
+        public string YDRColor { get; set; }
+        public string YDRFeederNo { get; set; }
+        public string YDRMeasurement { get; set; }
+        public string YDRUOM { get; set; }
+        public string YDRBatchNo { get; set; }
+        public string YDRCK { get; set; }
+
+    }
 
 }

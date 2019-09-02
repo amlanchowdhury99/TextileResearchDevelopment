@@ -13,29 +13,10 @@ namespace TextileResearchDevelopment.Models
         {
             Id = 0;
             FabricID = 0;
-            BarCode = "";
-            McDiaGauge = "";
-            YarnCount = "";
-            YarnBrand = "";
-            YarnLot = "";
-            StitchLength = (decimal)0.00;
-            KnitUnit = "";
-            MCNO = 0;
-            MCRPM = 0;
-            GreyWidth = (decimal)0.00;
-            GreyGSM = (decimal)0.00;
-            TumbleWidth = (decimal)0.00;
-            TumbleGSM = (decimal)0.00;
-            McBrand = "";
-            ReviseStatus = 0;
-            ApprovedStatus = 0;
-            CreateBy = 0;
-            UpdateBy = 0;
-            ApprovedBy = 0;
-            CreateByName = "";
-            UpdateByName = "";
-            ApprovedByName = "";
-            DeliveryDate = DateTime.MaxValue;
+            fabric = new Fabric();
+            mc = new McDiaGaugeType();
+            yd = new YD();
+            ydr = new YDR();
             CreateTime = DateTime.MaxValue;
             UpdateTime = DateTime.MaxValue;
             ApprovedTime = DateTime.MaxValue;
@@ -45,35 +26,21 @@ namespace TextileResearchDevelopment.Models
 
         private DateTime defaultDate = DateTime.Now;
 
+        public Fabric fabric { get; set; }
+        public McDiaGaugeType mc { get; set; }
+
+        public YD yd { get; set; }
+        public YDR ydr { get; set; }
+
         public int Id { get; set; }
+
+        public string McSpeed { get; set; }
 
         public int FabricID { get; set; }
 
         public string BarCode { get; set; }
 
-        public string McDiaGauge { get; set; }
-
-        public string YarnCount { get; set; }
-
-        public string YarnBrand { get; set; }
-
-        public string YarnLot { get; set; }
-
-        public decimal StitchLength { get; set; }
-
-        public string KnitUnit { get; set; }
-
-        public int MCNO { get; set; }
-
-        public int MCRPM { get; set; }
-
-        public decimal GreyWidth { get; set; }
-
-        public decimal GreyGSM { get; set; }
-
-        public decimal TumbleWidth { get; set; }
-
-        public decimal TumbleGSM { get; set; }
+        public string ErpNo { get; set; }
 
         public string McBrand { get; set; }
 
@@ -100,31 +67,24 @@ namespace TextileResearchDevelopment.Models
         public string ApprovedByName { get; set; }
 
         public DateTime DeliveryDateStart { get; set; }
+
         public DateTime DeliveryDateEnd { get; set; }
 
 
-        public int DiaGaugeID { get; set; }
-        public int MCNOID { get; set; }
-        public int YarnCountID { get; set; }
-        public int McBrandID { get; set; }
-        public int KnitUnitID { get; set; }
+        public string SL { get; set; }
 
+        public string YT { get; set; }
 
-        public string BuyerName { get; set; }
+        public string LT { get; set; }
 
-        public string FabricName { get; set; }
+        public string GreyDia { get; set; }
 
-        public string OrderNo { get; set; }
+        public string GreyGSM { get; set; }
 
-        public string Color { get; set; }
+        public string ReqDia { get; set; }
 
-        public string ChallanNo { get; set; }
+        public string ReqGSM { get; set; }
 
-        public DateTime DeliveryDate { get; set; }
-
-
-        public int BuyerID { get; set; }
-        public int FabricTypeID { get; set; }
 
     }
 }
