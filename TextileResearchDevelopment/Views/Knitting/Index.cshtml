@@ -6,6 +6,9 @@
 }
 
 <head>
+    <script type="text/javascript" src="~/Scripts/bootstrap3-typeahead.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap-multiselect.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-multiselect.css">
     <style>
         tfoot input {
             width: 100%;
@@ -271,17 +274,23 @@
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="BuyerSL" class="control-label" style="width:35%;">Buyer</label>
                                             <div style=" display: inline;">
-                                                <select name="BuyerSL" id="BuyerSL" style="width:60%;" class="form-control input-sm" autofocus></select>
+                                                <select name="BuyerSL" id="BuyerSL" style="width:60%;font-size: 12px;" class="form-control" autofocus></select>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="FabricSL" class="control-label" style="width:35%;">Fabric</label>
                                             <div style="display: inline;">
-                                                <select name="FabricSL" id="FabricSL" style="width:60%;" class="form-control" autofocus></select>
+                                                <select name="FabricSL" id="FabricSL" style="width:60%;font-size: 12px;" class="form-control" autofocus></select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class=" form-group">
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <label for="CompositionSL" class="control-label" style="width:35%;">Composition</label>
+                                            <div style="display: inline;">
+                                                <select name="CompositionSL" id="CompositionSL" style="width:60%;font-size: 12px;" class="form-control" autofocus></select>
+                                            </div>
+                                        </div>
                                         <div class="form-group col-xs-4 form-inline ">
                                             <label for="OrderNoSL" class="control-label" style="width:35%;">Order No</label>
                                             <div style="display: inline;">
@@ -289,26 +298,13 @@
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
-                                            <label for="ColorSL" class="control-label" style="width:35%;">Color</label>
+                                            <label for="RefNoSL" class="control-label" style="width:35%;">RefNo</label>
                                             <div style="display: inline;">
-                                                <input type="text" class=" form-control" style="width:60%;" id="ColorSL" placeholder="Color" autofocus>
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-xs-4 form-inline">
-                                            <label for="ChallanSL" class="control-label" style="width:35%;">Challan No</label>
-                                            <div style="display: inline;">
-                                                <input type="text" class=" form-control" style="width:60%;" id="ChallanSL" placeholder="Challan No" autofocus>
+                                                <input type="text" class=" form-control" style="width:60%;" id="RefNoSL" placeholder="Color" autofocus>
                                             </div>
                                         </div>
                                     </div>
                                     <div class=" form-group">
-                                        <div class="form-group col-xs-4 form-inline">
-                                            <input type="checkbox" id="DeliveryDateCheckBox" style="width:5%;">
-                                            <label for="DeliveryDateSL" class="control-label" style="width:30%;">Delivery Date</label>
-                                            <div class='input-group date' id='DeliveryDateSL' style="width:60%;">
-                                                <input type='text' class="form-control" id="DeliveryDateTextSL" disabled placeholder="Delivey Date" autofocus />
-                                            </div>
-                                        </div>
                                         <div class="form-group col-xs-4 form-inline">
                                             <button class="btn btn-warning btn-sm" style="width:35%;" id="resetFabricBtn">Reset</button>
                                             <div style="display: inline;">
@@ -321,19 +317,14 @@
                             <table id="fabricSelectionTable" class="display nowrap stripe hover order-column" style="width: 100%">
                                 <thead>
                                     <tr>
+                                        <th></th>
                                         <th>Id</th>
                                         <th>BarCode</th>
                                         <th>BuyerName</th>
                                         <th>FabricType</th>
+                                        <th>Composition</th>
                                         <th>OrderNo</th>
-                                        <th>Color</th>
-                                        <th>Note</th>
-                                        <th>Width</th>
-                                        <th>GSM</th>
-                                        <th>Status</th>
-                                        <th>ChallanNo</th>
-                                        <th>DeliveryQty</th>
-                                        <th>DeliveryDate</th>
+                                        <th>RefNo</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -361,9 +352,21 @@
         </div>
         <div class="panel-body">
             <form id="KnitForm">
-                <div class=" form-group">
+                <div class=" form-group" >
+                     <div class="form-group col-xs-4 form-inline">
+                        <label for="FabricName" class="control-label" style="width:35%;">BarCode</label>
+                        <div style=" display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="FabricName" required readonly>
+                        </div>
+                    </div>
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="FabricName" class="control-label" style="width:35%;">Fabric Type</label>
+                        <label for="Buyer" class="control-label" style="width:35%;">Buyer</label>
+                        <div style=" display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="Buyer" required readonly>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="FabricName" class="control-label" style="width:35%;">Fabric</label>
                         <div style=" display: inline;">
                             <input type="text" class="form-control" style="width:60%;" id="FabricName" required readonly>
                         </div>
@@ -508,29 +511,26 @@
             <tr>
                 <th></th>
                 <th>Id</th>
-                <th>DiaGaugeID</th>
-                <th>YarnCountID</th>
-                <th>McBrandID</th>
-                <th>KnitUnitID</th>
-                <th>FabricID</th>
+                <th>McNoID</th>
+                <th>Buyer</th>
+                <th>Fabric</th>
+                <th>Composition</th>
+                <th>OrderNo</th>
+                <th>RefNo</th>
                 <th>BarCode</th>
-                <th>Buyer Name</th>
-                <th>Fabric Type</th>
-                <th>Order No</th>
-                <th>Color</th>
-                <th>Dia Guage</th>
-                <th>Yarn Count</th>
-                <th>Yarn Brand</th>
-                <th>Yarn Lot</th>
-                <th>Stitch Length</th>
-                <th>Knit Unit</th>
-                <th>MC-NO</th>
-                <th>MC-RPM</th>
-                <th>Grey Width</th>
-                <th>Grey GSM</th>
-                <th>Tumble Width</th>
-                <th>Tumble GSM</th>
-                <th>Mc Brand</th>
+                <th>ErpNo</th>
+                <th>McNo</th>
+                <th>McBrand</th>
+                <th>McDia</th>
+                <th>McGauge</th>
+                <th>McSpeed</th>
+                <th>SL</th>
+                <th>YT</th>
+                <th>LT</th>
+                <th>GreyDia</th>
+                <th>GreyGSM</th>
+                <th>ReqDia</th>
+                <th>ReqGSM</th>
                 <th>Revise</th>
                 <th>Aprroved</th>
                 <th>Create Time</th>
@@ -550,24 +550,21 @@
                 <th></th>
                 <th></th>
                 <th></th>
+                <th></th>
                 <th>BarCode</th>
-                <th>Buyer Name</th>
-                <th>Fabric Type</th>
-                <th>Order No</th>
-                <th>Color</th>
-                <th>Dia Guage</th>
-                <th>Yarn Count</th>
-                <th>Yarn Brand</th>
-                <th>Yarn Lot</th>
-                <th>Stitch Length</th>
-                <th>Knit Unit</th>
-                <th>MC-NO</th>
-                <th>MC-RPM</th>
-                <th>Grey Width</th>
-                <th>Grey GSM</th>
-                <th>Tumble Width</th>
-                <th>Tumble GSM</th>
-                <th>Mc Brand</th>
+                <th>ErpNo</th>
+                <th>McNo</th>
+                <th>McBrand</th>
+                <th>McDia</th>
+                <th>McGauge</th>
+                <th>McSpeed</th>
+                <th>SL</th>
+                <th>YT</th>
+                <th>LT</th>
+                <th>GreyDia</th>
+                <th>GreyGSM</th>
+                <th>ReqDia</th>
+                <th>ReqGSM</th>
                 <th>Revise</th>
                 <th>Aprroved</th>
                 <th>Create Time</th>
@@ -682,12 +679,6 @@
         var YarnCountTable = $('#YarnCountTable').DataTable();
         var BrandTable = $('#BrandTable').DataTable();
         var DiaGaugeTable = $('#DiaGaugeTable').DataTable();
-
-        $('#DeliveryDateTextSL').daterangepicker({
-            locale: {
-                format: 'DD/MM/YY'
-            }
-        });
 
         $('input[type=number]').keydown(function (event) {
             debugger;
@@ -805,25 +796,6 @@
 
         loadMcList();
 
-        function loadMCDIAList() {
-            debugger;
-            $.ajax({
-                type: "GET",
-                url: "/Knitting/GetMCDIAList",
-                data: "{}",
-                success: function (data) {
-                    debugger
-                    var data = data.data;
-                    var s = '<option value="">Select DiaGauge</option>';
-                    for (var i = 0; i < data.length; i++) {
-                        s += '<option value="' + data[i].Id + '">' + data[i].McDiaGauge + '</option>';
-                    }
-                    $("#DiaGauge").html(s);
-                    loadYarnCountList();
-                }
-            });
-        }
-
         function loadMcList() {
             debugger;
             $.ajax({
@@ -834,63 +806,10 @@
                     var data = data.data;
                     var s = '<option value="">Select Machine</option>';
                     for (var i = 0; i < data.length; i++) {
-                        s += '<option value="' + data[i].Id + '">' + data[i].MCNO + '</option>';
+                        s += '<option value="' + data[i].Id + '">' + data[i].McNo + data[i].McDia + data[i].McGauge + data[i].McBrand + '</option>';
                     }
                     $("#MCNO").html(s);
-                    loadYarnCountList();
-                }
-            });
-        }
-
-        function loadYarnCountList() {
-            debugger;
-            $.ajax({
-                type: "GET",
-                url: "/Knitting/GetYarnCountList",
-                data: "{}",
-                success: function (data) {
-                    var data = data.data;
-                    var s = '<option value="">Select Yarn Count</option>';
-                    for (var i = 0; i < data.length; i++) {
-                        s += '<option value="' + data[i].Id + '">' + data[i].YarnCount + '</option>';
-                    }
-                    $("#YarnCount").html(s);
-                    loadKnitUnitList();
-                }
-            });
-        }
-
-        function loadKnitUnitList() {
-            debugger;
-            $.ajax({
-                type: "GET",
-                url: "/Knitting/GetKnitUnitList",
-                data: "{}",
-                success: function (data) {
-                    var data = data.data;
-                    var s = '<option value="">Select KnitUnit</option>';
-                    for (var i = 0; i < data.length; i++) {
-                        s += '<option value="' + data[i].Id + '">' + data[i].KnitUnit + '</option>';
-                    }
-                    $("#KnitUnit").html(s);
-                    loadMcBrandList();
-                }
-            });
-        }
-
-        function loadMcBrandList() {
-            debugger;
-            $.ajax({
-                type: "GET",
-                url: "/Knitting/GetMcBrandList",
-                data: "{}",
-                success: function (data) {
-                    var data = data.data;
-                    var s = '<option value="">Select McBrand</option>';
-                    for (var i = 0; i < data.length; i++) {
-                        s += '<option value="' + data[i].Id + '">' + data[i].McBrand + '</option>';
-                    }
-                    $("#Brand").html(s);
+                    loadBuyerList();
                 }
             });
         }
@@ -902,6 +821,7 @@
                 url: "/Fabric/GetBuyerList",
                 data: "{}",
                 success: function (data) {
+                    var data = data.data;
                     var s = '<option value="">Select Buyer</option>';
                     for (var i = 0; i < data.length; i++) {
                         s += '<option value="' + data[i].Id + '">' + data[i].BuyerName + '</option>';
@@ -919,12 +839,120 @@
                 url: "/Fabric/GetFabricTypeList",
                 data: "{}",
                 success: function (data) {
+                    var data = data.data;
                     var s = '<option value="">Select Fabric</option>';
                     for (var i = 0; i < data.length; i++) {
                         s += '<option value="' + data[i].Id + '">' + data[i].FabricTypeName + '</option>';
                     }
                     $("#FabricSL").html(s);
-                    loadMCDIAList();
+                    loadCompositionList();
+                }
+            });
+        }
+
+        function loadCompositionList() {
+            debugger;
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetCompositionTypeList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select Composition</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].Composition + '</option>';
+                    }
+                    $("#CompositionSL").html(s);
+                    //loadYarnCountList();
+                }
+            });
+        }
+
+        function loadYarnCountList() {
+            debugger;
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetYarnCountList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select Yarn Count</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].YarnCount + '</option>';
+                    }
+                    $("#YarnCount").html(s);
+                    loadYarnCompositionList();
+                }
+            });
+        }
+
+        function loadYarnCompositionList() {
+            debugger;
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetYarnCompositionTypeList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select Composition</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].Composition + '</option>';
+                    }
+                    $("#YDComposition").html(s);
+                    loadYarnTypeList();
+                }
+            });
+        }
+
+        function loadYarnTypeList() {
+            debugger;
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetYarnTypeList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select Yarn</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].YarnName + '</option>';
+                    }
+                    $("#YDType").html(s);
+                    loadYarnColorList();
+                }
+            });
+        }
+
+        function loadYarnColorList() {
+            debugger;
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetYarnColorList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select Color</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].YarnColor + '</option>';
+                    }
+                    $("#YDColor").html(s);
+                    loadMcBrandList();
+                }
+            });
+        }
+
+        function loadMcBrandList() {
+            debugger;
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetMcBrandList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select McBrand</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].McBrand + '</option>';
+                    }
+                    $("#YDBrand").html(s);
                 }
             });
         }
@@ -1199,7 +1227,7 @@
                     "orderable": false,
                 },
                 {
-                    "targets": [1, 2, 3, 4, 5, 6],
+                    "targets": [1, 2, 3, 4, 5, 6, 7],
                     "visible": false,
                     "searchable": false
                 },
@@ -1218,29 +1246,26 @@
                     }
                 },
                 { "data": "Id" },
-                { "data": "DiaGaugeID" },
-                { "data": "YarnCountID" },
-                { "data": "McBrandID" },
-                { "data": "KnitUnitID" },
-                { "data": "FabricID" },
+                { "data": "mc.Id" },
+                { "data": "fabric.buyer.BuyerName" },
+                { "data": "fabric.fb.FabricTypeName" },
+                { "data": "fabric.cm.Composition" },
+                { "data": "fabric.OrderNo" },
+                { "data": "fabric.RefNo" },
                 { "data": "BarCode" },
-                { "data": "BuyerName" },
-                { "data": "FabricName" },
-                { "data": "OrderNo" },
-                { "data": "Color" },
-                { "data": "McDiaGauge" },
-                { "data": "YarnCount" },
-                { "data": "YarnBrand" },
-                { "data": "YarnLot" },
-                { "data": "StitchLength" },
-                { "data": "KnitUnit" },
-                { "data": "MCNO" },
-                { "data": "MCRPM" },
-                { "data": "GreyWidth" },
+                { "data": "ErpNo" },
+                { "data": "mc.McNo" },
+                { "data": "mc.McBrand" },
+                { "data": "mc.McDia" },
+                { "data": "mc.McGauge" },
+                { "data": "McSpeed" },
+                { "data": "SL" },
+                { "data": "YT" },
+                { "data": "LT" },
+                { "data": "GreyDia" },
                 { "data": "GreyGSM" },
-                { "data": "TumbleWidth" },
-                { "data": "TumbleGSM" },
-                { "data": "McBrand" },
+                { "data": "ReqDia" },
+                { "data": "ReqGSM" },
                 { "data": "ReviseStatus" },
                 { "data": "ApprovedStatus" },
                 {
@@ -1287,6 +1312,17 @@
                     }
                 }
             ]
+        });
+
+        $('#fabricSelectionTable tbody').on('click', 'tr', function () {
+            event.preventDefault();
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            }
+            else {
+                fabricSelectionTable.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
         });
 
         $('#knitTable tbody').on('click', 'tr', function () {
@@ -1410,55 +1446,37 @@
             debugger;
             if (ValidateFabricForm() == true) {
 
-                var barCode = $('#BarCodeSL').val() == "" ? 0 : parseInt($('#BarCodeSL').val());
+                var buyer = {
+                    Id: $("#BuyerSL option:selected").val()
+                }
+                var fb = {
+                    Id: $("#FabricSL option:selected").val()
+                }
+                var cm = {
+                    Id: $("#CompositionSL option:selected").val()
+                }
+                var fabricSearchObj = {
+                    BarCode: $("#BarCodeSL").val().toString(),
+                    buyer: buyer,
+                    fb: fb,
+                    cm: cm,
+                    OrderNo: $("#OrderNoSL").val().length > 0 ? $("#OrderNoSL").val().toString() : '',
+                    RefNo: $("#RefNoSL").val().length > 0 ? $("#ColorSL").val().toString() : ''
+                };
 
                 $.ajax({
                     type: "POST",
-                    url: "/Knitting/BarCodeAuthorization",
+                    url: "/Knitting/FabricSearch",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    data: JSON.stringify({ BarCode: barCode }),
+                    data: JSON.stringify(fabricSearchObj),
                     success: function (response) {
-                        debugger
-                        if (response == "true") {
-                            var fabricSearchObj = {
-                                BarCode: $("#BarCodeSL").val().toString(),
-                                BuyerID: $("#BuyerSL option:selected").val(),
-                                FabricTypeID: $("#FabricSL option:selected").val(),
-                                OrderNo: $("#OrderNoSL").val().length > 0 ? $("#OrderNoSL").val().toString() : '',
-                                Color: $("#ColorSL").val().length > 0 ? $("#ColorSL").val().toString() : '',
-                                ChallanNo: $("#ChallanSL").val().length > 0 ? $("#ChallanSL").val().toString() : '',
-                                DeliveryDateStart: $('#DeliveryDateCheckBox').is(":checked") == true ? $('#DeliveryDateTextSL').data('daterangepicker').startDate.format('DD/MM/YYYY') : '',
-                                DeliveryDateEnd: $('#DeliveryDateCheckBox').is(":checked") == true ? $('#DeliveryDateTextSL').data('daterangepicker').endDate.format('DD/MM/YYYY') : '',
-                            };
-
-                            $.ajax({
-                                type: "POST",
-                                url: "/Knitting/FabricSearch",
-                                contentType: "application/json; charset=utf-8",
-                                dataType: "json",
-                                data: JSON.stringify(fabricSearchObj),
-                                success: function (response) {
-                                    if (response != "" && response != null) {
-                                        fabricSelectionTable.clear().draw();
-                                        fabricSelectionTable.rows.add(response).draw();
-                                    }
-                                    else {
-                                        alert("Failed to Search!!! No Data Found!!!");
-                                        return;
-                                    }
-                                },
-                                failure: function () {
-                                    $("#tblItems").append(" Error when fetching data please contact administrator");
-                                }
-                            });
+                        if (response != "" && response != null) {
+                            fabricSelectionTable.clear().draw();
+                            fabricSelectionTable.rows.add(response).draw();
                         }
-                        if (response == "false") {
-                            alert("This Barcode may be already used in another knit order!!!");
-                            return;
-                        }
-                        if (response == "" || response == null) {
-                            alert("Connection problem!!!");
+                        else {
+                            alert("Failed to Search!!! No Data Found!!!");
                             return;
                         }
                     },
@@ -1466,7 +1484,6 @@
                         $("#tblItems").append(" Error when fetching data please contact administrator");
                     }
                 });
-
             }
             else {
                 alert("Please Select Atleast One Searching Criteria!!!");
@@ -1483,21 +1500,12 @@
             loadBuyerList();
 
             fabricSelectionTable = $('#fabricSelectionTable').DataTable({
-                dom: 'Bfrtip',
-                buttons: [
-                    {
-                        extend: 'excelHtml5',
-                        exportOptions: {
-                            columns: ':visible'
-                        }
-                    },
-
-                    'colvis'
-                ],
+                buttons: [],
                 "scrollY": true,
                 "scrollX": true,
                 "Sorting": true,
                 "searching": true,
+                "autowidth": false,
                 "select": {
                     style: 'single'
                 },
@@ -1513,25 +1521,21 @@
                 "columns": [
                     {
                         "searchable": false,
+                        "render": function (data, type, full, meta) {
+                            return fabricSelectionTable.data().count();
+                        }
+                    },
+                    {
+                        "searchable": false,
+                        "visible": false,
                         "data": "Id"
                     },
                     { "data": "BarCode" },
-                    { "data": "BuyerName" },
-                    { "data": "FabricType" },
+                    { "data": "buyer.BuyerName" },
+                    { "data": "fb.FabricTypeName" },
+                    { "data": "cm.Composition" },
                     { "data": "OrderNo" },
-                    { "data": "Color" },
-                    { "data": "Note" },
-                    { "data": "Width" },
-                    { "data": "GSM" },
-                    { "data": "Status" },
-                    { "data": "ChallanNo" },
-                    { "data": "DeliveryQty" },
-                    {
-                        data: "DeliveryDate",
-                        render: function (data, type, row) {
-                            return moment(data).format("DD/MM/YYYY h:mm a");
-                        }
-                    }
+                    { "data": "RefNo" }
                 ]
             });
 
@@ -1547,9 +1551,11 @@
             if ($('#fabricSelectionTable tbody tr').hasClass('selected')) {
                 selectedFabricRowId = fabricSelectionTable.rows('.selected').data()[0].Id;
                 $('#BarCode').val(fabricSelectionTable.rows('.selected').data()[0].BarCode);
+                $('#Buyer').val(fabricSelectionTable.rows('.selected').data()[0].BarCode);
+                $('#FabricName').val(fabricSelectionTable.rows('.selected').data()[0].BarCode);
+                $('#Composition').val(fabricSelectionTable.rows('.selected').data()[0].BarCode);
                 $('#OrderNo').val(fabricSelectionTable.rows('.selected').data()[0].OrderNo);
-                $('#Color').val(fabricSelectionTable.rows('.selected').data()[0].Color);
-                $('#FabricName').val(fabricSelectionTable.rows('.selected').data()[0].FabricType);
+                $('#RefNo').val(fabricSelectionTable.rows('.selected').data()[0].RefNo);
                 $("#modalFabricSelection .close").click();
                 $('#hidden').prop('checked', true);
             }
@@ -2377,7 +2383,7 @@
 
         function ValidateFabricForm() {
             debugger;
-            if ($("#BarCodeSL").val() == "" && $("#BuyerSL option:selected").val() == "" && $("#FabricSL option:selected").val() == "" && $("#OrderNoSL").val() == "" && $("#ColorSL").val() == "" && $("#ChallanSL").val() == "" && $('#DeliveryDateCheckBox').is(":checked") == false) {
+            if ($("#BarCodeSL").val() == "" && $("#BuyerSL option:selected").val() == "" && $("#FabricSL option:selected").val() == "" && $("#CompositionSL option:selected").val() == "" && $("#OrderNoSL").val() == "" && $("#RefNoSL").val() == "") {
                 return false;
             }
             else {
@@ -2417,13 +2423,12 @@
         function ResetFabric() {
             event.preventDefault();
             $("#BarCodeSL").val("");
-            $("#OrderNoSL").val("");
-            $("#ColorSL").val("");
-            $("#ChallanSL").val("");
-            $("#FabricSL").val("");
             $("#BuyerSL").val("");
-            $('#DeliveryDateCheckBox').prop('checked', false);
-            $('#DeliveryDateTextSL').prop('disabled', true);
+            $("#FabricSL").val("");
+            $("#CompositionSL").val("");
+            $("#OrderNoSL").val("");
+            $("#RefNoSL").val("");
+            $('#fabricSelectionTable tbody tr').removeClass('selected');
         }
 
         function Setvalue(rowdata) {

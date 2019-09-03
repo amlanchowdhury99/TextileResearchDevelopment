@@ -128,7 +128,7 @@ namespace TextileResearchDevelopment.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetYarnCompositionTypeList()
+        public JsonResult GetCompositionTypeList()
         {
             JsonResult result = new JsonResult();
             List<CompositionType> cmList = new List<CompositionType>();
@@ -136,6 +136,25 @@ namespace TextileResearchDevelopment.Controllers
             try
             {
                 cmList = KnittingBLL.GetCompositionTypeList();
+            }
+            catch (Exception ex)
+            {
+                // Info
+                Console.Write(ex);
+            }
+
+            return Json(new { data = cmList }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetYarnCompositionTypeList()
+        {
+            JsonResult result = new JsonResult();
+            List<CompositionType> cmList = new List<CompositionType>();
+
+            try
+            {
+                cmList = KnittingBLL.GetYarnCompositionTypeList();
             }
             catch (Exception ex)
             {
@@ -185,34 +204,23 @@ namespace TextileResearchDevelopment.Controllers
         [HttpPost]
         public ActionResult Create(Knitting knit)
         {
-            Boolean Result = false;
             try
             {
+                knit = KnittingBLL.AddKnit(knit);
+
                 if (knit.Id == 0)
                 {
-                    int Id = KnittingBLL.AddKnit(knit);
-                    if (Id > 0)
-                    {
-                        knit.Id = Id;
-                        Result = true;
-                    }
-                    else
-                    {
-                        Result = false;
-                    }
-                }
-
-                if (Result)
-                {
                     return Json(new { data = knit }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch
             {
-                return View();
+                return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
             }
-
-            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -313,6 +321,27 @@ namespace TextileResearchDevelopment.Controllers
             try
             {
                 yarn = KnittingBLL.AddYarnComposition(yarn);
+                if (yarn.Id > 0)
+                {
+                    return Json(new { data = yarn }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult AddComposition(CompositionType yarn)
+        {
+            try
+            {
+                yarn = KnittingBLL.AddComposition(yarn);
                 if (yarn.Id > 0)
                 {
                     return Json(new { data = yarn }, JsonRequestBehavior.AllowGet);
@@ -488,6 +517,30 @@ namespace TextileResearchDevelopment.Controllers
         }
 
         [HttpPost]
+        public ActionResult DeleteComposition(int Id)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (Id > 0)
+                {
+                    Result = KnittingBLL.DeleteComposition(Id);
+                }
+
+                if (Result)
+                {
+                    return Json("Success", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("Failed", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public ActionResult DeleteBrand(int Id)
         {
             Boolean Result = false;
@@ -562,97 +615,67 @@ namespace TextileResearchDevelopment.Controllers
         [HttpPost]
         public ActionResult Edit(Knitting knit)
         {
-            Boolean Result = false;
             try
             {
+                knit = KnittingBLL.EditKnit(knit);
+
                 if (knit.Id > 0)
                 {
-                    int Id = KnittingBLL.EditKnit(knit);
-                    if (Id > 0)
-                    {
-                        Result = true;
-                    }
-                    else
-                    {
-                        Result = false;
-                    }
-                }
-
-                if (Result)
-                {
                     return Json(new { data = knit }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch
             {
-                return View();
+                return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
             }
-
-            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public ActionResult Approve(Knitting knit)
         {
-            Boolean Result = false;
             try
             {
+                knit = KnittingBLL.ApproveKnit(knit);
+
                 if (knit.Id > 0)
                 {
-                    int Id = KnittingBLL.ApproveKnit(knit);
-                    if (Id > 0)
-                    {
-                        Result = true;
-                    }
-                    else
-                    {
-                        Result = false;
-                    }
-                }
-
-                if (Result)
-                {
                     return Json(new { data = knit }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch
             {
-                return View();
+                return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
             }
 
-            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public ActionResult Revise(Knitting knit)
         {
-            Boolean Result = false;
             try
             {
+                knit = KnittingBLL.ReviseKnit(knit);
                 if (knit.Id > 0)
                 {
-                    int Id = KnittingBLL.ReviseKnit(knit);
-                    if (Id > 0)
-                    {
-                        Result = true;
-                    }
-                    else
-                    {
-                        Result = false;
-                    }
-                }
-
-                if (Result)
-                {
                     return Json(new { data = knit }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch
             {
-                return View();
+                return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
             }
-
-            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -710,33 +733,23 @@ namespace TextileResearchDevelopment.Controllers
         [HttpPost]
         public ActionResult Unapprove(Knitting knit)
         {
-            Boolean Result = false;
             try
             {
+                knit = KnittingBLL.UnapproveKnit(knit);
+
                 if (knit.Id > 0)
                 {
-                    int Id = KnittingBLL.UnapproveKnit(knit);
-                    if (Id > 0)
-                    {
-                        Result = true;
-                    }
-                    else
-                    {
-                        Result = false;
-                    }
-                }
-
-                if (Result)
-                {
                     return Json(new { data = knit }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch
             {
-                return View();
+                return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
             }
-
-            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

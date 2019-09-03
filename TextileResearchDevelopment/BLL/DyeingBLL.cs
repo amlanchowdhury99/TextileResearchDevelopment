@@ -555,7 +555,7 @@ namespace TextileResearchDevelopment.BLL
             {
                 knittings = new List<Knitting>();
                 string query = "";
-                query = GetknitSearchQuery(knitSearchObj);
+                //query = GetknitSearchQuery(knitSearchObj);
                 if (query != "")
                 {
                     cm.CommandText = query;
@@ -568,24 +568,24 @@ namespace TextileResearchDevelopment.BLL
                             knitting.Id = Convert.ToInt32(reader["KnitId"]);
                             knitting.FabricID = Convert.ToInt32(reader["FabricID"]);
                             knitting.BarCode = reader["BarCode"].ToString();
-                            knitting.BuyerName = reader["BuyerName"].ToString();
-                            knitting.FabricName = reader["FabricName"].ToString();
-                            knitting.OrderNo = reader["OrderNo"].ToString();
-                            knitting.Color = reader["Color"].ToString();
-                            knitting.ChallanNo = reader["ChallanNo"].ToString();
+                            //knitting.BuyerName = reader["BuyerName"].ToString();
+                            //knitting.FabricName = reader["FabricName"].ToString();
+                            //knitting.OrderNo = reader["OrderNo"].ToString();
+                            //knitting.Color = reader["Color"].ToString();
+                            //knitting.ChallanNo = reader["ChallanNo"].ToString();
 
-                            knitting.McDiaGauge = reader["McDiaGauge"].ToString();
-                            knitting.YarnCount = reader["YarnCount"].ToString();
-                            knitting.YarnBrand = reader["YarnBrand"].ToString();
-                            knitting.YarnLot = reader["YarnLot"].ToString();
-                            knitting.StitchLength = Convert.ToDecimal(reader["StitchLength"]);
-                            knitting.KnitUnit = reader["KnitUnit"].ToString();
-                            knitting.MCNO = Convert.ToInt32(reader["MCNO"]);
-                            knitting.MCRPM = Convert.ToInt32(reader["MCRPM"]);
-                            knitting.GreyWidth = Convert.ToDecimal(reader["GreyWidth"]);
-                            knitting.GreyGSM = Convert.ToDecimal(reader["GreyGSM"]);
-                            knitting.TumbleWidth = Convert.ToDecimal(reader["TumbleWidth"]);
-                            knitting.TumbleGSM = Convert.ToDecimal(reader["TumbleGSM"]);
+                            //knitting.McDiaGauge = reader["McDiaGauge"].ToString();
+                            //knitting.YarnCount = reader["YarnCount"].ToString();
+                            //knitting.YarnBrand = reader["YarnBrand"].ToString();
+                            //knitting.YarnLot = reader["YarnLot"].ToString();
+                            //knitting.StitchLength = Convert.ToDecimal(reader["StitchLength"]);
+                            //knitting.KnitUnit = reader["KnitUnit"].ToString();
+                            //knitting.MCNO = Convert.ToInt32(reader["MCNO"]);
+                            //knitting.MCRPM = Convert.ToInt32(reader["MCRPM"]);
+                            //knitting.GreyWidth = Convert.ToDecimal(reader["GreyWidth"]);
+                            //knitting.GreyGSM = Convert.ToDecimal(reader["GreyGSM"]);
+                            //knitting.TumbleWidth = Convert.ToDecimal(reader["TumbleWidth"]);
+                            //knitting.TumbleGSM = Convert.ToDecimal(reader["TumbleGSM"]);
                             knitting.McBrand = reader["McBrand"].ToString();
                             knitting.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
 
@@ -700,103 +700,103 @@ namespace TextileResearchDevelopment.BLL
             return dyeings;
         }
 
-        public static string GetknitSearchQuery(Knitting knitSearchObj)
-        {
-            try
-            {
-                string query = "SELECT * FROM KnitView ";
-                if (knitSearchObj.BarCode != "" && knitSearchObj.BarCode != null)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " Barcode = " + Convert.ToInt32(knitSearchObj.BarCode);
-                }
-                if (knitSearchObj.BuyerID > 0)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " BuyerID = " + knitSearchObj.BuyerID;
-                }
-                if (knitSearchObj.FabricTypeID > 0)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " FabricTypeID = " + knitSearchObj.FabricTypeID;
-                }
+        //public static string GetknitSearchQuery(Knitting knitSearchObj)
+        //{
+        //    try
+        //    {
+        //        string query = "SELECT * FROM KnitView ";
+        //        if (knitSearchObj.BarCode != "" && knitSearchObj.BarCode != null)
+        //        {
+        //            query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+        //            query = query + " Barcode = " + Convert.ToInt32(knitSearchObj.BarCode);
+        //        }
+        //        if (knitSearchObj.BuyerID > 0)
+        //        {
+        //            query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+        //            query = query + " BuyerID = " + knitSearchObj.BuyerID;
+        //        }
+        //        if (knitSearchObj.FabricTypeID > 0)
+        //        {
+        //            query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+        //            query = query + " FabricTypeID = " + knitSearchObj.FabricTypeID;
+        //        }
 
-                if (knitSearchObj.DiaGaugeID > 0)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " DiaGaugeID = " + knitSearchObj.DiaGaugeID;
-                }
-                if (knitSearchObj.YarnCountID > 0)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " YarnCountID = " + knitSearchObj.YarnCountID;
-                }
+        //        if (knitSearchObj.DiaGaugeID > 0)
+        //        {
+        //            query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+        //            query = query + " DiaGaugeID = " + knitSearchObj.DiaGaugeID;
+        //        }
+        //        if (knitSearchObj.YarnCountID > 0)
+        //        {
+        //            query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+        //            query = query + " YarnCountID = " + knitSearchObj.YarnCountID;
+        //        }
 
-                if (knitSearchObj.KnitUnitID > 0)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " KnitUnitID = " + knitSearchObj.KnitUnitID;
-                }
-                if (knitSearchObj.McBrandID > 0)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " McBrandID = " + knitSearchObj.McBrandID;
-                }
+        //        if (knitSearchObj.KnitUnitID > 0)
+        //        {
+        //            query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+        //            query = query + " KnitUnitID = " + knitSearchObj.KnitUnitID;
+        //        }
+        //        if (knitSearchObj.McBrandID > 0)
+        //        {
+        //            query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+        //            query = query + " McBrandID = " + knitSearchObj.McBrandID;
+        //        }
 
-                if (knitSearchObj.OrderNo != "" && knitSearchObj.OrderNo != null)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " OrderNo = '" + knitSearchObj.OrderNo + "'";
-                }
-                if (knitSearchObj.Color != "" && knitSearchObj.Color != null)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " Color = '" + knitSearchObj.Color + "'";
-                }
-                if (knitSearchObj.ChallanNo != "" && knitSearchObj.ChallanNo != null)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " ChallanNo = '" + knitSearchObj.ChallanNo + "'";
-                }
-                if (knitSearchObj.DeliveryDateStart != DateTime.MaxValue && knitSearchObj.DeliveryDateEnd != DateTime.MaxValue)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " DeliveryDate BETWEEN '" + knitSearchObj.DeliveryDateStart.ToString("yyyy/MM/dd HH:mm") + "' AND '" + knitSearchObj.DeliveryDateEnd.ToString("yyyy/MM/dd HH:mm") + "'";
-                }
-                if (knitSearchObj.YarnBrand != "" && knitSearchObj.YarnBrand != null)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " YarnBrand = '" + knitSearchObj.YarnBrand + "'";
-                }
+        //        if (knitSearchObj.OrderNo != "" && knitSearchObj.OrderNo != null)
+        //        {
+        //            query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+        //            query = query + " OrderNo = '" + knitSearchObj.OrderNo + "'";
+        //        }
+        //        if (knitSearchObj.Color != "" && knitSearchObj.Color != null)
+        //        {
+        //            query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+        //            query = query + " Color = '" + knitSearchObj.Color + "'";
+        //        }
+        //        if (knitSearchObj.ChallanNo != "" && knitSearchObj.ChallanNo != null)
+        //        {
+        //            query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+        //            query = query + " ChallanNo = '" + knitSearchObj.ChallanNo + "'";
+        //        }
+        //        if (knitSearchObj.DeliveryDateStart != DateTime.MaxValue && knitSearchObj.DeliveryDateEnd != DateTime.MaxValue)
+        //        {
+        //            query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+        //            query = query + " DeliveryDate BETWEEN '" + knitSearchObj.DeliveryDateStart.ToString("yyyy/MM/dd HH:mm") + "' AND '" + knitSearchObj.DeliveryDateEnd.ToString("yyyy/MM/dd HH:mm") + "'";
+        //        }
+        //        if (knitSearchObj.YarnBrand != "" && knitSearchObj.YarnBrand != null)
+        //        {
+        //            query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+        //            query = query + " YarnBrand = '" + knitSearchObj.YarnBrand + "'";
+        //        }
 
-                if (knitSearchObj.YarnLot != "" && knitSearchObj.YarnLot != null)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " YarnLot = '" + knitSearchObj.YarnLot + "'";
-                }
+        //        if (knitSearchObj.YarnLot != "" && knitSearchObj.YarnLot != null)
+        //        {
+        //            query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+        //            query = query + " YarnLot = '" + knitSearchObj.YarnLot + "'";
+        //        }
 
-                if (knitSearchObj.GreyWidth != (decimal)0.00 && knitSearchObj.GreyWidth != null)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " GreyWidth = " + knitSearchObj.GreyWidth;
-                }
+        //        if (knitSearchObj.GreyWidth != (decimal)0.00 && knitSearchObj.GreyWidth != null)
+        //        {
+        //            query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+        //            query = query + " GreyWidth = " + knitSearchObj.GreyWidth;
+        //        }
 
-                if (knitSearchObj.GreyGSM != (decimal)0.00 && knitSearchObj.GreyGSM != null)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " GreyGSM = " + knitSearchObj.GreyGSM;
-                }
+        //        if (knitSearchObj.GreyGSM != (decimal)0.00 && knitSearchObj.GreyGSM != null)
+        //        {
+        //            query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+        //            query = query + " GreyGSM = " + knitSearchObj.GreyGSM;
+        //        }
 
-                query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                query = query + " ApprovedStatus > 0";
+        //        query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+        //        query = query + " ApprovedStatus > 0";
 
-                return query;
-            }
-            catch (Exception ex)
-            {
-                return "";
-            }
-        }
+        //        return query;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return "";
+        //    }
+        //}
 
     }
 }
