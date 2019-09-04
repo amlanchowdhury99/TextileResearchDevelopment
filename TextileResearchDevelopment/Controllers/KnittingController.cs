@@ -208,7 +208,7 @@ namespace TextileResearchDevelopment.Controllers
             {
                 knit = KnittingBLL.AddKnit(knit);
 
-                if (knit.Id == 0)
+                if (knit.Id > 0)
                 {
                     return Json(new { data = knit }, JsonRequestBehavior.AllowGet);
                 }
@@ -418,6 +418,30 @@ namespace TextileResearchDevelopment.Controllers
             {
                 return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [HttpPost]
+        public ActionResult DeleteMcNo(int Id)
+        {
+            Boolean Result = false;
+            try
+            {
+                if (Id > 0)
+                {
+                    Result = KnittingBLL.DeleteMcNo(Id);
+                }
+
+                if (Result)
+                {
+                    return Json("Success", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json("Failed", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("Failed", JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

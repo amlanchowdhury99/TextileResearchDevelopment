@@ -146,14 +146,23 @@
     <Compile Include="BLL\StenterBLL.cs" />
     <Compile Include="BLL\TestBLL.cs" />
     <Compile Include="BLL\UserBLL.cs" />
+    <Compile Include="Content\PrintController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AopPrintController.cs" />
+    <Compile Include="Controllers\BrushController.cs" />
+    <Compile Include="Controllers\CompactingController.cs" />
+    <Compile Include="Controllers\CWController.cs" />
+    <Compile Include="Controllers\DryerController.cs" />
     <Compile Include="Controllers\DyeingController.cs" />
     <Compile Include="Controllers\FabricController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HSPController.cs" />
     <Compile Include="Controllers\KnittingController.cs" />
+    <Compile Include="Controllers\PeachController.cs" />
+    <Compile Include="Controllers\QCController.cs" />
     <Compile Include="Controllers\RemarksController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\SingeingController.cs" />
     <Compile Include="Controllers\SlittingController.cs" />
     <Compile Include="Controllers\StenterController.cs" />
     <Compile Include="Controllers\TestReportController.cs" />
@@ -356,6 +365,15 @@
     <Content Include="Views\Home\LoginForm.cshtml" />
     <Content Include="Views\UserManagement\Index.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\CW\Index.cshtml" />
+    <Content Include="Views\HSP\Index.cshtml" />
+    <Content Include="Views\Singeing\Index.cshtml" />
+    <Content Include="Views\Dryer\Index.cshtml" />
+    <Content Include="Views\Compacting\Index.cshtml" />
+    <Content Include="Views\Peach\Index.cshtml" />
+    <Content Include="Views\Brush\Index.cshtml" />
+    <Content Include="Views\QC\Index.cshtml" />
+    <Content Include="Views\Print\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

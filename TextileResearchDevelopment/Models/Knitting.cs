@@ -34,11 +34,11 @@ namespace TextileResearchDevelopment.Models
 
         public int Id { get; set; }
 
+        public string BarCode { get; set; }
+
         public string McSpeed { get; set; }
 
         public int FabricID { get; set; }
-
-        public string BarCode { get; set; }
 
         public string ErpNo { get; set; }
 
