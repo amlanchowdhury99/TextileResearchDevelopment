@@ -1,36 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
 namespace TextileResearchDevelopment.Models
 {
-    public class Stenter
+    public class Print
     {
-        public Stenter()
+        public Print()
         {
             Id = 0;
             fabric = new Fabric();
             mc = new MachineType();
-            pr = new ProductionType();
+            prt = new PrintType();
         }
 
         public int Id { get; set; }
         public Fabric fabric { get; set; }
         public MachineType mc { get; set; }
-        public string Temp { get; set; }
-        public string Speed { get; set; }
-        public string Time { get; set; }
-        public string Feed { get; set; }
-        public string Streching { get; set; }
-        public string Chemical { get; set; }
-        public string Dia { get; set; }
-        public string GSM { get; set; }
-        public string Shrinkage { get; set; }
-        public ProductionType pr { get; set; }
-        public string Remarks { get; set; }
+        public PrintType prt { get; set; }
+        public string PrintFactory { get; set; }
+        public string PrintCoverage { get; set; }
+        public string OtherInfo { get; set; }
 
         public DateTime CreateTime { get; set; }
 

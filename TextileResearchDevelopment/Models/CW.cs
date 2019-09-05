@@ -7,30 +7,24 @@ using System.Web;
 
 namespace TextileResearchDevelopment.Models
 {
-    public class Stenter
+    public class CW
     {
-        public Stenter()
+
+        public CW()
         {
             Id = 0;
             fabric = new Fabric();
             mc = new MachineType();
-            pr = new ProductionType();
         }
 
         public int Id { get; set; }
         public Fabric fabric { get; set; }
         public MachineType mc { get; set; }
         public string Temp { get; set; }
-        public string Speed { get; set; }
-        public string Time { get; set; }
-        public string Feed { get; set; }
-        public string Streching { get; set; }
         public string Chemical { get; set; }
+        public string Speed { get; set; }
+        public string Elognation { get; set; }
         public string Dia { get; set; }
-        public string GSM { get; set; }
-        public string Shrinkage { get; set; }
-        public ProductionType pr { get; set; }
-        public string Remarks { get; set; }
 
         public DateTime CreateTime { get; set; }
 
@@ -49,5 +43,7 @@ namespace TextileResearchDevelopment.Models
         public int ApprovedBy { get; set; }
 
         public string ApprovedByName { get; set; }
+
     }
+
 }

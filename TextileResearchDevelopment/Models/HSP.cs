@@ -7,14 +7,13 @@ using System.Web;
 
 namespace TextileResearchDevelopment.Models
 {
-    public class Stenter
+    public class HSP
     {
-        public Stenter()
+        public HSP()
         {
             Id = 0;
             fabric = new Fabric();
             mc = new MachineType();
-            pr = new ProductionType();
         }
 
         public int Id { get; set; }
@@ -29,8 +28,6 @@ namespace TextileResearchDevelopment.Models
         public string Dia { get; set; }
         public string GSM { get; set; }
         public string Shrinkage { get; set; }
-        public ProductionType pr { get; set; }
-        public string Remarks { get; set; }
 
         public DateTime CreateTime { get; set; }
 
@@ -49,5 +46,6 @@ namespace TextileResearchDevelopment.Models
         public int ApprovedBy { get; set; }
 
         public string ApprovedByName { get; set; }
+
     }
 }

@@ -19,11 +19,6 @@ namespace TextileResearchDevelopment.Controllers
             return View();
         }
 
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         [HttpGet]
         public JsonResult GetBuyerList()
         {
