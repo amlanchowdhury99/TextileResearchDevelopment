@@ -36,7 +36,7 @@ namespace TextileResearchDevelopment.Controllers
             List<TestReport> data = new List<TestReport>();
             try
             {
-                data = ReportBLL.Search(searchObj);
+                //data = ReportBLL.Search(searchObj);
             }
             catch (Exception ex)
             {
@@ -54,7 +54,7 @@ namespace TextileResearchDevelopment.Controllers
             {
                 if (BarCode > 0)
                 {
-                    Result = ReportBLL.BarCodeAuthorization(BarCode);
+                    //Result = ReportBLL.BarCodeAuthorization(BarCode);
                 }
                 if (BarCode == 0)
                 {

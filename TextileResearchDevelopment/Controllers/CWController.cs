@@ -19,6 +19,42 @@ namespace TextileResearchDevelopment.Controllers
             return View();
         }
 
+        [HttpPost]
+        public JsonResult FabricSearch(Fabric fabricSearchObj)
+        {
+
+            List<Fabric> data = new List<Fabric>();
+            try
+            {
+                data = WashingBLL.FabricSearch(fabricSearchObj);
+            }
+            catch (Exception ex)
+            {
+                data = new List<Fabric>();
+            }
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetData()
+        {
+            JsonResult result = new JsonResult();
+            List<CW> objList = new List<CW>();
+
+            try
+            {
+                objList = WashingBLL.GetList();
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
+
+            return Json(new { data = objList }, JsonRequestBehavior.AllowGet);
+
+        }
+
         [HttpGet]
         public JsonResult GetMachineList()
         {
@@ -74,25 +110,6 @@ namespace TextileResearchDevelopment.Controllers
             }
 
             return Json("Failed", JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public JsonResult GetData()
-        {
-            JsonResult result = new JsonResult();
-            List<CW> objList = new List<CW>();
-
-            try
-            {
-                objList = WashingBLL.GetList();
-            }
-            catch (Exception ex)
-            {
-                Console.Write(ex);
-            }
-
-            return Json(new { data = objList }, JsonRequestBehavior.AllowGet);
-
         }
 
         [HttpPost]

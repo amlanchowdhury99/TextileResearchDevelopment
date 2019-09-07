@@ -29,6 +29,9 @@ namespace TextileResearchDevelopment.Models
         public string Shrinkage { get; set; }
         public string Remarks { get; set; }
 
+        public int ReviseStatus { get; set; }
+
+        public int ApprovedStatus { get; set; }
         public DateTime CreateTime { get; set; }
 
         public int CreateBy { get; set; }

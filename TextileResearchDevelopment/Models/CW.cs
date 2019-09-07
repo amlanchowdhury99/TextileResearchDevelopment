@@ -23,9 +23,13 @@ namespace TextileResearchDevelopment.Models
         public string Temp { get; set; }
         public string Chemical { get; set; }
         public string Speed { get; set; }
-        public string Elognation { get; set; }
+        public string ElognationLength { get; set; }
+        public string ElognationWidth { get; set; }
         public string Dia { get; set; }
 
+        public int ReviseStatus { get; set; }
+
+        public int ApprovedStatus { get; set; }
         public DateTime CreateTime { get; set; }
 
         public int CreateBy { get; set; }

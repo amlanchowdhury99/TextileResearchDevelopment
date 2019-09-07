@@ -28,6 +28,9 @@ namespace TextileResearchDevelopment.Models
         public string PH { get; set; }
         public string Value { get; set; }
 
+        public int ReviseStatus { get; set; }
+
+        public int ApprovedStatus { get; set; }
         public DateTime CreateTime { get; set; }
 
         public int CreateBy { get; set; }

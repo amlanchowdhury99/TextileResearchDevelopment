@@ -23,6 +23,9 @@ namespace TextileResearchDevelopment.Models
         public string Burner { get; set; }
         public string Position { get; set; }
 
+        public int ReviseStatus { get; set; }
+
+        public int ApprovedStatus { get; set; }
         public DateTime CreateTime { get; set; }
 
         public int CreateBy { get; set; }

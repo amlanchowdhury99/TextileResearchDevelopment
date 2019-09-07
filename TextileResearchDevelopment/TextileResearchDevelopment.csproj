@@ -137,18 +137,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="BLL\AopBLL.cs" />
+    <Compile Include="BLL\WashingBLL.cs" />
     <Compile Include="BLL\DyeingBLL.cs" />
     <Compile Include="BLL\FabricBLL.cs" />
     <Compile Include="BLL\KnittingBLL.cs" />
     <Compile Include="BLL\RemarksBLL.cs" />
-    <Compile Include="BLL\ReportBLL.cs" />
-    <Compile Include="BLL\StenterBLL.cs" />
-    <Compile Include="BLL\TestBLL.cs" />
     <Compile Include="BLL\UserBLL.cs" />
     <Compile Include="Content\PrintController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AopPrintController.cs" />
     <Compile Include="Controllers\BrushController.cs" />
     <Compile Include="Controllers\CompactingController.cs" />
     <Compile Include="Controllers\CWController.cs" />
@@ -165,8 +161,14 @@
     <Compile Include="Controllers\SingeingController.cs" />
     <Compile Include="Controllers\SlittingController.cs" />
     <Compile Include="Controllers\StenterController.cs" />
-    <Compile Include="Controllers\TestReportController.cs" />
     <Compile Include="Controllers\UserManagementController.cs" />
+    <Compile Include="Models\Brush.cs" />
+    <Compile Include="Models\Compacting.cs" />
+    <Compile Include="Models\CW.cs" />
+    <Compile Include="Models\Dryer.cs" />
+    <Compile Include="Models\HSP.cs" />
+    <Compile Include="Models\Peach.cs" />
+    <Compile Include="Models\Print.cs" />
     <Compile Include="Models\RemarksView.cs">
       <DependentUpon>ReportModel.tt</DependentUpon>
     </Compile>
@@ -188,6 +190,7 @@
     <Compile Include="Models\ReportView.cs">
       <DependentUpon>ReportModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Singeing.cs" />
     <Compile Include="ReportDataset\GeneralReport.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -209,7 +212,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Aop.cs" />
     <Compile Include="Models\DbClass.cs" />
     <Compile Include="Models\Dyeing.cs" />
     <Compile Include="Models\Fabric.cs" />
@@ -356,10 +358,7 @@
     <Content Include="Views\Fabric\Index.cshtml" />
     <Content Include="Views\Knitting\Index.cshtml" />
     <Content Include="Views\Dyeing\Index.cshtml" />
-    <Content Include="Views\Slitting\Index.cshtml" />
     <Content Include="Views\Stenter\Index.cshtml" />
-    <Content Include="Views\AopPrint\Index.cshtml" />
-    <Content Include="Views\TestReport\Index.cshtml" />
     <Content Include="Views\Remarks\Index.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Home\LoginForm.cshtml" />

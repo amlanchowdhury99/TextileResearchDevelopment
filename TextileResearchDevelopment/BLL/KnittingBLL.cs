@@ -272,7 +272,6 @@ namespace TextileResearchDevelopment.BLL
 
         internal static Knitting ApproveKnit(Knitting knit)
         {
-            int Id = -1;
             try
             {
                 string GetApproveByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";

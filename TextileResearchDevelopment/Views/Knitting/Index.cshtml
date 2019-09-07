@@ -1532,6 +1532,10 @@
                 var KnitRow = knitTable.rows('.selected').data()[0];
                 var index = knitTable.row('.selected').index();
 
+                var mc = {
+                    Id: $("#McNoType  option:selected").val()
+                }
+
                 var knitObj =
                 {
                     Id: KnitRow.Id,

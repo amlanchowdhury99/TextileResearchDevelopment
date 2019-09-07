@@ -33,7 +33,7 @@
                     <li>@Ajax.ActionLink("Knit", "Index", "Knitting", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>
                 </ul>
                 <ul class="nav navbar-nav">
-                    <li>@Ajax.ActionLink("Washing", "Index", "CW", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>
+                    <li>@Ajax.ActionLink("CW", "Index", "CW", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>
                 </ul>
                 <ul class="nav navbar-nav">
                     <li>@Ajax.ActionLink("Heat", "Index", "HSP", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>
@@ -91,7 +91,7 @@
 
         //GetUserAccess();
 
-        function GetUserAccess() {
+        @*function GetUserAccess() {
 
             $.ajax({
                 url: "/Home/GetUserAccess",
@@ -153,7 +153,7 @@
                 }
             });
 
-        }
+        }*@
 
         $('#SignOutBtn').click(function (){
             signout();
