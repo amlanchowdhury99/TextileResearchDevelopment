@@ -10,10 +10,9 @@ using System.Web.Configuration;
 
 namespace TextileResearchDevelopment.BLL
 {
-    public class WashingBLL
+    public class HSPBLL
     {
-
-        public static List<CW> cws = new List<CW>();
+        public static List<HSP> cws = new List<HSP>();
         public static List<CompositionType> cmList = new List<CompositionType>();
         public static List<MachineType> machineTypes = new List<MachineType>();
 
@@ -25,7 +24,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 machineTypes = new List<MachineType>();
-                string query = "SELECT * FROM CWMcNoType";
+                string query = "SELECT * FROM HSPMcNoType";
                 SqlDataReader reader = DBGateway.GetFromDB(query);
                 if (reader.HasRows)
                 {
@@ -33,7 +32,7 @@ namespace TextileResearchDevelopment.BLL
                     {
                         MachineType mc = new MachineType();
                         mc.Id = Convert.ToInt32(reader["Id"]);
-                        mc.McNo = reader["CWMcNo"].ToString();
+                        mc.McNo = reader["HSPMcNo"].ToString();
 
                         machineTypes.Add(mc);
                     }
@@ -54,25 +53,25 @@ namespace TextileResearchDevelopment.BLL
             return machineTypes;
         }
 
-        internal static CW CRUD(CW cw)
+        internal static HSP CRUD(HSP hsp)
         {
             try
             {
                 string query = "";
-                if (cw.Id > 0)
+                if (hsp.Id > 0)
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE ContinueWashing SET FabricID = '" + cw.fabric.Id + "', CWMcNoId = '" + cw.mc.Id + "', CWTemp = '" + cw.Temp + "', CWChemical = '" + cw.Chemical + "', CWSpeed = '" + cw.Speed + "', CWWELength = '" + cw.ElognationLength + "', CWSEWidth = '" + cw.ElognationWidth + "', CWWashDia = '" + cw.Dia + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
+                    query = "UPDATE HSP SET FabricID = '" + hsp.fabric.Id + "', HPMcNoId = " + hsp.mc.Id + ", HPTemp = '" + hsp.Temp + "', HPSpeed = '" + hsp.Speed + "', HPTime = '" + hsp.Time + "', HPFeed = '" + hsp.Feed + "', HPStrech = '" + hsp.Streching + "', HPChemical = '" + hsp.Chemical + "', HPDia = '" + hsp.Dia + "', HPGSM = '" + hsp.GSM + "', HPShrinkage = '" + hsp.Shrinkage + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
-                        query = "SELECT * FROM CWView WHERE Id = " + cw.Id;
+                        query = "SELECT * FROM HSPView WHERE Id = " + hsp.Id;
                         SqlDataReader reader = DBGateway.GetFromDB(query);
                         if (reader.HasRows)
                         {
                             while (reader.Read())
                             {
-                                cw = GetCWObj(reader);
+                                hsp = GetObj(reader);
                             }
                         }
                     }
@@ -80,16 +79,16 @@ namespace TextileResearchDevelopment.BLL
                 else
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "INSERT INTO ContinueWashing (FabricID, CWMcNoId, CWTemp, CWChemical, CWSpeed, CWWELength, CWSEWidth, CWWashDia, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + cw.fabric.Id + "," + cw.mc.Id + ",'" + cw.Temp + "','" + cw.Chemical + "','" + cw.Speed + "','" + cw.ElognationLength + "','" + cw.ElognationWidth + "','" + cw.Dia + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                    query = "INSERT INTO HSP (FabricID, HPMcNoId, HPTemp, HPSpeed, HPTime, HPFeed, HPStrech, HPChemical, HPDia, HPGSM, HPShrinkage, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + hsp.fabric.Id + "," + hsp.mc.Id + ",'" + hsp.Temp + "','" + hsp.Speed + "','" + hsp.Time + "','" + hsp.Feed + "','" + hsp.Streching + "','" + hsp.Chemical + "','" + hsp.Dia + "','" + hsp.GSM + "','" + hsp.Shrinkage + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
-                        query = "SELECT TOP 1 * FROM CWView order by Id desc";
+                        query = "SELECT TOP 1 * FROM HSPView order by Id desc";
                         SqlDataReader reader = DBGateway.GetFromDB(query);
                         if (reader.HasRows)
                         {
                             while (reader.Read())
                             {
-                                cw = GetCWObj(reader);
+                                hsp = GetObj(reader);
                             }
                         }
                     }
@@ -97,7 +96,7 @@ namespace TextileResearchDevelopment.BLL
             }
             catch (Exception ex)
             {
-                return new CW();
+                return new HSP();
             }
             finally
             {
@@ -106,14 +105,14 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return cw;
+            return hsp;
         }
 
-        internal static bool DeleteCW(int Id)
+        internal static bool Delete(int Id)
         {
             try
             {
-                string query = "DELETE FROM ContinueWashing WHERE Id = " + Id + " AND ApprovedStatus = 0";
+                string query = "DELETE FROM HSP WHERE Id = " + Id + " AND ApprovedStatus = 0";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     return true;
@@ -133,20 +132,20 @@ namespace TextileResearchDevelopment.BLL
             return false;
         }
 
-        internal static List<CW> GetList()
+        internal static List<HSP> GetList()
         {
             SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader; cm.Connection = cn; cn.Open();
             try
             {
-                cws = new List<CW>();
-                string query = "SELECT * FROM CWView";
+                cws = new List<HSP>();
+                string query = "SELECT * FROM HSPView";
                 cm.CommandText = query;
                 reader = cm.ExecuteReader();
                 if (reader.HasRows)
                 {
                     while (reader.Read())
                     {
-                        cws.Add(GetCWObj(reader));
+                        cws.Add(GetObj(reader));
                     }
                 }
             }
@@ -162,73 +161,76 @@ namespace TextileResearchDevelopment.BLL
             return cws;
         }
 
-        private static CW GetCWObj(SqlDataReader reader)
+        private static HSP GetObj(SqlDataReader reader)
         {
-            CW cw = new CW();
+            HSP hsp = new HSP();
             try
             {
-                cw.Id = Convert.ToInt32(reader["Id"]);
-                cw.fabric.buyer.BuyerName = reader["BuyerName"].ToString();
-                cw.fabric.fb.FabricTypeName = reader["FabricTypeName"].ToString();
-                cw.fabric.OrderNo = reader["OrderNo"].ToString();
-                cw.fabric.RefNo = reader["RefNo"].ToString();
-                cw.fabric.cm.Composition = reader["Composition"].ToString();
-                cw.fabric.Id = Convert.ToInt32(reader["FabricID"]);
-                cw.fabric.BarCode = reader["BarCode"].ToString();
+                hsp.Id = Convert.ToInt32(reader["Id"]);
+                hsp.fabric.buyer.BuyerName = reader["BuyerName"].ToString();
+                hsp.fabric.fb.FabricTypeName = reader["FabricTypeName"].ToString();
+                hsp.fabric.OrderNo = reader["OrderNo"].ToString();
+                hsp.fabric.RefNo = reader["RefNo"].ToString();
+                hsp.fabric.cm.Composition = reader["Composition"].ToString();
+                hsp.fabric.Id = Convert.ToInt32(reader["FabricID"]);
+                hsp.fabric.BarCode = reader["BarCode"].ToString();
 
-                cw.mc.Id = Convert.ToInt32(reader["CWMcNoId"]);
-                cw.mc.McNo = reader["CWMcNo"].ToString();
-                cw.Temp = reader["CWTemp"].ToString();
-                cw.Chemical = reader["CWChemical"].ToString();
-                cw.Speed = reader["CWSpeed"].ToString();
-                cw.ElognationLength = reader["CWWELength"].ToString();
-                cw.ElognationWidth = reader["CWSEWidth"].ToString();
-                cw.Dia = reader["CWWashDia"].ToString();
+                hsp.mc.Id = Convert.ToInt32(reader["HPMcNoId"]);
+                hsp.mc.McNo = reader["HSPMcNo"].ToString();
+                hsp.Temp = reader["HPTemp"].ToString();
+                hsp.Speed = reader["HPSpeed"].ToString();
+                hsp.Time = reader["HPTime"].ToString();
+                hsp.Feed = reader["HPFeed"].ToString();
+                hsp.Streching = reader["HPStrech"].ToString();
+                hsp.Chemical = reader["HPChemical"].ToString();
+                hsp.Dia = reader["HPDia"].ToString();
+                hsp.GSM = reader["HPGSM"].ToString();
+                hsp.Shrinkage = reader["HPShrinkage"].ToString();
 
-                cw.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
-                cw.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
+                hsp.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
+                hsp.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
 
-                cw.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
-                cw.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
-                cw.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
-                cw.CreateByName = reader["CreateByName"].ToString();
-                cw.UpdateByName = reader["UpdateByName"].ToString();
-                cw.ApprovedByName = reader["ApprovedByName"].ToString();
+                hsp.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
+                hsp.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
+                hsp.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
+                hsp.CreateByName = reader["CreateByName"].ToString();
+                hsp.UpdateByName = reader["UpdateByName"].ToString();
+                hsp.ApprovedByName = reader["ApprovedByName"].ToString();
             }
 
             catch (Exception ex)
             {
-                cw = new CW();
+                hsp = new HSP();
             }
 
-            return cw;
+            return hsp;
         }
 
-        internal static CW ReviseCW(CW cw)
+        internal static HSP Revise(HSP hsp)
         {
             try
             {
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM CWView WHERE BarCode = '" + cw.fabric.BarCode + "'";
+                string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM HSPView WHERE BarCode = '" + hsp.fabric.BarCode + "'";
 
-                string query = "INSERT INTO ContinueWashing (FabricID, CWMcNoId, CWTemp, CWChemical, CWSpeed, CWWELength, CWSEWidth, CWWashDia, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + cw.fabric.Id + "," + cw.mc.Id + ",'" + cw.Temp + "','" + cw.Chemical + "','" + cw.Speed + "','" + cw.ElognationLength + "','" + cw.ElognationWidth + "','" + cw.Dia + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                string query = "INSERT INTO HSP (FabricID, HPMcNoId, HPTemp, HPSpeed, HPTime, HPFeed, HPStrech, HPChemical, HPDia, HPGSM, HPShrinkage, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + hsp.fabric.Id + "," + hsp.mc.Id + ",'" + hsp.Temp + "','" + hsp.Speed + "','" + hsp.Time + "','" + hsp.Feed + "','" + hsp.Streching + "','" + hsp.Chemical + "','" + hsp.Dia + "','" + hsp.GSM + "','" + hsp.Shrinkage + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM CWView order by Id desc";
+                    query = "SELECT TOP 1* FROM HSPView order by Id desc";
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            cw = GetCWObj(reader);
+                            hsp = GetObj(reader);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                cw = new CW();
+                hsp = new HSP();
             }
             finally
             {
@@ -237,32 +239,32 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return cw;
+            return hsp;
         }
 
-        internal static CW ApproveCW(CW cw)
+        internal static HSP Approve(HSP hsp)
         {
             try
             {
                 string GetApproveByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " UPDATE ContinueWashing SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + cw.Id + " AND ApprovedStatus = 0 ";
+                string query = " UPDATE HSP SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + hsp.Id + " AND ApprovedStatus = 0 ";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM CWView order by Id desc";
+                    query = "SELECT TOP 1* FROM HSPView order by Id desc";
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            cw = GetCWObj(reader);
+                            hsp = GetObj(reader);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                cw = new CW();
+                hsp = new HSP();
             }
             finally
             {
@@ -271,31 +273,31 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return cw;
+            return hsp;
         }
 
-        internal static CW UnapproveCW(CW cw)
+        internal static HSP Unapprove(HSP hsp)
         {
             try
             {
-                string query = " UPDATE ContinueWashing SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE Id = " + cw.Id;
+                string query = " UPDATE HSP SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE Id = " + hsp.Id;
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM CWView order by Id desc";
+                    query = "SELECT TOP 1* FROM HSPView order by Id desc";
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            cw = GetCWObj(reader);
+                            hsp = GetObj(reader);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                cw = new CW();
+                hsp = new HSP();
             }
             finally
             {
@@ -304,7 +306,7 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return cw;
+            return hsp;
         }
 
         public static List<Fabric> FabricSearch(Fabric fabricearchObj)
@@ -359,7 +361,7 @@ namespace TextileResearchDevelopment.BLL
         {
             try
             {
-                string query = "SELECT * FROM FabricView WHERE ID NOT IN (SELECT FabricID FROM ContinueWashing)";
+                string query = "SELECT * FROM FabricView WHERE ID NOT IN (SELECT FabricID FROM HSP)";
                 if (fabricearchObj.BarCode != "" && fabricearchObj.BarCode != null)
                 {
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
@@ -398,6 +400,5 @@ namespace TextileResearchDevelopment.BLL
                 return "";
             }
         }
-
     }
 }

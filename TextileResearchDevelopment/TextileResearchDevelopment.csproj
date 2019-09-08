@@ -137,6 +137,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BLL\DryerBLL.cs" />
+    <Compile Include="BLL\HSPBLL.cs" />
+    <Compile Include="BLL\SingeingBLL.cs" />
+    <Compile Include="BLL\StenterBLL.cs" />
     <Compile Include="BLL\WashingBLL.cs" />
     <Compile Include="BLL\DyeingBLL.cs" />
     <Compile Include="BLL\FabricBLL.cs" />

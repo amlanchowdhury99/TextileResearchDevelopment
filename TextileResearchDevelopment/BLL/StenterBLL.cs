@@ -10,12 +10,12 @@ using System.Web.Configuration;
 
 namespace TextileResearchDevelopment.BLL
 {
-    public class WashingBLL
+    public class StenterBLL
     {
-
-        public static List<CW> cws = new List<CW>();
+        public static List<Stenter> cws = new List<Stenter>();
         public static List<CompositionType> cmList = new List<CompositionType>();
         public static List<MachineType> machineTypes = new List<MachineType>();
+        public static List<ProductionType> productionTypes = new List<ProductionType>();
 
         public static List<Fabric> fabrics = new List<Fabric>();
         static string connectionStr = DBGateway.connectionString;
@@ -25,7 +25,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 machineTypes = new List<MachineType>();
-                string query = "SELECT * FROM CWMcNoType";
+                string query = "SELECT * FROM StenterMcNoType";
                 SqlDataReader reader = DBGateway.GetFromDB(query);
                 if (reader.HasRows)
                 {
@@ -54,50 +54,28 @@ namespace TextileResearchDevelopment.BLL
             return machineTypes;
         }
 
-        internal static CW CRUD(CW cw)
+        internal static List<ProductionType> GetProductionTypeList()
         {
             try
             {
-                string query = "";
-                if (cw.Id > 0)
+                productionTypes = new List<ProductionType>();
+                string query = "SELECT * FROM SProductionType";
+                SqlDataReader reader = DBGateway.GetFromDB(query);
+                if (reader.HasRows)
                 {
-                    string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE ContinueWashing SET FabricID = '" + cw.fabric.Id + "', CWMcNoId = '" + cw.mc.Id + "', CWTemp = '" + cw.Temp + "', CWChemical = '" + cw.Chemical + "', CWSpeed = '" + cw.Speed + "', CWWELength = '" + cw.ElognationLength + "', CWSEWidth = '" + cw.ElognationWidth + "', CWWashDia = '" + cw.Dia + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
+                    while (reader.Read())
+                    {
+                        MachineType mc = new MachineType();
+                        mc.Id = Convert.ToInt32(reader["Id"]);
+                        mc.McNo = reader["SProduction"].ToString();
 
-                    if (DBGateway.ExecutionToDB(query, 1))
-                    {
-                        query = "SELECT * FROM CWView WHERE Id = " + cw.Id;
-                        SqlDataReader reader = DBGateway.GetFromDB(query);
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                cw = GetCWObj(reader);
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "INSERT INTO ContinueWashing (FabricID, CWMcNoId, CWTemp, CWChemical, CWSpeed, CWWELength, CWSEWidth, CWWashDia, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + cw.fabric.Id + "," + cw.mc.Id + ",'" + cw.Temp + "','" + cw.Chemical + "','" + cw.Speed + "','" + cw.ElognationLength + "','" + cw.ElognationWidth + "','" + cw.Dia + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
-                    if (DBGateway.ExecutionToDB(query, 1))
-                    {
-                        query = "SELECT TOP 1 * FROM CWView order by Id desc";
-                        SqlDataReader reader = DBGateway.GetFromDB(query);
-                        if (reader.HasRows)
-                        {
-                            while (reader.Read())
-                            {
-                                cw = GetCWObj(reader);
-                            }
-                        }
+                        machineTypes.Add(mc);
                     }
                 }
             }
             catch (Exception ex)
             {
-                return new CW();
+                machineTypes = new List<MachineType>();
             }
             finally
             {
@@ -106,14 +84,70 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return cw;
+
+            return productionTypes;
         }
 
-        internal static bool DeleteCW(int Id)
+        internal static Stenter CRUD(Stenter stenter)
         {
             try
             {
-                string query = "DELETE FROM ContinueWashing WHERE Id = " + Id + " AND ApprovedStatus = 0";
+                string query = "";
+                if (stenter.Id > 0)
+                {
+                    string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
+                    query = "UPDATE Stenter SET FabricID = '" + stenter.fabric.Id + "', DRMcNoID = " + stenter.mc.Id + ", STProductionTypeID = " + stenter.pr.Id + ", DRTemp = '" + stenter.Temp + "', DRSpeed = '" + stenter.Speed + "', DRFeed = '" + stenter.Feed + "', DRStreching = '" + stenter.Streching + "', DRChemical = '" + stenter.Chemical + "', DRDia = '" + stenter.Dia + "', DRGSM = '" + stenter.GSM + "', DRShrinkage = '" + stenter.Shrinkage + "', Remarks = '" + stenter.Remarks + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
+
+                    if (DBGateway.ExecutionToDB(query, 1))
+                    {
+                        query = "SELECT * FROM StenterView WHERE Id = " + stenter.Id;
+                        SqlDataReader reader = DBGateway.GetFromDB(query);
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                stenter = GetObj(reader);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
+                    query = "INSERT INTO Stenter (FabricID, DRMcNoID, STProductionTypeID, DRTemp, DRSpeed, DRFeed, DRStreching, DRChemical, DRDia, DRGSM, DRShrinkage, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + stenter.fabric.Id + "," + stenter.mc.Id + "," + stenter.pr.Id + ",'" + stenter.Temp + "','" + stenter.Speed + "','" + stenter.Feed + "','" + stenter.Streching + "','" + stenter.Chemical + "','" + stenter.Dia + "','" + stenter.GSM + "','" + stenter.Shrinkage + "','" + stenter.Remarks + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                    if (DBGateway.ExecutionToDB(query, 1))
+                    {
+                        query = "SELECT TOP 1 * FROM StenterView order by Id desc";
+                        SqlDataReader reader = DBGateway.GetFromDB(query);
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                stenter = GetObj(reader);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return new Stenter();
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+            return stenter;
+        }
+
+        internal static bool Delete(int Id)
+        {
+            try
+            {
+                string query = "DELETE FROM Stenter WHERE Id = " + Id + " AND ApprovedStatus = 0";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     return true;
@@ -133,20 +167,20 @@ namespace TextileResearchDevelopment.BLL
             return false;
         }
 
-        internal static List<CW> GetList()
+        internal static List<Stenter> GetList()
         {
             SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader; cm.Connection = cn; cn.Open();
             try
             {
-                cws = new List<CW>();
-                string query = "SELECT * FROM CWView";
+                cws = new List<Stenter>();
+                string query = "SELECT * FROM StenterView";
                 cm.CommandText = query;
                 reader = cm.ExecuteReader();
                 if (reader.HasRows)
                 {
                     while (reader.Read())
                     {
-                        cws.Add(GetCWObj(reader));
+                        cws.Add(GetObj(reader));
                     }
                 }
             }
@@ -162,73 +196,79 @@ namespace TextileResearchDevelopment.BLL
             return cws;
         }
 
-        private static CW GetCWObj(SqlDataReader reader)
+        private static Stenter GetObj(SqlDataReader reader)
         {
-            CW cw = new CW();
+            Stenter stenter = new Stenter();
             try
             {
-                cw.Id = Convert.ToInt32(reader["Id"]);
-                cw.fabric.buyer.BuyerName = reader["BuyerName"].ToString();
-                cw.fabric.fb.FabricTypeName = reader["FabricTypeName"].ToString();
-                cw.fabric.OrderNo = reader["OrderNo"].ToString();
-                cw.fabric.RefNo = reader["RefNo"].ToString();
-                cw.fabric.cm.Composition = reader["Composition"].ToString();
-                cw.fabric.Id = Convert.ToInt32(reader["FabricID"]);
-                cw.fabric.BarCode = reader["BarCode"].ToString();
+                stenter.Id = Convert.ToInt32(reader["Id"]);
+                stenter.fabric.buyer.BuyerName = reader["BuyerName"].ToString();
+                stenter.fabric.fb.FabricTypeName = reader["FabricTypeName"].ToString();
+                stenter.fabric.OrderNo = reader["OrderNo"].ToString();
+                stenter.fabric.RefNo = reader["RefNo"].ToString();
+                stenter.fabric.cm.Composition = reader["Composition"].ToString();
+                stenter.fabric.Id = Convert.ToInt32(reader["FabricID"]);
+                stenter.fabric.BarCode = reader["BarCode"].ToString();
 
-                cw.mc.Id = Convert.ToInt32(reader["CWMcNoId"]);
-                cw.mc.McNo = reader["CWMcNo"].ToString();
-                cw.Temp = reader["CWTemp"].ToString();
-                cw.Chemical = reader["CWChemical"].ToString();
-                cw.Speed = reader["CWSpeed"].ToString();
-                cw.ElognationLength = reader["CWWELength"].ToString();
-                cw.ElognationWidth = reader["CWSEWidth"].ToString();
-                cw.Dia = reader["CWWashDia"].ToString();
+                stenter.mc.Id = Convert.ToInt32(reader["DRMcNoID"]);
+                stenter.mc.McNo = reader["DryerMcNo"].ToString();
+                stenter.pr.Id = Convert.ToInt32(reader["STProductionTypeID"]);
+                stenter.pr.Production = reader["SProduction"].ToString();
+                stenter.Speed = reader["DRSpeed"].ToString();
+                stenter.Temp = reader["DRTemp"].ToString();
+                stenter.Speed = reader["DRSpeed"].ToString();
+                stenter.Feed = reader["DRFeed"].ToString();
+                stenter.Streching = reader["DRStreching"].ToString();
+                stenter.Chemical = reader["DRChemical"].ToString();
+                stenter.Dia = reader["DRDia"].ToString();
+                stenter.GSM = reader["DRGSM"].ToString();
+                stenter.Shrinkage = reader["DRShrinkage"].ToString();
+                stenter.Remarks = reader["Remarks"].ToString();
 
-                cw.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
-                cw.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
+                stenter.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
+                stenter.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
 
-                cw.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
-                cw.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
-                cw.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
-                cw.CreateByName = reader["CreateByName"].ToString();
-                cw.UpdateByName = reader["UpdateByName"].ToString();
-                cw.ApprovedByName = reader["ApprovedByName"].ToString();
+                stenter.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
+                stenter.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
+                stenter.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
+                stenter.CreateByName = reader["CreateByName"].ToString();
+                stenter.UpdateByName = reader["UpdateByName"].ToString();
+                stenter.ApprovedByName = reader["ApprovedByName"].ToString();
             }
 
             catch (Exception ex)
             {
-                cw = new CW();
+                stenter = new Stenter();
             }
 
-            return cw;
+            return stenter;
         }
 
-        internal static CW ReviseCW(CW cw)
+        internal static Stenter Revise(Stenter stenter)
         {
             try
             {
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM CWView WHERE BarCode = '" + cw.fabric.BarCode + "'";
+                string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM StenterView WHERE BarCode = '" + stenter.fabric.BarCode + "'";
 
-                string query = "INSERT INTO ContinueWashing (FabricID, CWMcNoId, CWTemp, CWChemical, CWSpeed, CWWELength, CWSEWidth, CWWashDia, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + cw.fabric.Id + "," + cw.mc.Id + ",'" + cw.Temp + "','" + cw.Chemical + "','" + cw.Speed + "','" + cw.ElognationLength + "','" + cw.ElognationWidth + "','" + cw.Dia + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                string query = "INSERT INTO Stenter (FabricID, DRMcNoID, STProductionTypeID, DRTemp, DRSpeed, DRFeed, DRStreching, DRChemical, DRDia, DRGSM, DRShrinkage, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + stenter.fabric.Id + "," + stenter.mc.Id + "," + stenter.pr.Id + ",'" + stenter.Temp + "','" + stenter.Speed + "','" + stenter.Feed + "','" + stenter.Streching + "','" + stenter.Chemical + "','" + stenter.Dia + "','" + stenter.GSM + "','" + stenter.Shrinkage + "','" + stenter.Remarks + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM CWView order by Id desc";
+                    query = "SELECT TOP 1* FROM StenterView order by Id desc";
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            cw = GetCWObj(reader);
+                            stenter = GetObj(reader);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                cw = new CW();
+                stenter = new Stenter();
             }
             finally
             {
@@ -237,32 +277,32 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return cw;
+            return stenter;
         }
 
-        internal static CW ApproveCW(CW cw)
+        internal static Stenter Approve(Stenter stenter)
         {
             try
             {
                 string GetApproveByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " UPDATE ContinueWashing SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + cw.Id + " AND ApprovedStatus = 0 ";
+                string query = " UPDATE Stenter SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + stenter.Id + " AND ApprovedStatus = 0 ";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM CWView order by Id desc";
+                    query = "SELECT TOP 1* FROM StenterView order by Id desc";
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            cw = GetCWObj(reader);
+                            stenter = GetObj(reader);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                cw = new CW();
+                stenter = new Stenter();
             }
             finally
             {
@@ -271,31 +311,31 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return cw;
+            return stenter;
         }
 
-        internal static CW UnapproveCW(CW cw)
+        internal static Stenter Unapprove(Stenter stenter)
         {
             try
             {
-                string query = " UPDATE ContinueWashing SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE Id = " + cw.Id;
+                string query = " UPDATE Stenter SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE Id = " + stenter.Id;
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM CWView order by Id desc";
+                    query = "SELECT TOP 1* FROM StenterView order by Id desc";
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            cw = GetCWObj(reader);
+                            stenter = GetObj(reader);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                cw = new CW();
+                stenter = new Stenter();
             }
             finally
             {
@@ -304,7 +344,7 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return cw;
+            return stenter;
         }
 
         public static List<Fabric> FabricSearch(Fabric fabricearchObj)
@@ -359,7 +399,7 @@ namespace TextileResearchDevelopment.BLL
         {
             try
             {
-                string query = "SELECT * FROM FabricView WHERE ID NOT IN (SELECT FabricID FROM ContinueWashing)";
+                string query = "SELECT * FROM FabricView WHERE ID NOT IN (SELECT FabricID FROM Stenter)";
                 if (fabricearchObj.BarCode != "" && fabricearchObj.BarCode != null)
                 {
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
@@ -398,6 +438,5 @@ namespace TextileResearchDevelopment.BLL
                 return "";
             }
         }
-
     }
 }

@@ -10,10 +10,9 @@ using System.Web.Configuration;
 
 namespace TextileResearchDevelopment.BLL
 {
-    public class WashingBLL
+    public class DryerBLL
     {
-
-        public static List<CW> cws = new List<CW>();
+        public static List<Dryer> cws = new List<Dryer>();
         public static List<CompositionType> cmList = new List<CompositionType>();
         public static List<MachineType> machineTypes = new List<MachineType>();
 
@@ -25,7 +24,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 machineTypes = new List<MachineType>();
-                string query = "SELECT * FROM CWMcNoType";
+                string query = "SELECT * FROM DryerMcNoType";
                 SqlDataReader reader = DBGateway.GetFromDB(query);
                 if (reader.HasRows)
                 {
@@ -33,7 +32,7 @@ namespace TextileResearchDevelopment.BLL
                     {
                         MachineType mc = new MachineType();
                         mc.Id = Convert.ToInt32(reader["Id"]);
-                        mc.McNo = reader["CWMcNo"].ToString();
+                        mc.McNo = reader["DryerMcNo"].ToString();
 
                         machineTypes.Add(mc);
                     }
@@ -54,25 +53,25 @@ namespace TextileResearchDevelopment.BLL
             return machineTypes;
         }
 
-        internal static CW CRUD(CW cw)
+        internal static Dryer CRUD(Dryer dryer)
         {
             try
             {
                 string query = "";
-                if (cw.Id > 0)
+                if (dryer.Id > 0)
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE ContinueWashing SET FabricID = '" + cw.fabric.Id + "', CWMcNoId = '" + cw.mc.Id + "', CWTemp = '" + cw.Temp + "', CWChemical = '" + cw.Chemical + "', CWSpeed = '" + cw.Speed + "', CWWELength = '" + cw.ElognationLength + "', CWSEWidth = '" + cw.ElognationWidth + "', CWWashDia = '" + cw.Dia + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
+                    query = "UPDATE Dryer SET FabricID = '" + dryer.fabric.Id + "', DRMcNoID = " + dryer.mc.Id + ", DRTemp = '" + dryer.Temp + "', DRSpeed = '" + dryer.Speed + "', DRFeed = '" + dryer.Feed + "', DRStreching = '" + dryer.Streching + "', DRChemical = '" + dryer.Chemical + "', DRDia = '" + dryer.Dia + "', DRGSM = '" + dryer.GSM + "', DRShrinkage = '" + dryer.Shrinkage + "', Remarks = '" + dryer.Remarks + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
-                        query = "SELECT * FROM CWView WHERE Id = " + cw.Id;
+                        query = "SELECT * FROM DryerView WHERE Id = " + dryer.Id;
                         SqlDataReader reader = DBGateway.GetFromDB(query);
                         if (reader.HasRows)
                         {
                             while (reader.Read())
                             {
-                                cw = GetCWObj(reader);
+                                dryer = GetObj(reader);
                             }
                         }
                     }
@@ -80,16 +79,16 @@ namespace TextileResearchDevelopment.BLL
                 else
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "INSERT INTO ContinueWashing (FabricID, CWMcNoId, CWTemp, CWChemical, CWSpeed, CWWELength, CWSEWidth, CWWashDia, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + cw.fabric.Id + "," + cw.mc.Id + ",'" + cw.Temp + "','" + cw.Chemical + "','" + cw.Speed + "','" + cw.ElognationLength + "','" + cw.ElognationWidth + "','" + cw.Dia + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                    query = "INSERT INTO Dryer (FabricID, DRMcNoID, DRTemp, DRSpeed, DRFeed, DRStreching, DRChemical, DRDia, DRGSM, DRShrinkage, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + dryer.fabric.Id + "," + dryer.mc.Id + ",'" + dryer.Temp + "','" + dryer.Speed + "','" + dryer.Feed + "','" + dryer.Streching + "','" + dryer.Chemical + "','" + dryer.Dia + "','" + dryer.GSM + "','" + dryer.Shrinkage + "','" + dryer.Remarks + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
-                        query = "SELECT TOP 1 * FROM CWView order by Id desc";
+                        query = "SELECT TOP 1 * FROM DryerView order by Id desc";
                         SqlDataReader reader = DBGateway.GetFromDB(query);
                         if (reader.HasRows)
                         {
                             while (reader.Read())
                             {
-                                cw = GetCWObj(reader);
+                                dryer = GetObj(reader);
                             }
                         }
                     }
@@ -97,7 +96,7 @@ namespace TextileResearchDevelopment.BLL
             }
             catch (Exception ex)
             {
-                return new CW();
+                return new Dryer();
             }
             finally
             {
@@ -106,14 +105,14 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return cw;
+            return dryer;
         }
 
-        internal static bool DeleteCW(int Id)
+        internal static bool Delete(int Id)
         {
             try
             {
-                string query = "DELETE FROM ContinueWashing WHERE Id = " + Id + " AND ApprovedStatus = 0";
+                string query = "DELETE FROM Dryer WHERE Id = " + Id + " AND ApprovedStatus = 0";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     return true;
@@ -133,20 +132,20 @@ namespace TextileResearchDevelopment.BLL
             return false;
         }
 
-        internal static List<CW> GetList()
+        internal static List<Dryer> GetList()
         {
             SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader; cm.Connection = cn; cn.Open();
             try
             {
-                cws = new List<CW>();
-                string query = "SELECT * FROM CWView";
+                cws = new List<Dryer>();
+                string query = "SELECT * FROM DryerView";
                 cm.CommandText = query;
                 reader = cm.ExecuteReader();
                 if (reader.HasRows)
                 {
                     while (reader.Read())
                     {
-                        cws.Add(GetCWObj(reader));
+                        cws.Add(GetObj(reader));
                     }
                 }
             }
@@ -162,73 +161,76 @@ namespace TextileResearchDevelopment.BLL
             return cws;
         }
 
-        private static CW GetCWObj(SqlDataReader reader)
+        private static Dryer GetObj(SqlDataReader reader)
         {
-            CW cw = new CW();
+            Dryer dryer = new Dryer();
             try
             {
-                cw.Id = Convert.ToInt32(reader["Id"]);
-                cw.fabric.buyer.BuyerName = reader["BuyerName"].ToString();
-                cw.fabric.fb.FabricTypeName = reader["FabricTypeName"].ToString();
-                cw.fabric.OrderNo = reader["OrderNo"].ToString();
-                cw.fabric.RefNo = reader["RefNo"].ToString();
-                cw.fabric.cm.Composition = reader["Composition"].ToString();
-                cw.fabric.Id = Convert.ToInt32(reader["FabricID"]);
-                cw.fabric.BarCode = reader["BarCode"].ToString();
+                dryer.Id = Convert.ToInt32(reader["Id"]);
+                dryer.fabric.buyer.BuyerName = reader["BuyerName"].ToString();
+                dryer.fabric.fb.FabricTypeName = reader["FabricTypeName"].ToString();
+                dryer.fabric.OrderNo = reader["OrderNo"].ToString();
+                dryer.fabric.RefNo = reader["RefNo"].ToString();
+                dryer.fabric.cm.Composition = reader["Composition"].ToString();
+                dryer.fabric.Id = Convert.ToInt32(reader["FabricID"]);
+                dryer.fabric.BarCode = reader["BarCode"].ToString();
 
-                cw.mc.Id = Convert.ToInt32(reader["CWMcNoId"]);
-                cw.mc.McNo = reader["CWMcNo"].ToString();
-                cw.Temp = reader["CWTemp"].ToString();
-                cw.Chemical = reader["CWChemical"].ToString();
-                cw.Speed = reader["CWSpeed"].ToString();
-                cw.ElognationLength = reader["CWWELength"].ToString();
-                cw.ElognationWidth = reader["CWSEWidth"].ToString();
-                cw.Dia = reader["CWWashDia"].ToString();
+                dryer.mc.Id = Convert.ToInt32(reader["DRMcNoID"]);
+                dryer.mc.McNo = reader["DryerMcNo"].ToString();
+                dryer.Temp = reader["DRTemp"].ToString();
+                dryer.Speed = reader["DRSpeed"].ToString();
+                dryer.Feed = reader["DRFeed"].ToString();
+                dryer.Streching = reader["DRStreching"].ToString();
+                dryer.Chemical = reader["DRChemical"].ToString();
+                dryer.Dia = reader["DRDia"].ToString();
+                dryer.GSM = reader["DRGSM"].ToString();
+                dryer.Shrinkage = reader["DRShrinkage"].ToString();
+                dryer.Remarks = reader["Remarks"].ToString();
 
-                cw.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
-                cw.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
+                dryer.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
+                dryer.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
 
-                cw.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
-                cw.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
-                cw.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
-                cw.CreateByName = reader["CreateByName"].ToString();
-                cw.UpdateByName = reader["UpdateByName"].ToString();
-                cw.ApprovedByName = reader["ApprovedByName"].ToString();
+                dryer.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
+                dryer.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
+                dryer.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
+                dryer.CreateByName = reader["CreateByName"].ToString();
+                dryer.UpdateByName = reader["UpdateByName"].ToString();
+                dryer.ApprovedByName = reader["ApprovedByName"].ToString();
             }
 
             catch (Exception ex)
             {
-                cw = new CW();
+                dryer = new Dryer();
             }
 
-            return cw;
+            return dryer;
         }
 
-        internal static CW ReviseCW(CW cw)
+        internal static Dryer Revise(Dryer dryer)
         {
             try
             {
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM CWView WHERE BarCode = '" + cw.fabric.BarCode + "'";
-
-                string query = "INSERT INTO ContinueWashing (FabricID, CWMcNoId, CWTemp, CWChemical, CWSpeed, CWWELength, CWSEWidth, CWWashDia, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + cw.fabric.Id + "," + cw.mc.Id + ",'" + cw.Temp + "','" + cw.Chemical + "','" + cw.Speed + "','" + cw.ElognationLength + "','" + cw.ElognationWidth + "','" + cw.Dia + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM DryerView WHERE BarCode = '" + dryer.fabric.BarCode + "'";
+                
+                string query = "INSERT INTO Dryer (FabricID, DRMcNoID, DRTemp, DRSpeed, DRFeed, DRStreching, DRChemical, DRDia, DRGSM, DRShrinkage, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + dryer.fabric.Id + "," + dryer.mc.Id + ",'" + dryer.Temp + "','" + dryer.Speed + "','" + dryer.Feed + "','" + dryer.Streching + "','" + dryer.Chemical + "','" + dryer.Dia + "','" + dryer.GSM + "','" + dryer.Shrinkage + "','" + dryer.Remarks + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM CWView order by Id desc";
+                    query = "SELECT TOP 1* FROM DryerView order by Id desc";
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            cw = GetCWObj(reader);
+                            dryer = GetObj(reader);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                cw = new CW();
+                dryer = new Dryer();
             }
             finally
             {
@@ -237,32 +239,32 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return cw;
+            return dryer;
         }
 
-        internal static CW ApproveCW(CW cw)
+        internal static Dryer Approve(Dryer dryer)
         {
             try
             {
                 string GetApproveByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " UPDATE ContinueWashing SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + cw.Id + " AND ApprovedStatus = 0 ";
+                string query = " UPDATE Dryer SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + dryer.Id + " AND ApprovedStatus = 0 ";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM CWView order by Id desc";
+                    query = "SELECT TOP 1* FROM DryerView order by Id desc";
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            cw = GetCWObj(reader);
+                            dryer = GetObj(reader);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                cw = new CW();
+                dryer = new Dryer();
             }
             finally
             {
@@ -271,31 +273,31 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return cw;
+            return dryer;
         }
 
-        internal static CW UnapproveCW(CW cw)
+        internal static Dryer Unapprove(Dryer dryer)
         {
             try
             {
-                string query = " UPDATE ContinueWashing SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE Id = " + cw.Id;
+                string query = " UPDATE Dryer SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE Id = " + dryer.Id;
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM CWView order by Id desc";
+                    query = "SELECT TOP 1* FROM DryerView order by Id desc";
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            cw = GetCWObj(reader);
+                            dryer = GetObj(reader);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                cw = new CW();
+                dryer = new Dryer();
             }
             finally
             {
@@ -304,7 +306,7 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return cw;
+            return dryer;
         }
 
         public static List<Fabric> FabricSearch(Fabric fabricearchObj)
@@ -359,7 +361,7 @@ namespace TextileResearchDevelopment.BLL
         {
             try
             {
-                string query = "SELECT * FROM FabricView WHERE ID NOT IN (SELECT FabricID FROM ContinueWashing)";
+                string query = "SELECT * FROM FabricView WHERE ID NOT IN (SELECT FabricID FROM Dryer)";
                 if (fabricearchObj.BarCode != "" && fabricearchObj.BarCode != null)
                 {
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
@@ -398,6 +400,5 @@ namespace TextileResearchDevelopment.BLL
                 return "";
             }
         }
-
     }
 }

@@ -18,12 +18,23 @@
     </style>
 </head>
 
+<br />
 
 <div id="MainDiv">
 
-    <ul id="contextMenu" class="dropdown-menu" role="menu" style="display:none">
+    <ul id="MainContextMenu" class="dropdown-menu" role="menu" style="display:none">
         <li><a tabindex="-1" href="#">Delete</a></li>
+        <li><a tabindex="-1" href="#">Approve</a></li>
+        <li><a tabindex="-1" href="#">Unapprove</a></li>
     </ul>
+
+    <input type="checkbox" id="hidden" value="option1" style="display:none;">
+
+    <div class="text-left">
+        <button href="" id="FabricSelection" class="btn-info sm-4" data-toggle="modal" data-target="#modalFabricSelection">
+            Select Fabric
+        </button>
+    </div>
 
     <div class="modal fade" id="modalFabricSelection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
@@ -230,8 +241,8 @@
                 <th>Id</th>
                 <th>FabricID</th>
                 <th>McNoID</th>
-                <th>BuyerName</th>
-                <th>FabricTypeName</th>
+                <th>Buyer</th>
+                <th>Fabric</th>
                 <th>Composition</th>
                 <th>OrderNo</th>
                 <th>RefNo</th>
@@ -240,8 +251,8 @@
                 <th>Temp</th>
                 <th>Chemical</th>
                 <th>Speed</th>
-                <th>ElognationLength</th>
-                <th>ElognationWidth</th>
+                <th>Elognation(L)</th>
+                <th>Elognation(W)</th>
                 <th>Dia</th>
                 <th>Revise</th>
                 <th>Aprroved</th>
@@ -259,8 +270,8 @@
                 <th></th>
                 <th></th>
                 <th></th>
-                <th>BuyerName</th>
-                <th>FabricTypeName</th>
+                <th>Buyer</th>
+                <th>Fabric</th>
                 <th>Composition</th>
                 <th>OrderNo</th>
                 <th>RefNo</th>
@@ -269,8 +280,8 @@
                 <th>Temp</th>
                 <th>Chemical</th>
                 <th>Speed</th>
-                <th>ElognationLength</th>
-                <th>ElognationWidth</th>
+                <th>Elognation(L)</th>
+                <th>Elognation(W)</th>
                 <th>Dia</th>
                 <th>Revise</th>
                 <th>Aprroved</th>
@@ -371,7 +382,7 @@
                     for (var i = 0; i < data.length; i++) {
                         s += '<option value="' + data[i].Id + '">' + data[i].McNo + '</option>';
                     }
-                    $("#McNo").html(s);
+                    $("#McNoType").html(s);
                     loadBuyerList();
                 }
             });
@@ -574,11 +585,13 @@
                     $(this).addClass('selected');
                     var rowdata = CWtable.row(this).data();
                     if (rowdata.ApprovedStatus != 0) {
+                        $('#saveBtn').prop("disabled", false);
                         $('#updateBtn').prop("disabled", true);
                         $('#reviseBtn').prop("disabled", true);
                     }
                     else {
                         Setvalue(rowdata);
+                        $('#saveBtn').prop("disabled", true);
                         $('#updateBtn').prop("disabled", false);
                         $('#reviseBtn').prop("disabled", false);
                     }
@@ -717,7 +730,8 @@
             event.preventDefault();
 
             var fabric = {
-                Id: selectedFabricRowId
+                Id: selectedFabricRowId,
+                BarCode:$("#BarCode").val()
             }
 
             var mc = {
@@ -729,7 +743,7 @@
                 var Obj =
                 {
                     Id: '0',
-                    FabricID: KnitRow.fabric.Id,
+                    fabric: fabric,
                     mc: mc,
                     Temp: $("#Temp").val(),
                     Chemical: $("#Chemical ").val(),
@@ -771,8 +785,13 @@
 
             if ($('#CWtable tbody tr').hasClass('selected')) {
                 debugger
-                var KnitRow = CWtable.rows('.selected').data()[0];
+                var CWRow = CWtable.rows('.selected').data()[0];
                 var index = CWtable.row('.selected').index();
+
+                var fabric = {
+                    Id: CWRow.fabric.Id,
+                    BarCode:$("#BarCode").val()
+                }
 
                 var mc = {
                     Id: $("#McNoType option:selected").val()
@@ -780,8 +799,8 @@
 
                 var Obj =
                 {
-                    Id: KnitRow.Id,
-                    FabricID: KnitRow.fabric.Id,
+                    Id: CWRow.Id,
+                    fabric: fabric,
                     mc: mc,
                     Temp: $("#Temp").val(),
                     Chemical: $("#Chemical ").val(),
@@ -826,12 +845,21 @@
 
             if ($('#CWtable tbody tr').hasClass('selected')) {
                 debugger
-                var KnitRow = CWtable.rows('.selected').data()[0];
+                var CWRow = CWtable.rows('.selected').data()[0];
+
+                var fabric = {
+                    Id: CWRow.fabric.Id,
+                    BarCode:$("#BarCode").val()
+                }
+
+                var mc = {
+                    Id: $("#McNoType  option:selected").val()
+                }
 
                 var Obj =
                 {
-                    Id: KnitRow.Id,
-                    FabricID: KnitRow.fabric.Id,
+                    Id: CWRow.Id,
+                    fabric: fabric,
                     mc: mc,
                     Temp: $("#Temp").val(),
                     Chemical: $("#Chemical ").val(),
@@ -1025,6 +1053,16 @@
                     $("#tblItems").append(" Error when fetching data please contact administrator");
                 }
             });
+        }
+
+        function ValidateFabricForm() {
+            debugger;
+            if ($("#BarCodeSL").val() == "" && $("#BuyerSL option:selected").val() == "" && $("#FabricSL option:selected").val() == "" && $("#CompositionSL option:selected").val() == "" && $("#OrderNoSL").val() == "" && $("#RefNoSL").val() == "") {
+                return false;
+            }
+            else {
+                return true;
+            }
         }
 
         function Reset() {
