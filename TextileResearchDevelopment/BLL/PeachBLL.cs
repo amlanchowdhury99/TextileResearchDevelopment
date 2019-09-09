@@ -10,103 +10,35 @@ using System.Web.Configuration;
 
 namespace TextileResearchDevelopment.BLL
 {
-    public class DyeingBLL
+    public class PeachBLL
     {
-        public static List<Dyeing> cws = new List<Dyeing>();
+        public static List<Peach> cws = new List<Peach>();
         public static List<CompositionType> cmList = new List<CompositionType>();
         public static List<MachineType> machineTypes = new List<MachineType>();
-        public static List<RFTType> rFTTypes = new List<RFTType>();
+        public static List<ProductionType> productionTypes = new List<ProductionType>();
 
         public static List<Fabric> fabrics = new List<Fabric>();
         static string connectionStr = DBGateway.connectionString;
 
-        internal static List<MachineType> GetMachineList()
-        {
-            try
-            {
-                machineTypes = new List<MachineType>();
-                string query = "SELECT * FROM HSPMcNoType";
-                SqlDataReader reader = DBGateway.GetFromDB(query);
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        MachineType mc = new MachineType();
-                        mc.Id = Convert.ToInt32(reader["Id"]);
-                        mc.McNo = reader["HSPMcNo"].ToString();
-
-                        machineTypes.Add(mc);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                machineTypes = new List<MachineType>();
-            }
-            finally
-            {
-                if (DBGateway.connection.State == ConnectionState.Open)
-                {
-                    DBGateway.connection.Close();
-                }
-            }
-
-            return machineTypes;
-        }
-
-        internal static List<RFTType> GetRFTList()
-        {
-            try
-            {
-                rFTTypes = new List<RFTType>();
-                string query = "SELECT * FROM RFTType";
-                SqlDataReader reader = DBGateway.GetFromDB(query);
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        RFTType rft = new RFTType();
-                        rft.Id = Convert.ToInt32(reader["Id"]);
-                        rft.RFT = reader["RFT"].ToString();
-
-                        rFTTypes.Add(rft);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                rFTTypes = new List<RFTType>();
-            }
-            finally
-            {
-                if (DBGateway.connection.State == ConnectionState.Open)
-                {
-                    DBGateway.connection.Close();
-                }
-            }
-
-            return rFTTypes;
-        }
-
-        internal static Dyeing CRUD(Dyeing hsp)
+        internal static Peach CRUD(Peach peach)
         {
             try
             {
                 string query = "";
-                if (hsp.Id > 0)
+                if (peach.Id > 0)
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE Dyeing SET FabricID = '" + hsp.fabric.Id + "', HPMcNoId = " + hsp.mc.Id + ", HPTemp = '" + hsp.Temp + "', HPSpeed = '" + hsp.Speed + "', HPTime = '" + hsp.Time + "', HPFeed = '" + hsp.Feed + "', HPStrech = '" + hsp.Streching + "', HPChemical = '" + hsp.Chemical + "', HPDia = '" + hsp.Dia + "', HPGSM = '" + hsp.GSM + "', HPShrinkage = '" + hsp.Shrinkage + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
+                    query = "UPDATE Peach SET FabricID = '" + peach.fabric.Id + "', PTaker = '" + peach.Taker + "', PPlaiter = '" + peach.Plaiter + "', PReturn = '" + peach.Return + "', PTension = '" + peach.Tension + "', PRPM = '" + peach.RPM + "', PBrush = '" + peach.Brush + "', PSpeed = '" + peach.Speed + "',  PDia = '" + peach.Dia + "', PGSM = '" + peach.GSM + "', PRemarks = '" + peach.Remarks + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
-                        query = "SELECT * FROM DyeingView WHERE Id = " + hsp.Id;
+                        query = "SELECT * FROM PeachView WHERE Id = " + peach.Id;
                         SqlDataReader reader = DBGateway.GetFromDB(query);
                         if (reader.HasRows)
                         {
                             while (reader.Read())
                             {
-                                hsp = GetObj(reader);
+                                peach = GetObj(reader);
                             }
                         }
                     }
@@ -114,16 +46,16 @@ namespace TextileResearchDevelopment.BLL
                 else
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "INSERT INTO Dyeing (FabricID, RFTNoID, DMC, DSpeed, DEnzy, Recipe, DyeingTime, Dyebath, Whiteness, RecipeNo, Comments, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + hsp.fabric.Id + "," + hsp.rft.Id + ",'" + hsp.McNo + "','" + hsp.Speed + "','" + hsp.Enzyme + "','" + hsp.Recipe + "','" + hsp.Time + "','" + hsp.PH + "','" + hsp.Value + "','" + hsp.RecipeNo + "','" + hsp.Comments + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                    query = "INSERT INTO Peach (FabricID, PTaker, PPlaiter, PReturn, PTension, PRPM, PBrush, PSpeed, PDia, PGSM, PRemarks, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + peach.fabric.Id + ",'" + peach.Taker + "','" + peach.Plaiter + "','" + peach.Return + "','" + peach.Tension + "','" + peach.RPM + "','" + peach.Brush + "','" + peach.Speed + "','" + peach.Dia + "','" + peach.GSM + "','" + peach.Remarks + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
-                        query = "SELECT TOP 1 * FROM DyeingView order by Id desc";
+                        query = "SELECT TOP 1 * FROM PeachView order by Id desc";
                         SqlDataReader reader = DBGateway.GetFromDB(query);
                         if (reader.HasRows)
                         {
                             while (reader.Read())
                             {
-                                hsp = GetObj(reader);
+                                peach = GetObj(reader);
                             }
                         }
                     }
@@ -131,7 +63,7 @@ namespace TextileResearchDevelopment.BLL
             }
             catch (Exception ex)
             {
-                return new Dyeing();
+                return new Peach();
             }
             finally
             {
@@ -140,14 +72,14 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return hsp;
+            return peach;
         }
 
         internal static bool Delete(int Id)
         {
             try
             {
-                string query = "DELETE FROM Dyeing WHERE Id = " + Id + " AND ApprovedStatus = 0";
+                string query = "DELETE FROM Peach WHERE Id = " + Id + " AND ApprovedStatus = 0";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     return true;
@@ -167,13 +99,13 @@ namespace TextileResearchDevelopment.BLL
             return false;
         }
 
-        internal static List<Dyeing> GetList()
+        internal static List<Peach> GetList()
         {
             SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader; cm.Connection = cn; cn.Open();
             try
             {
-                cws = new List<Dyeing>();
-                string query = "SELECT * FROM DyeingView";
+                cws = new List<Peach>();
+                string query = "SELECT * FROM PeachView";
                 cm.CommandText = query;
                 reader = cm.ExecuteReader();
                 if (reader.HasRows)
@@ -196,76 +128,75 @@ namespace TextileResearchDevelopment.BLL
             return cws;
         }
 
-        private static Dyeing GetObj(SqlDataReader reader)
+        private static Peach GetObj(SqlDataReader reader)
         {
-            Dyeing hsp = new Dyeing();
+            Peach peach = new Peach();
             try
             {
-                hsp.Id = Convert.ToInt32(reader["Id"]);
-                hsp.fabric.buyer.BuyerName = reader["BuyerName"].ToString();
-                hsp.fabric.fb.FabricTypeName = reader["FabricTypeName"].ToString();
-                hsp.fabric.OrderNo = reader["OrderNo"].ToString();
-                hsp.fabric.RefNo = reader["RefNo"].ToString();
-                hsp.fabric.cm.Composition = reader["Composition"].ToString();
-                hsp.fabric.Id = Convert.ToInt32(reader["FabricID"]);
-                hsp.fabric.BarCode = reader["BarCode"].ToString();
+                peach.Id = Convert.ToInt32(reader["Id"]);
+                peach.fabric.buyer.BuyerName = reader["BuyerName"].ToString();
+                peach.fabric.fb.FabricTypeName = reader["FabricTypeName"].ToString();
+                peach.fabric.OrderNo = reader["OrderNo"].ToString();
+                peach.fabric.RefNo = reader["RefNo"].ToString();
+                peach.fabric.cm.Composition = reader["Composition"].ToString();
+                peach.fabric.Id = Convert.ToInt32(reader["FabricID"]);
+                peach.fabric.BarCode = reader["BarCode"].ToString();
 
-                hsp.mc.Id = Convert.ToInt32(reader["HPMcNoId"]);
-                hsp.mc.McNo = reader["HSPMcNo"].ToString();
-                hsp.Temp = reader["HPTemp"].ToString();
-                hsp.Speed = reader["HPSpeed"].ToString();
-                hsp.Time = reader["HPTime"].ToString();
-                hsp.Feed = reader["HPFeed"].ToString();
-                hsp.Streching = reader["HPStrech"].ToString();
-                hsp.Chemical = reader["HPChemical"].ToString();
-                hsp.Dia = reader["HPDia"].ToString();
-                hsp.GSM = reader["HPGSM"].ToString();
-                hsp.Shrinkage = reader["HPShrinkage"].ToString();
+                peach.Taker = reader["PTaker"].ToString();
+                peach.Plaiter = reader["PPlaiter"].ToString();
+                peach.Return = reader["PReturn"].ToString();
+                peach.Tension = reader["PTension"].ToString();
+                peach.RPM = reader["PRPM"].ToString();
+                peach.Brush = reader["PBrush"].ToString();
+                peach.Speed = reader["PSpeed"].ToString();
+                peach.Dia = reader["PDia"].ToString();
+                peach.GSM = reader["CGSM"].ToString();
+                peach.Remarks = reader["PRemarks"].ToString();
 
-                hsp.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
-                hsp.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
+                peach.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
+                peach.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
 
-                hsp.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
-                hsp.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
-                hsp.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
-                hsp.CreateByName = reader["CreateByName"].ToString();
-                hsp.UpdateByName = reader["UpdateByName"].ToString();
-                hsp.ApprovedByName = reader["ApprovedByName"].ToString();
+                peach.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
+                peach.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
+                peach.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
+                peach.CreateByName = reader["CreateByName"].ToString();
+                peach.UpdateByName = reader["UpdateByName"].ToString();
+                peach.ApprovedByName = reader["ApprovedByName"].ToString();
             }
 
             catch (Exception ex)
             {
-                hsp = new Dyeing();
+                peach = new Peach();
             }
 
-            return hsp;
+            return peach;
         }
 
-        internal static Dyeing Revise(Dyeing hsp)
+        internal static Peach Revise(Peach peach)
         {
             try
             {
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM DyeingView WHERE BarCode = '" + hsp.fabric.BarCode + "'";
+                string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM PeachView WHERE BarCode = '" + peach.fabric.BarCode + "'";
                 
-                string query = "INSERT INTO Dyeing (FabricID, RFTNoID, DMC, DSpeed, DEnzy, Recipe, DyeingTime, Dyebath, Whiteness, RecipeNo, Comments, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + hsp.fabric.Id + "," + hsp.rft.Id + ",'" + hsp.McNo + "','" + hsp.Speed + "','" + hsp.Enzyme + "','" + hsp.Recipe + "','" + hsp.Time + "','" + hsp.PH + "','" + hsp.Value + "','" + hsp.RecipeNo + "','" + hsp.Comments + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                string query = "INSERT INTO Peach (FabricID, PTaker, PPlaiter, PReturn, PTension, PRPM, PBrush, PSpeed, PDia, PGSM, PRemarks, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + peach.fabric.Id + ",'" + peach.Taker + "','" + peach.Plaiter + "','" + peach.Return + "','" + peach.Tension + "','" + peach.RPM + "','" + peach.Brush + "','" + peach.Speed + "','" + peach.Dia + "','" + peach.GSM + "','" + peach.Remarks + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM DyeingView order by Id desc";
+                    query = "SELECT TOP 1* FROM PeachView order by Id desc";
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            hsp = GetObj(reader);
+                            peach = GetObj(reader);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                hsp = new Dyeing();
+                peach = new Peach();
             }
             finally
             {
@@ -274,32 +205,32 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return hsp;
+            return peach;
         }
 
-        internal static Dyeing Approve(Dyeing hsp)
+        internal static Peach Approve(Peach peach)
         {
             try
             {
                 string GetApproveByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " UPDATE Dyeing SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + hsp.Id + " AND ApprovedStatus = 0 ";
+                string query = " UPDATE Peach SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + peach.Id + " AND ApprovedStatus = 0 ";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM DyeingView order by Id desc";
+                    query = "SELECT TOP 1* FROM PeachView order by Id desc";
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            hsp = GetObj(reader);
+                            peach = GetObj(reader);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                hsp = new Dyeing();
+                peach = new Peach();
             }
             finally
             {
@@ -308,31 +239,31 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return hsp;
+            return peach;
         }
 
-        internal static Dyeing Unapprove(Dyeing hsp)
+        internal static Peach Unapprove(Peach peach)
         {
             try
             {
-                string query = " UPDATE Dyeing SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE Id = " + hsp.Id;
+                string query = " UPDATE Peach SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE Id = " + peach.Id;
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM DyeingView order by Id desc";
+                    query = "SELECT TOP 1* FROM PeachView order by Id desc";
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            hsp = GetObj(reader);
+                            peach = GetObj(reader);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                hsp = new Dyeing();
+                peach = new Peach();
             }
             finally
             {
@@ -341,7 +272,7 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return hsp;
+            return peach;
         }
 
         public static List<Fabric> FabricSearch(Fabric fabricearchObj)
@@ -396,7 +327,7 @@ namespace TextileResearchDevelopment.BLL
         {
             try
             {
-                string query = "SELECT * FROM FabricView WHERE ID NOT IN (SELECT FabricID FROM Dyeing)";
+                string query = "SELECT * FROM FabricView WHERE ID NOT IN (SELECT FabricID FROM Peach)";
                 if (fabricearchObj.BarCode != "" && fabricearchObj.BarCode != null)
                 {
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";

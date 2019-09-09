@@ -9,7 +9,7 @@ using TextileResearchDevelopment.BLL;
 
 namespace TextileResearchDevelopment.Controllers
 {
-    public class PeachController : Controller
+    public class PrintController : Controller
     {
         public ActionResult Index()
         {
@@ -23,7 +23,7 @@ namespace TextileResearchDevelopment.Controllers
             List<Fabric> data = new List<Fabric>();
             try
             {
-                data = PeachBLL.FabricSearch(fabricSearchObj);
+                data = PrintBLL.FabricSearch(fabricSearchObj);
             }
             catch (Exception ex)
             {
@@ -37,11 +37,11 @@ namespace TextileResearchDevelopment.Controllers
         public JsonResult GetData()
         {
             JsonResult result = new JsonResult();
-            List<Peach> objList = new List<Peach>();
+            List<Print> objList = new List<Print>();
 
             try
             {
-                objList = PeachBLL.GetList();
+                objList = PrintBLL.GetList();
             }
             catch (Exception ex)
             {
@@ -52,19 +52,73 @@ namespace TextileResearchDevelopment.Controllers
 
         }
 
+        [HttpGet]
+        public JsonResult GetMachineList()
+        {
+            JsonResult result = new JsonResult();
+            List<MachineType> mcList = new List<MachineType>();
+
+            try
+            {
+                mcList = PrintBLL.GetMachineList();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { data = new List<MachineType>() }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { data = mcList }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetPrintFactoryTypeList()
+        {
+            JsonResult result = new JsonResult();
+            List<PrintFactoryType> ptrList = new List<PrintFactoryType>();
+
+            try
+            {
+                ptrList = PrintBLL.GetPrintFactoryTypeList();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { data = new List<ProductionType>() }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { data = ptrList }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetPrintTypeList()
+        {
+            JsonResult result = new JsonResult();
+            List<PrintType> ptList = new List<PrintType>();
+
+            try
+            {
+                ptList = PrintBLL.GetPrintTypeList();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { data = new List<ProductionType>() }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { data = ptList }, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
-        public ActionResult CRUD(Peach peach)
+        public ActionResult CRUD(Print print)
         {
             try
             {
-                peach = PeachBLL.CRUD(peach);
+                print = PrintBLL.CRUD(print);
             }
             catch
             {
                 return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
             }
 
-            return Json(new { data = peach }, JsonRequestBehavior.AllowGet);
+            return Json(new { data = print }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -75,7 +129,7 @@ namespace TextileResearchDevelopment.Controllers
             {
                 if (Id > 0)
                 {
-                    Result = PeachBLL.Delete(Id);
+                    Result = PrintBLL.Delete(Id);
                 }
 
                 if (Result)
@@ -92,14 +146,14 @@ namespace TextileResearchDevelopment.Controllers
         }
 
         [HttpPost]
-        public ActionResult Revise(Peach peach)
+        public ActionResult Revise(Print print)
         {
             try
             {
-                peach = PeachBLL.Revise(peach);
-                if (peach.Id > 0)
+                print = PrintBLL.Revise(print);
+                if (print.Id > 0)
                 {
-                    return Json(new { data = peach }, JsonRequestBehavior.AllowGet);
+                    return Json(new { data = print }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
@@ -113,15 +167,15 @@ namespace TextileResearchDevelopment.Controllers
         }
 
         [HttpPost]
-        public ActionResult Approve(Peach peach)
+        public ActionResult Approve(Print print)
         {
             try
             {
-                peach = PeachBLL.Approve(peach);
+                print = PrintBLL.Approve(print);
 
-                if (peach.Id > 0)
+                if (print.Id > 0)
                 {
-                    return Json(new { data = peach }, JsonRequestBehavior.AllowGet);
+                    return Json(new { data = print }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
@@ -136,15 +190,15 @@ namespace TextileResearchDevelopment.Controllers
         }
 
         [HttpPost]
-        public ActionResult Unapprove(Peach peach)
+        public ActionResult Unapprove(Print print)
         {
             try
             {
-                peach = PeachBLL.Unapprove(peach);
+                print = PrintBLL.Unapprove(print);
 
-                if (peach.Id > 0)
+                if (print.Id > 0)
                 {
-                    return Json(new { data = peach }, JsonRequestBehavior.AllowGet);
+                    return Json(new { data = print }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {

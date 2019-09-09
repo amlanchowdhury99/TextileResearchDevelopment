@@ -10,12 +10,12 @@ using System.Web.Configuration;
 
 namespace TextileResearchDevelopment.BLL
 {
-    public class DyeingBLL
+    public class CompactingBLL
     {
-        public static List<Dyeing> cws = new List<Dyeing>();
+        public static List<Compacting> cws = new List<Compacting>();
         public static List<CompositionType> cmList = new List<CompositionType>();
         public static List<MachineType> machineTypes = new List<MachineType>();
-        public static List<RFTType> rFTTypes = new List<RFTType>();
+        public static List<ProductionType> productionTypes = new List<ProductionType>();
 
         public static List<Fabric> fabrics = new List<Fabric>();
         static string connectionStr = DBGateway.connectionString;
@@ -25,7 +25,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 machineTypes = new List<MachineType>();
-                string query = "SELECT * FROM HSPMcNoType";
+                string query = "SELECT * FROM CompactingMcNoType";
                 SqlDataReader reader = DBGateway.GetFromDB(query);
                 if (reader.HasRows)
                 {
@@ -33,7 +33,7 @@ namespace TextileResearchDevelopment.BLL
                     {
                         MachineType mc = new MachineType();
                         mc.Id = Convert.ToInt32(reader["Id"]);
-                        mc.McNo = reader["HSPMcNo"].ToString();
+                        mc.McNo = reader["CWMcNo"].ToString();
 
                         machineTypes.Add(mc);
                     }
@@ -54,28 +54,28 @@ namespace TextileResearchDevelopment.BLL
             return machineTypes;
         }
 
-        internal static List<RFTType> GetRFTList()
+        internal static List<ProductionType> GetProductionTypeList()
         {
             try
             {
-                rFTTypes = new List<RFTType>();
-                string query = "SELECT * FROM RFTType";
+                productionTypes = new List<ProductionType>();
+                string query = "SELECT * FROM SProductionType";
                 SqlDataReader reader = DBGateway.GetFromDB(query);
                 if (reader.HasRows)
                 {
                     while (reader.Read())
                     {
-                        RFTType rft = new RFTType();
-                        rft.Id = Convert.ToInt32(reader["Id"]);
-                        rft.RFT = reader["RFT"].ToString();
+                        MachineType mc = new MachineType();
+                        mc.Id = Convert.ToInt32(reader["Id"]);
+                        mc.McNo = reader["SProduction"].ToString();
 
-                        rFTTypes.Add(rft);
+                        machineTypes.Add(mc);
                     }
                 }
             }
             catch (Exception ex)
             {
-                rFTTypes = new List<RFTType>();
+                machineTypes = new List<MachineType>();
             }
             finally
             {
@@ -85,28 +85,28 @@ namespace TextileResearchDevelopment.BLL
                 }
             }
 
-            return rFTTypes;
+            return productionTypes;
         }
 
-        internal static Dyeing CRUD(Dyeing hsp)
+        internal static Compacting CRUD(Compacting compacting)
         {
             try
             {
                 string query = "";
-                if (hsp.Id > 0)
+                if (compacting.Id > 0)
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE Dyeing SET FabricID = '" + hsp.fabric.Id + "', HPMcNoId = " + hsp.mc.Id + ", HPTemp = '" + hsp.Temp + "', HPSpeed = '" + hsp.Speed + "', HPTime = '" + hsp.Time + "', HPFeed = '" + hsp.Feed + "', HPStrech = '" + hsp.Streching + "', HPChemical = '" + hsp.Chemical + "', HPDia = '" + hsp.Dia + "', HPGSM = '" + hsp.GSM + "', HPShrinkage = '" + hsp.Shrinkage + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
+                    query = "UPDATE Compacting SET FabricID = '" + compacting.fabric.Id + "', CMcNoID = " + compacting.mc.Id + ", CProductionTypeID = " + compacting.pr.Id + ", CTemp = '" + compacting.Temp + "', CSpeed = '" + compacting.Speed + "', CFeed = '" + compacting.Feed + "', CSteam = '" + compacting.Steam + "', CCompaction = '" + compacting.Compaction + "', CDia = '" + compacting.Dia + "', CGSM = '" + compacting.GSM + "', CRemarks = '" + compacting.Remarks + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
-                        query = "SELECT * FROM DyeingView WHERE Id = " + hsp.Id;
+                        query = "SELECT * FROM CompactingView WHERE Id = " + compacting.Id;
                         SqlDataReader reader = DBGateway.GetFromDB(query);
                         if (reader.HasRows)
                         {
                             while (reader.Read())
                             {
-                                hsp = GetObj(reader);
+                                compacting = GetObj(reader);
                             }
                         }
                     }
@@ -114,16 +114,16 @@ namespace TextileResearchDevelopment.BLL
                 else
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "INSERT INTO Dyeing (FabricID, RFTNoID, DMC, DSpeed, DEnzy, Recipe, DyeingTime, Dyebath, Whiteness, RecipeNo, Comments, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + hsp.fabric.Id + "," + hsp.rft.Id + ",'" + hsp.McNo + "','" + hsp.Speed + "','" + hsp.Enzyme + "','" + hsp.Recipe + "','" + hsp.Time + "','" + hsp.PH + "','" + hsp.Value + "','" + hsp.RecipeNo + "','" + hsp.Comments + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                    query = "INSERT INTO Compacting (FabricID, CMcNoID, CProductionTypeID, CTemp, CFeed, CSpeed, CSteam, CCompaction, CDia, CGSM, CRemarks, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + compacting.fabric.Id + "," + compacting.mc.Id + "," + compacting.pr.Id + ",'" + compacting.Temp + "','" + compacting.Feed + "','" + compacting.Speed + "','" + compacting.Steam + "','" + compacting.Compaction + "','" + compacting.Dia + "','" + compacting.GSM + "','" + compacting.Remarks + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
-                        query = "SELECT TOP 1 * FROM DyeingView order by Id desc";
+                        query = "SELECT TOP 1 * FROM CompactingView order by Id desc";
                         SqlDataReader reader = DBGateway.GetFromDB(query);
                         if (reader.HasRows)
                         {
                             while (reader.Read())
                             {
-                                hsp = GetObj(reader);
+                                compacting = GetObj(reader);
                             }
                         }
                     }
@@ -131,7 +131,7 @@ namespace TextileResearchDevelopment.BLL
             }
             catch (Exception ex)
             {
-                return new Dyeing();
+                return new Compacting();
             }
             finally
             {
@@ -140,14 +140,14 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return hsp;
+            return compacting;
         }
 
         internal static bool Delete(int Id)
         {
             try
             {
-                string query = "DELETE FROM Dyeing WHERE Id = " + Id + " AND ApprovedStatus = 0";
+                string query = "DELETE FROM Compacting WHERE Id = " + Id + " AND ApprovedStatus = 0";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     return true;
@@ -167,13 +167,13 @@ namespace TextileResearchDevelopment.BLL
             return false;
         }
 
-        internal static List<Dyeing> GetList()
+        internal static List<Compacting> GetList()
         {
             SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader; cm.Connection = cn; cn.Open();
             try
             {
-                cws = new List<Dyeing>();
-                string query = "SELECT * FROM DyeingView";
+                cws = new List<Compacting>();
+                string query = "SELECT * FROM CompactingView";
                 cm.CommandText = query;
                 reader = cm.ExecuteReader();
                 if (reader.HasRows)
@@ -196,76 +196,78 @@ namespace TextileResearchDevelopment.BLL
             return cws;
         }
 
-        private static Dyeing GetObj(SqlDataReader reader)
+        private static Compacting GetObj(SqlDataReader reader)
         {
-            Dyeing hsp = new Dyeing();
+            Compacting compacting = new Compacting();
             try
             {
-                hsp.Id = Convert.ToInt32(reader["Id"]);
-                hsp.fabric.buyer.BuyerName = reader["BuyerName"].ToString();
-                hsp.fabric.fb.FabricTypeName = reader["FabricTypeName"].ToString();
-                hsp.fabric.OrderNo = reader["OrderNo"].ToString();
-                hsp.fabric.RefNo = reader["RefNo"].ToString();
-                hsp.fabric.cm.Composition = reader["Composition"].ToString();
-                hsp.fabric.Id = Convert.ToInt32(reader["FabricID"]);
-                hsp.fabric.BarCode = reader["BarCode"].ToString();
+                compacting.Id = Convert.ToInt32(reader["Id"]);
+                compacting.fabric.buyer.BuyerName = reader["BuyerName"].ToString();
+                compacting.fabric.fb.FabricTypeName = reader["FabricTypeName"].ToString();
+                compacting.fabric.OrderNo = reader["OrderNo"].ToString();
+                compacting.fabric.RefNo = reader["RefNo"].ToString();
+                compacting.fabric.cm.Composition = reader["Composition"].ToString();
+                compacting.fabric.Id = Convert.ToInt32(reader["FabricID"]);
+                compacting.fabric.BarCode = reader["BarCode"].ToString();
 
-                hsp.mc.Id = Convert.ToInt32(reader["HPMcNoId"]);
-                hsp.mc.McNo = reader["HSPMcNo"].ToString();
-                hsp.Temp = reader["HPTemp"].ToString();
-                hsp.Speed = reader["HPSpeed"].ToString();
-                hsp.Time = reader["HPTime"].ToString();
-                hsp.Feed = reader["HPFeed"].ToString();
-                hsp.Streching = reader["HPStrech"].ToString();
-                hsp.Chemical = reader["HPChemical"].ToString();
-                hsp.Dia = reader["HPDia"].ToString();
-                hsp.GSM = reader["HPGSM"].ToString();
-                hsp.Shrinkage = reader["HPShrinkage"].ToString();
+                compacting.mc.Id = Convert.ToInt32(reader["CMcNoID"]);
+                compacting.mc.McNo = reader["CompactingMcNo"].ToString();
+                compacting.pr.Id = Convert.ToInt32(reader["CProductionTypeID"]);
+                compacting.pr.Production = reader["CProduction"].ToString();
+                compacting.Speed = reader["CSpeed"].ToString();
+                compacting.Temp = reader["CTemp"].ToString();
+                compacting.Speed = reader["CSpeed"].ToString();
+                compacting.Feed = reader["CFeed"].ToString();
+                compacting.Steam = reader["CSteam"].ToString();
+                compacting.Compaction = reader["CCompaction"].ToString();
+                compacting.Dia = reader["CDia"].ToString();
+                compacting.GSM = reader["CGSM"].ToString();
+                compacting.Remarks = reader["CRemarks"].ToString();
 
-                hsp.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
-                hsp.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
+                compacting.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
+                compacting.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
 
-                hsp.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
-                hsp.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
-                hsp.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
-                hsp.CreateByName = reader["CreateByName"].ToString();
-                hsp.UpdateByName = reader["UpdateByName"].ToString();
-                hsp.ApprovedByName = reader["ApprovedByName"].ToString();
+                compacting.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
+                compacting.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
+                compacting.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
+                compacting.CreateByName = reader["CreateByName"].ToString();
+                compacting.UpdateByName = reader["UpdateByName"].ToString();
+                compacting.ApprovedByName = reader["ApprovedByName"].ToString();
             }
 
             catch (Exception ex)
             {
-                hsp = new Dyeing();
+                compacting = new Compacting();
             }
 
-            return hsp;
+            return compacting;
         }
 
-        internal static Dyeing Revise(Dyeing hsp)
+        internal static Compacting Revise(Compacting compacting)
         {
             try
             {
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM DyeingView WHERE BarCode = '" + hsp.fabric.BarCode + "'";
+                string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM CompactingView WHERE BarCode = '" + compacting.fabric.BarCode + "'";
                 
-                string query = "INSERT INTO Dyeing (FabricID, RFTNoID, DMC, DSpeed, DEnzy, Recipe, DyeingTime, Dyebath, Whiteness, RecipeNo, Comments, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + hsp.fabric.Id + "," + hsp.rft.Id + ",'" + hsp.McNo + "','" + hsp.Speed + "','" + hsp.Enzyme + "','" + hsp.Recipe + "','" + hsp.Time + "','" + hsp.PH + "','" + hsp.Value + "','" + hsp.RecipeNo + "','" + hsp.Comments + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                string query = "INSERT INTO Compacting (FabricID, CMcNoID, CProductionTypeID, CTemp, CFeed, CSpeed, CSteam, CCompaction, CDia, CGSM, CRemarks, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + compacting.fabric.Id + "," + compacting.mc.Id + "," + compacting.pr.Id + ",'" + compacting.Temp + "','" + compacting.Feed + "','" + compacting.Speed + "','" + compacting.Steam + "','" + compacting.Compaction + "','" + compacting.Dia + "','" + compacting.GSM + "','" + compacting.Remarks + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM DyeingView order by Id desc";
+                    query = "SELECT TOP 1* FROM CompactingView order by Id desc";
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            hsp = GetObj(reader);
+                            compacting = GetObj(reader);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                hsp = new Dyeing();
+                compacting = new Compacting();
             }
             finally
             {
@@ -274,32 +276,32 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return hsp;
+            return compacting;
         }
 
-        internal static Dyeing Approve(Dyeing hsp)
+        internal static Compacting Approve(Compacting compacting)
         {
             try
             {
                 string GetApproveByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " UPDATE Dyeing SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + hsp.Id + " AND ApprovedStatus = 0 ";
+                string query = " UPDATE Compacting SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + compacting.Id + " AND ApprovedStatus = 0 ";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM DyeingView order by Id desc";
+                    query = "SELECT TOP 1* FROM CompactingView order by Id desc";
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            hsp = GetObj(reader);
+                            compacting = GetObj(reader);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                hsp = new Dyeing();
+                compacting = new Compacting();
             }
             finally
             {
@@ -308,31 +310,31 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return hsp;
+            return compacting;
         }
 
-        internal static Dyeing Unapprove(Dyeing hsp)
+        internal static Compacting Unapprove(Compacting compacting)
         {
             try
             {
-                string query = " UPDATE Dyeing SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE Id = " + hsp.Id;
+                string query = " UPDATE Compacting SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE Id = " + compacting.Id;
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM DyeingView order by Id desc";
+                    query = "SELECT TOP 1* FROM CompactingView order by Id desc";
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            hsp = GetObj(reader);
+                            compacting = GetObj(reader);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                hsp = new Dyeing();
+                compacting = new Compacting();
             }
             finally
             {
@@ -341,7 +343,7 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return hsp;
+            return compacting;
         }
 
         public static List<Fabric> FabricSearch(Fabric fabricearchObj)
@@ -396,7 +398,7 @@ namespace TextileResearchDevelopment.BLL
         {
             try
             {
-                string query = "SELECT * FROM FabricView WHERE ID NOT IN (SELECT FabricID FROM Dyeing)";
+                string query = "SELECT * FROM FabricView WHERE ID NOT IN (SELECT FabricID FROM Compacting)";
                 if (fabricearchObj.BarCode != "" && fabricearchObj.BarCode != null)
                 {
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";

@@ -96,7 +96,7 @@ namespace TextileResearchDevelopment.BLL
                 if (stenter.Id > 0)
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE Stenter SET FabricID = '" + stenter.fabric.Id + "', DRMcNoID = " + stenter.mc.Id + ", STProductionTypeID = " + stenter.pr.Id + ", DRTemp = '" + stenter.Temp + "', DRSpeed = '" + stenter.Speed + "', DRFeed = '" + stenter.Feed + "', DRStreching = '" + stenter.Streching + "', DRChemical = '" + stenter.Chemical + "', DRDia = '" + stenter.Dia + "', DRGSM = '" + stenter.GSM + "', DRShrinkage = '" + stenter.Shrinkage + "', Remarks = '" + stenter.Remarks + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
+                    query = "UPDATE Stenter SET FabricID = '" + stenter.fabric.Id + "', SMcNoID = " + stenter.mc.Id + ", STProductionTypeID = " + stenter.pr.Id + ", STTemp = '" + stenter.Temp + "', STSpeed = '" + stenter.Speed + "', STFeed = '" + stenter.Feed + "', STStreching = '" + stenter.Streching + "', STChemical = '" + stenter.Chemical + "', STDia = '" + stenter.Dia + "', STGSM = '" + stenter.GSM + "', STShrinkage = '" + stenter.Shrinkage + "', STRemarks = '" + stenter.Remarks + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
@@ -114,7 +114,7 @@ namespace TextileResearchDevelopment.BLL
                 else
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "INSERT INTO Stenter (FabricID, DRMcNoID, STProductionTypeID, DRTemp, DRSpeed, DRFeed, DRStreching, DRChemical, DRDia, DRGSM, DRShrinkage, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + stenter.fabric.Id + "," + stenter.mc.Id + "," + stenter.pr.Id + ",'" + stenter.Temp + "','" + stenter.Speed + "','" + stenter.Feed + "','" + stenter.Streching + "','" + stenter.Chemical + "','" + stenter.Dia + "','" + stenter.GSM + "','" + stenter.Shrinkage + "','" + stenter.Remarks + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                    query = "INSERT INTO Stenter (FabricID, SMcNoID, STProductionTypeID, STTemp, STSpeed, STFeed, STStreching, STChemical, STDia, STGSM, STShrinkage, STRemarks, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + stenter.fabric.Id + "," + stenter.mc.Id + "," + stenter.pr.Id + ",'" + stenter.Temp + "','" + stenter.Speed + "','" + stenter.Feed + "','" + stenter.Streching + "','" + stenter.Chemical + "','" + stenter.Dia + "','" + stenter.GSM + "','" + stenter.Shrinkage + "','" + stenter.Remarks + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
                         query = "SELECT TOP 1 * FROM StenterView order by Id desc";
@@ -210,20 +210,20 @@ namespace TextileResearchDevelopment.BLL
                 stenter.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 stenter.fabric.BarCode = reader["BarCode"].ToString();
 
-                stenter.mc.Id = Convert.ToInt32(reader["DRMcNoID"]);
-                stenter.mc.McNo = reader["DryerMcNo"].ToString();
+                stenter.mc.Id = Convert.ToInt32(reader["SMcNoID"]);
+                stenter.mc.McNo = reader["CompactingMcNo"].ToString();
                 stenter.pr.Id = Convert.ToInt32(reader["STProductionTypeID"]);
                 stenter.pr.Production = reader["SProduction"].ToString();
-                stenter.Speed = reader["DRSpeed"].ToString();
-                stenter.Temp = reader["DRTemp"].ToString();
-                stenter.Speed = reader["DRSpeed"].ToString();
-                stenter.Feed = reader["DRFeed"].ToString();
-                stenter.Streching = reader["DRStreching"].ToString();
-                stenter.Chemical = reader["DRChemical"].ToString();
-                stenter.Dia = reader["DRDia"].ToString();
-                stenter.GSM = reader["DRGSM"].ToString();
-                stenter.Shrinkage = reader["DRShrinkage"].ToString();
-                stenter.Remarks = reader["Remarks"].ToString();
+                stenter.Speed = reader["STSpeed"].ToString();
+                stenter.Temp = reader["STTemp"].ToString();
+                stenter.Speed = reader["STSpeed"].ToString();
+                stenter.Feed = reader["STFeed"].ToString();
+                stenter.Streching = reader["STStreching"].ToString();
+                stenter.Chemical = reader["STChemical"].ToString();
+                stenter.Dia = reader["STDia"].ToString();
+                stenter.GSM = reader["STGSM"].ToString();
+                stenter.Shrinkage = reader["STShrinkage"].ToString();
+                stenter.Remarks = reader["STRemarks"].ToString();
 
                 stenter.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
                 stenter.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
@@ -251,7 +251,7 @@ namespace TextileResearchDevelopment.BLL
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
                 string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM StenterView WHERE BarCode = '" + stenter.fabric.BarCode + "'";
 
-                string query = "INSERT INTO Stenter (FabricID, DRMcNoID, STProductionTypeID, DRTemp, DRSpeed, DRFeed, DRStreching, DRChemical, DRDia, DRGSM, DRShrinkage, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + stenter.fabric.Id + "," + stenter.mc.Id + "," + stenter.pr.Id + ",'" + stenter.Temp + "','" + stenter.Speed + "','" + stenter.Feed + "','" + stenter.Streching + "','" + stenter.Chemical + "','" + stenter.Dia + "','" + stenter.GSM + "','" + stenter.Shrinkage + "','" + stenter.Remarks + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                string query = "INSERT INTO Stenter (FabricID, SMcNoID, STProductionTypeID, STTemp, STSpeed, STFeed, STStreching, STChemical, STDia, STGSM, STShrinkage, STRemarks, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + stenter.fabric.Id + "," + stenter.mc.Id + "," + stenter.pr.Id + ",'" + stenter.Temp + "','" + stenter.Speed + "','" + stenter.Feed + "','" + stenter.Streching + "','" + stenter.Chemical + "','" + stenter.Dia + "','" + stenter.GSM + "','" + stenter.Shrinkage + "','" + stenter.Remarks + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {

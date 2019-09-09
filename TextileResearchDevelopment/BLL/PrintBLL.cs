@@ -10,12 +10,13 @@ using System.Web.Configuration;
 
 namespace TextileResearchDevelopment.BLL
 {
-    public class DyeingBLL
+    public class PrintBLL
     {
-        public static List<Dyeing> cws = new List<Dyeing>();
+        public static List<Print> cws = new List<Print>();
         public static List<CompositionType> cmList = new List<CompositionType>();
         public static List<MachineType> machineTypes = new List<MachineType>();
-        public static List<RFTType> rFTTypes = new List<RFTType>();
+        public static List<PrintFactoryType> printFactoryTypes = new List<PrintFactoryType>();
+        public static List<PrintType> printTypes = new List<PrintType>();
 
         public static List<Fabric> fabrics = new List<Fabric>();
         static string connectionStr = DBGateway.connectionString;
@@ -25,7 +26,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 machineTypes = new List<MachineType>();
-                string query = "SELECT * FROM HSPMcNoType";
+                string query = "SELECT * FROM PrintMcNo";
                 SqlDataReader reader = DBGateway.GetFromDB(query);
                 if (reader.HasRows)
                 {
@@ -33,7 +34,7 @@ namespace TextileResearchDevelopment.BLL
                     {
                         MachineType mc = new MachineType();
                         mc.Id = Convert.ToInt32(reader["Id"]);
-                        mc.McNo = reader["HSPMcNo"].ToString();
+                        mc.McNo = reader["PrintMcNo"].ToString();
 
                         machineTypes.Add(mc);
                     }
@@ -54,28 +55,28 @@ namespace TextileResearchDevelopment.BLL
             return machineTypes;
         }
 
-        internal static List<RFTType> GetRFTList()
+        internal static List<PrintFactoryType> GetPrintFactoryTypeList()
         {
             try
             {
-                rFTTypes = new List<RFTType>();
-                string query = "SELECT * FROM RFTType";
+                printFactoryTypes = new List<PrintFactoryType>();
+                string query = "SELECT * FROM PrintFactoryType";
                 SqlDataReader reader = DBGateway.GetFromDB(query);
                 if (reader.HasRows)
                 {
                     while (reader.Read())
                     {
-                        RFTType rft = new RFTType();
-                        rft.Id = Convert.ToInt32(reader["Id"]);
-                        rft.RFT = reader["RFT"].ToString();
+                        PrintFactoryType p = new PrintFactoryType();
+                        p.Id = Convert.ToInt32(reader["Id"]);
+                        p.PrintFactory = reader["PrintFactory"].ToString();
 
-                        rFTTypes.Add(rft);
+                        printFactoryTypes.Add(p);
                     }
                 }
             }
             catch (Exception ex)
             {
-                rFTTypes = new List<RFTType>();
+                printFactoryTypes = new List<PrintFactoryType>();
             }
             finally
             {
@@ -85,28 +86,62 @@ namespace TextileResearchDevelopment.BLL
                 }
             }
 
-            return rFTTypes;
+            return printFactoryTypes;
         }
 
-        internal static Dyeing CRUD(Dyeing hsp)
+        internal static List<PrintType> GetPrintTypeList()
+        {
+            try
+            {
+                printTypes = new List<PrintType>();
+                string query = "SELECT * FROM PrintType";
+                SqlDataReader reader = DBGateway.GetFromDB(query);
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        PrintType p = new PrintType();
+                        p.Id = Convert.ToInt32(reader["Id"]);
+                        p.PrintName = reader["PrintName"].ToString();
+
+                        printTypes.Add(p);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                printTypes = new List<PrintType>();
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+
+            return printTypes;
+        }
+
+        internal static Print CRUD(Print print)
         {
             try
             {
                 string query = "";
-                if (hsp.Id > 0)
+                if (print.Id > 0)
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE Dyeing SET FabricID = '" + hsp.fabric.Id + "', HPMcNoId = " + hsp.mc.Id + ", HPTemp = '" + hsp.Temp + "', HPSpeed = '" + hsp.Speed + "', HPTime = '" + hsp.Time + "', HPFeed = '" + hsp.Feed + "', HPStrech = '" + hsp.Streching + "', HPChemical = '" + hsp.Chemical + "', HPDia = '" + hsp.Dia + "', HPGSM = '" + hsp.GSM + "', HPShrinkage = '" + hsp.Shrinkage + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
+                    query = "UPDATE PrintInfo SET FabricID = '" + print.fabric.Id + "', MachineTypeID = " + print.mc.Id + ", PrintFactoryID = " + print.prt.Id + ", PrintTypeID = " + print.ptf.Id + ", PrintCoverage = '" + print.PrintCoverage + "', OtherInfo = '" + print.OtherInfo + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
-                        query = "SELECT * FROM DyeingView WHERE Id = " + hsp.Id;
+                        query = "SELECT * FROM PrintView WHERE Id = " + print.Id;
                         SqlDataReader reader = DBGateway.GetFromDB(query);
                         if (reader.HasRows)
                         {
                             while (reader.Read())
                             {
-                                hsp = GetObj(reader);
+                                print = GetObj(reader);
                             }
                         }
                     }
@@ -114,16 +149,16 @@ namespace TextileResearchDevelopment.BLL
                 else
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "INSERT INTO Dyeing (FabricID, RFTNoID, DMC, DSpeed, DEnzy, Recipe, DyeingTime, Dyebath, Whiteness, RecipeNo, Comments, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + hsp.fabric.Id + "," + hsp.rft.Id + ",'" + hsp.McNo + "','" + hsp.Speed + "','" + hsp.Enzyme + "','" + hsp.Recipe + "','" + hsp.Time + "','" + hsp.PH + "','" + hsp.Value + "','" + hsp.RecipeNo + "','" + hsp.Comments + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                    query = "INSERT INTO PrintInfo (FabricID, MachineTypeID, PrintFactoryID, PrintTypeID, PrintCoverage, OtherInfo, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + print.fabric.Id + "," + print.mc.Id + "," + print.prt.Id + "," + print.ptf.Id + ",'" + print.PrintCoverage + "','" + print.OtherInfo + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
-                        query = "SELECT TOP 1 * FROM DyeingView order by Id desc";
+                        query = "SELECT TOP 1 * FROM PrintView order by Id desc";
                         SqlDataReader reader = DBGateway.GetFromDB(query);
                         if (reader.HasRows)
                         {
                             while (reader.Read())
                             {
-                                hsp = GetObj(reader);
+                                print = GetObj(reader);
                             }
                         }
                     }
@@ -131,7 +166,7 @@ namespace TextileResearchDevelopment.BLL
             }
             catch (Exception ex)
             {
-                return new Dyeing();
+                return new Print();
             }
             finally
             {
@@ -140,14 +175,14 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return hsp;
+            return print;
         }
 
         internal static bool Delete(int Id)
         {
             try
             {
-                string query = "DELETE FROM Dyeing WHERE Id = " + Id + " AND ApprovedStatus = 0";
+                string query = "DELETE FROM PrintInfo WHERE Id = " + Id + " AND ApprovedStatus = 0";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     return true;
@@ -167,13 +202,13 @@ namespace TextileResearchDevelopment.BLL
             return false;
         }
 
-        internal static List<Dyeing> GetList()
+        internal static List<Print> GetList()
         {
             SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader; cm.Connection = cn; cn.Open();
             try
             {
-                cws = new List<Dyeing>();
-                string query = "SELECT * FROM DyeingView";
+                cws = new List<Print>();
+                string query = "SELECT * FROM PrintView";
                 cm.CommandText = query;
                 reader = cm.ExecuteReader();
                 if (reader.HasRows)
@@ -195,77 +230,79 @@ namespace TextileResearchDevelopment.BLL
 
             return cws;
         }
-
-        private static Dyeing GetObj(SqlDataReader reader)
+         
+        private static Print GetObj(SqlDataReader reader)
         {
-            Dyeing hsp = new Dyeing();
+            Print print = new Print();
             try
             {
-                hsp.Id = Convert.ToInt32(reader["Id"]);
-                hsp.fabric.buyer.BuyerName = reader["BuyerName"].ToString();
-                hsp.fabric.fb.FabricTypeName = reader["FabricTypeName"].ToString();
-                hsp.fabric.OrderNo = reader["OrderNo"].ToString();
-                hsp.fabric.RefNo = reader["RefNo"].ToString();
-                hsp.fabric.cm.Composition = reader["Composition"].ToString();
-                hsp.fabric.Id = Convert.ToInt32(reader["FabricID"]);
-                hsp.fabric.BarCode = reader["BarCode"].ToString();
+                print.Id = Convert.ToInt32(reader["Id"]);
+                print.fabric.buyer.BuyerName = reader["BuyerName"].ToString();
+                print.fabric.fb.FabricTypeName = reader["FabricTypeName"].ToString();
+                print.fabric.OrderNo = reader["OrderNo"].ToString();
+                print.fabric.RefNo = reader["RefNo"].ToString();
+                print.fabric.cm.Composition = reader["Composition"].ToString();
+                print.fabric.Id = Convert.ToInt32(reader["FabricID"]);
+                print.fabric.BarCode = reader["BarCode"].ToString();
 
-                hsp.mc.Id = Convert.ToInt32(reader["HPMcNoId"]);
-                hsp.mc.McNo = reader["HSPMcNo"].ToString();
-                hsp.Temp = reader["HPTemp"].ToString();
-                hsp.Speed = reader["HPSpeed"].ToString();
-                hsp.Time = reader["HPTime"].ToString();
-                hsp.Feed = reader["HPFeed"].ToString();
-                hsp.Streching = reader["HPStrech"].ToString();
-                hsp.Chemical = reader["HPChemical"].ToString();
-                hsp.Dia = reader["HPDia"].ToString();
-                hsp.GSM = reader["HPGSM"].ToString();
-                hsp.Shrinkage = reader["HPShrinkage"].ToString();
+                print.mc.Id = Convert.ToInt32(reader["CMcNoID"]);
+                print.mc.McNo = reader["CompactingMcNo"].ToString();
+                print.pr.Id = Convert.ToInt32(reader["CProductionTypeID"]);
+                print.pr.Production = reader["CProduction"].ToString();
+                print.Speed = reader["CSpeed"].ToString();
+                print.Temp = reader["CTemp"].ToString();
+                print.Speed = reader["CSpeed"].ToString();
+                print.Feed = reader["CFeed"].ToString();
+                print.Steam = reader["CSteam"].ToString();
+                print.Compaction = reader["CCompaction"].ToString();
+                print.Dia = reader["CDia"].ToString();
+                print.GSM = reader["CGSM"].ToString();
+                print.Remarks = reader["CRemarks"].ToString();
 
-                hsp.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
-                hsp.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
+                print.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
+                print.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
 
-                hsp.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
-                hsp.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
-                hsp.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
-                hsp.CreateByName = reader["CreateByName"].ToString();
-                hsp.UpdateByName = reader["UpdateByName"].ToString();
-                hsp.ApprovedByName = reader["ApprovedByName"].ToString();
+                print.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
+                print.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
+                print.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
+                print.CreateByName = reader["CreateByName"].ToString();
+                print.UpdateByName = reader["UpdateByName"].ToString();
+                print.ApprovedByName = reader["ApprovedByName"].ToString();
             }
 
             catch (Exception ex)
             {
-                hsp = new Dyeing();
+                print = new Print();
             }
 
-            return hsp;
+            return print;
         }
 
-        internal static Dyeing Revise(Dyeing hsp)
+        internal static Print Revise(Print print)
         {
             try
             {
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM DyeingView WHERE BarCode = '" + hsp.fabric.BarCode + "'";
+                string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM PrintView WHERE BarCode = '" + print.fabric.BarCode + "'";
                 
-                string query = "INSERT INTO Dyeing (FabricID, RFTNoID, DMC, DSpeed, DEnzy, Recipe, DyeingTime, Dyebath, Whiteness, RecipeNo, Comments, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + hsp.fabric.Id + "," + hsp.rft.Id + ",'" + hsp.McNo + "','" + hsp.Speed + "','" + hsp.Enzyme + "','" + hsp.Recipe + "','" + hsp.Time + "','" + hsp.PH + "','" + hsp.Value + "','" + hsp.RecipeNo + "','" + hsp.Comments + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                string query = "INSERT INTO PrintInfo (FabricID, MachineTypeID, PrintFactoryID, PrintTypeID, PrintCoverage, OtherInfo, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + print.fabric.Id + "," + print.mc.Id + "," + print.prt.Id + "," + print.ptf.Id + ",'" + print.PrintCoverage + "','" + print.OtherInfo + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM DyeingView order by Id desc";
+                    query = "SELECT TOP 1* FROM PrintView order by Id desc";
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            hsp = GetObj(reader);
+                            print = GetObj(reader);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                hsp = new Dyeing();
+                print = new Print();
             }
             finally
             {
@@ -274,32 +311,32 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return hsp;
+            return print;
         }
 
-        internal static Dyeing Approve(Dyeing hsp)
+        internal static Print Approve(Print print)
         {
             try
             {
                 string GetApproveByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " UPDATE Dyeing SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + hsp.Id + " AND ApprovedStatus = 0 ";
+                string query = " UPDATE PrintInfo SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + print.Id + " AND ApprovedStatus = 0 ";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM DyeingView order by Id desc";
+                    query = "SELECT TOP 1* FROM PrintView order by Id desc";
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            hsp = GetObj(reader);
+                            print = GetObj(reader);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                hsp = new Dyeing();
+                print = new Print();
             }
             finally
             {
@@ -308,31 +345,31 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return hsp;
+            return print;
         }
 
-        internal static Dyeing Unapprove(Dyeing hsp)
+        internal static Print Unapprove(Print print)
         {
             try
             {
-                string query = " UPDATE Dyeing SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE Id = " + hsp.Id;
+                string query = " UPDATE PrintInfo SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE Id = " + print.Id;
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM DyeingView order by Id desc";
+                    query = "SELECT TOP 1* FROM PrintView order by Id desc";
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            hsp = GetObj(reader);
+                            print = GetObj(reader);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                hsp = new Dyeing();
+                print = new Print();
             }
             finally
             {
@@ -341,7 +378,7 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return hsp;
+            return print;
         }
 
         public static List<Fabric> FabricSearch(Fabric fabricearchObj)
@@ -396,7 +433,7 @@ namespace TextileResearchDevelopment.BLL
         {
             try
             {
-                string query = "SELECT * FROM FabricView WHERE ID NOT IN (SELECT FabricID FROM Dyeing)";
+                string query = "SELECT * FROM FabricView WHERE ID NOT IN (SELECT FabricID FROM Print)";
                 if (fabricearchObj.BarCode != "" && fabricearchObj.BarCode != null)
                 {
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";

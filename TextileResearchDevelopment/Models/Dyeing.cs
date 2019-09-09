@@ -13,6 +13,7 @@ namespace TextileResearchDevelopment.Models
         {
             Id = 0;
             fabric = new Fabric();
+            rft = new RFTType();
         }
 
         public int Id { get; set; }
@@ -22,9 +23,11 @@ namespace TextileResearchDevelopment.Models
         public string McNo { get; set; }
         public string Speed { get; set; }
         public string Enzyme { get; set; }
+        public string Comments { get; set; }
         public string Recipe { get; set; }
+        public string RecipeNo { get; set; }
         public string Time { get; set; }
-        public string RFT { get; set; }
+        public RFTType rft { get; set; }
         public string PH { get; set; }
         public string Value { get; set; }
 

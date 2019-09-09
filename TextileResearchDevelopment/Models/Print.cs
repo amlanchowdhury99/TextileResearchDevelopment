@@ -13,13 +13,14 @@ namespace TextileResearchDevelopment.Models
             fabric = new Fabric();
             mc = new MachineType();
             prt = new PrintType();
+            ptf = new PrintFactoryType();
         }
 
         public int Id { get; set; }
         public Fabric fabric { get; set; }
         public MachineType mc { get; set; }
         public PrintType prt { get; set; }
-        public string PrintFactory { get; set; }
+        public PrintFactoryType ptf { get; set; }
         public string PrintCoverage { get; set; }
         public string OtherInfo { get; set; }
 

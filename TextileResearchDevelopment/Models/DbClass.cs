@@ -86,6 +86,12 @@ namespace TextileResearchDevelopment.Models
         public string Production { get; set; }
     }
 
+    public class RFTType
+    {
+        public int Id { get; set; }
+        public string RFT { get; set; }
+    }
+
     public class YarnType
     {
         public int Id { get; set; }
