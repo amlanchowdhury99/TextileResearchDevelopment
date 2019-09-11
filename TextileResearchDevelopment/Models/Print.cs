@@ -14,7 +14,9 @@ namespace TextileResearchDevelopment.Models
             mc = new MachineType();
             prt = new PrintType();
             ptf = new PrintFactoryType();
+            children = new Role();
         }
+        public Role children { get; set; }
 
         public int Id { get; set; }
         public Fabric fabric { get; set; }

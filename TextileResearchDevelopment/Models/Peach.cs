@@ -11,7 +11,9 @@ namespace TextileResearchDevelopment.Models
         {
             Id = 0;
             fabric = new Fabric();
+            children = new Role();
         }
+        public Role children { get; set; }
         public int Id { get; set; }
         public Fabric fabric { get; set; }
         public string Taker { get; set; }

@@ -142,6 +142,7 @@
     <Compile Include="BLL\DryerBLL.cs" />
     <Compile Include="BLL\HSPBLL.cs" />
     <Compile Include="BLL\PeachBLL.cs" />
+    <Compile Include="BLL\PrintBLL.cs" />
     <Compile Include="BLL\SingeingBLL.cs" />
     <Compile Include="BLL\StenterBLL.cs" />
     <Compile Include="BLL\WashingBLL.cs" />
@@ -150,7 +151,6 @@
     <Compile Include="BLL\KnittingBLL.cs" />
     <Compile Include="BLL\RemarksBLL.cs" />
     <Compile Include="BLL\UserBLL.cs" />
-    <Compile Include="Content\PrintController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BrushController.cs" />
     <Compile Include="Controllers\CompactingController.cs" />
@@ -162,7 +162,7 @@
     <Compile Include="Controllers\HSPController.cs" />
     <Compile Include="Controllers\KnittingController.cs" />
     <Compile Include="Controllers\PeachController.cs" />
-    <Compile Include="Controllers\PrintController.cs" />
+    <Compile Include="Controllers\PrintInfoController.cs" />
     <Compile Include="Controllers\QCController.cs" />
     <Compile Include="Controllers\RemarksController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
@@ -240,6 +240,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap-treeview.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrapValidator.min.css" />
@@ -250,14 +251,17 @@
     <Content Include="Content\Carousel\liMarquee.css" />
     <Content Include="Content\Custom.css" />
     <Content Include="Content\daterangepicker.css" />
+    <Content Include="Content\dropdowntree.css" />
     <Content Include="Content\icomoon\fonts\icomoon.svg" />
     <Content Include="Content\icomoon\styles.css" />
     <Content Include="Content\images\arrow.png" />
     <Content Include="Content\images\bg3.jpg" />
     <Content Include="Content\images\mail.png" />
     <Content Include="Content\images\pass.png" />
+    <Content Include="Content\jquery.bootstrap.treeselect.css" />
     <Content Include="Content\jquery.dataTables.min.css" />
     <Content Include="Content\jquery.modal.min.css" />
+    <Content Include="Content\jquery.treeSelector.css" />
     <Content Include="Content\select.dataTables.min.css" />
     <Content Include="Content\UrmiStyle.css" />
     <Content Include="favicon.ico" />
@@ -276,6 +280,7 @@
     </Content>
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
+    <Content Include="Scripts\bootstrap-treeview.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -329,13 +334,17 @@
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\daterangepicker.min.js" />
+    <Content Include="Scripts\dropdowntree.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.bootstrap.treeselect.css" />
+    <Content Include="Scripts\jquery.bootstrap.treeselect.js" />
     <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery.modal.min.js" />
+    <Content Include="Scripts\jquery.treeSelector.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -379,7 +388,7 @@
     <Content Include="Views\Peach\Index.cshtml" />
     <Content Include="Views\Brush\Index.cshtml" />
     <Content Include="Views\QC\Index.cshtml" />
-    <Content Include="Views\Print\Index.cshtml" />
+    <Content Include="Views\PrintInfo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

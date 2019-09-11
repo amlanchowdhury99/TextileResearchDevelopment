@@ -94,20 +94,55 @@ namespace TextileResearchDevelopment.BLL
                 string query = "SELECT * FROM UserInfo WHERE UserName = '"+ user.UserName+ "'";
                 if (!DBGateway.recordExist(query))
                 {
-                    //query = " INSERT INTO UserInfo (UserName, Password, Fabric, Knitting, Dyeing, Slitting, Stenter, Aop, Test, Remarks, PermissionString, Date, LogIn) " +
-                    //                               " VALUES('" + user.UserName + "','" + user.Password + "'," + user.Fabric + "," + user.Knitting + "," + user.Dyeing + "," + user.Slitting + "," + user.Stenter + "," + user.Aop + "," + user.Test + "," + user.Remarks + ",'" + user.PermissionString + "','" + user.CreateDate.ToString("yyyy/MM/dd") + "'," + user.LogIn + ")";
-                    //if (DBGateway.ExecutionToDB(query, 1))
-                    //{
-                    //    query = "SELECT TOP 1 (Id) AS Id FROM UserInfo order by Id desc";
-                    //    SqlDataReader reader = DBGateway.GetFromDB(query);
-                    //    if (reader.HasRows)
-                    //    {
-                    //        while (reader.Read())
-                    //        {
-                    //            Id = Convert.ToInt32(reader["Id"]);
-                    //        }
-                    //    }
-                    //}
+                    query = " INSERT INTO UserInfo (Name, UserName, Password, Date, SuperAdmin) " +
+                                                   " VALUES('" + user.Name + "','" + user.UserName + "','" + user.Password + "','" + user.CreateDate.ToString("yyyy/MM/dd") + "', 0)";
+                    if (DBGateway.ExecutionToDB(query, 1))
+                    {
+
+                        foreach(var i in user.rootNode)
+                        {
+                            if(i.val == 1)
+                            {
+                                var key = user.Sectors.FirstOrDefault(x => x.Value == i.title).Key;
+                                query = " INSERT INTO UserPermission (UserName, Sector) VALUES('" + user.UserName + "','" + key + "')";
+                                if(DBGateway.ExecutionToDB(query, 1))
+                                {
+                                    foreach(var j in i.children)
+                                    {
+                                        if(j.title == "Crud")
+                                        {
+                                            i.role.Crud = j.val;
+                                        }
+                                        else if (j.title == "LibrarySet")
+                                        {
+                                            i.role.LibrarySet = j.val;
+                                        }
+                                        else if (j.title == "Approval")
+                                        {
+                                            i.role.Approval = j.val;
+                                        }
+                                    }
+                                    query = " INSERT INTO UserRole (UserPermissionID, Crud, Approval, LibrarySet) VALUES('" + user.UserName + "'," + i.role.Crud + ", " + i.role.LibrarySet + ", " + i.role.Approval + ")";
+                                }
+                            }
+                        }
+
+                        if (DBGateway.ExecutionToDB(query, 1))
+                        {
+                            query = " INSERT INTO UserRole (UserPermissionID, Crud, Approval, LibrarySet) " +
+                                                   " VALUES('" + user.UserName + "','" + 1 + "')";
+                        }
+
+                        //query = "SELECT TOP 1 (Id) AS Id FROM UserInfo order by Id desc";
+                        //SqlDataReader reader = DBGateway.GetFromDB(query);
+                        //if (reader.HasRows)
+                        //{
+                        //    while (reader.Read())
+                        //    {
+                        //        Id = Convert.ToInt32(reader["Id"]);
+                        //    }
+                        //}
+                    }
                 }
                 else
                 {

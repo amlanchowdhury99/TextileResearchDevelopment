@@ -55,24 +55,6 @@ namespace TextileResearchDevelopment.Controllers
 
         }
 
-        [HttpGet]
-        public JsonResult GetMachineList()
-        {
-            JsonResult result = new JsonResult();
-            List<MachineType> mcList = new List<MachineType>();
-
-            try
-            {
-                mcList = SingeingBLL.GetMachineList();
-            }
-            catch (Exception ex)
-            {
-                return Json(new { data = new List<MachineType>() }, JsonRequestBehavior.AllowGet);
-            }
-
-            return Json(new { data = mcList }, JsonRequestBehavior.AllowGet);
-        }
-
         [HttpPost]
         public ActionResult CRUD(Singeing singeing)
         {

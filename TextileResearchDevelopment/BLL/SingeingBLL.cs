@@ -74,7 +74,7 @@ namespace TextileResearchDevelopment.BLL
             return singeing;
         }
 
-        internal static bool DeleteCW(int Id)
+        internal static bool Delete(int Id)
         {
             try
             {

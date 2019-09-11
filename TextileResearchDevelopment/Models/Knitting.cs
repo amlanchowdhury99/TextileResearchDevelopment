@@ -22,7 +22,9 @@ namespace TextileResearchDevelopment.Models
             ApprovedTime = DateTime.MaxValue;
             DeliveryDateStart = DateTime.MaxValue;
             DeliveryDateEnd = DateTime.MaxValue;
+            children = new Role();
         }
+        public Role children { get; set; }
 
         private DateTime defaultDate = DateTime.Now;
 

@@ -15,7 +15,9 @@ namespace TextileResearchDevelopment.Models
             fabric = new Fabric();
             mc = new MachineType();
             pr = new ProductionType();
+            children = new Role();
         }
+        public Role children { get; set; }
 
         public int Id { get; set; }
         public Fabric fabric { get; set; }

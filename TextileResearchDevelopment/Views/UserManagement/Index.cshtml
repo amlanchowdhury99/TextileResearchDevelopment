@@ -5,11 +5,17 @@
     }
 }
 
-<h2>User Registration Form</h2>
+<head>
+    @*<link rel="stylesheet" type="text/css" href="~/Content/bootstrap-treeview.min.css">
+        <script type="text/javascript" src="~/Scripts/bootstrap-treeview.js"></script>*@
+    @*<link rel="stylesheet" type="text/css" href="~/Content/jquery.bootstrap.treeselect.css">
+        <script type="text/javascript" src="~/Scripts/jquery.bootstrap.treeselect.js"></script>*@
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery.treeSelector.css">
+    <script type="text/javascript" src="~/Scripts/jquery.treeSelector.js"></script>
 
-@Html.AntiForgeryToken()
-<hr />
-@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+</head>
+
+<br />
 
 <div id="MainDiv" class="panel panel-default ">
     <div class="panel panel-default ">
@@ -19,13 +25,19 @@
         <div class="panel-body">
             <form id="UserForm">
                 <div class=" form-group">
-                    <div class="form-group col-xs-6 form-inline">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Name" class="control-label" style="width:25%;">Name</label>
+                        <div style=" display: inline;">
+                            <input type="email" class="form-control" style="width:70%;" id="Name" required>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
                         <label for="UserName" class="control-label" style="width:25%;">User Name</label>
                         <div style=" display: inline;">
                             <input type="email" class="form-control" style="width:70%;" id="UserName" required>
                         </div>
                     </div>
-                    <div class="form-group col-xs-6 form-inline">
+                    <div class="form-group col-xs-4 form-inline">
                         <label for="Password" class="control-label" style="width:25%;">Password</label>
                         <div style="display: inline;">
                             <input type="text" class="form-control" style="width:70%;" id="Password" required>
@@ -33,33 +45,11 @@
                     </div>
                 </div>
                 <div class=" form-group">
-                    <label class="checkbox-inline" style="width:11%;">
-                        <input type="checkbox" id="Fabric" value="option1"> Fabric
-                    </label>
-                    <label class="checkbox-inline" style="width:11%;">
-                        <input type="checkbox" id="Knitting" value="option2"> Knitting
-                    </label>
-                    <label class="checkbox-inline" style="width:11%;">
-                        <input type="checkbox" id="Dyeing" value="option3"> Dyeing
-                    </label>
-                    <label class="checkbox-inline" style="width:11%;">
-                        <input type="checkbox" id="Slitting" value="option1"> Slitting
-                    </label>
-                    <label class="checkbox-inline" style="width:11%;">
-                        <input type="checkbox" id="Stenter" value="option2"> Stenter
-                    </label>
-                    <label class="checkbox-inline" style="width:11%;">
-                        <input type="checkbox" id="Aop" value="option3"> Aop-Print
-                    </label>
-                    <label class="checkbox-inline" style="width:11%;">
-                        <input type="checkbox" id="Test" value="option1"> Test Report
-                    </label>
-                    <label class="checkbox-inline" style="width:11%;">
-                        <input type="checkbox" id="Remarks" value="option2"> Remarks
-                    </label>
-                </div>
-
-                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <div style="display: inline;">
+                            <div id="Role" class="treeSelector" style="width:70%;display: inline-block;"></div>
+                        </div>
+                    </div>
                     <div class="form-group col-xs-4 form-inline">
                         <button class="btn btn-warning btn-sm" style="width:25%;" id="resetBtn">Reset</button>
                         <div style="display: inline;">
@@ -101,7 +91,59 @@
     $(document).ready(function () {
 
         debugger;
-        var PermissionString = "";
+        var PermissionString = ""; var vals = [];
+
+        var rootNode = [
+            {
+                "Id": "1",
+                "value": 1,
+                "val": 0,
+                "title": "Knit",
+                "children": [
+                    {
+                        "Id": "1_1",
+                        "ParentID": 1,
+                        "title": "Crud",
+                        "value": 11,
+                        "val": 0,
+                        "children": []
+                    },
+                    {
+                        "Id": "1_2",
+                        "ParentID": 1,
+                        "value": 12,
+                        "val": 0,
+                        "title": "LibrarySet",
+                        "children": []
+                    },
+                    {
+                        "Id": "1_3",
+                        "ParentID": 1,
+                        "value": 13,
+                        "val": 0,
+                        "title": "Approval",
+                        "children": []
+                    }
+                ]
+            }
+        ];
+
+        $('div.treeSelector').treeSelector(rootNode, [], function (e, values) {
+            console.info('onChange', e, values);
+        }, {
+                checkWithParent: true,
+                titleWithParent: false,
+                notViewClickParentTitle: false,
+                disabled: false,
+                emptyOptonPlaceholder: 'no options'
+
+            });
+
+        $('div.treeSelector').treeSelector(rootNode, [], function (e, values) {
+            debugger;
+            vals = values;
+        });
+
         var UserTable = $('#UserTable').DataTable({
             dom: 'Bfrtip',
             buttons: [
@@ -210,6 +252,10 @@
         }
 
         function Reset() {
+            event.preventDefault();
+            debugger;
+            $('#RoleGroup option:selected').val();
+
             $("#UserName").val("");
             $("#Password").val("");
             $("#Fabric").prop("checked", false);
@@ -221,55 +267,66 @@
             $("#Test").prop("checked", false);
             $("#Remarks").prop("checked", false);
             PermissionString = "";
+            vals = [];
+        }
+
+        function findValueInArray(value, vals) {
+            var result = false;
+            for (var i = 0; i < vals.length; i++) {
+                if (vals[i] == value) {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
         }
 
         $('#UserForm').submit(function (e) {
             debugger;
             event.preventDefault();
-            if (IsValid() == true) {
-                var user = {
-                    Id: '0',
-                    UserName: $("#UserName").val(),
-                    Password: $("#Password").val(),
-                    Fabric: $('#Fabric').is(':checked') ? 1 : 0,
-                    Knitting: $('#Knitting').is(':checked') ? 1 : 0,
-                    Dyeing: $('#Dyeing').is(':checked') ? 1 : 0,
-                    Slitting: $('#Slitting').is(':checked') ? 1 : 0,
-                    Stenter: $('#Stenter').is(':checked') ? 1 : 0,
-                    Aop: $('#Aop').is(':checked') ? 1 : 0,
-                    Test: $('#Test').is(':checked') ? 1 : 0,
-                    Remarks: $('#Remarks').is(':checked') ? 1 : 0,
-                    PermissionString: PermissionString,
-                    CreateDate: moment(Date.now()).format("DD/MM/YYYY")
-                };
 
-                $.ajax({
-                    type: "POST",
-                    url: "/UserManagement/Create",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    data: JSON.stringify(user),
-                    success: function (response) {
-                        debugger
-                        if (response.data != "" && response.data != null) {
-                            UserTable.row.add(response.data);
-                            UserTable.draw();
-                            Reset();
-                        }
-                        else {
-                            alert("Failed to Save! Please Check Connection State!!!");
-                            return;
-                        }
-                    },
-                    failure: function () {
-                        $("#tblItems").append(" Error when fetching data please contact administrator");
+            rootNode.forEach(function (item, i) {
+                item.children.forEach(function (a, j) {
+                    if (findValueInArray(a["value"], vals) == true) {
+                        a["val"] = 1;
                     }
+                    else {
+                        a["val"] = 0;
+                    };
                 });
-            }
-            else {
-                alert("Select Atleast One Criteria!!!");
-                return;
-            }
+            });
+
+            var user = {
+                Id: '0',
+                UserName: $("#UserName").val(),
+                Password: $("#Password").val(),
+                rootNode: rootNode,
+                PermissionString: PermissionString,
+                CreateDate: moment(Date.now()).format("DD/MM/YYYY")
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/UserManagement/Create",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(user),
+                success: function (response) {
+                    debugger
+                    if (response.data != "" && response.data != null) {
+                        UserTable.row.add(response.data);
+                        UserTable.draw();
+                        Reset();
+                    }
+                    else {
+                        alert("Failed to Save! Please Check Connection State!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
 
         });
 
@@ -307,6 +364,7 @@
 
         $("#resetBtn").click(function () {
             event.preventDefault();
+            debugger;
             Reset();
 
         });
@@ -364,8 +422,7 @@
                 var Row = UserTable.rows('.selected').data()[0];
                 var index = UserTable.row('.selected').index();
 
-                if (IsValid() == true)
-                {
+                if (IsValid() == true) {
                     var user = {
                         Id: Row.Id,
                         UserName: $("#UserName").val(),
@@ -404,8 +461,7 @@
                         }
                     });
                 }
-                else
-                {
+                else {
                     alert("Select Atleast One Criteria!!!");
                     return;
                 }

@@ -131,7 +131,7 @@ namespace TextileResearchDevelopment.BLL
                 if (print.Id > 0)
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE PrintInfo SET FabricID = '" + print.fabric.Id + "', MachineTypeID = " + print.mc.Id + ", PrintFactoryID = " + print.prt.Id + ", PrintTypeID = " + print.ptf.Id + ", PrintCoverage = '" + print.PrintCoverage + "', OtherInfo = '" + print.OtherInfo + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
+                    query = "UPDATE PrintInfo SET FabricID = '" + print.fabric.Id + "', MachineTypeID = " + print.mc.Id + ", PrintFactoryID = " + print.ptf.Id + ", PrintTypeID = " + print.prt.Id + ", PrintCoverage = '" + print.PrintCoverage + "', OtherInfo = '" + print.OtherInfo + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
@@ -149,7 +149,7 @@ namespace TextileResearchDevelopment.BLL
                 else
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "INSERT INTO PrintInfo (FabricID, MachineTypeID, PrintFactoryID, PrintTypeID, PrintCoverage, OtherInfo, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + print.fabric.Id + "," + print.mc.Id + "," + print.prt.Id + "," + print.ptf.Id + ",'" + print.PrintCoverage + "','" + print.OtherInfo + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                    query = "INSERT INTO PrintInfo (FabricID, MachineTypeID, PrintFactoryID, PrintTypeID, PrintCoverage, OtherInfo, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + print.fabric.Id + "," + print.mc.Id + "," + print.ptf.Id + "," + print.prt.Id + ",'" + print.PrintCoverage + "','" + print.OtherInfo + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
                         query = "SELECT TOP 1 * FROM PrintView order by Id desc";
@@ -245,19 +245,14 @@ namespace TextileResearchDevelopment.BLL
                 print.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 print.fabric.BarCode = reader["BarCode"].ToString();
 
-                print.mc.Id = Convert.ToInt32(reader["CMcNoID"]);
-                print.mc.McNo = reader["CompactingMcNo"].ToString();
-                print.pr.Id = Convert.ToInt32(reader["CProductionTypeID"]);
-                print.pr.Production = reader["CProduction"].ToString();
-                print.Speed = reader["CSpeed"].ToString();
-                print.Temp = reader["CTemp"].ToString();
-                print.Speed = reader["CSpeed"].ToString();
-                print.Feed = reader["CFeed"].ToString();
-                print.Steam = reader["CSteam"].ToString();
-                print.Compaction = reader["CCompaction"].ToString();
-                print.Dia = reader["CDia"].ToString();
-                print.GSM = reader["CGSM"].ToString();
-                print.Remarks = reader["CRemarks"].ToString();
+                print.mc.Id = Convert.ToInt32(reader["MachineTypeID"]);
+                print.mc.McNo = reader["PrintMcNo"].ToString();
+                print.ptf.Id = Convert.ToInt32(reader["PrintFactoryID"]);
+                print.ptf.PrintFactory = reader["PrintFactory"].ToString();
+                print.prt.Id = Convert.ToInt32(reader["PrintTypeID"]);
+                print.prt.PrintName = reader["PrintName"].ToString();
+                print.PrintCoverage = reader["PrintCoverage"].ToString();
+                print.OtherInfo = reader["OtherInfo"].ToString();
 
                 print.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
                 print.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
@@ -285,7 +280,7 @@ namespace TextileResearchDevelopment.BLL
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
                 string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM PrintView WHERE BarCode = '" + print.fabric.BarCode + "'";
                 
-                string query = "INSERT INTO PrintInfo (FabricID, MachineTypeID, PrintFactoryID, PrintTypeID, PrintCoverage, OtherInfo, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + print.fabric.Id + "," + print.mc.Id + "," + print.prt.Id + "," + print.ptf.Id + ",'" + print.PrintCoverage + "','" + print.OtherInfo + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                string query = "INSERT INTO PrintInfo (FabricID, MachineTypeID, PrintFactoryID, PrintTypeID, PrintCoverage, OtherInfo, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + print.fabric.Id + "," + print.mc.Id + "," + print.ptf.Id + "," + print.prt.Id + ",'" + print.PrintCoverage + "','" + print.OtherInfo + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {

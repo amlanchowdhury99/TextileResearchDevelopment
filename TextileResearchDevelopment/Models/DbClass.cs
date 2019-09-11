@@ -7,9 +7,28 @@ using System.Web;
 
 namespace TextileResearchDevelopment.Models
 {
+
     public class User
     {
+
+        public User()
+        {
+            Sectors = new Dictionary<int, string>();
+            Sectors = GetSectorsValue();
+            rootNode = new List<RoleNode>();
+        }
+
+        private Dictionary<int, string> GetSectorsValue()
+        {
+            Sectors.Add(1, "Knit"); Sectors.Add(2, "CW"); Sectors.Add(3, "HSP"); Sectors.Add(4, "Singeing"); Sectors.Add(5, "Dyeing"); Sectors.Add(6, "Dryer"); Sectors.Add(7, "Stenter");
+            Sectors.Add(8, "Compacting"); Sectors.Add(9, "Peach"); Sectors.Add(10, "Brush"); Sectors.Add(11, "Print"); Sectors.Add(12, "Knit"); Sectors.Add(13, "QC");
+            return Sectors;
+        }
+
+        public Dictionary<int, string> Sectors { get; set; }
+        public List<RoleNode> rootNode { get; set; }
         public int Id { get; set; }
+        public string Name { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public int SuperAdmin { get; set; }
@@ -31,6 +50,38 @@ namespace TextileResearchDevelopment.Models
         public string PermissionString { get; set; }
         public DateTime CreateDate { get; set; }
         public int LogIn { get; set; }
+    }
+
+    public class RoleNode
+    {
+        public RoleNode()
+        {
+            children = new List<Child>();
+            role = new Role();
+        }
+
+        public string Id { get; set; }
+        public int val { get; set; }
+        public string title { get; set; }
+        public Role role { get; set; }
+        public List<Child> children { get; set; }
+    }
+
+    public class Child
+    {
+        public int Id { get; set; }
+        public int ParentID { get; set; }
+        public string title { get; set; }
+        public int val { get; set; }
+    }
+
+    public class Role
+    {
+        public int Id { get; set; }
+        public int RolePermissionID { get; set; }
+        public int Crud { get; set; }
+        public int LibrarySet { get; set; }
+        public int Approval { get; set; }
 
     }
 
