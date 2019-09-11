@@ -14,45 +14,11 @@ namespace TextileResearchDevelopment.BLL
     {
         public static List<Dyeing> cws = new List<Dyeing>();
         public static List<CompositionType> cmList = new List<CompositionType>();
-        public static List<MachineType> machineTypes = new List<MachineType>();
+        public static List<HistoryType> historyTypes = new List<HistoryType>();
         public static List<RFTType> rFTTypes = new List<RFTType>();
 
         public static List<Fabric> fabrics = new List<Fabric>();
         static string connectionStr = DBGateway.connectionString;
-
-        internal static List<MachineType> GetMachineList()
-        {
-            try
-            {
-                machineTypes = new List<MachineType>();
-                string query = "SELECT * FROM HSPMcNoType";
-                SqlDataReader reader = DBGateway.GetFromDB(query);
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        MachineType mc = new MachineType();
-                        mc.Id = Convert.ToInt32(reader["Id"]);
-                        mc.McNo = reader["HSPMcNo"].ToString();
-
-                        machineTypes.Add(mc);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                machineTypes = new List<MachineType>();
-            }
-            finally
-            {
-                if (DBGateway.connection.State == ConnectionState.Open)
-                {
-                    DBGateway.connection.Close();
-                }
-            }
-
-            return machineTypes;
-        }
 
         internal static List<RFTType> GetRFTList()
         {
@@ -88,25 +54,59 @@ namespace TextileResearchDevelopment.BLL
             return rFTTypes;
         }
 
-        internal static Dyeing CRUD(Dyeing hsp)
+        internal static List<HistoryType> GetHistoryList()
+        {
+            try
+            {
+                historyTypes = new List<HistoryType>();
+                string query = "SELECT * FROM HistoryType";
+                SqlDataReader reader = DBGateway.GetFromDB(query);
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        HistoryType hs = new HistoryType();
+                        hs.Id = Convert.ToInt32(reader["Id"]);
+                        hs.History = reader["History"].ToString();
+
+                        historyTypes.Add(hs);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                historyTypes = new List<HistoryType>();
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+
+            return historyTypes;
+        }
+
+        internal static Dyeing CRUD(Dyeing dyeing)
         {
             try
             {
                 string query = "";
-                if (hsp.Id > 0)
+                if (dyeing.Id > 0)
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE Dyeing SET FabricID = '" + hsp.fabric.Id + "', HPMcNoId = " + hsp.mc.Id + ", HPTemp = '" + hsp.Temp + "', HPSpeed = '" + hsp.Speed + "', HPTime = '" + hsp.Time + "', HPFeed = '" + hsp.Feed + "', HPStrech = '" + hsp.Streching + "', HPChemical = '" + hsp.Chemical + "', HPDia = '" + hsp.Dia + "', HPGSM = '" + hsp.GSM + "', HPShrinkage = '" + hsp.Shrinkage + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
+                    query = "UPDATE Dyeing SET FabricID = '" + dyeing.fabric.Id + "', RFTNoID = " + dyeing.rft.Id + ", HistoryID = " + dyeing.hs.Id + ", DMC = '" + dyeing.McNo + "', DSpeed = '" + dyeing.Speed + "', DEnzy = '" + dyeing.Enzyme + "', Recipe = '" + dyeing.Recipe + "', RecipeNo = '" + dyeing.RecipeNo + "', Comments = '" + dyeing.Comments + "', DyeingDate = '" + dyeing.DyeingDate?.ToString("yyyy/MM/dd") + "', DyeingTime = '" + dyeing.Time + "', Dyebath = '" + dyeing.PH + "', Whiteness = '" + dyeing.Value + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
-                        query = "SELECT * FROM DyeingView WHERE Id = " + hsp.Id;
+                        query = "SELECT * FROM DyeingView WHERE Id = " + dyeing.Id;
                         SqlDataReader reader = DBGateway.GetFromDB(query);
                         if (reader.HasRows)
                         {
                             while (reader.Read())
                             {
-                                hsp = GetObj(reader);
+                                dyeing = GetObj(reader);
                             }
                         }
                     }
@@ -114,7 +114,7 @@ namespace TextileResearchDevelopment.BLL
                 else
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "INSERT INTO Dyeing (FabricID, RFTNoID, DMC, DSpeed, DEnzy, Recipe, DyeingTime, Dyebath, Whiteness, RecipeNo, Comments, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + hsp.fabric.Id + "," + hsp.rft.Id + ",'" + hsp.McNo + "','" + hsp.Speed + "','" + hsp.Enzyme + "','" + hsp.Recipe + "','" + hsp.Time + "','" + hsp.PH + "','" + hsp.Value + "','" + hsp.RecipeNo + "','" + hsp.Comments + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                    query = "INSERT INTO Dyeing (FabricID, RFTNoID, HistoryID, DMC, DSpeed, DEnzy, Recipe, DyeingTime, Dyebath, Whiteness, RecipeNo, Comments, DyeingDate, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + dyeing.fabric.Id + "," + dyeing.rft.Id + "," + dyeing.hs.Id + ",'" + dyeing.McNo + "','" + dyeing.Speed + "','" + dyeing.Enzyme + "','" + dyeing.Recipe + "','" + dyeing.Time + "','" + dyeing.PH + "','" + dyeing.Value + "','" + dyeing.RecipeNo + "','" + dyeing.Comments + "', '" + dyeing.DyeingDate?.ToString("yyyy/MM/dd") + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
                         query = "SELECT TOP 1 * FROM DyeingView order by Id desc";
@@ -123,7 +123,7 @@ namespace TextileResearchDevelopment.BLL
                         {
                             while (reader.Read())
                             {
-                                hsp = GetObj(reader);
+                                dyeing = GetObj(reader);
                             }
                         }
                     }
@@ -140,7 +140,7 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return hsp;
+            return dyeing;
         }
 
         internal static bool Delete(int Id)
@@ -198,57 +198,59 @@ namespace TextileResearchDevelopment.BLL
 
         private static Dyeing GetObj(SqlDataReader reader)
         {
-            Dyeing hsp = new Dyeing();
+            Dyeing dyeing = new Dyeing();
             try
             {
-                hsp.Id = Convert.ToInt32(reader["Id"]);
-                hsp.fabric.buyer.BuyerName = reader["BuyerName"].ToString();
-                hsp.fabric.fb.FabricTypeName = reader["FabricTypeName"].ToString();
-                hsp.fabric.OrderNo = reader["OrderNo"].ToString();
-                hsp.fabric.RefNo = reader["RefNo"].ToString();
-                hsp.fabric.cm.Composition = reader["Composition"].ToString();
-                hsp.fabric.Id = Convert.ToInt32(reader["FabricID"]);
-                hsp.fabric.BarCode = reader["BarCode"].ToString();
+                dyeing.Id = Convert.ToInt32(reader["Id"]);
+                dyeing.fabric.buyer.BuyerName = reader["BuyerName"].ToString();
+                dyeing.fabric.fb.FabricTypeName = reader["FabricTypeName"].ToString();
+                dyeing.fabric.OrderNo = reader["OrderNo"].ToString();
+                dyeing.fabric.RefNo = reader["RefNo"].ToString();
+                dyeing.fabric.cm.Composition = reader["Composition"].ToString();
+                dyeing.fabric.Id = Convert.ToInt32(reader["FabricID"]);
+                dyeing.fabric.BarCode = reader["BarCode"].ToString();
 
-                hsp.mc.Id = Convert.ToInt32(reader["HPMcNoId"]);
-                hsp.mc.McNo = reader["HSPMcNo"].ToString();
-                hsp.Temp = reader["HPTemp"].ToString();
-                hsp.Speed = reader["HPSpeed"].ToString();
-                hsp.Time = reader["HPTime"].ToString();
-                hsp.Feed = reader["HPFeed"].ToString();
-                hsp.Streching = reader["HPStrech"].ToString();
-                hsp.Chemical = reader["HPChemical"].ToString();
-                hsp.Dia = reader["HPDia"].ToString();
-                hsp.GSM = reader["HPGSM"].ToString();
-                hsp.Shrinkage = reader["HPShrinkage"].ToString();
+                dyeing.rft.Id = Convert.ToInt32(reader["RFTNoID"]);
+                dyeing.rft.RFT = reader["RFT"].ToString();
+                dyeing.hs.Id = Convert.ToInt32(reader["HistoryID"]);
+                dyeing.hs.History = reader["History"].ToString();
+                dyeing.McNo = reader["DMC"].ToString();
+                dyeing.Speed = reader["DSpeed"].ToString();
+                dyeing.Enzyme = reader["DEnzy"].ToString();
+                dyeing.Recipe = reader["Recipe"].ToString();
+                dyeing.RecipeNo = reader["RecipeNo"].ToString();
+                dyeing.Time = reader["DyeingTime"].ToString();
+                dyeing.DyeingDate = reader.IsDBNull(reader.GetOrdinal("DyeingDate")) == true ? (DateTime?)null : Convert.ToDateTime(reader["DyeingDate"]);
+                dyeing.PH = reader["Dyebath"].ToString();
+                dyeing.Value = reader["Whiteness"].ToString();
 
-                hsp.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
-                hsp.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
+                dyeing.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
+                dyeing.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);
 
-                hsp.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
-                hsp.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
-                hsp.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
-                hsp.CreateByName = reader["CreateByName"].ToString();
-                hsp.UpdateByName = reader["UpdateByName"].ToString();
-                hsp.ApprovedByName = reader["ApprovedByName"].ToString();
+                dyeing.CreateTime = Convert.ToDateTime(reader["CreateTime"]);
+                dyeing.UpdateTime = reader.IsDBNull(reader.GetOrdinal("UpdateTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["UpdateTime"]);
+                dyeing.ApprovedTime = reader.IsDBNull(reader.GetOrdinal("ApprovedTime")) == true ? (DateTime?)null : Convert.ToDateTime(reader["ApprovedTime"]);
+                dyeing.CreateByName = reader["CreateByName"].ToString();
+                dyeing.UpdateByName = reader["UpdateByName"].ToString();
+                dyeing.ApprovedByName = reader["ApprovedByName"].ToString();
             }
 
             catch (Exception ex)
             {
-                hsp = new Dyeing();
+                dyeing = new Dyeing();
             }
 
-            return hsp;
+            return dyeing;
         }
 
-        internal static Dyeing Revise(Dyeing hsp)
+        internal static Dyeing Revise(Dyeing dyeing)
         {
             try
             {
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM DyeingView WHERE BarCode = '" + hsp.fabric.BarCode + "'";
+                string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM DyeingView WHERE BarCode = '" + dyeing.fabric.BarCode + "'";
                 
-                string query = "INSERT INTO Dyeing (FabricID, RFTNoID, DMC, DSpeed, DEnzy, Recipe, DyeingTime, Dyebath, Whiteness, RecipeNo, Comments, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + hsp.fabric.Id + "," + hsp.rft.Id + ",'" + hsp.McNo + "','" + hsp.Speed + "','" + hsp.Enzyme + "','" + hsp.Recipe + "','" + hsp.Time + "','" + hsp.PH + "','" + hsp.Value + "','" + hsp.RecipeNo + "','" + hsp.Comments + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                string query = "INSERT INTO Dyeing (FabricID, RFTNoID, HistoryID, DMC, DSpeed, DEnzy, Recipe, DyeingTime, Dyebath, Whiteness, RecipeNo, Comments, DyeingDate, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + dyeing.fabric.Id + "," + dyeing.rft.Id + "," + dyeing.hs.Id + ",'" + dyeing.McNo + "','" + dyeing.Speed + "','" + dyeing.Enzyme + "','" + dyeing.Recipe + "','" + dyeing.Time + "','" + dyeing.PH + "','" + dyeing.Value + "','" + dyeing.RecipeNo + "','" + dyeing.Comments + "', '" + dyeing.DyeingDate?.ToString("yyyy/MM/dd") + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
@@ -258,14 +260,14 @@ namespace TextileResearchDevelopment.BLL
                     {
                         while (reader.Read())
                         {
-                            hsp = GetObj(reader);
+                            dyeing = GetObj(reader);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                hsp = new Dyeing();
+                dyeing = new Dyeing();
             }
             finally
             {
@@ -274,15 +276,15 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return hsp;
+            return dyeing;
         }
 
-        internal static Dyeing Approve(Dyeing hsp)
+        internal static Dyeing Approve(Dyeing dyeing)
         {
             try
             {
                 string GetApproveByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " UPDATE Dyeing SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + hsp.Id + " AND ApprovedStatus = 0 ";
+                string query = " UPDATE Dyeing SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + dyeing.Id + " AND ApprovedStatus = 0 ";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
@@ -292,14 +294,14 @@ namespace TextileResearchDevelopment.BLL
                     {
                         while (reader.Read())
                         {
-                            hsp = GetObj(reader);
+                            dyeing = GetObj(reader);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                hsp = new Dyeing();
+                dyeing = new Dyeing();
             }
             finally
             {
@@ -308,14 +310,14 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return hsp;
+            return dyeing;
         }
 
-        internal static Dyeing Unapprove(Dyeing hsp)
+        internal static Dyeing Unapprove(Dyeing dyeing)
         {
             try
             {
-                string query = " UPDATE Dyeing SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE Id = " + hsp.Id;
+                string query = " UPDATE Dyeing SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE Id = " + dyeing.Id;
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
@@ -325,14 +327,14 @@ namespace TextileResearchDevelopment.BLL
                     {
                         while (reader.Read())
                         {
-                            hsp = GetObj(reader);
+                            dyeing = GetObj(reader);
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                hsp = new Dyeing();
+                dyeing = new Dyeing();
             }
             finally
             {
@@ -341,7 +343,7 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return hsp;
+            return dyeing;
         }
 
         public static List<Fabric> FabricSearch(Fabric fabricearchObj)

@@ -92,6 +92,12 @@ namespace TextileResearchDevelopment.Models
         public string RFT { get; set; }
     }
 
+    public class HistoryType
+    {
+        public int Id { get; set; }
+        public string History { get; set; }
+    }
+
     public class YarnType
     {
         public int Id { get; set; }
