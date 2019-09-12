@@ -13,19 +13,19 @@ namespace TextileResearchDevelopment.Models
 
         public User()
         {
-            Sectors = new Dictionary<int, string>();
+            Sectors = new Dictionary<string, string>();
             Sectors = GetSectorsValue();
             rootNode = new List<RoleNode>();
         }
 
-        private Dictionary<int, string> GetSectorsValue()
+        private Dictionary<string, string> GetSectorsValue()
         {
-            Sectors.Add(1, "Knit"); Sectors.Add(2, "CW"); Sectors.Add(3, "HSP"); Sectors.Add(4, "Singeing"); Sectors.Add(5, "Dyeing"); Sectors.Add(6, "Dryer"); Sectors.Add(7, "Stenter");
-            Sectors.Add(8, "Compacting"); Sectors.Add(9, "Peach"); Sectors.Add(10, "Brush"); Sectors.Add(11, "Print"); Sectors.Add(12, "Knit"); Sectors.Add(13, "QC");
+            Sectors.Add("1", "Fabric");  Sectors.Add("2", "Knit"); Sectors.Add("3", "CW"); Sectors.Add("4", "HSP"); Sectors.Add("5", "Singeing"); Sectors.Add("6", "Dyeing"); Sectors.Add("7", "Dryer"); Sectors.Add("8", "Stenter");
+            Sectors.Add("9", "Compacting"); Sectors.Add("10", "Peach"); Sectors.Add("11", "Brush"); Sectors.Add("12", "Print"); Sectors.Add("13", "QC");
             return Sectors;
         }
 
-        public Dictionary<int, string> Sectors { get; set; }
+        public Dictionary<string, string> Sectors { get; set; }
         public List<RoleNode> rootNode { get; set; }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -33,7 +33,7 @@ namespace TextileResearchDevelopment.Models
         public string Password { get; set; }
         public int SuperAdmin { get; set; }
         public int Fabric { get; set; }
-        public int Knitting { get; set; }
+        public int Knit { get; set; }
         public int CW { get; set; }
         public int HSP { get; set; }
         public int Singeing { get; set; }
@@ -60,7 +60,7 @@ namespace TextileResearchDevelopment.Models
             role = new Role();
         }
 
-        public string Id { get; set; }
+        public int Id { get; set; }
         public int val { get; set; }
         public string title { get; set; }
         public Role role { get; set; }
@@ -71,6 +71,7 @@ namespace TextileResearchDevelopment.Models
     {
         public int Id { get; set; }
         public int ParentID { get; set; }
+        public int value { get; set; }
         public string title { get; set; }
         public int val { get; set; }
     }
@@ -79,6 +80,9 @@ namespace TextileResearchDevelopment.Models
     {
         public int Id { get; set; }
         public int RolePermissionID { get; set; }
+        public int CValue { get; set; }
+        public int LValue { get; set; }
+        public int AValue { get; set; }
         public int Crud { get; set; }
         public int LibrarySet { get; set; }
         public int Approval { get; set; }

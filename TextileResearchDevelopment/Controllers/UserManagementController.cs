@@ -16,81 +16,48 @@ namespace TextileResearchDevelopment.Controllers
         }
 
         [HttpPost]
-        public ActionResult Details(int id)
+        public ActionResult Details(User user)
         {
-            return View();
+            try
+            {
+                user = UserBLL.GetDetails(user);
+            }
+            catch
+            {
+                return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { data = user }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public ActionResult Create(User user)
         {
-            Boolean Result = false;
             try
             {
-                if (user.Id == 0)
-                {
-                    int Id = UserBLL.AddUser(user);
-                    if (Id > 0)
-                    {
-                        user.Id = Id;
-                        Result = true;
-                    }
-                    else
-                    {
-                        Result = false;
-                    }
-                }
-
-                if (Result)
-                {
-                    return Json(new { data = user }, JsonRequestBehavior.AllowGet);
-                }
+                user = UserBLL.AddUser(user);
             }
             catch
             {
-                return View();
+                return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
             }
 
-            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+            return Json(new { data = user }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public ActionResult Update(User user)
         {
-            Boolean Result = false;
             try
             {
-                if (user.Id > 0)
-                {
-                    int Id = UserBLL.EditUser(user);
-                    if (Id > 0)
-                    {
-                        user.Id = Id;
-                        Result = true;
-                    }
-                    else
-                    {
-                        Result = false;
-                    }
-                }
-
-                if (Result)
-                {
-                    return Json(new { data = user }, JsonRequestBehavior.AllowGet);
-                }
+                user = UserBLL.EditUser(user);
             }
             catch
             {
-                return View();
+                return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
             }
 
-            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public ActionResult Edit(int id)
-        {
-            return View();
+            return Json(new { data = user }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -116,19 +83,16 @@ namespace TextileResearchDevelopment.Controllers
         [HttpGet]
         public JsonResult GetData()
         {
-            JsonResult result = new JsonResult();
-            List<User> data = new List<User>();
 
             try
             {
-                data = UserBLL.GetList();
+                List<User> objList = UserBLL.GetList();
+                return Json(new { data = objList }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                Console.Write(ex);
+                return Json(new { data = new List<User>() }, JsonRequestBehavior.AllowGet);
             }
-
-            return Json(new { data = data }, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -157,6 +121,22 @@ namespace TextileResearchDevelopment.Controllers
 
         }
 
+        [HttpPost]
+        public JsonResult GetRoles(User user)
+        {
+            try
+            {
+                Role role = new Role();
+                user.UserName = Session[System.Web.HttpContext.Current.Session.SessionID].ToString();
+                role = UserBLL.GetRoles(user);
 
+                return Json(role, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new Role(), JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

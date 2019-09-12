@@ -522,7 +522,7 @@ namespace TextileResearchDevelopment.BLL
                 string query = "";
                 if (fabric.Id > 0)
                 {
-                    query = "UPDATE FabricProcess SET Knitting = " + fabric.ua.Knitting + ", CW = " + fabric.ua.CW + ", HSP = " + fabric.ua.HSP + ", Dyeing = " + fabric.ua.Dyeing + ", Dryer = " + fabric.ua.Dryer + ", Stenter = " + fabric.ua.Stenter + ", Compacting = " + fabric.ua.Compacting + ", Peach = " + fabric.ua.Peach + ", Brush = " + fabric.ua.Brush + ", PrintInfo = " + fabric.ua.PrintInfo + ", QC = " + fabric.ua.QC + ", Singeing = " + fabric.ua.Singeing + " WHERE BarCode = " + fabric.BarCode;
+                    query = "UPDATE FabricProcess SET Knit = " + fabric.ua.Knit + ", CW = " + fabric.ua.CW + ", HSP = " + fabric.ua.HSP + ", Dyeing = " + fabric.ua.Dyeing + ", Dryer = " + fabric.ua.Dryer + ", Stenter = " + fabric.ua.Stenter + ", Compacting = " + fabric.ua.Compacting + ", Peach = " + fabric.ua.Peach + ", Brush = " + fabric.ua.Brush + ", PrintInfo = " + fabric.ua.PrintInfo + ", QC = " + fabric.ua.QC + ", Singeing = " + fabric.ua.Singeing + " WHERE BarCode = " + fabric.BarCode;
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
@@ -531,7 +531,7 @@ namespace TextileResearchDevelopment.BLL
                 }
                 else
                 {
-                    query = "INSERT INTO FabricProcess (BarCode, Knitting, CW, HSP, Dyeing, Dryer, Stenter, Compacting, Peach, Brush, PrintInfo, QC, Singeing) VALUES(" + fabric.BarCode + "," + fabric.ua.Knitting + "," + fabric.ua.CW + "," + fabric.ua.HSP + "," + fabric.ua.Dyeing + "," + fabric.ua.Dryer + "," + fabric.ua.Stenter + "," + fabric.ua.Compacting + "," + fabric.ua.Peach + "," + fabric.ua.Brush + "," + fabric.ua.PrintInfo + "," + fabric.ua.QC + "," + fabric.ua.Singeing + ")";
+                    query = "INSERT INTO FabricProcess (BarCode, Knit, CW, HSP, Dyeing, Dryer, Stenter, Compacting, Peach, Brush, PrintInfo, QC, Singeing) VALUES(" + fabric.BarCode + "," + fabric.ua.Knit + "," + fabric.ua.CW + "," + fabric.ua.HSP + "," + fabric.ua.Dyeing + "," + fabric.ua.Dryer + "," + fabric.ua.Stenter + "," + fabric.ua.Compacting + "," + fabric.ua.Peach + "," + fabric.ua.Brush + "," + fabric.ua.PrintInfo + "," + fabric.ua.QC + "," + fabric.ua.Singeing + ")";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
                         return true;
@@ -590,7 +590,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 ua.Id = Convert.ToInt32(reader["Id"]);
-                ua.Knitting = Convert.ToInt32(reader["Knitting"]);
+                ua.Knit = Convert.ToInt32(reader["Knit"]);
                 ua.CW = Convert.ToInt32(reader["CW"]);
                 ua.HSP = Convert.ToInt32(reader["HSP"]);
                 ua.Singeing = Convert.ToInt32(reader["Singeing"]);

@@ -40,7 +40,6 @@ namespace TextileResearchDevelopment.Controllers
         [HttpGet]
         public JsonResult GetData()
         {
-            JsonResult result = new JsonResult();
             List<HSP> objList = new List<HSP>();
 
             try

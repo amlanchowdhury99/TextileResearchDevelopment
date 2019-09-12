@@ -76,14 +76,14 @@ namespace TextileResearchDevelopment.Controllers
         [HttpGet]
         public JsonResult GetUserAccess()
         {
-            string UserName = ""; string AccessCode = "";
+            string UserName = ""; string PermissionString = "";
 
             try
             {
                 if (Session[System.Web.HttpContext.Current.Session.SessionID] != null)
                 {
                     UserName = Session[System.Web.HttpContext.Current.Session.SessionID].ToString();
-                    AccessCode = UserBLL.GetUserAccess(UserName);
+                    PermissionString = UserBLL.GetUserAccess(UserName);
                 }
             }
 
@@ -92,7 +92,7 @@ namespace TextileResearchDevelopment.Controllers
                 return Json("", JsonRequestBehavior.AllowGet);
             }
 
-            return Json(AccessCode, JsonRequestBehavior.AllowGet);
+            return Json(PermissionString, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Contact()

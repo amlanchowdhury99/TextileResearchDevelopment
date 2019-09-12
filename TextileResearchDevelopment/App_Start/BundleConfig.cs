@@ -12,6 +12,7 @@ namespace TextileResearchDevelopment
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery.unobtrusive-ajax.min.js",
                         "~/Scripts/jquery.dataTables.min.js",
+                        "~/Scripts/jquery.treeSelector.js",
                         "~/Scripts/UrmiPlugin.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -59,6 +60,7 @@ namespace TextileResearchDevelopment
                       "~/Content/bootstrap-datetimepicker.min.css",
                       "~/Content/daterangepicker.css",
                       "~/Content/bootstrap-multiselect.css",
+                      "~/Content/jquery.treeSelector.css",
                       "~/Content/UrmiStyle.css"));
 
         }

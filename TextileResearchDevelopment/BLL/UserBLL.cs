@@ -48,33 +48,78 @@ namespace TextileResearchDevelopment.BLL
             }
         }
 
-        internal static int EditUser(User user)
+        internal static User GetDetails(User user)
         {
-            int Id = -1;
+            SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader; cm.Connection = cn; cn.Open();
+            SqlCommand cm1 = new SqlCommand(); SqlConnection cn1 = new SqlConnection(connectionStr); SqlDataReader reader1; cm1.Connection = cn1;
             try
             {
-                string query = "SELECT Count(*) As count FROM UserInfo WHERE UserName = '" + user.UserName + "'";
-                if (DBGateway.GetNumberForRows(query))
+                RoleNode role = new RoleNode();
+                string query = "SELECT * FROM UserPermission WHERE UserName = '" + user.UserName + "'";
+                cm.CommandText = query;
+                reader = cm.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    //query = " UPDATE UserInfo SET UserName = '" + user.UserName + "', Password = '" + user.Password + "', Fabric = " + user.Fabric + ", Knitting = " + user.Knitting + ", Dyeing = " + user.Dyeing + ", Slitting = " + user.Slitting + ", Stenter = " + user.Stenter + ", Aop = " + user.Aop + ", Test = " + user.Test + ", Remarks = " + user.Remarks + ", PermissionString = '" + user.PermissionString + "'" +
-                    //                               " WHERE UserName = '" + user.UserName + "'";
-                    if (DBGateway.ExecutionToDB(query, 1))
+                    while (reader.Read())
                     {
-                        Id = 1;
-                    }
-                    else
-                    {
-                        Id = -1;
+                        cn1.Open();
+                        role = new RoleNode();
+                        role.Id = Convert.ToInt32(reader["Id"]);
+                        role.val = 1;
+                        role.title = user.Sectors[reader["Sector"].ToString()];
+                        query = "SELECT * FROM UserRole WHERE UserPermissionID = " + role.Id;
+                        cm1.CommandText = query;
+                        reader1 = cm1.ExecuteReader();
+                        if (reader1.HasRows)
+                        {
+                            while (reader1.Read())
+                            {
+                                Child child = new Child(); child.Id = Convert.ToInt32(reader1["Id"]); child.ParentID = role.Id; child.val = Convert.ToInt32(reader1["Crud"]); child.value = Convert.ToInt32(reader1["CValue"]); child.title = "Crud";
+                                role.children.Add(child);
+                                child = new Child(); child.Id = Convert.ToInt32(reader1["Id"]); child.ParentID = role.Id; child.val = Convert.ToInt32(reader1["LibrarySet"]); child.value = Convert.ToInt32(reader1["LValue"]); child.title = "LibrarySet";
+                                role.children.Add(child);
+                                child = new Child(); child.Id = Convert.ToInt32(reader1["Id"]); child.ParentID = role.Id; child.val = Convert.ToInt32(reader1["Approval"]); child.value = Convert.ToInt32(reader1["AValue"]); child.title = "Approval";
+                                role.children.Add(child);
+                            }
+                        }
+                        user.rootNode.Add(role);
+                        cn1.Close();
                     }
                 }
-                else
+            }
+            catch(Exception ex)
+            {
+                user = new User();
+            }
+            finally
+            {
+                cn.Close();
+            }
+            return user;
+        }
+
+        internal static Role GetRoles(User user)
+        {
+            Role role = new Role();
+            try
+            {
+                var key = user.Sectors.FirstOrDefault(x => x.Value == user.Name).Key;
+                string UserPermissionQuery = "(SELECT Id FROM UserPermission WHERE UserName = '" + user.UserName + "' AND Sector = '" + key + "')";
+                string query = "SELECT * FROM UserRole WHERE UserPermissionID = " + UserPermissionQuery;
+                SqlDataReader reader = DBGateway.GetFromDB(query);
+                if (reader.HasRows)
                 {
-                    Id = -1;
+                    while (reader.Read())
+                    {
+                        role.Crud = Convert.ToInt32(reader["Crud"]);
+                        role.LibrarySet = Convert.ToInt32(reader["LibrarySet"]);
+                        role.Approval = Convert.ToInt32(reader["Approval"]);
+                    }
                 }
             }
             catch (Exception ex)
             {
-                return Id;
+                role = new Role();
             }
             finally
             {
@@ -83,12 +128,115 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return Id;
+            return role;
         }
 
-        internal static int AddUser(User user)
+        internal static User EditUser(User user)
         {
-            int Id = -1;
+            try
+            {
+                bool result = false;
+                string query = "SELECT Count(*) As count FROM UserInfo WHERE UserName = '" + user.UserName + "'";
+                if (DBGateway.GetNumberForRows(query))
+                {
+                    query = " UPDATE UserInfo SET Name = '" + user.Name + "', UserName = '" + user.UserName + "', Password = '" + user.Password + "', SuperAdmin = " + user.SuperAdmin + " WHERE UserName = '" + user.UserName + "'";
+                    if (DBGateway.ExecutionToDB(query, 1))
+                    {
+                        foreach (var i in user.rootNode)
+                        {
+                            var key = user.Sectors.FirstOrDefault(x => x.Value == i.title).Key;
+                            
+                            if (i.val == 1)
+                            {
+                                if (!DBGateway.recordExist("SELECT Id FROM UserPermission WHERE UserName = '" + user.UserName + "' AND Sector = '" + key + "'"))
+                                {
+                                    query = "INSERT INTO UserPermission (UserName, Sector) VALUES('" + user.UserName + "','" + key + "')";
+                                    result = DBGateway.ExecutionToDB(query, 1);
+                                }
+
+                                foreach (var j in i.children)
+                                {
+                                    if (j.title == "Crud")
+                                    {
+                                        i.role.Crud = j.val;
+                                        i.role.CValue = j.value;
+                                    }
+                                    else if (j.title == "LibrarySet")
+                                    {
+                                        i.role.LibrarySet = j.val;
+                                        i.role.LValue = j.value;
+                                    }
+                                    else if (j.title == "Approval")
+                                    {
+                                        i.role.Approval = j.val;
+                                        i.role.AValue = j.value;
+                                    }
+                                }
+
+                                string UserPermissionQuery = "(SELECT Id FROM UserPermission WHERE UserName = '" + user.UserName + "' AND Sector = '" + key + "')";
+                                if (!DBGateway.recordExist("SELECT Id FROM UserRole WHERE UserPermissionID = " + UserPermissionQuery + ""))
+                                {
+                                    query = " INSERT INTO UserRole (UserPermissionID, Crud, Approval, LibrarySet, CValue, LValue, AValue) VALUES(" + UserPermissionQuery + "," + i.role.Crud + ", " + i.role.LibrarySet + ", " + i.role.Approval + ", " + i.role.CValue + ", " + i.role.LValue + ", " + i.role.AValue + ")";
+                                    result = DBGateway.ExecutionToDB(query, 1);
+                                }
+                                else
+                                {
+                                    query = " UPDATE UserRole SET Crud = " + i.role.Crud + ", LibrarySet = " + i.role.LibrarySet + ", Approval = " + i.role.Approval + " WHERE UserPermissionID = " + UserPermissionQuery + "";
+                                    result = DBGateway.ExecutionToDB(query, 1);
+                                }
+                            }
+                            else
+                            {
+                                string UserPermissionQuery = "(SELECT Id FROM UserPermission WHERE UserName = '" + user.UserName + "' AND Sector = " + key + ")";
+                                query = " DELETE UserRole WHERE UserPermissionID = " + UserPermissionQuery + "";
+                                if (DBGateway.ExecutionToDB(query, 1))
+                                {
+                                    query = " DELETE UserPermission WHERE UserName = '" + user.UserName + "', Sector = " + key;
+                                    result = DBGateway.ExecutionToDB(query, 1);
+                                }
+                            }
+                        }
+
+                        query = "SELECT * FROM UserInfo WHERE UserName = '" + user.UserName + "'";
+                        SqlDataReader reader = DBGateway.GetFromDB(query);
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                user.Id = Convert.ToInt32(reader["Id"]);
+                                user.Name = reader["Name"].ToString();
+                                user.UserName = reader["UserName"].ToString();
+                                user.Password = reader["Password"].ToString();
+                                user.CreateDate = Convert.ToDateTime(reader["Date"]);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        user = new User();
+                    }
+                }
+                else
+                {
+                    user = new User();
+                }
+            }
+            catch (Exception ex)
+            {
+                user = new User();
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+            return user;
+        }
+
+        internal static User AddUser(User user)
+        {
             try
             {
                 string query = "SELECT * FROM UserInfo WHERE UserName = '"+ user.UserName+ "'";
@@ -98,7 +246,6 @@ namespace TextileResearchDevelopment.BLL
                                                    " VALUES('" + user.Name + "','" + user.UserName + "','" + user.Password + "','" + user.CreateDate.ToString("yyyy/MM/dd") + "', 0)";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
-
                         foreach(var i in user.rootNode)
                         {
                             if(i.val == 1)
@@ -112,46 +259,49 @@ namespace TextileResearchDevelopment.BLL
                                         if(j.title == "Crud")
                                         {
                                             i.role.Crud = j.val;
+                                            i.role.CValue = j.value;
                                         }
                                         else if (j.title == "LibrarySet")
                                         {
                                             i.role.LibrarySet = j.val;
+                                            i.role.LValue = j.value;
                                         }
                                         else if (j.title == "Approval")
                                         {
                                             i.role.Approval = j.val;
+                                            i.role.AValue = j.value;
                                         }
                                     }
-                                    query = " INSERT INTO UserRole (UserPermissionID, Crud, Approval, LibrarySet) VALUES('" + user.UserName + "'," + i.role.Crud + ", " + i.role.LibrarySet + ", " + i.role.Approval + ")";
+                                    string UserPermissionQuery = "(SELECT Top 1 (Id) FROM UserPermission WHERE UserName = '"+user.UserName+"' order by Id desc)";
+                                    query = " INSERT INTO UserRole (UserPermissionID, Crud, Approval, LibrarySet, CValue, LValue, AValue) VALUES(" + UserPermissionQuery + "," + i.role.Crud + ", " + i.role.LibrarySet + ", " + i.role.Approval + ", " + i.role.CValue + ", " + i.role.LValue + ", " + i.role.AValue + ")";
+                                    bool result = DBGateway.ExecutionToDB(query, 1);
                                 }
                             }
                         }
 
-                        if (DBGateway.ExecutionToDB(query, 1))
+                        query = "SELECT TOP 1 * FROM UserInfo order by Id desc";
+                        SqlDataReader reader = DBGateway.GetFromDB(query);
+                        if (reader.HasRows)
                         {
-                            query = " INSERT INTO UserRole (UserPermissionID, Crud, Approval, LibrarySet) " +
-                                                   " VALUES('" + user.UserName + "','" + 1 + "')";
+                            while (reader.Read())
+                            {
+                                user.Id = Convert.ToInt32(reader["Id"]);
+                                user.Name = reader["Name"].ToString();
+                                user.UserName = reader["UserName"].ToString();
+                                user.Password = reader["Password"].ToString();
+                                user.CreateDate = Convert.ToDateTime(reader["Date"]);
+                            }
                         }
-
-                        //query = "SELECT TOP 1 (Id) AS Id FROM UserInfo order by Id desc";
-                        //SqlDataReader reader = DBGateway.GetFromDB(query);
-                        //if (reader.HasRows)
-                        //{
-                        //    while (reader.Read())
-                        //    {
-                        //        Id = Convert.ToInt32(reader["Id"]);
-                        //    }
-                        //}
                     }
                 }
                 else
                 {
-                    Id = -1; 
+                    user = new User();
                 }
             }
             catch (Exception ex)
             {
-                return Id;
+                user = new User();
             }
             finally
             {
@@ -160,7 +310,7 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return Id;
+            return user;
         }
 
         internal static Boolean HasRight(string text)
@@ -211,19 +361,25 @@ namespace TextileResearchDevelopment.BLL
             string PermissionString = "";
             try
             {
-                string query = "SELECT PermissionString FROM UserInfo WHERE UserName = '" + UserName + "'";
+                string query = "SELECT Sector FROM UserPermission WHERE UserName = '" + UserName + "'";
                 SqlDataReader reader = DBGateway.GetFromDB(query);
                 if (reader.HasRows)
                 {
                     while (reader.Read())
                     {
-                        PermissionString = reader["PermissionString"].ToString();
+                        PermissionString = PermissionString == "" ? reader["Sector"].ToString() : PermissionString + "," + reader["Sector"].ToString();
                     }
                 }
                 else
                 {
                     PermissionString = "";
                 }
+
+                if(UserName == "SuperAdmin@gmail.com")
+                {
+                    PermissionString = PermissionString == "" ? "14" : PermissionString + "," + "14";
+                }
+
             }
             catch (Exception ex)
             {
@@ -287,20 +443,10 @@ namespace TextileResearchDevelopment.BLL
                     {
                         User user = new User();
                         user.Id = Convert.ToInt32(reader["Id"]);
+                        user.Name = reader["Name"].ToString();
                         user.UserName = reader["UserName"].ToString();
                         user.Password = reader["Password"].ToString();
-                        user.LogIn = Convert.ToInt32(reader["LogIn"]);
-                        user.Fabric = Convert.ToInt32(reader["Fabric"]);
-                        user.Knitting = Convert.ToInt32(reader["Knitting"]);
-                        //user.Dyeing = Convert.ToInt32(reader["Dyeing"]);
-                        //user.Slitting = Convert.ToInt32(reader["Slitting"]);
-                        //user.Stenter = Convert.ToInt32(reader["Stenter"]);
-                        //user.Aop = Convert.ToInt32(reader["Aop"]);
-                        //user.Test = Convert.ToInt32(reader["Test"]);
-                        //user.Remarks = Convert.ToInt32(reader["Remarks"]);
-                        //user.PermissionString = reader["PermissionString"].ToString();
-                        //user.CreateDate = Convert.ToDateTime(reader["Date"]);
-
+                        //user.LogIn = Convert.ToInt32(reader["LogIn"]);
                         users.Add(user);
                     }
                 }
@@ -315,6 +461,26 @@ namespace TextileResearchDevelopment.BLL
             }
 
             return users;
+        }
+
+        private static User GetObj(SqlDataReader reader)
+        {
+            User ua = new User();
+            try
+            {
+                ua.Id = Convert.ToInt32(reader["Id"]);
+                ua.Name = reader["Name"].ToString();
+                ua.UserName = reader["UserName"].ToString();
+                ua.Password = reader["Password"].ToString();
+                ua.CreateDate = Convert.ToDateTime(reader["Date"]);
+            }
+
+            catch (Exception ex)
+            {
+                ua = new User();
+            }
+
+            return ua;
         }
 
         internal static bool LogOut(string userName)
