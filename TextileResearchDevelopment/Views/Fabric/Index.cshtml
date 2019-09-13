@@ -38,7 +38,7 @@
                         <div style=" display: inline;">
                             <select name="BuyerName" id="BuyerName" style="width:50%;" class="form-control input-sm" required autofocus></select>
                             <a href="#" id="BuyerNameAdd" class="btn-sm btn-info" style="width:10%;display:inline" data-toggle="modal" data-target="#myModalHorizontal">
-                                <span  class="glyphicon glyphicon-plus"></span>
+                                <span class="glyphicon glyphicon-plus"></span>
                             </a>
                         </div>
                     </div>
@@ -251,7 +251,7 @@
             }
         });
 
-        loadFPList();
+        SetRoles();
 
         function loadFPList() {
             var s = '';
@@ -337,7 +337,6 @@
                         s += '<option value="' + data[i].Id + '">' + data[i].FabricTypeName + '</option>';
                     }
                     $("#FabricType").html(s);
-                    SetRoles();
                 }
             });
         }
@@ -346,7 +345,7 @@
             debugger;
 
             var user = {
-                Name : "Fabric"
+                Name: "Fabric"
             }
 
             $.ajax({
@@ -357,25 +356,25 @@
                 data: JSON.stringify(user),
                 success: function (response) {
                     debugger;
-                    if (response != "" && response != null)
-                    {
-                        if (response.Crud == 0)
-                        {
-                            $('#saveBtn').hide();
-                            $('#updateBtn').hide();
-                            $('#deleteBtn').hide();
-                        }
-                        if (response.LibrarySet == 0)
-                        {
-                            $('#BuyerNameAdd').hide();
-                            $('#FabricTypeAdd').hide();
-                            $('#CompositionTypeAdd').hide();
-                        }
+                    if (response != "" && response != null) {
+                        //if (response.Crud == 0)
+                        //{
+                        //    $('#saveBtn').hide();
+                        //    $('#updateBtn').hide();
+                        //    $('#deleteBtn').hide();
+                        //}
+                        //if (response.LibrarySet == 0)
+                        //{
+                        //    $('#BuyerNameAdd').attr("disabled", "disabled").off('click');
+                        //    $('#FabricTypeAdd').attr("disabled", "disabled").off('click');
+                        //    $('#CompositionTypeAdd').attr("disabled", "disabled").off('click');
+                        //}
                     }
                     else {
                         alert("Connection Error!!!");
                         return;
                     }
+                    loadFPList();
                 },
                 failure: function () {
                     $("#tblItems").append(" Error when fetching data please contact administrator");
@@ -479,17 +478,17 @@
 
         $('#fabricTable tbody').on('click', 'tr', function () {
             event.preventDefault();
-            if (fabricTable.data().any()) {
-                $('#fabricTable tbody tr').removeClass('selected');
-                $(this).toggleClass('selected');
 
-                if (fabricTable.rows('.selected').any()) {
-                    debugger;
-                    var rowdata = fabricTable.row(this).data();
-                    Setvalue(rowdata);
+            if (fabricTable.data().any()) {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                    Reset();
                 }
                 else {
-                    Reset();
+                    var rowdata = fabricTable.row(this).data();
+                    fabricTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                    Setvalue(rowdata);
                 }
             }
             else {

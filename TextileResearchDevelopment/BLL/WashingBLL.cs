@@ -359,7 +359,9 @@ namespace TextileResearchDevelopment.BLL
         {
             try
             {
-                string query = "SELECT * FROM FabricView WHERE ID NOT IN (SELECT FabricID FROM ContinueWashing)";
+                //string query = 
+
+                query = "SELECT * FROM FabricView WHERE ID NOT IN (SELECT FabricID FROM ContinueWashing)";
                 if (fabricearchObj.BarCode != "" && fabricearchObj.BarCode != null)
                 {
                     query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
