@@ -21,7 +21,7 @@ namespace TextileResearchDevelopment.Controllers
         private ReportDocument objReportDocument = new ReportDocument();
         private ExportFormatType objExportFormatType = ExportFormatType.NoFormat;
         Remarks remark = new Remarks();
-        TextileResearchDevelopmentEntities db = new TextileResearchDevelopmentEntities();
+        //TextileResearchDevelopmentEntities db = new TextileResearchDevelopmentEntities();
         
 
         // GET: Report
@@ -105,36 +105,36 @@ namespace TextileResearchDevelopment.Controllers
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath("~/Reporting"), "MasterReport.rpt"));
 
-            var c = db.RemarksViews.Where(a => a.Id == Id).ToList();
+            //var c = db.RemarksViews.Where(a => a.Id == Id).ToList();
 
-            foreach (var item in c)
-            {
-                ds.GeneralRpt.AddGeneralRptRow(
-                item.BuyerName,
-                item.FabricName,
-                item.OrderNo,
-                item.Color,
-                item.Note,
-                item.RequiredWidth,
-                item.RequiredGSM.ToString(),
-                item.LabdipStatus,
-                item.ChallanNo,
-                item.DeliveryQty.ToString(),
-                item.DeliveryDate.ToString(),
-                item.McDiaGauge,
-                item.YarnCount,
-                item.YarnBrand,
-                item.YarnLot,
-                item.StitchLength.ToString(),
-                item.KnitUnit,
-                item.MCNO.ToString(),
-                item.MCRPM.ToString(),
-                item.GreyWidth.ToString(),
-                item.GreyGSM.ToString(),
-                item.TumbleWidthKnit.ToString(),
-                item.TumbleGSM.ToString(),
-                item.McBrand);
-            };
+            //foreach (var item in c)
+            //{
+            //    ds.GeneralRpt.AddGeneralRptRow(
+            //    item.BuyerName,
+            //    item.FabricName,
+            //    item.OrderNo,
+            //    item.Color,
+            //    item.Note,
+            //    item.RequiredWidth,
+            //    item.RequiredGSM.ToString(),
+            //    item.LabdipStatus,
+            //    item.ChallanNo,
+            //    item.DeliveryQty.ToString(),
+            //    item.DeliveryDate.ToString(),
+            //    item.McDiaGauge,
+            //    item.YarnCount,
+            //    item.YarnBrand,
+            //    item.YarnLot,
+            //    item.StitchLength.ToString(),
+            //    item.KnitUnit,
+            //    item.MCNO.ToString(),
+            //    item.MCRPM.ToString(),
+            //    item.GreyWidth.ToString(),
+            //    item.GreyGSM.ToString(),
+            //    item.TumbleWidthKnit.ToString(),
+            //    item.TumbleGSM.ToString(),
+            //    item.McBrand);
+            //};
 
             rd.SetDataSource(ds);
 

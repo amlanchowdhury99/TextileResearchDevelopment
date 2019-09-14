@@ -96,7 +96,7 @@ namespace TextileResearchDevelopment.BLL
                 if (dyeing.Id > 0)
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE Dyeing SET FabricID = '" + dyeing.fabric.Id + "', RFTNoID = " + dyeing.rft.Id + ", HistoryID = " + dyeing.hs.Id + ", DMC = '" + dyeing.McNo + "', DSpeed = '" + dyeing.Speed + "', DEnzy = '" + dyeing.Enzyme + "', Recipe = '" + dyeing.Recipe + "', RecipeNo = '" + dyeing.RecipeNo + "', Comments = '" + dyeing.Comments + "', DyeingDate = '" + dyeing.DyeingDate?.ToString("yyyy/MM/dd") + "', DyeingTime = '" + dyeing.Time + "', Dyebath = '" + dyeing.PH + "', Whiteness = '" + dyeing.Value + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
+                    //query = "UPDATE Dyeing SET FabricID = '" + dyeing.fabric.Id + "', RFTNoID = " + dyeing.rft.Id + ", HistoryID = " + dyeing.hs.Id + ", DMC = '" + dyeing.McNo + "', DSpeed = '" + dyeing.Speed + "', DEnzy = '" + dyeing.Enzyme + "', Recipe = '" + dyeing.Recipe + "', RecipeNo = '" + dyeing.RecipeNo + "', Comments = '" + dyeing.Comments + "', DyeingDate = '" + dyeing.DyeingDate?.ToString("yyyy/MM/dd") + "', DyeingTime = '" + dyeing.Time + "', Dyebath = '" + dyeing.PH + "', Whiteness = '" + dyeing.Value + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
@@ -114,7 +114,7 @@ namespace TextileResearchDevelopment.BLL
                 else
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "INSERT INTO Dyeing (FabricID, RFTNoID, HistoryID, DMC, DSpeed, DEnzy, Recipe, DyeingTime, Dyebath, Whiteness, RecipeNo, Comments, DyeingDate, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + dyeing.fabric.Id + "," + dyeing.rft.Id + "," + dyeing.hs.Id + ",'" + dyeing.McNo + "','" + dyeing.Speed + "','" + dyeing.Enzyme + "','" + dyeing.Recipe + "','" + dyeing.Time + "','" + dyeing.PH + "','" + dyeing.Value + "','" + dyeing.RecipeNo + "','" + dyeing.Comments + "', '" + dyeing.DyeingDate?.ToString("yyyy/MM/dd") + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                    //query = "INSERT INTO Dyeing (FabricID, RFTNoID, HistoryID, DMC, DSpeed, DEnzy, Recipe, DyeingTime, Dyebath, Whiteness, RecipeNo, Comments, DyeingDate, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + dyeing.fabric.Id + "," + dyeing.rft.Id + "," + dyeing.hs.Id + ",'" + dyeing.McNo + "','" + dyeing.Speed + "','" + dyeing.Enzyme + "','" + dyeing.Recipe + "','" + dyeing.Time + "','" + dyeing.PH + "','" + dyeing.Value + "','" + dyeing.RecipeNo + "','" + dyeing.Comments + "', '" + dyeing.DyeingDate?.ToString("yyyy/MM/dd") + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
                         query = "SELECT TOP 1 * FROM DyeingView order by Id desc";
@@ -249,8 +249,10 @@ namespace TextileResearchDevelopment.BLL
             {
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
                 string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM DyeingView WHERE BarCode = '" + dyeing.fabric.BarCode + "'";
-                
-                string query = "INSERT INTO Dyeing (FabricID, RFTNoID, HistoryID, DMC, DSpeed, DEnzy, Recipe, DyeingTime, Dyebath, Whiteness, RecipeNo, Comments, DyeingDate, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + dyeing.fabric.Id + "," + dyeing.rft.Id + "," + dyeing.hs.Id + ",'" + dyeing.McNo + "','" + dyeing.Speed + "','" + dyeing.Enzyme + "','" + dyeing.Recipe + "','" + dyeing.Time + "','" + dyeing.PH + "','" + dyeing.Value + "','" + dyeing.RecipeNo + "','" + dyeing.Comments + "', '" + dyeing.DyeingDate?.ToString("yyyy/MM/dd") + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+
+                string query = "";
+
+                //string query = "INSERT INTO Dyeing (FabricID, RFTNoID, HistoryID, DMC, DSpeed, DEnzy, Recipe, DyeingTime, Dyebath, Whiteness, RecipeNo, Comments, DyeingDate, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + dyeing.fabric.Id + "," + dyeing.rft.Id + "," + dyeing.hs.Id + ",'" + dyeing.McNo + "','" + dyeing.Speed + "','" + dyeing.Enzyme + "','" + dyeing.Recipe + "','" + dyeing.Time + "','" + dyeing.PH + "','" + dyeing.Value + "','" + dyeing.RecipeNo + "','" + dyeing.Comments + "', '" + dyeing.DyeingDate?.ToString("yyyy/MM/dd") + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
