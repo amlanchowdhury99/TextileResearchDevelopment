@@ -17,6 +17,8 @@ namespace TextileResearchDevelopment.Models
             mc = new McDiaGaugeType();
             yd = new YD();
             ydr = new YDR();
+            ydList = new List<YD>();
+            ydrList = new List<YDR>();
             CreateTime = DateTime.MaxValue;
             UpdateTime = DateTime.MaxValue;
             ApprovedTime = DateTime.MaxValue;
@@ -32,7 +34,9 @@ namespace TextileResearchDevelopment.Models
         public McDiaGaugeType mc { get; set; }
 
         public YD yd { get; set; }
+        public List<YD> ydList { get; set; }
         public YDR ydr { get; set; }
+        public List<YDR> ydrList { get; set; }
 
         public int Id { get; set; }
 

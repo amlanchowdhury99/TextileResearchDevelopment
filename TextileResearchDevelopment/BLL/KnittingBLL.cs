@@ -17,6 +17,8 @@ namespace TextileResearchDevelopment.BLL
         public static List<McDiaGaugeType> McDiaGauges = new List<McDiaGaugeType>();
         public static List<YarnCountType> YarnCounts = new List<YarnCountType>();
         public static List<YarnColorType> yctList = new List<YarnColorType>();
+        public static List<YD> ydList = new List<YD>();
+        public static List<YDR> ydrList = new List<YDR>();
         public static List<YarnType> ytList = new List<YarnType>();
         public static List<CompositionType> cmList = new List<CompositionType>();
         public static List<McBrandType> McBrands = new List<McBrandType>();
@@ -1335,6 +1337,9 @@ namespace TextileResearchDevelopment.BLL
                 knit.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 knit.BarCode = reader["BarCode"].ToString();
 
+                knit.ydList = GetYDList(knit.Id);
+                knit.ydrList = GetYDRList(knit.Id);
+
                 knit.ErpNo = reader["ErpNo"].ToString();
                 knit.mc.Id = Convert.ToInt32(reader["McNoID"]);
                 knit.mc.McNo = reader["McNo"].ToString();
@@ -1369,6 +1374,70 @@ namespace TextileResearchDevelopment.BLL
 
             return knit;
 
+        }
+
+        private static List<YD> GetYDList(int Id)
+        {
+            ydList = new List<YD>();
+            SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader2; cm.Connection = cn; cn.Open();
+            try
+            {
+                string query = "SELECT * FROM YDView WHERE KnitID = " + Id;
+                cm.CommandText = query; reader2 = cm.ExecuteReader();
+                if (reader2.HasRows)
+                {
+                    while (reader2.Read())
+                    {
+                        ydList.Add(GetYDObj(reader2));
+                    }
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            catch (Exception ex)
+            {
+                ydList = new List<YD>();
+            }
+            finally
+            {
+                cn.Close();
+            }
+
+            return ydList;
+        }
+
+        private static List<YDR> GetYDRList(int Id)
+        {
+            ydrList = new List<YDR>();
+            SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader1; cm.Connection = cn; cn.Open();
+            try
+            {
+                string query = "SELECT * FROM YarnDyedRepeat WHERE KnitID = " + Id;
+                cm.CommandText = query; reader1 = cm.ExecuteReader();
+                if (reader1.HasRows)
+                {
+                    while (reader1.Read())
+                    {
+                        ydrList.Add(GetYDRObj(reader1));
+                    }
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            catch (Exception ex)
+            {
+                ydrList = new List<YDR>();
+            }
+            finally
+            {
+                cn.Close();
+            }
+
+            return ydrList;
         }
 
         public static YD GetYDObj(SqlDataReader reader)

@@ -299,7 +299,7 @@ namespace TextileResearchDevelopment.BLL
             {
                 if(buyer.Id > 0)
                 {
-                    query = "UPDATE BUYER SET BueryName = '" + buyer.BuyerName + "' WHERE Id = " + buyer.Id;
+                    query = "UPDATE BUYER SET BuyerName = '" + buyer.BuyerName + "' WHERE Id = " + buyer.Id;
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
                         query = "SELECT * FROM BUYER WHERE Id = " + buyer.Id;
@@ -316,10 +316,10 @@ namespace TextileResearchDevelopment.BLL
                 }
                 else
                 {
-                    query = "INSERT INTO BUYER (BueryName) VALUES('" + buyer.BuyerName + "')";
+                    query = "INSERT INTO BUYER (BuyerName) VALUES('" + buyer.BuyerName + "')";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
-                        query = "SELECT TOP 1 (Id) AS Id FROM BUYER order by Id desc";
+                        query = "SELECT TOP 1 * FROM BUYER order by Id desc";
                         SqlDataReader reader = DBGateway.GetFromDB(query);
                         if (reader.HasRows)
                         {
@@ -374,7 +374,7 @@ namespace TextileResearchDevelopment.BLL
                     query = "INSERT INTO CompositionType (Composition) VALUES('" + cm.Composition + "')";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
-                        query = "SELECT TOP 1 (Id) AS Id FROM CompositionType order by Id desc";
+                        query = "SELECT TOP 1 * FROM CompositionType order by Id desc";
                         SqlDataReader reader = DBGateway.GetFromDB(query);
                         if (reader.HasRows)
                         {
@@ -419,7 +419,7 @@ namespace TextileResearchDevelopment.BLL
                             while (reader.Read())
                             {
                                 fabricType.Id = Convert.ToInt32(reader["Id"]);
-                                fabricType.FabricTypeName = reader["FabricName"].ToString();
+                                fabricType.FabricTypeName = reader["FabricTypeName"].ToString();
                             }
                         }
                     }
@@ -429,14 +429,14 @@ namespace TextileResearchDevelopment.BLL
                     query = "INSERT INTO FabricType (FabricTypeName) VALUES('" + fabricType.FabricTypeName + "')";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
-                        query = "SELECT TOP 1 (Id) AS Id FROM FabricType order by Id desc";
+                        query = "SELECT TOP 1 * FROM FabricType order by Id desc";
                         SqlDataReader reader = DBGateway.GetFromDB(query);
                         if (reader.HasRows)
                         {
                             while (reader.Read())
                             {
                                 fabricType.Id = Convert.ToInt32(reader["Id"]);
-                                fabricType.FabricTypeName = reader["FabricName"].ToString();
+                                fabricType.FabricTypeName = reader["FabricTypeName"].ToString();
                             }
                         }
                     }

@@ -22,6 +22,168 @@
 
 <div id="MainDiv">
 
+    <div class="modal fade" id="modalBuyer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Add Buyer</div>
+                                <div class="panel-body">
+                                    <form id="BuyerForm">
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-12 form-inline">
+                                                <label for="BuyerMD" class="control-label" style="        width: 35%;">Buyer</label>
+                                                <div style="        display: inline;">
+                                                    <input type="text" class=" form-control" style="        width: 60%;" id="BuyerMD" placeholder="Buyer" required autofocus>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-12 form-inline">
+                                                <button class="btn btn-warning btn-sm" style="        width: 30%;" disabled id="editBuyerBtn">Update</button>
+                                                <button class="btn btn-danger btn-sm" style="        width: 30%;" disabled id="deleteBuyerBtn">Delete</button>
+                                                <div style="        display: inline;">
+                                                    <button type="submit" id="saveBuyerBtn" class="btn btn-primary btn-sm" style="        width: 30%;">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <table id="BuyerTable" class="display nowrap stripe hover order-column" style="        width: 550px;">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Id</th>
+                                        <th>Buyer</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" id="resetBuyerBtn" class="btn btn-info">Reset</button>
+                    <button type="submit" id="okayBuyerBtn" class="btn btn-success">Okay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalFabricType" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Add FabricType</div>
+                                <div class="panel-body">
+                                    <form id="FabricTypeForm">
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-12 form-inline">
+                                                <label for="CompositionMD" class="control-label" style="        width: 35%;">FabricType</label>
+                                                <div style="        display: inline;">
+                                                    <input type="text" class=" form-control" style="        width: 60%;" id="FabricTypeMD" placeholder="FabricType" required autofocus>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-12 form-inline">
+                                                <button class="btn btn-warning btn-sm" style="        width: 30%;" disabled id="editFabricTypeBtn">Update</button>
+                                                <button class="btn btn-danger btn-sm" style="        width: 30%;" disabled id="deleteFabricTypeBtn">Delete</button>
+                                                <div style="        display: inline;">
+                                                    <button type="submit" id="saveFabricTypeBtn" class="btn btn-primary btn-sm" style="        width: 30%;">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <table id="FabricTypeTable" class="display nowrap stripe hover order-column" style="        width: 550px;">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Id</th>
+                                        <th>FabricType</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" id="resetFabricTypeBtn" class="btn btn-info">Reset</button>
+                    <button type="submit" id="okayFabricTypeBtn" class="btn btn-success">Okay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalComposition" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Add Composition</div>
+                                <div class="panel-body">
+                                    <form id="CompositionForm">
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-12 form-inline">
+                                                <label for="CompositionMD" class="control-label" style="        width: 35%;">Brand</label>
+                                                <div style="        display: inline;">
+                                                    <input type="text" class=" form-control" style="        width: 60%;" id="CompositionMD" placeholder="Composition" required autofocus>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-12 form-inline">
+                                                <button class="btn btn-warning btn-sm" style="        width: 30%;" disabled id="editCompositionBtn">Update</button>
+                                                <button class="btn btn-danger btn-sm" style="        width: 30%;" disabled id="deleteCompositionBtn">Delete</button>
+                                                <div style="        display: inline;">
+                                                    <button type="submit" id="saveCompositionBtn" class="btn btn-primary btn-sm" style="        width: 30%;">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <table id="CompositionTable" class="display nowrap stripe hover order-column" style="        width: 550px;">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Id</th>
+                                        <th>Composition</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" id="resetCompositionBtn" class="btn btn-info">Reset</button>
+                    <button type="submit" id="okayCompositionBtn" class="btn btn-success">Okay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <ul id="contextMenu" class="dropdown-menu" role="menu" style="display:none">
         <li><a tabindex="-1" href="#">Delete</a></li>
     </ul>
@@ -37,7 +199,7 @@
                         <label for="BuyerName" class="control-label" style="width:35%;">Buyer Name</label>
                         <div style=" display: inline;">
                             <select name="BuyerName" id="BuyerName" style="width:50%;" class="form-control input-sm" required autofocus></select>
-                            <a href="#" id="BuyerNameAdd" class="btn-sm btn-info" style="width:10%;display:inline" data-toggle="modal" data-target="#myModalHorizontal">
+                            <a href="#" id="mdBuyer" class="btn-sm btn-info" style="width:10%;display:inline" data-toggle="modal" data-target="#modalBuyer">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </a>
                         </div>
@@ -46,7 +208,7 @@
                         <label for="FabricType" class="control-label" style="width:35%;">Fabric Type</label>
                         <div style="display: inline;">
                             <select name="FabricType" id="FabricType" style="width:50%;" class="form-control input-sm" required autofocus></select>
-                            <a href="#" id="FabricTypeAdd" class="btn-sm btn-info" style="width:10%;">
+                            <a href="#" id="mdFabricType" class="btn-sm btn-info" style="width:10%;" data-toggle="modal" data-target="#modalFabricType">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </a>
                         </div>
@@ -83,7 +245,7 @@
                         <label for="CompositionType" class="control-label" style="width:35%;">Composition</label>
                         <div style="display: inline;">
                             <select name="CompositionType" id="CompositionType" style="width:50%;" class="form-control input-sm" required autofocus></select>
-                            <a href="#" id="CompositionTypeAdd" class="btn-sm btn-info" style="width:10%;">
+                            <a href="#" id="mdComposition" class="btn-sm btn-info" style="width:10%;" data-toggle="modal" data-target="#modalComposition">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </a>
                         </div>
@@ -186,6 +348,130 @@
     $(document).ready(function () {
         var ColId = "";
 
+        var BuyerTable = $('#BuyerTable').DataTable({
+            buttons: [],
+            "ajax":
+            {
+                "url": "/Fabric/GetBuyerList",
+                "type": "GET",
+                "dataType": "JSON"
+            },
+            "dom": 'Bfrtip',
+            "scrollY": true,
+            "scrollX": true,
+            "Sorting": true,
+            "searching": true,
+            "destroy": true,
+            "autoWidth": false,
+            "select": {
+                style: 'single'
+            },
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "searchable": false,
+                    "orderable": false
+                },
+                {
+                    "targets": [1],
+                    "searchable": false,
+                    "orderable": false,
+                    "visible": false
+                }
+            ],
+            "columns": [
+                {
+                    "render": function (data, type, full, meta) {
+                        return BuyerTable.data().count();
+                    }
+                },
+                { "data": "Id" },
+                { "data": "BuyerName" }
+            ]
+        });
+        var FabricTypeTable = $('#FabricTypeTable').DataTable({
+            buttons: [],
+            "ajax":
+            {
+                "url": "/Fabric/GetFabricTypeList",
+                "type": "GET",
+                "dataType": "JSON"
+            },
+            "dom": 'Bfrtip',
+            "scrollY": true,
+            "scrollX": true,
+            "Sorting": true,
+            "searching": true,
+            "destroy": true,
+            "autoWidth": false,
+            "select": {
+                style: 'single'
+            },
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "searchable": false,
+                    "orderable": false
+                },
+                {
+                    "targets": [1],
+                    "searchable": false,
+                    "orderable": false,
+                    "visible": false
+                }
+            ],
+            "columns": [
+                {
+                    "render": function (data, type, full, meta) {
+                        return FabricTypeTable.data().count();
+                    }
+                },
+                { "data": "Id" },
+                { "data": "FabricTypeName" }
+            ]
+        });
+        var CompositionTable = $('#CompositionTable').DataTable({
+            buttons: [],
+            "ajax":
+            {
+                "url": "/Fabric/GetCompositionTypeList",
+                "type": "GET",
+                "dataType": "JSON"
+            },
+            "dom": 'Bfrtip',
+            "scrollY": true,
+            "scrollX": true,
+            "Sorting": true,
+            "searching": true,
+            "destroy": true,
+            "autoWidth": false,
+            "select": {
+                style: 'single'
+            },
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "searchable": false,
+                    "orderable": false
+                },
+                {
+                    "targets": [1],
+                    "searchable": false,
+                    "orderable": false,
+                    "visible": false
+                }
+            ],
+            "columns": [
+                {
+                    "render": function (data, type, full, meta) {
+                        return CompositionTable.data().count();
+                    }
+                },
+                { "data": "Id" },
+                { "data": "Composition" }
+            ]
+        });
+
         (function ($, window) {
 
             $.fn.contextMenu = function (settings) {
@@ -257,7 +543,7 @@
             var s = '';
             for (var i = 0; i < 12; i++) {
                 if (i == 1)
-                    s += '<option value="' + i + '">Knitting</option>';
+                    s += '<option value="' + i + '">Fabric</option>';
                 if (i == 2)
                     s += '<option value="' + i + '">CW</option>';
                 if (i == 3)
@@ -297,6 +583,7 @@
                 url: "/Fabric/GetCompositionTypeList",
                 data: "{}",
                 success: function (data) {
+                    debugger;
                     var data = data.data;
                     var s = '<option value="">Please Composition</option>';
                     for (var i = 0; i < data.length; i++) {
@@ -381,6 +668,464 @@
                 }
             });
         }
+
+
+
+        $("#mdBuyer").click(function () {
+            debugger;
+            $("#resetBuyerBtn").click();
+        });
+
+        $('#BuyerTable tbody').on('click', 'tr', function () {
+            if (BuyerTable.data().any()) {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                    $('#BuyerMD').val("");
+                    $('#editBuyerBtn').prop("disabled", true);
+                    $('#deleteBuyerBtn').prop("disabled", true);
+                    $('#saveBuyerBtn').prop("disabled", false);
+                }
+                else {
+                    BuyerTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                    var rowdata = BuyerTable.row(this).data();
+                    $('#BuyerMD').val(rowdata.BuyerName);
+                    $('#editBuyerBtn').prop("disabled", false);
+                    $('#deleteBuyerBtn').prop("disabled", false);
+                    $('#saveBuyerBtn').prop("disabled", true);
+                }
+            }
+        });
+
+        $('#BuyerForm').submit(function (e) {
+
+            event.preventDefault();
+            debugger
+            var Obj = {
+                Id: '0',
+                BuyerName: $("#BuyerMD").val()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Fabric/AddBuyerType",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(Obj),
+                success: function (response) {
+                    debugger
+                    if (response.data != "" && response.data != null) {
+                        BuyerTable.row.add(response.data).draw();
+                        $("#BuyerMD").val("");
+                    }
+                    else {
+                        alert("Failed to Save!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        });
+
+        $("#editBuyerBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#BuyerTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = BuyerTable.rows('.selected').data()[0];
+                var index = BuyerTable.row('.selected').index();
+
+                var Obj =
+                {
+                    Id: Row.Id,
+                    BuyerName: $("#BuyerMD").val()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Fabric/AddBuyerType",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(Obj),
+                    success: function (response) {
+                        debugger
+                        if (response.data != "" && response.data != null) {
+                            debugger
+                            BuyerTable.row(index).data(response.data).draw();
+                            $("#BuyerMD").val("");
+                        }
+                        else {
+                            alert("Failed to Update!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#deleteBuyerBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#BuyerTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = BuyerTable.rows('.selected').data()[0];
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Fabric/DeleteBuyerType",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify({ Id: Row.Id }),
+                    success: function (response) {
+                        debugger
+                        if (response == "Success") {
+                            BuyerTable.row('.selected').remove().draw(false);
+                            $("#BuyerMD").val("");
+                        }
+                        else {
+                            alert("Failed to Delete!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#resetBuyerBtn").click(function () {
+            $("#BuyerMD").val("");
+            $('#editBuyerBtn').prop("disabled", true);
+            $('#deleteBuyerBtn').prop("disabled", true);
+            $('#saveBuyerBtn').prop("disabled", false);
+            $('#BuyerTable tbody tr').removeClass('selected');
+        });
+
+        $("#okayBuyerBtn").click(function () {
+            $("#modalBuyer .close").click();
+            loadBuyerList();
+        });
+
+
+
+        $("#mdFabricType").click(function () {
+            debugger;
+            $("#resetFabricTypeBtn").click();
+        });
+
+        $('#FabricTypeTable tbody').on('click', 'tr', function () {
+
+            if (FabricTypeTable.data().any()) {
+
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                    $('#FabricTypeMD').val("");
+                    $('#editFabricTypeBtn').prop("disabled", true);
+                    $('#deleteFabricTypeBtn').prop("disabled", true);
+                    $('#saveFabricTypeBtn').prop("disabled", false);
+                }
+                else {
+                    FabricTypeTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                    var rowdata = FabricTypeTable.row(this).data();
+                    $('#FabricTypeMD').val(rowdata.FabricTypeName)
+                    $('#editFabricTypeBtn').prop("disabled", false);
+                    $('#deleteFabricTypeBtn').prop("disabled", false);
+                    $('#saveFabricTypeBtn').prop("disabled", true);
+                }
+            }
+        });
+
+        $('#FabricTypeForm').submit(function (e) {
+
+            event.preventDefault();
+            debugger
+            var Obj = {
+                Id: '0',
+                FabricTypeName: $("#FabricTypeMD").val()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Fabric/AddFabricType",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(Obj),
+                success: function (response) {
+                    debugger
+                    if (response.data != "" && response.data != null) {
+                        FabricTypeTable.row.add(response.data).draw();
+                        $("#FabricTypeMD").val("");
+                    }
+                    else {
+                        alert("Failed to Save!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        });
+
+        $("#editFabricTypeBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#FabricTypeTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = FabricTypeTable.rows('.selected').data()[0];
+                var index = FabricTypeTable.row('.selected').index();
+
+                var Obj =
+                {
+                    Id: Row.Id,
+                    FabricTypeName: $("#FabricTypeMD").val()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Fabric/AddFabricType",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(Obj),
+                    success: function (response) {
+                        debugger
+                        if (response.data != "" && response.data != null) {
+                            debugger
+                            FabricTypeTable.row(index).data(response.data).draw();
+                            $("#FabricTypeMD").val("");
+                        }
+                        else {
+                            alert("Failed to Update!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#deleteFabricTypeBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#FabricTypeTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = FabricTypeTable.rows('.selected').data()[0];
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Fabric/DeleteFabricType",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify({ Id: Row.Id }),
+                    success: function (response) {
+                        debugger
+                        if (response == "Success") {
+                            FabricTypeTable.row('.selected').remove().draw(false);
+                            $("#FabricTypeMD").val("");
+                        }
+                        else {
+                            alert("Failed to Delete!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#resetFabricTypeBtn").click(function () {
+            $("#FabricTypeMD").val("");
+            $('#editFabricTypeBtn').prop("disabled", true);
+            $('#deleteFabricTypeBtn').prop("disabled", true);
+            $('#saveFabricTypeBtn').prop("disabled", false);
+            $('#FabricTypeTable tbody tr').removeClass('selected');
+        });
+
+        $("#okayFabricTypeBtn").click(function () {
+            $("#modalFabricType .close").click();
+            loadFabricTypeList();
+        });
+
+
+
+        $("#mdComposition").click(function () {
+            debugger;
+            $("#resetCompositionBtn").click();
+        });
+
+        $('#CompositionTable tbody').on('click', 'tr', function () {
+
+            if (CompositionTable.data().any()) {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                    $('#CompositionMD').val("");
+                    $('#editCompositionBtn').prop("disabled", true);
+                    $('#deleteCompositionBtn').prop("disabled", true);
+                    $('#saveCompositionBtn').prop("disabled", false);
+                }
+                else {
+                    CompositionTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                    var rowdata = CompositionTable.row(this).data();
+                    $('#CompositionMD').val(rowdata.Composition)
+                    $('#editCompositionBtn').prop("disabled", false);
+                    $('#deleteCompositionBtn').prop("disabled", false);
+                    $('#saveCompositionBtn').prop("disabled", true);
+                }
+            }
+        });
+
+        $('#CompositionForm').submit(function (e) {
+
+            event.preventDefault();
+            debugger
+            var Obj = {
+                Id: '0',
+                Composition: $("#CompositionMD").val()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Fabric/AddCompositionType",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(Obj),
+                success: function (response) {
+                    debugger
+                    if (response.data != "" && response.data != null) {
+                        CompositionTable.row.add(response.data).draw();
+                        $("#CompositionMD").val("");
+                    }
+                    else {
+                        alert("Failed to Save!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        });
+
+        $("#editCompositionBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#CompositionTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = CompositionTable.rows('.selected').data()[0];
+                var index = CompositionTable.row('.selected').index();
+
+                var Obj =
+                {
+                    Id: Row.Id,
+                    Composition: $("#CompositionMD").val()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Fabric/AddCompositionType",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(Obj),
+                    success: function (response) {
+                        debugger
+                        if (response.data != "" && response.data != null) {
+                            debugger
+                            CompositionTable.row(index).data(response.data).draw();
+                            $("#CompositionMD").val("");
+                        }
+                        else {
+                            alert("Failed to Update!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#deleteCompositionBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#CompositionTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = CompositionTable.rows('.selected').data()[0];
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Fabric/DeleteCompositionType",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify({ Id: Row.Id }),
+                    success: function (response) {
+                        debugger
+                        if (response == "Success") {
+                            CompositionTable.row('.selected').remove().draw(false);
+                            $("#CompositionMD").val("");
+                        }
+                        else {
+                            alert("Failed to Delete!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#resetCompositionBtn").click(function () {
+            $("#CompositionMD").val("");
+            $('#editCompositionBtn').prop("disabled", true);
+            $('#deleteCompositionBtn').prop("disabled", true);
+            $('#saveCompositionBtn').prop("disabled", false);
+            $('#CompositionTable tbody tr').removeClass('selected');
+        });
+
+        $("#okayCompositionBtn").click(function () {
+            $("#modalComposition .close").click();
+            loadCompositionList();
+        });
+
+
 
         $('#fabricTable tfoot th').each(function () {
             var title = $(this).text();
@@ -523,7 +1268,7 @@
                     "Id": $("#CompositionType").val()
                 };
                 var ua = {
-                    "Knitting": $("#FP").val()[0] == null ? 0 : 1,
+                    "Fabric": $("#FP").val()[0] == null ? 0 : 1,
                     "CW": $("#FP").val()[1] == null ? 0 : 1,
                     "HSP": $("#FP").val()[2] == null ? 0 : 1,
                     "Singeing": $("#FP").val()[3] == null ? 0 : 1,
@@ -614,7 +1359,7 @@
                         "Id": $("#CompositionType").val()
                     };
                     var ua = {
-                        "Knitting": $("#FP").val()[0] == null ? 0 : 1,
+                        "Fabric": $("#FP").val()[0] == null ? 0 : 1,
                         "CW": $("#FP").val()[1] == null ? 0 : 1,
                         "HSP": $("#FP").val()[2] == null ? 0 : 1,
                         "Singeing": $("#FP").val()[3] == null ? 0 : 1,
@@ -706,7 +1451,7 @@
             $("#FP").val("");
             $('#FP').multiselect('refresh');
 
-            if (rowdata.ua.Knitting == 1) {
+            if (rowdata.ua.Fabric == 1) {
                 $("#FP").multiselect('select', 1);
             }
             if (rowdata.ua.CW == 1) {

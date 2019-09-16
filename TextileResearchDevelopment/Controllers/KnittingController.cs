@@ -295,7 +295,7 @@ namespace TextileResearchDevelopment.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddYarnColor(YarnColorType yarn)
+        public ActionResult AddYarnColorType(YarnColorType yarn)
         {
             try
             {
@@ -493,7 +493,7 @@ namespace TextileResearchDevelopment.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeleteYarnColor(int Id)
+        public ActionResult DeleteYarnColorType(int Id)
         {
             Boolean Result = false;
             try
