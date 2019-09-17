@@ -268,30 +268,22 @@ namespace TextileResearchDevelopment.Controllers
         [HttpPost]
         public ActionResult AddBrand(McBrandType brand)
         {
-            Boolean Result = false;
             try
             {
-                int Id = KnittingBLL.AddBrand(brand);
-                if (Id > 0)
+                brand = KnittingBLL.AddBrand(brand);
+                if (brand.Id > 0)
                 {
-                    brand.Id = Id;
-                    Result = true;
+                    return Json(new { data = brand }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    Result = false;
-                }
-                if (Result)
-                {
-                    return Json(new { data = brand }, JsonRequestBehavior.AllowGet);
+                    return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch
             {
-                return View();
+                return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
             }
-
-            return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

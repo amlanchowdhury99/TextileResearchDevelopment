@@ -19,23 +19,6 @@ namespace TextileResearchDevelopment.Controllers
             return View();
         }
 
-        [HttpPost]
-        public JsonResult FabricSearch(Fabric fabricSearchObj)
-        {
-
-            List<Fabric> data = new List<Fabric>();
-            try
-            {
-                data = WashingBLL.FabricSearch(fabricSearchObj);
-            }
-            catch (Exception ex)
-            {
-                data = new List<Fabric>();
-            }
-
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
-
         [HttpGet]
         public JsonResult GetData()
         {

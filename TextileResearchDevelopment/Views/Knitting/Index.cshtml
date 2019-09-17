@@ -6,9 +6,9 @@
 }
 
 <head>
+    @*<script type="text/javascript" src="~/Scripts/jquery3.3.1.js"></script>*@
+    <script type="text/javascript" src="~/Scripts/bootstrap.js"></script>
     <script type="text/javascript" src="~/Scripts/bootstrap3-typeahead.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/bootstrap-multiselect.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-multiselect.css">
     <style>
         tfoot input {
             width: 100%;
@@ -169,7 +169,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="panel panel-default">
-                                <div class="panel-heading">Add Knit Unit</div>
+                                <div class="panel-heading">Add Composition</div>
                                 <div class="panel-body">
                                     <form id="CompositionForm">
                                         <div class=" form-group">
@@ -338,9 +338,9 @@
                                     <form id="BrandForm">
                                         <div class=" form-group">
                                             <div class="form-group col-xs-12 form-inline">
-                                                <label for="BrandMD" class="control-label" style="        width: 35%;">Brand</label>
+                                                <label for="YarnSupplierMD" class="control-label" style="        width: 35%;">Brand</label>
                                                 <div style="        display: inline;">
-                                                    <input type="text" class=" form-control" style="        width: 60%;" id="BrandMD" placeholder="Brand" required autofocus>
+                                                    <input type="text" class=" form-control" style="        width: 60%;" id="YarnSupplierMD" placeholder="Brand" required autofocus>
                                                 </div>
                                             </div>
                                         </div>
@@ -392,64 +392,61 @@
                                 <div class="panel-body">
                                     <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
-                                            <label for="BarCodeSL" class="control-label" style="        width: 35%;">BarCode</label>
-                                            <div style="        display: inline;">
-                                                <input type="number" class=" form-control" style="        width: 60%;" id="BarCodeSL" min="0" step="1" data-bind="value:BarCodeSL" placeholder="Bar Code" autofocus>
+                                            <label for="BarCodeSL" class="control-label" style="width:35%;">BarCode</label>
+                                            <div style="display: inline;">
+                                                <input type="number" class=" form-control" style="width:60%;" id="BarCodeSL" min="0" step="1" data-bind="value:BarCodeSL" placeholder="Bar Code" autofocus>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
-                                            <label for="CompositionSL" class="control-label" style="        width: 35%;">Composition</label>
-                                            <div style="        display: inline;">
-                                                <select name="CompositionSL" id="CompositionSL" style="        width: 60%;
-        font-size: 12px;" class="form-control" autofocus></select>
+                                            <label for="BuyerSL" class="control-label" style="width:35%;">Buyer</label>
+                                            <div style=" display: inline;">
+                                                <select name="BuyerSL" id="BuyerSL" style="width:60%;font-size: 12px;" class="form-control" autofocus></select>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
-                                            <label for="FabricSL" class="control-label" style="        width: 35%;">Fabric</label>
-                                            <div style="        display: inline;">
-                                                <select name="FabricSL" id="FabricSL" style="        width: 60%;
-        font-size: 12px;" class="form-control" autofocus></select>
+                                            <label for="FabricSL" class="control-label" style="width:35%;">Fabric</label>
+                                            <div style="display: inline;">
+                                                <select name="FabricSL" id="FabricSL" style="width:60%;font-size: 12px;" class="form-control" autofocus></select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
-                                            <label for="CompositionSL" class="control-label" style="        width: 35%;">Composition</label>
-                                            <div style="        display: inline;">
-                                                <select name="CompositionSL" id="CompositionSL" style="        width: 60%;
-        font-size: 12px;" class="form-control" autofocus></select>
+                                            <label for="CompositionSL" class="control-label" style="width:35%;">Composition</label>
+                                            <div style="display: inline;">
+                                                <select name="CompositionSL" id="CompositionSL" style="width:60%;font-size: 12px;" class="form-control" autofocus></select>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline ">
-                                            <label for="OrderNoSL" class="control-label" style="        width: 35%;">Order No</label>
-                                            <div style="        display: inline;">
-                                                <input type="text" class=" form-control" style="        width: 60%;" id="OrderNoSL" placeholder="Order No" autofocus>
+                                            <label for="OrderNoSL" class="control-label" style="width:35%;">Order No</label>
+                                            <div style="display: inline;">
+                                                <input type="text" class=" form-control" style="width:60%;" id="OrderNoSL" placeholder="Order No" autofocus>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
-                                            <label for="RefNoSL" class="control-label" style="        width: 35%;">RefNo</label>
-                                            <div style="        display: inline;">
-                                                <input type="text" class=" form-control" style="        width: 60%;" id="RefNoSL" placeholder="Color" autofocus>
+                                            <label for="RefNoSL" class="control-label" style="width:35%;">RefNo</label>
+                                            <div style="display: inline;">
+                                                <input type="text" class=" form-control" style="width:60%;" id="RefNoSL" placeholder="Color" autofocus>
                                             </div>
                                         </div>
                                     </div>
                                     <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
-                                            <button class="btn btn-warning btn-sm" style="        width: 35%;" id="resetFabricBtn">Reset</button>
-                                            <div style="        display: inline;">
-                                                <button type="submit" id="searchFabricBtn" class="btn btn-primary btn-sm" style="        width: 60%;">Search</button>
+                                            <button class="btn btn-warning btn-sm" style="width:35%;" id="resetFabricBtn">Reset</button>
+                                            <div style="display: inline;">
+                                                <button type="submit" id="searchFabricBtn" class="btn btn-primary btn-sm" style="width:60%;">Search</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <table id="fabricSelectionTable" class="display nowrap stripe hover order-column" style="        width: 100%">
+                            <table id="fabricSelectionTable" class="display nowrap stripe hover order-column" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th></th>
                                         <th>Id</th>
                                         <th>BarCode</th>
-                                        <th>Composition</th>
+                                        <th>BuyerName</th>
                                         <th>FabricType</th>
                                         <th>Composition</th>
                                         <th>OrderNo</th>
@@ -485,8 +482,8 @@
                                             <div class="form-group col-xs-4 form-inline">
                                                 <label for="YDCount" class="control-label" style="width:35%;">Count</label>
                                                 <div style=" display: inline;">
-                                                    <select name="YDCount" id="YDCount" style="width:50%;" class="form-control input-sm" required autofocus></select>
-                                                    <a href="#" id="mdYarnCount" class="btn-sm btn-info" style="width:10%;display:inline" data-toggle="modal" data-target="#modalYarnCount">
+                                                    <select name="YDCount" id="YDCount" style="width:45%;" class="form-control input-sm" required autofocus></select>
+                                                    <a href="#" id="mdYarnCount" class="btn-sm btn-info" style="width:10%;display:inline">
                                                         <span class="glyphicon glyphicon-plus"></span>
                                                     </a>
                                                 </div>
@@ -494,8 +491,8 @@
                                             <div class="form-group col-xs-4 form-inline">
                                                 <label for="YDComposition" class="control-label" style="width:35%;">Composition</label>
                                                 <div style=" display: inline;">
-                                                    <select name="YDComposition" id="YDComposition" style="width:50%;" class="form-control input-sm" required autofocus></select>
-                                                    <a href="#" id="YDComposition" class="btn-sm btn-info" style="width:10%;display:inline" data-toggle="modal" data-target="#modalComposition">
+                                                    <select name="YDComposition" id="YDComposition" style="width:45%;" class="form-control input-sm" required autofocus></select>
+                                                    <a href="#" id="mdComposition" class="btn-sm btn-info" style="width:10%;display:inline">
                                                         <span class="glyphicon glyphicon-plus"></span>
                                                     </a>
                                                 </div>
@@ -503,8 +500,8 @@
                                             <div class="form-group col-xs-4 form-inline">
                                                 <label for="YDType" class="control-label" style="width:35%;">Yarn Type</label>
                                                 <div style=" display: inline;">
-                                                    <select name="YDType" id="YDType" style="width:50%;" class="form-control input-sm" required autofocus></select>
-                                                    <a href="#" id="mdYarnType" class="btn-sm btn-info" style="width:10%;display:inline" data-toggle="modal" data-target="#modalYarnType">
+                                                    <select name="YDType" id="YDType" style="width:45%;" class="form-control input-sm" required autofocus></select>
+                                                    <a href="#" id="mdYarnType" class="btn-sm btn-info" style="width:10%;display:inline">
                                                         <span class="glyphicon glyphicon-plus"></span>
                                                     </a>
                                                 </div>
@@ -514,8 +511,8 @@
                                             <div class="form-group col-xs-4 form-inline">
                                                 <label for="YDColor" class="control-label" style="width:35%;">Yarn Color</label>
                                                 <div style=" display: inline;">
-                                                    <select name="YDColor" id="YDColor" style="width:50%;" class="form-control input-sm" required autofocus></select>
-                                                    <a href="#" id="mdYarnColor" class="btn-sm btn-info" style="width:10%;display:inline" data-toggle="modal" data-target="#modalYarnColor">
+                                                    <select name="YDColor" id="YDColor" style="width:45%;" class="form-control input-sm" required autofocus></select>
+                                                    <a href="#" id="mdYarnColor" class="btn-sm btn-info" style="width:10%;display:inline">
                                                         <span class="glyphicon glyphicon-plus"></span>
                                                     </a>
                                                 </div>
@@ -523,8 +520,8 @@
                                             <div class="form-group col-xs-4 form-inline">
                                                 <label for="YDBrand" class="control-label" style="width:35%;">Supplier</label>
                                                 <div style=" display: inline;">
-                                                    <select name="YDBrand" id="YDBrand" style="width:50%;" class="form-control input-sm" required autofocus></select>
-                                                    <a href="#" id="mdBrand" class="btn-sm btn-info" style="width:10%;display:inline" data-toggle="modal" data-target="#modalBrand">
+                                                    <select name="YDBrand" id="YDBrand" style="width:45%;" class="form-control input-sm" required autofocus></select>
+                                                    <a href="#" id="mdBrand" class="btn-sm btn-info" style="width:10%;display:inline">
                                                         <span class="glyphicon glyphicon-plus"></span>
                                                     </a>
                                                 </div>
@@ -574,7 +571,7 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">Add Yarn Dyed Repeat</div>
                                 <div class="panel-body">
-                                    <form id="YDForm">
+                                    <form id="YDRForm">
                                         <div class=" form-group">
                                             <div class="form-group col-xs-4 form-inline">
                                                 <label for="YDRRepeat" class="control-label" style="width:35%;">Repeat</label>
@@ -597,7 +594,7 @@
                                         </div>
                                         <div class=" form-group">
                                             <div class="form-group col-xs-4 form-inline">
-                                                <label for="YDRMeasurement" class="control-label" style="width:35%;">Measurement</label>
+                                                <label for="YDRMeasurement" class="control-label" style="width:35%;">Measure.</label>
                                                 <div style=" display: inline;">
                                                     <input type="text" class="form-control" id="YDRMeasurement" style="width:60%;" placeholder="Measurement" required autofocus>
                                                 </div>
@@ -641,7 +638,7 @@
     </div>
 
     <div class="text-left">
-        <button href="" id="FabricSelection" class="btn-info sm-4" data-toggle="modal" data-target="#modalFabricSelection">
+        <button href="" id="FabricSelection" class="btn-info sm-4">
             Select Fabric
         </button>
     </div>
@@ -662,9 +659,9 @@
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="Composition" class="control-label" style="        width: 35%;">Composition</label>
+                        <label for="BuyerName" class="control-label" style="        width: 35%;">Buyer</label>
                         <div style="        display: inline;">
-                            <input type="text" class="form-control" style="        width: 60%;" id="Composition" required readonly>
+                            <input type="text" class="form-control" style="        width: 60%;" id="BuyerName" required readonly>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
@@ -711,9 +708,9 @@
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="YarnSupplier" class="control-label" style="        width: 35%;">Mc Brand</label>
+                        <label for="McBrand" class="control-label" style="        width: 35%;">Mc Brand</label>
                         <div style="        display: inline;">
-                            <input type="text" class=" form-control" style="        width: 60%;" id="YarnSupplier" placeholder="Machine Brand" required autofocus>
+                            <input type="text" class=" form-control" style="        width: 60%;" id="McBrand" placeholder="Machine Brand" required autofocus>
                         </div>
                     </div>
                 </div>
@@ -1291,6 +1288,14 @@
                 }
             });
 
+        $("#modalYarnCount, #modalYarnColor, #modalYarnType, #modalComposition, #modalBrand").on('show.bs.modal', function () {
+            $('#modalYD').css('z-index', 1039);
+        });
+        $('#modalYarnCount, #modalYarnColor, #modalYarnType, #modalComposition, #modalBrand').on('hidden.bs.modal', function () {
+            $('#modalYD').css('z-index', 1041);
+        });
+
+
         (function ($, window) {
 
             $.fn.contextMenu = function (settings) {
@@ -1534,12 +1539,14 @@
 
 
 
+
         $("#AddYDBtn").click(function () {
             event.preventDefault();
 
             if ($('#knitTable tbody tr').hasClass('selected')) {
                 debugger;
-                $("#modalYD .open").click();
+                ResetYD();
+                $("#modalYD").modal('show');
             }
             else {
                 alert("Please select a row in Knit table!!!");
@@ -1547,9 +1554,10 @@
             }
         });
 
-        $('#saveYDForm').submit(function (e) {
+        $('#YDForm').submit(function (e) {
 
             event.preventDefault();
+            debugger
 
             var yc = {
                 Id: $("#YDCount").val()
@@ -1569,6 +1577,7 @@
 
             var Obj = {
                 Id: '0',
+                KnitID : knitTable.rows('.selected').data()[0].Id,
                 yc: yc,
                 cm: cm,
                 yt: yt,
@@ -1671,8 +1680,8 @@
             ResetYD();
         });
 
-        $('#YDtable tbody').on('click', 'tr', function () {
-
+        $('#YDtable').on('click', 'tbody tr', function () {
+            debugger
             if (YDtable.data().any()) {
 
                 if ($(this).hasClass('selected')) {
@@ -1686,12 +1695,14 @@
         });
 
 
+
         $("#AddYDRBtn").click(function () {
             event.preventDefault();
 
             if ($('#knitTable tbody tr').hasClass('selected')) {
                 debugger;
-                $("#modalYDR .open").click();
+                ResetYDR();
+                $("#modalYDR").modal('show');
             }
             else {
                 alert("Please select a row in Knit table!!!");
@@ -1699,11 +1710,13 @@
             }
         });
 
-        $('#saveYDRForm').submit(function (e) {
+        $('#YDRForm').submit(function (e) {
 
             event.preventDefault();
+            debugger;
             var Obj = {
                 Id: '0',
+                KnitID : knitTable.rows('.selected').data()[0].Id,
                 YDRRepeat: $("#YDRRepeat").val(),
                 YDRColor: $("#YDRColor").val(),
                 YDRFeederNo: $("#YDRFeederNo").val(),
@@ -1790,10 +1803,25 @@
             ResetYDR();
         });
 
+        $('#YDRtable').on('click', 'tbody tr', function () {
+            debugger
+            if (YDRtable.data().any()) {
+
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    YDRtable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            }
+        });
+
 
 
         $("#mdYarnCount").click(function () {
             $("#resetYarnCountBtn").click();
+            $("#modalYarnCount").modal('show');
         });
 
         $('#YarnCountForm').submit(function (e) {
@@ -1841,6 +1869,7 @@
                 else {
                     YarnCountTable.$('tr.selected').removeClass('selected');
                     $(this).addClass('selected');
+                    var rowdata = YarnCountTable.row(this).data();
                     $('#YarnCountMD').val(rowdata.YarnCount);
                     $('#editYarnCountBtn').prop("disabled", false);
                     $('#deleteYarnCountBtn').prop("disabled", false);
@@ -1946,6 +1975,7 @@
         $("#mdComposition").click(function () {
             debugger;
             $("#resetCompositionBtn").click();
+            $("#modalComposition").modal('show');
         });
 
         $('#CompositionTable tbody').on('click', 'tr', function () {
@@ -2089,7 +2119,7 @@
 
         $("#okayCompositionBtn").click(function () {
             $("#modalComposition .close").click();
-            loadCompositionList();
+            loadFabricCompositionList();
         });
 
 
@@ -2097,6 +2127,7 @@
         $("#mdBrand").click(function () {
             debugger;
             $("#resetBrandBtn").click();
+            $("#modalBrand").modal('show');
         });
 
         $('#BrandForm').submit(function (e) {
@@ -2105,7 +2136,7 @@
             debugger
             var BrandObj = {
                 Id: '0',
-                YarnSupplier: $("#BrandMD").val()
+                YarnSupplier: $("#YarnSupplierMD").val()
             };
 
             $.ajax({
@@ -2118,7 +2149,7 @@
                     debugger
                     if (response.data != "" && response.data != null) {
                         BrandTable.row.add(response.data).draw();
-                        $("#BrandMD").val("");
+                        $("#YarnSupplierMD").val("");
                     }
                     else {
                         alert("Failed to Save!!!");
@@ -2137,7 +2168,7 @@
 
                 if ($(this).hasClass('selected')) {
                     $(this).removeClass('selected');
-                    $('#BrandMD').val("");
+                    $('#YarnSupplierMD').val("");
                     $('#editBrandBtn').prop("disabled", true);
                     $('#deleteBrandBtn').prop("disabled", true);
                     $('#saveBrandBtn').prop("disabled", false);
@@ -2146,7 +2177,7 @@
                     BrandTable.$('tr.selected').removeClass('selected');
                     $(this).addClass('selected');
                     var rowdata = BrandTable.row(this).data();
-                    $('#BrandMD').val(rowdata.YarnSupplier);
+                    $('#YarnSupplierMD').val(rowdata.YarnSupplier);
                     $('#editBrandBtn').prop("disabled", false);
                     $('#deleteBrandBtn').prop("disabled", false);
                     $('#saveBrandBtn').prop("disabled", true);
@@ -2165,7 +2196,7 @@
                 var obj =
                 {
                     Id: Row.Id,
-                    YarnSupplier: $("#BrandMD").val()
+                    YarnSupplier: $("#YarnSupplierMD").val()
                 };
 
                 $.ajax({
@@ -2179,7 +2210,7 @@
                         if (response.data != "" && response.data != null) {
                             debugger
                             BrandTable.row(index).data(response.data).draw();
-                            $("#BrandMD").val("");
+                            $("#YarnSupplierMD").val("");
                         }
                         else {
                             alert("Failed to Update!!!");
@@ -2214,7 +2245,7 @@
                         debugger
                         if (response == "Success") {
                             BrandTable.row('.selected').remove().draw(false);
-                            $("#BrandMD").val("");
+                            $("#YarnSupplierMD").val("");
                         }
                         else {
                             alert("Failed to Delete!!!");
@@ -2233,7 +2264,7 @@
         });
 
         $("#resetBrandBtn").click(function () {
-            $("#BrandMD").val("");
+            $("#YarnSupplierMD").val("");
             $('#editBrandBtn').prop("disabled", true);
             $('#deleteBrandBtn').prop("disabled", true);
             $('#saveBrandBtn').prop("disabled", false);
@@ -2250,6 +2281,7 @@
         $("#mdYarnType").click(function () {
             debugger;
             $("#resetYarnTypeBtn").click();
+            $("#modalYarnType").modal('show');
         });
 
         $('#YarnTypeTable tbody').on('click', 'tr', function () {
@@ -2401,6 +2433,7 @@
         $("#mdYarnColor").click(function () {
             debugger;
             $("#resetYarnColorBtn").click();
+            $("#modalYarnColor").modal('show');
         });
 
         $('#YarnColorTable tbody').on('click', 'tr', function () {
@@ -2559,7 +2592,7 @@
         });
 
         $('#McNoTable tbody').on('click', 'tr', function () {
-
+            debugger
             if (McNoTable.data().any()) {
                 $(this).toggleClass('selected');
 
@@ -2588,7 +2621,7 @@
             var mc = {
                 Id: '0',
                 McNo: $("#McNoMD").val(),
-                YarnSupplier: $("#BrandMD").val(),
+                McBrand: $("#BrandMD").val(),
                 McDia: $("#DiaMD").val(),
                 McGauge: $("#GaugeMD").val()
             };
@@ -2628,7 +2661,7 @@
                 {
                     Id: Row.Id,
                     McNo: $("#McNoMD").val(),
-                    YarnSupplier: $("#BrandMD").val(),
+                    McBrand: $("#BrandMD").val(),
                     McDia: $("#DiaMD").val(),
                     McGauge: $("#GaugeMD").val()
                 };
@@ -2708,7 +2741,7 @@
         $("#okayMcNoBtn").click(function () {
             debugger;
             $("#modalMcNo .close").click();
-            $("#McDia").val(""); $("#McGauge").val(""); $('#YarnSupplier').val(""); $('#McNo').val("");
+            $("#McDia").val(""); $("#McGauge").val(""); $('#McBrand').val(""); $('#McNo').val("");
             loadMcList();
         });
 
@@ -2879,7 +2912,7 @@
             if (ValidateFabricForm() == true) {
 
                 var buyer = {
-                    Id: $("#CompositionSL option:selected").val()
+                    Id: $("#BuyerSL option:selected").val()
                 }
                 var fb = {
                     Id: $("#FabricSL option:selected").val()
@@ -2887,18 +2920,20 @@
                 var cm = {
                     Id: $("#CompositionSL option:selected").val()
                 }
+
                 var fabricSearchObj = {
                     BarCode: $("#BarCodeSL").val().toString(),
                     buyer: buyer,
                     fb: fb,
                     cm: cm,
                     OrderNo: $("#OrderNoSL").val().length > 0 ? $("#OrderNoSL").val().toString() : '',
-                    RefNo: $("#RefNoSL").val().length > 0 ? $("#ColorSL").val().toString() : ''
+                    RefNo: $("#RefNoSL").val().length > 0 ? $("#ColorSL").val().toString() : '',
+                    Note : "Knit"
                 };
 
                 $.ajax({
                     type: "POST",
-                    url: "/Knitting/FabricSearch",
+                    url: "/Fabric/FabricSearch",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     data: JSON.stringify(fabricSearchObj),
@@ -2926,10 +2961,10 @@
 
         $("#FabricSelection").click(function () {
             event.preventDefault();
-
+            $("#modalFabricSelection").modal('show');
             selectedFabricRowId = 0; ResetFabric(); fabricSelectionTable.clear().draw();
 
-            loadCompositionList();
+            loadBuyerList();
 
             fabricSelectionTable = $('#fabricSelectionTable').DataTable({
                 buttons: [],
@@ -2963,7 +2998,7 @@
                         "data": "Id"
                     },
                     { "data": "BarCode" },
-                    { "data": "buyer.Composition" },
+                    { "data": "buyer.BuyerName" },
                     { "data": "fb.FabricTypeName" },
                     { "data": "cm.Composition" },
                     { "data": "OrderNo" },
@@ -2983,7 +3018,7 @@
             if ($('#fabricSelectionTable tbody tr').hasClass('selected')) {
                 selectedFabricRowId = fabricSelectionTable.rows('.selected').data()[0].Id;
                 $('#BarCode').val(fabricSelectionTable.rows('.selected').data()[0].BarCode);
-                $('#Composition').val(fabricSelectionTable.rows('.selected').data()[0].buyer.Composition);
+                $('#BuyerName').val(fabricSelectionTable.rows('.selected').data()[0].buyer.BuyerName);
                 $('#FabricTypeName').val(fabricSelectionTable.rows('.selected').data()[0].fb.FabricTypeName);
                 $('#Composition').val(fabricSelectionTable.rows('.selected').data()[0].cm.Composition);
                 $('#OrderNo').val(fabricSelectionTable.rows('.selected').data()[0].OrderNo);
@@ -3183,7 +3218,7 @@
             debugger;
             YDtable.clear().draw();
             YDRtable.clear().draw();
-            YDtable.rows.add(rowdata.ydrList).draw();
+            YDtable.rows.add(rowdata.ydList).draw();
             YDRtable.rows.add(rowdata.ydrList).draw();
         }
 
@@ -3244,15 +3279,20 @@
         function UpdateYDRow() {
             event.preventDefault();
             var rowdata = YDtable.rows('.selected').data()[0];
-            $("#modalYD .open").click();
+            $("#modalYD").modal('show');
             SetYDValue(rowdata);
+            $('#editYDBtn').prop("disabled", false);
+            $('#saveYDBtn').prop("disabled", true);
         };
 
         function UpdateYDRRow() {
+            debugger;
             event.preventDefault();
             var rowdata = YDRtable.rows('.selected').data()[0];
-            $("#modalYDR .open").click();
+            $('#modalYDR').modal("show");
             SetYDRValue(rowdata);
+            $('#editYDRBtn').prop("disabled", false);
+            $('#saveYDRBtn').prop("disabled", true);
         };
 
         function DeleteRow() {
@@ -3430,7 +3470,7 @@
 
         function ValidateFabricForm() {
             debugger;
-            if ($("#BarCodeSL").val() == "" && $("#CompositionSL option:selected").val() == "" && $("#FabricSL option:selected").val() == "" && $("#CompositionSL option:selected").val() == "" && $("#OrderNoSL").val() == "" && $("#RefNoSL").val() == "") {
+            if ($("#BarCodeSL").val() == "" && $("#BuyerSL option:selected").val() == "" && $("#FabricSL option:selected").val() == "" && $("#CompositionSL option:selected").val() == "" && $("#OrderNoSL").val() == "" && $("#RefNoSL").val() == "") {
                 return false;
             }
             else {
@@ -3440,7 +3480,7 @@
 
         function Reset() {
             event.preventDefault();
-            $('#knitTable tbody tr').removeClass('selected')
+            $('#knitTable tbody tr').removeClass('selected');
             YDtable.clear().draw();
             YDRtable.clear().draw();
             selectedFabricRowId = 0;
@@ -3471,7 +3511,7 @@
             $("#ReqGSM").val("");
         }
 
-        function ResetYD(){
+        function ResetYD() {
             $("#YDCount").val("");
             $('#YDComposition').val("");
             $('#YDType').val("");
@@ -3479,9 +3519,12 @@
             $('#YDBrand').val("");
             $('#YDLot').val("");
             $('#YDTPI').val("");
+            $('#editYDBtn').prop("disabled", true);
+            $('#saveYDBtn').prop("disabled", false);
+            $('#YDtable tbody tr').removeClass('selected');
         }
 
-        function ResetYDR(){
+        function ResetYDR() {
             $("#YDRRepeat").val("");
             $('#YDRColor').val("");
             $('#YDRFeederNo').val("");
@@ -3489,6 +3532,9 @@
             $('#YDRUOM').val("");
             $('#YDRBatchNo').val("");
             $('#YDRCK').val("");
+            $('#editYDRBtn').prop("disabled", true);
+            $('#saveYDRBtn').prop("disabled", false);
+            $('#YDRtable tbody tr').removeClass('selected');
         }
 
         function ResetFabric() {
@@ -3502,15 +3548,15 @@
             $('#fabricSelectionTable tbody tr').removeClass('selected');
         }
 
-        function SetYDValue(rowdata)
-        {
+        function SetYDValue(rowdata) {
+            debugger;
             $("#YDCount").val(rowdata.yc.Id);
             $('#YDComposition').val(rowdata.cm.Id);
             $('#YDType').val(rowdata.yt.Id);
             $('#YDColor').val(rowdata.yct.Id);
             $('#YDBrand').val(rowdata.yb.Id);
-            $('#YDLot').val(rowdata.yc.Lot);
-            $('#YDTPI').val(rowdata.yc.TPI);
+            $('#YDLot').val(rowdata.Lot);
+            $('#YDTPI').val(rowdata.TPI);
         }
 
         function SetYDRValue(rowdata) {
@@ -3579,15 +3625,21 @@
             menuSelected: function (invokedOn, selectedMenu) {
                 debugger;
 
-                var ApprovedStatus = knitTable.rows('.selected').data()[0].ApprovedStatus;
-                if (ApprovedStatus == 0) {
-                    if (selectedMenu.text() == "Delete")
-                        DeleteYDRow();
-                    if (selectedMenu.text() == "Update")
-                        UpdateYDRow();
+                if ($("#YDtable tbody tr").hasClass('selected') == true) {
+                    var ApprovedStatus = knitTable.rows('.selected').data()[0].ApprovedStatus;
+                    if (ApprovedStatus == 0) {
+                        if (selectedMenu.text() == "Delete")
+                            DeleteYDRow();
+                        if (selectedMenu.text() == "Update")
+                            UpdateYDRow();
+                    }
+                    else {
+                        alert("This order is already approved!!!");
+                        return;
+                    }
                 }
                 else {
-                    alert("This order is already approved!!!");
+                    alert("Please Select A Row!!!");
                     return;
                 }
             }
@@ -3598,15 +3650,21 @@
             menuSelected: function (invokedOn, selectedMenu) {
                 debugger;
 
-                var ApprovedStatus = knitTable.rows('.selected').data()[0].ApprovedStatus;
-                if (ApprovedStatus == 0) {
-                    if (selectedMenu.text() == "Delete")
-                        DeleteYDRRow();
-                    if (selectedMenu.text() == "Update")
-                        UpdateYDRRow();
+                if ($("#YDRtable tbody tr").hasClass('selected') == true) {
+                    var ApprovedStatus = knitTable.rows('.selected').data()[0].ApprovedStatus;
+                    if (ApprovedStatus == 0) {
+                        if (selectedMenu.text() == "Delete")
+                            DeleteYDRRow();
+                        if (selectedMenu.text() == "Update")
+                            UpdateYDRRow();
+                    }
+                    else {
+                        alert("This order is already approved!!!");
+                        return;
+                    }
                 }
                 else {
-                    alert("This order is already approved!!!");
+                    alert("Please Select A Row!!!");
                     return;
                 }
             }

@@ -34,10 +34,11 @@ namespace TextileResearchDevelopment
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/bootstrap3-typeahead.min.js",
                       "~/Scripts/bootstrapValidator.min.js",
                       "~/Scripts/bootstrap-datetimepicker.min.js",
-                      "~/Scripts/bootstrap-multiselect.min.js"));
+                      "~/Scripts/bootstrap-multiselect.min.js",
+                      "~/Scripts/bootstrap3-typeahead.min.js",
+                      "~/Scripts/typeahead.bundle.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/fileExport").Include(
                         "~/Scripts/dataTables.buttons.min.js",
@@ -49,18 +50,18 @@ namespace TextileResearchDevelopment
                         "~/Scripts/buttons.colVis.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/Site.css",
                       "~/Content/bootstrap.css",
+                      "~/Content/Site.css",
                       "~/Content/dx.common.css",
                       "~/Content/dx.material.blue.light.css",
                       "~/Content/jquery.dataTables.min.css",
                       "~/Content/buttons.dataTables.min.css",
+                      "~/Content/jquery.treeSelector.css",
                       "~/Content/select.dataTables.min.css",
                       "~/Content/bootstrapValidator.min.css",
                       "~/Content/bootstrap-datetimepicker.min.css",
                       "~/Content/daterangepicker.css",
                       "~/Content/bootstrap-multiselect.css",
-                      "~/Content/jquery.treeSelector.css",
                       "~/Content/UrmiStyle.css"));
 
         }

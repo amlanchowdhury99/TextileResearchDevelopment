@@ -325,5 +325,22 @@ namespace TextileResearchDevelopment.Controllers
             return Json( matchingList, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public JsonResult FabricSearch(Fabric fabricSearchObj)
+        {
+
+            List<Fabric> data = new List<Fabric>();
+            try
+            {
+                data = FabricBLL.FabricSearch(fabricSearchObj);
+            }
+            catch (Exception ex)
+            {
+                data = new List<Fabric>();
+            }
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

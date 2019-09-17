@@ -193,8 +193,8 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string query = "";
-                query = ydr.Id == 0 ? "INSERT INTO YarnDyedRepeat (KnitID, YDRRepeat, YDRColor, YDRFeederNo, YDRMeasurement, YDRUOM, YDRBatchNo, YDRCK) VALUES(" + ydr.KnitID + ", '" + ydr.YDRRepeat + "', '" + ydr.YDRColor + "', '" + ydr.YDRFeederNo + "', '" + ydr.YDRMeasurement + "',  '" + ydr.YDRUOM + "', '" + ydr.YDRBatchNo + "', '" + ydr.YDRCK + "')" :
-                                     "UPDATE YarnDetails SET YDRRepeat = " + ydr.YDRRepeat + ", YDRColor = " + ydr.YDRColor + ", YDRFeederNo = " + ydr.YDRFeederNo + ", YDRMeasurement = " + ydr.YDRMeasurement + ", YDRUOM = " + ydr.YDRUOM + ", YDRBatchNo = '" + ydr.YDRBatchNo + "', YDRCK = '" + ydr.YDRCK + "' WHERE Id = " + ydr.Id;
+                query = ydr.Id == 0 ? "INSERT INTO YarnDyedRepeat (KnitID, YDRRepeat, YDRColor, YDRFeederNo, YDRMeasurement, YDRUOM, YDRBatchNo, YDRCK) VALUES('" + ydr.KnitID + "', '" + ydr.YDRRepeat + "', '" + ydr.YDRColor + "', '" + ydr.YDRFeederNo + "', '" + ydr.YDRMeasurement + "',  '" + ydr.YDRUOM + "', '" + ydr.YDRBatchNo + "', '" + ydr.YDRCK + "')" :
+                                     "UPDATE YarnDyedRepeat SET YDRRepeat = '" + ydr.YDRRepeat + "', YDRColor = '" + ydr.YDRColor + "', YDRFeederNo = '" + ydr.YDRFeederNo + "', YDRMeasurement = '" + ydr.YDRMeasurement + "', YDRUOM = '" + ydr.YDRUOM + "', YDRBatchNo = '" + ydr.YDRBatchNo + "', YDRCK = '" + ydr.YDRCK + "' WHERE Id = " + ydr.Id;
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
 
@@ -578,12 +578,12 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string query = "";
-                query = yarn.Id == 0 ? "INSERT INTO YarnCount (YarnCount) VALUES('" + yarn.YarnCount + "')" : "UPDATE YarnCount SET YarnCount = '" + yarn.YarnCount + "' WHERE Id = " + yarn.Id;
+                query = yarn.Id == 0 ? "INSERT INTO YarnCountType (YarnCount) VALUES('" + yarn.YarnCount + "')" : "UPDATE YarnCount SET YarnCount = '" + yarn.YarnCount + "' WHERE Id = " + yarn.Id;
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     if(yarn.Id > 0)
                     {
-                        query = "SELECT * FROM YarnCount WHERE Id = "+ yarn.Id;
+                        query = "SELECT * FROM YarnCountType WHERE Id = " + yarn.Id;
                         SqlDataReader reader = DBGateway.GetFromDB(query);
                         if (reader.HasRows)
                         {
@@ -596,7 +596,7 @@ namespace TextileResearchDevelopment.BLL
                     }
                     else
                     {
-                        query = "SELECT TOP 1 * FROM YarnCount order by Id desc";
+                        query = "SELECT TOP 1 * FROM YarnCountType order by Id desc";
                         SqlDataReader reader = DBGateway.GetFromDB(query);
                         if (reader.HasRows)
                         {
@@ -823,9 +823,8 @@ namespace TextileResearchDevelopment.BLL
             return yr;
         }
 
-        public static int AddBrand(McBrandType brand)
+        public static McBrandType AddBrand(McBrandType brand)
         {
-            int Id = -1;
             try
 
             {
@@ -863,8 +862,7 @@ namespace TextileResearchDevelopment.BLL
             }
             catch (Exception ex)
             {
-                Console.Write(ex);
-                return Id;
+                new McBrandType();
             }
             finally
             {
@@ -873,7 +871,7 @@ namespace TextileResearchDevelopment.BLL
                     DBGateway.connection.Close();
                 }
             }
-            return Id;
+            return brand;
         }
 
         public static List<McDiaGaugeType> GetMCDIAList()
@@ -986,7 +984,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 ytList = new List<YarnType>();
-                string query = "SELECT * FROM YarnColorType";
+                string query = "SELECT * FROM YarnType";
                 SqlDataReader reader = DBGateway.GetFromDB(query);
                 if (reader.HasRows)
                 {
@@ -1054,7 +1052,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 McBrands = new List<McBrandType>();
-                string query = "SELECT * FROM McBrand";
+                string query = "SELECT * FROM YarnSupplierType";
                 SqlDataReader reader = DBGateway.GetFromDB(query);
                 if (reader.HasRows)
                 {

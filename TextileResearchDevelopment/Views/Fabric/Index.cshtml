@@ -543,7 +543,7 @@
             var s = '';
             for (var i = 0; i < 12; i++) {
                 if (i == 1)
-                    s += '<option value="' + i + '">Fabric</option>';
+                    s += '<option value="' + i + '">Knit</option>';
                 if (i == 2)
                     s += '<option value="' + i + '">CW</option>';
                 if (i == 3)
@@ -1268,18 +1268,18 @@
                     "Id": $("#CompositionType").val()
                 };
                 var ua = {
-                    "Fabric": $("#FP").val()[0] == null ? 0 : 1,
-                    "CW": $("#FP").val()[1] == null ? 0 : 1,
-                    "HSP": $("#FP").val()[2] == null ? 0 : 1,
-                    "Singeing": $("#FP").val()[3] == null ? 0 : 1,
-                    "Dyeing": $("#FP").val()[4] == null ? 0 : 1,
-                    "Dryer": $("#FP").val()[5] == null ? 0 : 1,
-                    "Stenter": $("#FP").val()[6] == null ? 0 : 1,
-                    "Compacting": $("#FP").val()[7] == null ? 0 : 1,
-                    "Peach": $("#FP").val()[8] == null ? 0 : 1,
-                    "Brush": $("#FP").val()[9] == null ? 0 : 1,
-                    "PrintInfo": $("#FP").val()[10] == null ? 0 : 1,
-                    "QC": $("#FP").val()[11] == null ? 0 : 1
+                    "Knit": $("#FP").val().includes("1") == false ? 0 : 1,
+                    "CW": $("#FP").val().includes("2") == false ? 0 : 1,
+                    "HSP": $("#FP").val().includes("3") == false ? 0 : 1,
+                    "Singeing": $("#FP").val().includes("4") == false ? 0 : 1,
+                    "Dyeing": $("#FP").val().includes("5") == false ? 0 : 1,
+                    "Dryer": $("#FP").val().includes("6") == false ? 0 : 1,
+                    "Stenter": $("#FP").val().includes("7") == false ? 0 : 1,
+                    "Compacting": $("#FP").val().includes("8") == false ? 0 : 1,
+                    "Peach": $("#FP").val().includes("9") == false ? 0 : 1,
+                    "Brush": $("#FP").val().includes("10") == false ? 0 : 1,
+                    "PrintInfo": $("#FP").val().includes("11") == false ? 0 : 1,
+                    "QC": $("#FP").val().includes("12") == false ? 0 : 1
                 };
 
                 var fabricObj = {
@@ -1359,22 +1359,22 @@
                         "Id": $("#CompositionType").val()
                     };
                     var ua = {
-                        "Fabric": $("#FP").val()[0] == null ? 0 : 1,
-                        "CW": $("#FP").val()[1] == null ? 0 : 1,
-                        "HSP": $("#FP").val()[2] == null ? 0 : 1,
-                        "Singeing": $("#FP").val()[3] == null ? 0 : 1,
-                        "Dyeing": $("#FP").val()[4] == null ? 0 : 1,
-                        "Dryer": $("#FP").val()[5] == null ? 0 : 1,
-                        "Stenter": $("#FP").val()[6] == null ? 0 : 1,
-                        "Compacting": $("#FP").val()[7] == null ? 0 : 1,
-                        "Peach": $("#FP").val()[8] == null ? 0 : 1,
-                        "Brush": $("#FP").val()[9] == null ? 0 : 1,
-                        "PrintInfo": $("#FP").val()[10] == null ? 0 : 1,
-                        "QC": $("#FP").val()[11] == null ? 0 : 1
+                        "Knit": $("#FP").val().includes("1") == false ? 0 : 1,
+                        "CW": $("#FP").val().includes("2") == false ? 0 : 1,
+                        "HSP": $("#FP").val().includes("3") == false ? 0 : 1,
+                        "Singeing": $("#FP").val().includes("4") == false ? 0 : 1,
+                        "Dyeing": $("#FP").val().includes("5") == false ? 0 : 1,
+                        "Dryer": $("#FP").val().includes("6") == false ? 0 : 1,
+                        "Stenter": $("#FP").val().includes("7") == false ? 0 : 1,
+                        "Compacting": $("#FP").val().includes("8") == false ? 0 : 1,
+                        "Peach": $("#FP").val().includes("9") == false ? 0 : 1,
+                        "Brush": $("#FP").val().includes("10") == false ? 0 : 1,
+                        "PrintInfo": $("#FP").val().includes("11") == false ? 0 : 1,
+                        "QC": $("#FP").val().includes("12") == false ? 0 : 1
                     };
 
                     var fabricObj = {
-                        Id: Row.Id,
+                        Id: fabricTable.rows('.selected').data()[0].Id,
                         buyer: buyer,
                         fb: fb,
                         cm: cm,

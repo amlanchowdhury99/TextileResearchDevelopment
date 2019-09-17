@@ -31,7 +31,7 @@
     <input type="checkbox" id="hidden" value="option1" style="display:none;">
 
     <div class="text-left">
-        <button href="" id="FabricSelection" class="btn-info sm-4" data-toggle="modal" data-target="#modalFabricSelection">
+        <button href="" id="FabricSelection" class="btn-info sm-4" >
             Select Fabric
         </button>
     </div>
@@ -629,12 +629,13 @@
                     fb: fb,
                     cm: cm,
                     OrderNo: $("#OrderNoSL").val().length > 0 ? $("#OrderNoSL").val().toString() : '',
-                    RefNo: $("#RefNoSL").val().length > 0 ? $("#ColorSL").val().toString() : ''
+                    RefNo: $("#RefNoSL").val().length > 0 ? $("#ColorSL").val().toString() : '',
+                    Note : "Brush"
                 };
 
                 $.ajax({
                     type: "POST",
-                    url: "/Brush/FabricSearch",
+                    url: "/Fabric/FabricSearch",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     data: JSON.stringify(fabricSearchObj),

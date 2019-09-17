@@ -6,6 +6,7 @@
 }
 
 <head>
+    <script type="text/javascript" src="~/Scripts/bootstrap.js"></script>
     <script type="text/javascript" src="~/Scripts/bootstrap3-typeahead.min.js"></script>
     <script type="text/javascript" src="~/Scripts/bootstrap-multiselect.min.js"></script>
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-multiselect.css">
@@ -31,7 +32,7 @@
     <input type="checkbox" id="hidden" value="option1" style="display:none;">
 
     <div class="text-left">
-        <button href="" id="FabricSelection" class="btn-info sm-4" data-toggle="modal" data-target="#modalFabricSelection">
+        <button href="" id="FabricSelection" class="btn-info sm-4">
             Select Fabric
         </button>
     </div>
@@ -650,12 +651,13 @@
                     fb: fb,
                     cm: cm,
                     OrderNo: $("#OrderNoSL").val().length > 0 ? $("#OrderNoSL").val().toString() : '',
-                    RefNo: $("#RefNoSL").val().length > 0 ? $("#ColorSL").val().toString() : ''
+                    RefNo: $("#RefNoSL").val().length > 0 ? $("#ColorSL").val().toString() : '', \
+                    Note : "HSP",
                 };
 
                 $.ajax({
                     type: "POST",
-                    url: "/HSP/FabricSearch",
+                    url: "/Fabric/FabricSearch",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     data: JSON.stringify(fabricSearchObj),
@@ -683,7 +685,7 @@
 
         $("#FabricSelection").click(function () {
             event.preventDefault();
-
+            $("#modalFabricSelection").modal('show');
             selectedFabricRowId = 0; ResetFabric(); fabricSelectionTable.clear().draw();
 
             loadBuyerList();
