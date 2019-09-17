@@ -18,9 +18,7 @@
 
         #ChildsTab {
             background-color: aliceblue;
-            /*margin-top: 50px;*/
             box-shadow: 0 0 5px black;
-            /*padding: 0 15px 0 15px;*/
         }
     </style>
 </head>
@@ -818,7 +816,7 @@
                 <th>BarCode</th>
                 <th>ErpNo</th>
                 <th>McNo</th>
-                <th>YarnSupplier</th>
+                <th>McBrand</th>
                 <th>McDia</th>
                 <th>McGauge</th>
                 <th>McSpeed</th>
@@ -853,7 +851,7 @@
                 <th>BarCode</th>
                 <th>ErpNo</th>
                 <th>McNo</th>
-                <th>YarnSupplier</th>
+                <th>McBrand</th>
                 <th>McDia</th>
                 <th>McGauge</th>
                 <th>McSpeed</th>
@@ -941,7 +939,6 @@
             <p class="foot">2019 © URMI IT Department. All rights reserved.</p>
         </div>
     </div>
-
 
 </div>
 
@@ -1254,7 +1251,7 @@
                 { "data": "McNo" },
                 { "data": "McDia" },
                 { "data": "McGauge" },
-                { "data": "YarnSupplier" }
+                { "data": "McBrand" }
             ]
         }).columns.adjust().draw();
 
@@ -1378,7 +1375,6 @@
         loadMcList();
 
         function loadMcList() {
-            debugger;
             $.ajax({
                 type: "GET",
                 url: "/Knitting/GetMCDIAList",
@@ -1396,10 +1392,9 @@
         }
 
         function loadFabricCompositionList() {
-            debugger;
             $.ajax({
                 type: "GET",
-                url: "/Fabric/GetCompositionList",
+                url: "/Fabric/GetCompositionTypeList",
                 data: "{}",
                 success: function (data) {
                     var data = data.data;
@@ -1414,7 +1409,6 @@
         }
 
         function loadFabricTypeList() {
-            debugger;
             $.ajax({
                 type: "GET",
                 url: "/Fabric/GetFabricTypeList",
@@ -1437,6 +1431,7 @@
                 url: "/Fabric/GetBuyerList",
                 data: "{}",
                 success: function (data) {
+                    debugger;
                     var data = data.data;
                     var s = '<option value="">Please Buyer</option>';
                     for (var i = 0; i < data.length; i++) {
@@ -1449,12 +1444,12 @@
         }
 
         function loadYarnCountList() {
-            debugger;
             $.ajax({
                 type: "GET",
                 url: "/Knitting/GetYarnCountList",
                 data: "{}",
                 success: function (data) {
+                    debugger;
                     var data = data.data;
                     var s = '<option value="">Select Yarn Count</option>';
                     for (var i = 0; i < data.length; i++) {
@@ -1467,12 +1462,12 @@
         }
 
         function loadYarnCompositionList() {
-            debugger;
             $.ajax({
                 type: "GET",
                 url: "/Knitting/GetYarnCompositionTypeList",
                 data: "{}",
                 success: function (data) {
+                    debugger;
                     var data = data.data;
                     var s = '<option value="">Select Composition</option>';
                     for (var i = 0; i < data.length; i++) {
@@ -1485,12 +1480,12 @@
         }
 
         function loadYarnTypeList() {
-            debugger;
             $.ajax({
                 type: "GET",
                 url: "/Knitting/GetYarnTypeList",
                 data: "{}",
                 success: function (data) {
+                    debugger;
                     var data = data.data;
                     var s = '<option value="">Select Yarn</option>';
                     for (var i = 0; i < data.length; i++) {
@@ -1503,12 +1498,12 @@
         }
 
         function loadYarnColorList() {
-            debugger;
             $.ajax({
                 type: "GET",
                 url: "/Knitting/GetYarnColorList",
                 data: "{}",
                 success: function (data) {
+                    debugger
                     var data = data.data;
                     var s = '<option value="">Select Color</option>';
                     for (var i = 0; i < data.length; i++) {
@@ -1521,12 +1516,12 @@
         }
 
         function loadMcBrandList() {
-            debugger;
             $.ajax({
                 type: "GET",
                 url: "/Knitting/GetMcBrandList",
                 data: "{}",
                 success: function (data) {
+                    debugger;
                     var data = data.data;
                     var s = '<option value="">Select YarnSupplier</option>';
                     for (var i = 0; i < data.length; i++) {
@@ -1538,6 +1533,19 @@
         }
 
 
+
+        $("#AddYDBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#knitTable tbody tr').hasClass('selected')) {
+                debugger;
+                $("#modalYD .open").click();
+            }
+            else {
+                alert("Please select a row in Knit table!!!");
+                return;
+            }
+        });
 
         $('#saveYDForm').submit(function (e) {
 
@@ -1660,13 +1668,7 @@
 
         $("#resetYDtBtn").click(function () {
             event.preventDefault();
-            $("#YDCount").val("");
-            $('#YDComposition').val("");
-            $('#YDType').val("");
-            $('#YDColor').val("");
-            $('#YDBrand').val("");
-            $('#YDLot').val("");
-            $('#YDTPI').val("");
+            ResetYD();
         });
 
         $('#YDtable tbody').on('click', 'tr', function () {
@@ -1684,6 +1686,18 @@
         });
 
 
+        $("#AddYDRBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#knitTable tbody tr').hasClass('selected')) {
+                debugger;
+                $("#modalYDR .open").click();
+            }
+            else {
+                alert("Please select a row in Knit table!!!");
+                return;
+            }
+        });
 
         $('#saveYDRForm').submit(function (e) {
 
@@ -1773,13 +1787,7 @@
 
         $("#resetYDRtBtn").click(function () {
             event.preventDefault();
-            $("#YDRRepeat").val("");
-            $('#YDRColor').val("");
-            $('#YDRFeederNo').val("");
-            $('#YDRMeasurement').val("");
-            $('#YDRUOM').val("");
-            $('#YDRBatchNo').val("");
-            $('#YDRCK').val("");
+            ResetYDR();
         });
 
 
@@ -2715,10 +2723,7 @@
             dom: 'Bfrtip',
             buttons: [
                 {
-                    extend: 'excelHtml5',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
+                    extend: 'excelHtml5'
                 }
             ],
             "ajax":
@@ -2764,7 +2769,7 @@
                 { "data": "Id" },
                 { "data": "fabric.Id" },
                 { "data": "mc.Id" },
-                { "data": "fabric.buyer.Composition" },
+                { "data": "fabric.buyer.BuyerName" },
                 { "data": "fabric.fb.FabricTypeName" },
                 { "data": "fabric.cm.Composition" },
                 { "data": "fabric.OrderNo" },
@@ -2772,7 +2777,7 @@
                 { "data": "BarCode" },
                 { "data": "ErpNo" },
                 { "data": "mc.McNo" },
-                { "data": "mc.YarnSupplier" },
+                { "data": "mc.McBrand" },
                 { "data": "mc.McDia" },
                 { "data": "mc.McGauge" },
                 { "data": "McSpeed" },
@@ -2843,7 +2848,7 @@
         });
 
         $('#knitTable tbody').on('click', 'tr', function () {
-
+            debugger
             if ((knitTable.data().any())) {
                 if ($(this).hasClass('selected')) {
                     $(this).removeClass('selected');
@@ -2858,7 +2863,7 @@
                         $('#reviseBtn').prop("disabled", true);
                     }
                     else {
-                        Setvalue(rowdata);
+                        //Setvalue(rowdata);
                         SetChilds(rowdata);
                         $('#updateBtn').prop("disabled", false);
                         $('#reviseBtn').prop("disabled", false);
@@ -3464,6 +3469,26 @@
             $("#GreyGSM").val("");
             $("#ReqDia").val("");
             $("#ReqGSM").val("");
+        }
+
+        function ResetYD(){
+            $("#YDCount").val("");
+            $('#YDComposition').val("");
+            $('#YDType').val("");
+            $('#YDColor').val("");
+            $('#YDBrand').val("");
+            $('#YDLot').val("");
+            $('#YDTPI').val("");
+        }
+
+        function ResetYDR(){
+            $("#YDRRepeat").val("");
+            $('#YDRColor').val("");
+            $('#YDRFeederNo').val("");
+            $('#YDRMeasurement').val("");
+            $('#YDRUOM').val("");
+            $('#YDRBatchNo').val("");
+            $('#YDRCK').val("");
         }
 
         function ResetFabric() {
