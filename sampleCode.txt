@@ -1,0 +1,160 @@
+         private void button1_Click(object sender, EventArgs e)
+        {
+            string Str = "Select * from ReportEmpAttendanceView where ";
+            string Str1 = "Select * from ReportEmpAttendanceView where ";
+            string Str2 = " order by PunchDate asc";
+            String Str3 = "";
+
+            if (C0.Text != "None")
+            {
+                if (Str3 != "") { Str3 = Str3 + " And"; }
+                Str3 = Str3 + " CompName ='" + C0.Text + "'";
+            }
+
+            if (R1.Checked == true)
+            {
+                if (Str3 != "") { Str3 = Str3 + " And"; }
+                Str3 = Str3 + " EmpId ='" + C3.Text + "'";
+            }
+            else
+            {
+                if (Str3 != "") { Str3 = Str3 + " And"; }
+                Str3 = Str3 + " EmpEd ='1'";
+            }
+            if (R2.Checked == true)
+            {
+                if (Str3 != "") { Str3 = Str3 + " And"; }
+                Str3 = Str3 + " SectName ='" + C5.Text + "'";
+            }
+
+            if (R3.Checked == true)
+            {
+                if (Str3 != "") { Str3 = Str3 + " And"; }
+                Str3 = Str3 + " DeptName ='" + C6.Text + "'";
+            }
+
+            if (Chk.Checked == true)
+            {
+                if (Str3 != "") { Str3 = Str3 + " And"; }
+                Str3 = Str3 + " Sts<>''";
+            }
+            if (Chk7.Checked == true)
+            {
+                if (C101.Text == "Worker")
+                {
+                    if (Str3 != "") { Str3 = Str3 + " And"; }
+                    Str3 = Str3 + " OT='Y'";
+                }
+                if (C101.Text == "Staff")
+                {
+                    if (Str3 != "") { Str3 = Str3 + " And"; }
+                    Str3 = Str3 + " OT='N'";
+                }
+            }
+
+            Str3 = Str3 + " and PunchDate between '" + D1.Value.ToString("MM/dd/yyyy") + "' and '" + D2.Value.ToString("MM/dd/yyyy") + "'";
+            if (Str3 != "") { Str = Str + Str3 + Str2; }
+            else { Str = Str1 + Str2; }
+
+
+            if (!MyFunction_Class.recordExist(Str))
+            {
+                MessageBox.Show("Record Not Found", VariableDecleration_Class.sMSGBOX);
+                return;
+            }
+
+
+
+            string connectionStr = ConnectionManager.connectionString;
+            SqlCommand cm = new SqlCommand();
+            SqlConnection cn = new SqlConnection(connectionStr);
+            SqlCommand cm1 = new SqlCommand();
+            SqlConnection cn1 = new SqlConnection(connectionStr);
+
+            try
+            {
+
+                //cn1.Open();
+                //cm1.Connection = cn1;
+                //cm1.CommandText = "update tmpDate set tmpDate1=@tmpDate1,tmpDate2=@tmpDate2";
+
+                //if (cm1.Parameters.Count == 0)
+                //{
+                //    cm1.Parameters.Add("@tmpDate1", System.Data.SqlDbType.DateTime);
+                //    cm1.Parameters.Add("@tmpDate2", System.Data.SqlDbType.DateTime);
+                //}
+
+                //DateTime firstDay = new DateTime(Convert.ToInt32(C1.Text), Convert.ToInt32(C0.SelectedIndex+1), 1);
+                //int DaysinMonth = DateTime.DaysInMonth(Convert.ToInt32(C1.Text), Convert.ToInt32(C0.SelectedIndex + 1)) - 1;
+                //DateTime lastDay = firstDay.AddDays(DaysinMonth);
+
+
+                //cm1.Parameters["@tmpDate1"].Value = firstDay.ToString();
+                //cm1.Parameters["@tmpDate2"].Value = lastDay.ToString();
+                //cm1.ExecuteNonQuery();
+
+                if (C0.Text == "FAKHRUDDIN TEXTILE MILLS LTD.(WASH)")
+                {
+                    cn.Open();
+                    SqlDataAdapter ADAP = new SqlDataAdapter(Str, cn);
+                    DataSet DS = new DataSet();
+                    ADAP.Fill(DS, "ReportEmpAttendanceView");
+                    RepJobCard_Wash rpt = new RepJobCard_Wash();
+                    rpt.SetDatabaseLogon(VariableDecleration_Class.DatabaseUser, VariableDecleration_Class.DatabasePassword, VariableDecleration_Class.DatabaseServer, VariableDecleration_Class.DatabaseName);
+                    rpt.PrintOptions.PaperOrientation = CrystalDecisions.Shared.PaperOrientation.Portrait;
+                    rpt.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperA4;
+                    rpt.SetDataSource(DS);
+
+                    //rpt.DataDefinition.FormulaFields["Month_Days"].Text = Convert.ToString(DateTime.DaysInMonth(Convert.ToInt32(C1.Text), Convert.ToInt32(C0.SelectedIndex + 1)));
+                    rpt.DataDefinition.FormulaFields["Report_Title"].Text = "' JOB CARD REPORT FROM " + D1.Value.ToString("dd/MM/yyyy") + " TO " + D2.Value.ToString("dd/MM/yyyy") + "'";
+                    rpt.DataDefinition.FormulaFields["Company_Name"].Text = "'" + C0.Text + "'";
+                    if (Chk.Checked == true)
+                        rpt.DataDefinition.FormulaFields["USER"].Text = "'b'";
+                    else
+                        rpt.DataDefinition.FormulaFields["USER"].Text = "'a'";
+                    //rpt.DataDefinition.FormulaFields["SalMonth"].Text = "'" + C0.Text + "'";
+                    //rpt.DataDefinition.FormulaFields["SalYear"].Text = "'" + C1.Text + "'";
+                    ReportViewerForm frm = new ReportViewerForm();
+                    frm.mainwindowObject = mainWindowObject;
+                    frm.cryReportViewer.ReportSource = rpt;
+                    frm.Show();
+                }
+                else
+                {
+                    cn.Open();
+                    SqlDataAdapter ADAP = new SqlDataAdapter(Str, cn);
+                    DataSet DS = new DataSet();
+                    ADAP.Fill(DS, "ReportEmpAttendanceView");
+                    RepJobCard rpt = new RepJobCard();
+                    rpt.SetDatabaseLogon(VariableDecleration_Class.DatabaseUser, VariableDecleration_Class.DatabasePassword, VariableDecleration_Class.DatabaseServer, VariableDecleration_Class.DatabaseName);
+                    rpt.PrintOptions.PaperOrientation = CrystalDecisions.Shared.PaperOrientation.Portrait;
+                    rpt.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperA4;
+                    rpt.SetDataSource(DS);
+
+                    //rpt.DataDefinition.FormulaFields["Month_Days"].Text = Convert.ToString(DateTime.DaysInMonth(Convert.ToInt32(C1.Text), Convert.ToInt32(C0.SelectedIndex + 1)));
+                    rpt.DataDefinition.FormulaFields["Report_Title"].Text = "' JOB CARD REPORT FROM " + D1.Value.ToString("dd/MM/yyyy") + " TO " + D2.Value.ToString("dd/MM/yyyy") + "'";
+                    rpt.DataDefinition.FormulaFields["Company_Name"].Text = "'" + C0.Text + "'";
+                    if (Chk.Checked == true)
+                        rpt.DataDefinition.FormulaFields["USER"].Text = "'b'";
+                    else
+                        rpt.DataDefinition.FormulaFields["USER"].Text = "'a'";
+                    //rpt.DataDefinition.FormulaFields["SalMonth"].Text = "'" + C0.Text + "'";
+                    //rpt.DataDefinition.FormulaFields["SalYear"].Text = "'" + C1.Text + "'";
+                    ReportViewerForm frm = new ReportViewerForm();
+                    frm.mainwindowObject = mainWindowObject;
+                    frm.cryReportViewer.ReportSource = rpt;
+                    frm.Show();
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                cn.Close();
+                cn1.Close();
+            }
+        }
