@@ -361,7 +361,7 @@ namespace TextileResearchDevelopment.BLL
             string PermissionString = "";
             try
             {
-                string query = "SELECT Sector FROM UserPermission WHERE UserName = '" + UserName + "'";
+                string query = "SELECT Sector FROM UserPermission WHERE UserName = '" + UserName + "' ORDER BY Sector";
                 SqlDataReader reader = DBGateway.GetFromDB(query);
                 if (reader.HasRows)
                 {

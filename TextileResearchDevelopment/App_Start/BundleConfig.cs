@@ -37,7 +37,6 @@ namespace TextileResearchDevelopment
                       "~/Scripts/bootstrapValidator.min.js",
                       "~/Scripts/bootstrap-datetimepicker.min.js",
                       "~/Scripts/bootstrap-multiselect.min.js",
-                      "~/Scripts/bootstrap3-typeahead.min.js",
                       "~/Scripts/typeahead.bundle.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/fileExport").Include(

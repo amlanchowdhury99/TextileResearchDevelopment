@@ -560,7 +560,9 @@ namespace TextileResearchDevelopment.BLL
             {
                 fabric.Id = Convert.ToInt32(reader["Id"]);
                 fabric.BarCode = reader["BarCode"].ToString();
+
                 fabric.ua = GetFabricProcessObject(reader);
+
                 fabric.buyer.Id = Convert.ToInt32(reader["BuyerID"]);
                 fabric.fb.Id = Convert.ToInt32(reader["FabricTypeID"]);
                 fabric.cm.Id = Convert.ToInt32(reader["CompositionTypeID"]);

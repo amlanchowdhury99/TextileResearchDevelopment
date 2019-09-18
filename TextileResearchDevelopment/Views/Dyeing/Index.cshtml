@@ -6,11 +6,13 @@
 }
 
 <head>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-datetimepicker.min.css" />
     <script type="text/javascript" src="~/Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
     <script type="text/javascript" src="~/Scripts/bootstrap3-typeahead.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+
     <style>
         tfoot input {
             width: 100%;
@@ -196,13 +198,13 @@
                     <div class="form-group col-xs-4 form-inline">
                         <label for="RecipeNo" class="control-label" style="width:35%;">RecipeNo</label>
                         <div style="display: inline;">
-                            <input type="text" class=" form-control" style="width:60%;" id="Time" placeholder="Recipe No" autofocus>
+                            <input type="text" class=" form-control" style="width:60%;" id="RecipeNo" placeholder="Recipe No" autofocus>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
                         <label for="Recipe" class="control-label" style="width:35%;">Recipe</label>
                         <div style="display: inline;">
-                            <input type="text" class="form-control" style="width:60%;" id="Feed" placeholder="Recipe" required autofocus>
+                            <input type="text" class="form-control" style="width:60%;" id="Recipe" placeholder="Recipe" required autofocus>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
@@ -234,18 +236,13 @@
                 </div>
                 <div class=" form-group">
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="datepicker" class="control-label" style="width:35%;">D. Date</label>
-                        <div id="datepicker" class="input-group date" style="width:60%;" data-date-format="dd/mm/yyyy">
-                            <input class="form-control" type="text" style="display:inline;" readonly />
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                        <label for="DyeingDate" class="control-label" style="width:35%;">D. Date</label>
+                        <div id="DyeingDate" class="input-group date" style="width:60%;" data-date-format="dd/mm/yyyy">
+                            <input class="form-control" type="text" style="display:inline;" readonly="readonly" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
                         </div>
-
-                        @*<div class='input-group date' id='DyeingDate' style="display: inline;">
-                                <input type='text' class="form-control" style="width:50%;" />
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar" style="width:10%;"></span>
-                                </span>
-                            </div>*@
                     </div>
                     <div class="form-group col-xs-4 form-inline">
                         <label for="PH" class="control-label" style="width:35%;">DyeBath</label>
@@ -363,12 +360,11 @@
         var selectedFabricRowId = 0;
         var fabricSelectionTable = $('#fabricSelectionTable').DataTable();
 
-        //$('#DyeingDate').datetimepicker();
-
-        $("#datepicker").datepicker({
-            autoclose: true,
-            todayHighlight: true
-        }).datepicker('update', new Date());
+        $('#DyeingDate').datetimepicker({
+            defaultDate: new Date(),
+            format: 'DD/MM/YYYY',
+            ignoreReadonly: true
+        });
 
         (function ($, window) {
 
@@ -528,9 +524,7 @@
             buttons: [
                 {
                     extend: 'excelHtml5'
-                },
-
-                'colvis'
+                }
             ],
             "ajax":
             {
@@ -715,7 +709,7 @@
                     cm: cm,
                     OrderNo: $("#OrderNoSL").val().length > 0 ? $("#OrderNoSL").val().toString() : '',
                     RefNo: $("#RefNoSL").val().length > 0 ? $("#ColorSL").val().toString() : '',
-                    Note : "Dyeing"
+                    Note: "Dyeing"
                 };
 
                 $.ajax({
@@ -851,7 +845,7 @@
                     Recipe: $("#Recipe").val(),
                     Comments: $("#Comments ").val(),
                     Time: $("#Time").val(),
-                    DyeingDate: $("#datepicker").val(),
+                    DyeingDate: $("#DyeingDate").data().date,
                     PH: $("#PH").val(),
                     Value: $("#Value").val()
                 };
@@ -917,7 +911,7 @@
                     Recipe: $("#Recipe").val(),
                     Comments: $("#Comments ").val(),
                     Time: $("#Time").val(),
-                    DyeingDate: $("#datepicker").val(),
+                    DyeingDate: $("#DyeingDate").data().date,
                     PH: $("#PH").val(),
                     Value: $("#Value").val()
                 };
@@ -985,7 +979,7 @@
                     Recipe: $("#Recipe").val(),
                     Comments: $("#Comments ").val(),
                     Time: $("#Time").val(),
-                    DyeingDate: $("#datepicker").val(),
+                    DyeingDate: $("#DyeingDate").data().date,
                     PH: $("#PH").val(),
                     Value: $("#Value").val()
                 };
