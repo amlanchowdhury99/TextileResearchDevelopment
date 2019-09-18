@@ -6,9 +6,8 @@
 }
 
 <head>
+    <script type="text/javascript" src="~/Scripts/bootstrap.js"></script>
     <script type="text/javascript" src="~/Scripts/bootstrap3-typeahead.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/bootstrap-multiselect.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-multiselect.css">
     <style>
         tfoot input {
             width: 100%;
@@ -31,7 +30,7 @@
     <input type="checkbox" id="hidden" value="option1" style="display:none;">
 
     <div class="text-left">
-        <button href="" id="FabricSelection" class="btn-info sm-4" >
+        <button href="" id="FabricSelection" class="btn-info sm-4">
             Select Fabric
         </button>
     </div>
@@ -224,9 +223,9 @@
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="Speed" class="control-label" style="width:35%;">Speed</label>
+                        <label for="BSpeed" class="control-label" style="width:35%;">Speed</label>
                         <div style="display: inline;">
-                            <input type="text" class=" form-control" style="width:60%;" id="Speed" placeholder="M/C Speed(m/min)" required autofocus>
+                            <input type="text" class=" form-control" style="width:60%;" id="BSpeed" placeholder="M/C Speed(m/min)" required autofocus>
                         </div>
                     </div>
                 </div>
@@ -447,17 +446,17 @@
             });
         }
 
+        $('#Brushtable tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="Search" />');
+        });
+
         var Brushtable = $('#Brushtable').DataTable({
             dom: 'Bfrtip',
             buttons: [
                 {
-                    extend: 'excelHtml5',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
-
-                'colvis'
+                    extend: 'excelHtml5'
+                }
             ],
             "ajax":
             {
@@ -465,7 +464,7 @@
                 "type": "GET",
                 "dataType": "JSON"
             },
-            "autowidth": false,
+            "autoWidth": false,
             "scrollY": true,
             "scrollX": true,
             "Sorting": true,
@@ -515,7 +514,7 @@
                 { "data": "LCounterPile" },
                 { "data": "LTension" },
                 { "data": "LRPM" },
-                { "data": "Speed" },
+                { "data": "BSpeed" },
                 { "data": "Remarks" },
                 { "data": "ReviseStatus" },
                 { "data": "ApprovedStatus" },
@@ -565,9 +564,16 @@
             ]
         });
 
-        $('#Brushtable tfoot th').each(function () {
-            var title = $(this).text();
-            $(this).html('<input type="text" placeholder="Search" />');
+        Brushtable.columns().every(function () {
+            var that = this;
+
+            $('input', this.footer()).on('keyup change clear', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
         });
 
         $('#fabricSelectionTable tbody').on('click', 'tr', function () {
@@ -590,14 +596,10 @@
                 }
                 else {
                     Brushtable.$('tr.selected').removeClass('selected');
+                    Reset();
                     $(this).addClass('selected');
                     var rowdata = Brushtable.row(this).data();
-                    if (rowdata.ApprovedStatus != 0) {
-                        $('#saveBtn').prop("disabled", false);
-                        $('#updateBtn').prop("disabled", true);
-                        $('#reviseBtn').prop("disabled", true);
-                    }
-                    else {
+                    if (rowdata.ApprovedStatus == 0) {
                         Setvalue(rowdata);
                         $('#saveBtn').prop("disabled", true);
                         $('#updateBtn').prop("disabled", false);
@@ -630,7 +632,7 @@
                     cm: cm,
                     OrderNo: $("#OrderNoSL").val().length > 0 ? $("#OrderNoSL").val().toString() : '',
                     RefNo: $("#RefNoSL").val().length > 0 ? $("#ColorSL").val().toString() : '',
-                    Note : "Brush"
+                    Note: "Brush"
                 };
 
                 $.ajax({
@@ -663,7 +665,7 @@
 
         $("#FabricSelection").click(function () {
             event.preventDefault();
-
+            $("#modalFabricSelection").modal('show');
             selectedFabricRowId = 0; ResetFabric(); fabricSelectionTable.clear().draw();
 
             loadBuyerList();
@@ -674,7 +676,7 @@
                 "scrollX": true,
                 "Sorting": true,
                 "searching": true,
-                "autowidth": false,
+                "autoWidth": false,
                 "select": {
                     style: 'single'
                 },
@@ -757,7 +759,7 @@
                     LCounterPile: $("#LCounterPile ").val(),
                     LTension: $("#LTension").val(),
                     LRPM: $("#LRPM ").val(),
-                    Speed: $("#Speed").val(),
+                    BSpeed: $("#BSpeed").val(),
                     Remarks: $("#Remarks ").val()
                 };
                 $.ajax({
@@ -813,7 +815,7 @@
                     LCounterPile: $("#LCounterPile ").val(),
                     LTension: $("#LTension").val(),
                     LRPM: $("#LRPM ").val(),
-                    Speed: $("#Speed").val(),
+                    BSpeed: $("#BSpeed").val(),
                     Remarks: $("#Remarks ").val()
                 };
 
@@ -871,7 +873,7 @@
                     LCounterPile: $("#LCounterPile ").val(),
                     LTension: $("#LTension").val(),
                     LRPM: $("#LRPM ").val(),
-                    Speed: $("#Speed").val(),
+                    BSpeed: $("#BSpeed").val(),
                     Remarks: $("#Remarks ").val()
                 };
 
@@ -1097,7 +1099,7 @@
             $("#LCounterPile").val("");
             $("#LTension").val("");
             $("#LRPM").val("");
-            $("#Speed").val("");
+            $("#BSpeed").val("");
             $("#Remarks").val("");
         }
 
@@ -1128,7 +1130,7 @@
             $("#LCounterPile").val(rowdata.LCounterPile);
             $("#LTension").val(rowdata.LTension);
             $("#LRPM").val(rowdata.LRPM);
-            $("#Speed").val(rowdata.Speed);
+            $("#BSpeed").val(rowdata.BSpeed);
             $("#Remarks").val(rowdata.Remarks);
         }
 

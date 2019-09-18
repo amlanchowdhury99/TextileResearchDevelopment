@@ -26,7 +26,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 machineTypes = new List<MachineType>();
-                string query = "SELECT * FROM PrintMcNo";
+                string query = "SELECT * FROM PrintMcNoType";
                 SqlDataReader reader = DBGateway.GetFromDB(query);
                 if (reader.HasRows)
                 {

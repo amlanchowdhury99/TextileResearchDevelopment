@@ -45,7 +45,7 @@ namespace TextileResearchDevelopment.BLL
                 else
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "INSERT INTO Singeing (FabricID, SFHBurner1, SFHBurner2, SFWBurner1, SFWBurner2, SSpeed, SBurner, SFlamePosition, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + singeing.fabric.Id + "," + singeing.HBurner1 + "','" + singeing.HBurner2 + "','" + singeing.WBurner1 + "','" + singeing.WBurner2 + "','" + singeing.Speed + "','" + singeing.Burner + "','" + singeing.Position + "',  0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                    query = "INSERT INTO Singeing (FabricID, SFHBurner1, SFHBurner2, SFWBurner1, SFWBurner2, SSpeed, SBurner, SFlamePosition, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + singeing.fabric.Id + ",'" + singeing.HBurner1 + "','" + singeing.HBurner2 + "','" + singeing.WBurner1 + "','" + singeing.WBurner2 + "','" + singeing.Speed + "','" + singeing.Burner + "','" + singeing.Position + "',  0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
                         query = "SELECT TOP 1 * FROM SingeingView order by Id desc";
@@ -174,7 +174,7 @@ namespace TextileResearchDevelopment.BLL
             {
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
                 string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM SingeingView WHERE BarCode = '" + singeing.fabric.BarCode + "'";
-                string query = "INSERT INTO Singeing (FabricID, SFHBurner1, SFHBurner2, SFWBurner1, SFWBurner2, SSpeed, SBurner, SFlamePosition, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + singeing.fabric.Id + "," + singeing.HBurner1 + "','" + singeing.HBurner2 + "','" + singeing.WBurner1 + "','" + singeing.WBurner2 + "','" + singeing.Speed + "','" + singeing.Burner + "','" + singeing.Position + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                string query = "INSERT INTO Singeing (FabricID, SFHBurner1, SFHBurner2, SFWBurner1, SFWBurner2, SSpeed, SBurner, SFlamePosition, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + singeing.fabric.Id + ",'" + singeing.HBurner1 + "','" + singeing.HBurner2 + "','" + singeing.WBurner1 + "','" + singeing.WBurner2 + "','" + singeing.Speed + "','" + singeing.Burner + "','" + singeing.Position + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {

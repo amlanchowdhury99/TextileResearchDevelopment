@@ -1295,7 +1295,6 @@
             $('#modalYD').css('z-index', 1041);
         });
 
-
         (function ($, window) {
 
             $.fn.contextMenu = function (settings) {
@@ -1577,7 +1576,7 @@
 
             var Obj = {
                 Id: '0',
-                KnitID : knitTable.rows('.selected').data()[0].Id,
+                KnitID: knitTable.rows('.selected').data()[0].Id,
                 yc: yc,
                 cm: cm,
                 yt: yt,
@@ -1599,6 +1598,7 @@
                         YDtable.row.add(response.data).draw();
                         ResetYD();
                         $("#modalYD .close").click();
+                        knitTable.row('.selected').data().ydList.push(response.data);
                     }
                     else {
                         alert("Failed to Save!!!");
@@ -1657,6 +1657,7 @@
                         if (response.data != "" && response.data != null) {
                             debugger
                             YDtable.row(index).data(response.data).draw();
+                            knitTable.row('.selected').data().ydList = YDtable.rows().data();
                             ResetYD();
                         }
                         else {
@@ -1716,7 +1717,7 @@
             debugger;
             var Obj = {
                 Id: '0',
-                KnitID : knitTable.rows('.selected').data()[0].Id,
+                KnitID: knitTable.rows('.selected').data()[0].Id,
                 YDRRepeat: $("#YDRRepeat").val(),
                 YDRColor: $("#YDRColor").val(),
                 YDRFeederNo: $("#YDRFeederNo").val(),
@@ -1738,6 +1739,7 @@
                         YDRtable.row.add(response.data).draw();
                         ResetYDR();
                         $("#modalYDR .close").click();
+                        knitTable.row('.selected').data().ydrList.push(response.data);
                     }
                     else {
                         alert("Failed to Save!!!");
@@ -1780,6 +1782,7 @@
                         if (response.data != "" && response.data != null) {
                             debugger
                             YDRtable.row(index).data(response.data).draw();
+                            knitTable.row('.selected').data().ydrList = YDRtable.rows().data();
                             ResetYDR();
                         }
                         else {
@@ -1798,8 +1801,9 @@
             }
         });
 
-        $("#resetYDRtBtn").click(function () {
+        $("#resetYDRBtn").click(function () {
             event.preventDefault();
+            debugger;
             ResetYDR();
         });
 
@@ -2869,6 +2873,18 @@
             ]
         });
 
+        knitTable.columns().every(function () {
+            var that = this;
+
+            $('input', this.footer()).on('keyup change clear', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+
         $('#fabricSelectionTable tbody').on('click', 'tr', function () {
             event.preventDefault();
             if ($(this).hasClass('selected')) {
@@ -2889,14 +2905,11 @@
                 }
                 else {
                     knitTable.$('tr.selected').removeClass('selected');
+                    Reset();
                     $(this).addClass('selected');
                     var rowdata = knitTable.row(this).data();
-                    if (rowdata.ApprovedStatus != 0) {
-                        $('#updateBtn').prop("disabled", true);
-                        $('#reviseBtn').prop("disabled", true);
-                    }
-                    else {
-                        //Setvalue(rowdata);
+                    if (rowdata.ApprovedStatus == 0) {
+                        Setvalue(rowdata);
                         SetChilds(rowdata);
                         $('#updateBtn').prop("disabled", false);
                         $('#reviseBtn').prop("disabled", false);
@@ -2928,7 +2941,7 @@
                     cm: cm,
                     OrderNo: $("#OrderNoSL").val().length > 0 ? $("#OrderNoSL").val().toString() : '',
                     RefNo: $("#RefNoSL").val().length > 0 ? $("#ColorSL").val().toString() : '',
-                    Note : "Knit"
+                    Note: "Knit"
                 };
 
                 $.ajax({
@@ -2972,7 +2985,7 @@
                 "scrollX": true,
                 "Sorting": true,
                 "searching": true,
-                "autowidth": false,
+                "autoWidth": false,
                 "select": {
                     style: 'single'
                 },
@@ -3224,8 +3237,8 @@
 
         function DeleteYDRow() {
             event.preventDefault();
-            var Id = YDtable.rows('.selected').data()[0].Id;
-
+            var Id = YDtable.row('.selected').data().Id;
+            var index = YDtable.row('.selected').index();
             $.ajax({
                 type: "POST",
                 url: "/Knitting/DeleteYD",
@@ -3237,6 +3250,7 @@
                     if (response == "Success") {
                         YDtable.row('.selected').remove().draw();
                         YDtable.row('.selected').removeClass('selected');
+                        knitTable.row('.selected').data().ydList = YDtable.rows().data();
                     }
                     else {
                         alert("Failed to Delete!!!");
@@ -3251,8 +3265,8 @@
 
         function DeleteYDRRow() {
             event.preventDefault();
-            var Id = YDRtable.rows('.selected').data()[0].Id;
-
+            var Id = YDRtable.row('.selected').data().Id;
+            var index = YDRtable.row('.selected').index();
             $.ajax({
                 type: "POST",
                 url: "/Knitting/DeleteYDR",
@@ -3264,6 +3278,7 @@
                     if (response == "Success") {
                         YDRtable.row('.selected').remove().draw();
                         YDRtable.row('.selected').removeClass('selected');
+                        knitTable.row('.selected').data().ydrList = YDRtable.rows().data();
                     }
                     else {
                         alert("Failed to Delete!!!");
@@ -3415,50 +3430,30 @@
             debugger
             event.preventDefault();
 
+            var Row = knitTable.rows('.selected').data()[0];
+            var index = knitTable.row('.selected').index();
+
+            var knitObj =
+            {
+                Id: Row.Id,
+                ApprovedTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
+            };
+
             $.ajax({
                 type: "POST",
-                url: "/UserManagement/HasRight",
+                url: "/Knitting/Unapprove",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify({ text: "Knitting" }),
+                data: JSON.stringify(knitObj),
                 success: function (response) {
                     debugger
-                    if (response == "true") {
+                    if (response.data != "" && response.data != null) {
                         debugger
-                        var Row = knitTable.rows('.selected').data()[0];
-                        var index = knitTable.row('.selected').index();
-
-                        var knitObj =
-                        {
-                            Id: Row.Id,
-                            ApprovedTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
-                        };
-
-                        $.ajax({
-                            type: "POST",
-                            url: "/Knitting/Unapprove",
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json",
-                            data: JSON.stringify(knitObj),
-                            success: function (response) {
-                                debugger
-                                if (response.data != "" && response.data != null) {
-                                    debugger
-                                    knitTable.row(index).data(response.data).draw();
-                                    Reset();
-                                }
-                                else {
-                                    alert("Failed to Unapprove!!!");
-                                    return;
-                                }
-                            },
-                            failure: function () {
-                                $("#tblItems").append(" Error when fetching data please contact administrator");
-                            }
-                        });
+                        knitTable.row(index).data(response.data).draw();
+                        Reset();
                     }
                     else {
-                        alert("You are not authorized to approve!!!");
+                        alert("Failed to Unapprove!!!");
                         return;
                     }
                 },
@@ -3466,6 +3461,28 @@
                     $("#tblItems").append(" Error when fetching data please contact administrator");
                 }
             });
+
+            //$.ajax({
+            //    type: "POST",
+            //    url: "/UserManagement/HasRight",
+            //    contentType: "application/json; charset=utf-8",
+            //    dataType: "json",
+            //    data: JSON.stringify({ text: "Knitting" }),
+            //    success: function (response) {
+            //        debugger
+            //        if (response == "true") {
+            //            debugger
+
+            //        }
+            //        else {
+            //            alert("You are not authorized to approve!!!");
+            //            return;
+            //        }
+            //    },
+            //    failure: function () {
+            //        $("#tblItems").append(" Error when fetching data please contact administrator");
+            //    }
+            //});
         }
 
         function ValidateFabricForm() {
@@ -3491,21 +3508,21 @@
             $('#reviseBtn').prop("disabled", true);
 
             $("#BarCode").val("");
+            $("#BuyerName").val("");
             $("#Composition").val("");
             $("#FabricTypeName").val("");
-            $("#Composition").val("");
             $("#OrderNo").val("");
             $("#RefNo").val("");
             $("#McNo").val("");
             $("#ErpNo").val("");
             $("#McDia").val("");
             $("#McGauge").val("");
-            $("#YarnSupplier").val("");
+            $("#McBrand").val("");
+            $("#McSpeed").val("");
             $("#SL").val("");
             $("#YT").val("");
             $("#LT").val("");
             $("#GreyDia").val("");
-            $("#GreyGSM").val("");
             $("#GreyGSM").val("");
             $("#ReqDia").val("");
             $("#ReqGSM").val("");
@@ -3525,6 +3542,7 @@
         }
 
         function ResetYDR() {
+            debugger;
             $("#YDRRepeat").val("");
             $('#YDRColor').val("");
             $('#YDRFeederNo').val("");
@@ -3546,6 +3564,30 @@
             $("#OrderNoSL").val("");
             $("#RefNoSL").val("");
             $('#fabricSelectionTable tbody tr').removeClass('selected');
+        }
+
+        function Setvalue(rowdata) {
+            event.preventDefault();
+
+            $("#BarCode").val(rowdata.BarCode);
+            $("#BuyerName").val(rowdata.fabric.buyer.BuyerName);
+            $("#Composition").val(rowdata.fabric.cm.Composition);
+            $("#FabricTypeName").val(rowdata.fabric.fb.FabricTypeName);
+            $("#OrderNo").val(rowdata.fabric.OrderNo);
+            $("#RefNo").val(rowdata.fabric.RefNo);
+            $("#McNo").val(rowdata.mc.Id);
+            $("#ErpNo").val(rowdata.ErpNo);
+            $("#McDia").val(rowdata.mc.McDia);
+            $("#McGauge").val(rowdata.mc.McGauge);
+            $("#McBrand").val(rowdata.mc.McBrand);
+            $("#McSpeed").val(rowdata.McSpeed);
+            $("#SL").val(rowdata.SL);
+            $("#YT").val(rowdata.YT);
+            $("#LT").val(rowdata.LT);
+            $("#GreyDia").val(rowdata.GreyDia);
+            $("#GreyGSM").val(rowdata.GreyGSM);
+            $("#ReqDia").val(rowdata.ReqDia);
+            $("#ReqGSM").val(rowdata.ReqGSM);
         }
 
         function SetYDValue(rowdata) {
@@ -3667,15 +3709,6 @@
                     alert("Please Select A Row!!!");
                     return;
                 }
-            }
-        });
-
-        $('#DeliveryDateCheckBox').change(function () {
-            if ($(this).is(":checked")) {
-                $('#DeliveryDateTextSL').prop('disabled', false);
-            }
-            else {
-                $('#DeliveryDateTextSL').prop('disabled', true);
             }
         });
 

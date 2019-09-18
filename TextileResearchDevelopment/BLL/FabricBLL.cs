@@ -522,7 +522,7 @@ namespace TextileResearchDevelopment.BLL
                 string query = "";
                 if (fabric.Id > 0)
                 {
-                    string BarCodeQuery = "SELECT BarCode FROM Fabric WHERE Id = "+fabric.Id;
+                    string BarCodeQuery = "SELECT BarCode FROM Fabric WHERE Id = " + fabric.Id;
                     query = "UPDATE FabricProcess SET Knit = " + fabric.ua.Knit + ", CW = " + fabric.ua.CW + ", HSP = " + fabric.ua.HSP + ", Dyeing = " + fabric.ua.Dyeing + ", Dryer = " + fabric.ua.Dryer + ", Stenter = " + fabric.ua.Stenter + ", Compacting = " + fabric.ua.Compacting + ", Peach = " + fabric.ua.Peach + ", Brush = " + fabric.ua.Brush + ", PrintInfo = " + fabric.ua.PrintInfo + ", QC = " + fabric.ua.QC + ", Singeing = " + fabric.ua.Singeing + " WHERE BarCode = (" + BarCodeQuery + ")";
 
                     if (DBGateway.ExecutionToDB(query, 1))
@@ -761,56 +761,62 @@ namespace TextileResearchDevelopment.BLL
             {
                 string query1 = GetValidFabric(fabricearchObj);
                 string tableName = "";
-                if (fabricearchObj.Note == "Knit")
+                
+                if (query1 != "")
                 {
-                    tableName = "Knitting";
-                }
-                else if (fabricearchObj.Note == "CW")
-                {
-                    tableName = "ContinueWashing";
-                }
-                else if (fabricearchObj.Note == "Print")
-                {
-                    tableName = "PrintInfo";
+                    if (fabricearchObj.Note == "Knit")
+                    {
+                        tableName = "Knitting";
+                    }
+                    else if (fabricearchObj.Note == "CW")
+                    {
+                        tableName = "ContinueWashing";
+                    }
+                    else if (fabricearchObj.Note == "Print")
+                    {
+                        tableName = "PrintInfo";
+                    }
+                    else
+                    {
+                        tableName = fabricearchObj.Note;
+                    }
+                    string query = "SELECT * FROM " + query1 + " WHERE A.Id NOT IN (SELECT FabricID FROM " + tableName + ")";
+                    if (fabricearchObj.BarCode != "" && fabricearchObj.BarCode != null)
+                    {
+                        query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                        query = query + " Barcode = '" + fabricearchObj.BarCode + "'";
+                    }
+                    if (fabricearchObj.buyer.Id > 0)
+                    {
+                        query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                        query = query + " BuyerID = " + fabricearchObj.buyer.Id;
+                    }
+                    if (fabricearchObj.fb.Id > 0)
+                    {
+                        query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                        query = query + " FabricTypeID = " + fabricearchObj.fb.Id;
+                    }
+                    if (fabricearchObj.cm.Id > 0)
+                    {
+                        query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                        query = query + " CompositionTypeID = " + fabricearchObj.cm.Id;
+                    }
+                    if (fabricearchObj.OrderNo != "" && fabricearchObj.OrderNo != null)
+                    {
+                        query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                        query = query + " OrderNo = '" + fabricearchObj.OrderNo + "'";
+                    }
+                    if (fabricearchObj.RefNo != "" && fabricearchObj.RefNo != null)
+                    {
+                        query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                        query = query + " RefNo = '" + fabricearchObj.RefNo + "'";
+                    }
+                    return query;
                 }
                 else
                 {
-                    tableName = fabricearchObj.Note;
+                    return "";
                 }
-
-                string query = "SELECT * FROM "+ query1 + " WHERE A.Id NOT IN (SELECT FabricID FROM "+ tableName + ")";
-                if (fabricearchObj.BarCode != "" && fabricearchObj.BarCode != null)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " Barcode = '" + fabricearchObj.BarCode + "'";
-                }
-                if (fabricearchObj.buyer.Id > 0)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " BuyerID = " + fabricearchObj.buyer.Id;
-                }
-                if (fabricearchObj.fb.Id > 0)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " FabricTypeID = " + fabricearchObj.fb.Id;
-                }
-                if (fabricearchObj.cm.Id > 0)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " CompositionTypeID = " + fabricearchObj.cm.Id;
-                }
-                if (fabricearchObj.OrderNo != "" && fabricearchObj.OrderNo != null)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " OrderNo = '" + fabricearchObj.OrderNo + "'";
-                }
-                if (fabricearchObj.RefNo != "" && fabricearchObj.RefNo != null)
-                {
-                    query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
-                    query = query + " RefNo = '" + fabricearchObj.RefNo + "'";
-                }
-
-                return query;
             }
             catch (Exception ex)
             {
@@ -837,36 +843,51 @@ namespace TextileResearchDevelopment.BLL
                     {
                         string tableName = "";
 
-                        if (Convert.ToInt32(reader["Seq_No"]) == 1)
+                        if (reader["Seq_No"] == DBNull.Value)
                         {
-                            tableName = "Knitting";
-                        }
-                        else if (Convert.ToInt32(reader["Seq_No"]) == 2)
-                        {
-                            tableName = "ContinueWashing";
-                        }
-                        else if (Convert.ToInt32(reader["Seq_No"]) == 11)
-                        {
-                            tableName = "PrintInfo";
+                            mainQuery = "(SELECT * FROM FabricView) AS A";
                         }
                         else
                         {
-                            tableName = new User().Sectors[((int)reader["Seq_No"] + 1).ToString()];
-                        }
-                        string FabricQuery = "SELECT Id FROM Fabric WHERE BarCode = '"+ reader["BarCode"].ToString() + "'";
-                        query = "SELECT * FROM " + tableName + " WHERE FabricID = (" + FabricQuery + ") AND ApprovedStatus != 0";
-                        if (DBGateway.recordExist(query))
-                        {
-                            if (!BarCodeList.Contains(reader["BarCode"].ToString()))
+                            if (Convert.ToInt32(reader["Seq_No"]) == 1)
                             {
-                                BarCodeList.Add(reader["BarCode"].ToString());
+                                tableName = "Knitting";
+                            }
+                            else if (Convert.ToInt32(reader["Seq_No"]) == 2)
+                            {
+                                tableName = "ContinueWashing";
+                            }
+                            else if (Convert.ToInt32(reader["Seq_No"]) == 11)
+                            {
+                                tableName = "PrintInfo";
+                            }
+                            else
+                            {
+                                tableName = new User().Sectors[((int)reader["Seq_No"] + 1).ToString()];
+                            }
+                            string FabricQuery = "SELECT Id FROM Fabric WHERE BarCode = '" + reader["BarCode"].ToString() + "'";
+                            query = "SELECT * FROM " + tableName + " WHERE FabricID = (" + FabricQuery + ") AND ApprovedStatus != 0";
+                            if (DBGateway.recordExist(query))
+                            {
+                                if (!BarCodeList.Contains(reader["BarCode"].ToString()))
+                                {
+                                    BarCodeList.Add(reader["BarCode"].ToString());
+                                }
                             }
                         }
                     }
                 }
                 else
                 {
-                    mainQuery = "(SELECT * FROM FabricView) AS A";
+
+                    if (DBGateway.recordExist(firstQuery))
+                    {
+                        mainQuery = "(SELECT * FROM FabricView) AS A";
+                    }
+                    else
+                    {
+                        mainQuery = "";
+                    }
                 }
                 if (BarCodeList.Count > 0)
                 {

@@ -468,6 +468,11 @@
             });
         }
 
+        $('#HSPtable tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="Search" />');
+        });
+
         var HSPtable = $('#HSPtable').DataTable({
             dom: 'Bfrtip',
             buttons: [
@@ -486,7 +491,7 @@
                 "type": "GET",
                 "dataType": "JSON"
             },
-            "autowidth": false,
+            "autoWidth": false,
             "scrollY": true,
             "scrollX": true,
             "Sorting": true,
@@ -587,9 +592,16 @@
             ]
         });
 
-        $('#HSPtable tfoot th').each(function () {
-            var title = $(this).text();
-            $(this).html('<input type="text" placeholder="Search" />');
+        HSPtable.columns().every(function () {
+            var that = this;
+
+            $('input', this.footer()).on('keyup change clear', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
         });
 
         $('#fabricSelectionTable tbody').on('click', 'tr', function () {
@@ -696,7 +708,7 @@
                 "scrollX": true,
                 "Sorting": true,
                 "searching": true,
-                "autowidth": false,
+                "autoWidth": false,
                 "select": {
                     style: 'single'
                 },

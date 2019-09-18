@@ -14,12 +14,14 @@ namespace TextileResearchDevelopment.Models
             Id = 0;
             fabric = new Fabric();
             mc = new MachineType();
+            pr = new ProductionType();
             children = new Role();
         }
         public Role children { get; set; }
 
         public int Id { get; set; }
         public Fabric fabric { get; set; }
+        public ProductionType pr { get; set; }
         public MachineType mc { get; set; }
         public string Temp { get; set; }
         public string Speed { get; set; }
@@ -28,7 +30,6 @@ namespace TextileResearchDevelopment.Models
         public string Compaction { get; set; }
         public string Dia { get; set; }
         public string GSM { get; set; }
-        public ProductionType pr { get; set; }
         public string Remarks { get; set; }
 
         public int ReviseStatus { get; set; }

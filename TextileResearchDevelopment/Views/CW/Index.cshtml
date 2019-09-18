@@ -311,6 +311,25 @@
 
         var selectedFabricRowId = 0;
         var fabricSelectionTable = $('#fabricSelectionTable').DataTable();
+        var CWtable = $('#CWtable').DataTable();
+
+        $('input.typeahead').keydown(function () {
+            ColId = $(this).attr('id');
+        });
+
+        $('input.typeahead').typeahead(
+            {
+                source: function (query, process) {
+                    return $.get('/CW/GetMatchingData', { query: query, col: ColId }, function (data) {
+                        return process(data);
+                    });
+                }
+            });
+
+        $('#CWtable tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="Search" />');
+        });
 
         (function ($, window) {
 
@@ -442,7 +461,7 @@
             });
         }
 
-        var CWtable = $('#CWtable').DataTable({
+        CWtable = $('#CWtable').DataTable({
             dom: 'Bfrtip',
             buttons: [
                 {
@@ -460,7 +479,7 @@
                 "type": "GET",
                 "dataType": "JSON"
             },
-            "autowidth": false,
+            "autoWidth": false,
             "scrollY": true,
             "scrollX": true,
             "Sorting": true,
@@ -558,9 +577,16 @@
             ]
         });
 
-        $('#CWtable tfoot th').each(function () {
-            var title = $(this).text();
-            $(this).html('<input type="text" placeholder="Search" />');
+        CWtable.columns().every(function () {
+            var that = this;
+
+            $('input', this.footer()).on('keyup change clear', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
         });
 
         $('#fabricSelectionTable tbody').on('click', 'tr', function () {
@@ -583,14 +609,10 @@
                 }
                 else {
                     CWtable.$('tr.selected').removeClass('selected');
+                    Reset();
                     $(this).addClass('selected');
                     var rowdata = CWtable.row(this).data();
-                    if (rowdata.ApprovedStatus != 0) {
-                        $('#saveBtn').prop("disabled", false);
-                        $('#updateBtn').prop("disabled", true);
-                        $('#reviseBtn').prop("disabled", true);
-                    }
-                    else {
+                    if (rowdata.ApprovedStatus == 0) {
                         Setvalue(rowdata);
                         $('#saveBtn').prop("disabled", true);
                         $('#updateBtn').prop("disabled", false);
@@ -623,7 +645,7 @@
                     cm: cm,
                     OrderNo: $("#OrderNoSL").val().length > 0 ? $("#OrderNoSL").val().toString() : '',
                     RefNo: $("#RefNoSL").val().length > 0 ? $("#ColorSL").val().toString() : '',
-                    Note : "CW"
+                    Note: "CW"
                 };
 
                 $.ajax({
@@ -667,7 +689,7 @@
                 "scrollX": true,
                 "Sorting": true,
                 "searching": true,
-                "autowidth": false,
+                "autoWidth": false,
                 "select": {
                     style: 'single'
                 },

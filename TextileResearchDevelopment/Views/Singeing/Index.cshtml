@@ -8,8 +8,6 @@
 <head>
     <script type="text/javascript" src="~/Scripts/bootstrap.js"></script>
     <script type="text/javascript" src="~/Scripts/bootstrap3-typeahead.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/bootstrap-multiselect.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-multiselect.css">
     <style>
         tfoot input {
             width: 100%;
@@ -241,7 +239,6 @@
                 <th></th>
                 <th>Id</th>
                 <th>FabricID</th>
-                <th>McNoID</th>
                 <th>Buyer</th>
                 <th>Fabric</th>
                 <th>Composition</th>
@@ -268,7 +265,6 @@
         <tfoot>
             <tr>
                 <th style="visibility:hidden;"></th>
-                <th></th>
                 <th></th>
                 <th></th>
                 <th>Buyer</th>
@@ -424,17 +420,17 @@
             });
         }
 
+        $('#SGtable tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="Search" />');
+        });
+
         var SGtable = $('#SGtable').DataTable({
             dom: 'Bfrtip',
             buttons: [
                 {
-                    extend: 'excelHtml5',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
-
-                'colvis'
+                    extend: 'excelHtml5'
+                }
             ],
             "ajax":
             {
@@ -442,7 +438,7 @@
                 "type": "GET",
                 "dataType": "JSON"
             },
-            "autowidth": false,
+            "autoWidth": false,
             "scrollY": true,
             "scrollX": true,
             "Sorting": true,
@@ -458,7 +454,7 @@
                     "orderable": false,
                 },
                 {
-                    "targets": [1, 2, 3],
+                    "targets": [1, 2],
                     "visible": false,
                     "searchable": false
                 },
@@ -478,7 +474,6 @@
                 },
                 { "data": "Id" },
                 { "data": "fabric.Id" },
-                { "data": "mc.Id" },
                 { "data": "fabric.buyer.BuyerName" },
                 { "data": "fabric.fb.FabricTypeName" },
                 { "data": "fabric.cm.Composition" },
@@ -540,13 +535,21 @@
             ]
         });
 
-        $('#SGtable tfoot th').each(function () {
-            var title = $(this).text();
-            $(this).html('<input type="text" placeholder="Search" />');
+        SGtable.columns().every(function () {
+            var that = this;
+
+            $('input', this.footer()).on('keyup change clear', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
         });
 
         $('#fabricSelectionTable tbody').on('click', 'tr', function () {
             event.preventDefault();
+            debugger;
             if ($(this).hasClass('selected')) {
                 $(this).removeClass('selected');
             }
@@ -565,14 +568,10 @@
                 }
                 else {
                     SGtable.$('tr.selected').removeClass('selected');
+                    Reset();
                     $(this).addClass('selected');
                     var rowdata = SGtable.row(this).data();
-                    if (rowdata.ApprovedStatus != 0) {
-                        $('#saveBtn').prop("disabled", false);
-                        $('#updateBtn').prop("disabled", true);
-                        $('#reviseBtn').prop("disabled", true);
-                    }
-                    else {
+                    if (rowdata.ApprovedStatus == 0) {
                         Setvalue(rowdata);
                         $('#saveBtn').prop("disabled", true);
                         $('#updateBtn').prop("disabled", false);
@@ -649,7 +648,7 @@
                 "scrollX": true,
                 "Sorting": true,
                 "searching": true,
-                "autowidth": false,
+                "autoWidth": false,
                 "select": {
                     style: 'single'
                 },

@@ -6,9 +6,8 @@
 }
 
 <head>
+    <script type="text/javascript" src="~/Scripts/bootstrap.js"></script>
     <script type="text/javascript" src="~/Scripts/bootstrap3-typeahead.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/bootstrap-multiselect.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-multiselect.css">
     <style>
         tfoot input {
             width: 100%;
@@ -31,7 +30,7 @@
     <input type="checkbox" id="hidden" value="option1" style="display:none;">
 
     <div class="text-left">
-        <button href="" id="FabricSelection" class="btn-info sm-4" >
+        <button href="" id="FabricSelection" class="btn-info sm-4">
             Select Fabric
         </button>
     </div>
@@ -292,8 +291,10 @@
 
 <script>
     $(document).ready(function () {
+
         var selectedFabricRowId = 0;
         var fabricSelectionTable = $('#fabricSelectionTable').DataTable();
+
         (function ($, window) {
             $.fn.contextMenu = function (settings) {
                 return this.each(function () {
@@ -338,12 +339,14 @@
                 }
             };
         })(jQuery, window);
+
         loadMcList();
+
         function loadMcList() {
             debugger;
             $.ajax({
                 type: "GET",
-                url: "/Print/GetMachineList",
+                url: "/PrintInfo/GetMachineList",
                 data: "{}",
                 success: function (data) {
                     var data = data.data;
@@ -356,6 +359,7 @@
                 }
             });
         }
+
         function loadBuyerList() {
             debugger;
             $.ajax({
@@ -373,6 +377,7 @@
                 }
             });
         }
+
         function loadFabricTypeList() {
             debugger;
             $.ajax({
@@ -390,6 +395,7 @@
                 }
             });
         }
+
         function loadCompositionList() {
             debugger;
             $.ajax({
@@ -403,36 +409,57 @@
                         s += '<option value="' + data[i].Id + '">' + data[i].Composition + '</option>';
                     }
                     $("#CompositionSL").html(s);
-                    loadProductionTypeList();
+                    loadPrintFactoryTypeList();
                 }
             });
         }
-        function loadProductionTypeList() {
+
+        function loadPrintFactoryTypeList() {
             debugger;
             $.ajax({
                 type: "GET",
-                url: "/Print/GetProductionTypeList",
+                url: "/PrintInfo/GetPrintFactoryTypeList",
                 data: "{}",
                 success: function (data) {
                     var data = data.data;
-                    var s = '<option value="">Select Production</option>';
+                    var s = '<option value="">Select PrintFactory</option>';
                     for (var i = 0; i < data.length; i++) {
-                        s += '<option value="' + data[i].Id + '">' + data[i].Production + '</option>';
+                        s += '<option value="' + data[i].Id + '">' + data[i].PrintFactory + '</option>';
                     }
-                    $("#ProductionType").html(s);
+                    $("#PrintFactoryType").html(s);
+                    loadPrintTypeList();
                 }
             });
         }
+
+        function loadPrintTypeList() {
+            debugger;
+            $.ajax({
+                type: "GET",
+                url: "/PrintInfo/GetPrintTypeList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select Print</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].PrintName + '</option>';
+                    }
+                    $("#PrintType").html(s);
+                }
+            });
+        }
+
+        $('#Printtable tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="Search" />');
+        });
+
         var Printtable = $('#Printtable').DataTable({
             dom: 'Bfrtip',
             buttons: [
                 {
-                    extend: 'excelHtml5',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
-                'colvis'
+                    extend: 'excelHtml5'
+                }
             ],
             "ajax":
             {
@@ -440,7 +467,7 @@
                 "type": "GET",
                 "dataType": "JSON"
             },
-            "autowidth": false,
+            "autoWidth": false,
             "scrollY": true,
             "scrollX": true,
             "Sorting": true,
@@ -483,9 +510,9 @@
                 { "data": "fabric.OrderNo" },
                 { "data": "fabric.RefNo" },
                 { "data": "fabric.BarCode" },
-                { "data": "prt.PrintFactory" },
+                { "data": "ptf.PrintFactory" },
                 { "data": "PrintCoverage" },
-                { "data": "ptf.PrintName" },
+                { "data": "prt.PrintName" },
                 { "data": "mc.McNo" },
                 { "data": "OtherInfo" },
                 { "data": "ReviseStatus" },
@@ -535,10 +562,19 @@
                 }
             ]
         });
-        $('#Printtable tfoot th').each(function () {
-            var title = $(this).text();
-            $(this).html('<input type="text" placeholder="Search" />');
+
+        Printtable.columns().every(function () {
+            var that = this;
+
+            $('input', this.footer()).on('keyup change clear', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
         });
+
         $('#fabricSelectionTable tbody').on('click', 'tr', function () {
             event.preventDefault();
             if ($(this).hasClass('selected')) {
@@ -549,6 +585,7 @@
                 $(this).addClass('selected');
             }
         });
+
         $('#Printtable tbody').on('click', 'tr', function () {
             if ((Printtable.data().any())) {
                 if ($(this).hasClass('selected')) {
@@ -557,14 +594,10 @@
                 }
                 else {
                     Printtable.$('tr.selected').removeClass('selected');
+                    Reset();
                     $(this).addClass('selected');
                     var rowdata = Printtable.row(this).data();
-                    if (rowdata.ApprovedStatus != 0) {
-                        $('#saveBtn').prop("disabled", false);
-                        $('#updateBtn').prop("disabled", true);
-                        $('#reviseBtn').prop("disabled", true);
-                    }
-                    else {
+                    if (rowdata.ApprovedStatus == 0) {
                         Setvalue(rowdata);
                         $('#saveBtn').prop("disabled", true);
                         $('#updateBtn').prop("disabled", false);
@@ -573,6 +606,7 @@
                 }
             }
         });
+
         $("#searchFabricBtn").click(function () {
             event.preventDefault();
             debugger;
@@ -593,7 +627,7 @@
                     cm: cm,
                     OrderNo: $("#OrderNoSL").val().length > 0 ? $("#OrderNoSL").val().toString() : '',
                     RefNo: $("#RefNoSL").val().length > 0 ? $("#ColorSL").val().toString() : '',
-                    Note : "Print"
+                    Note: "Print"
                 };
                 $.ajax({
                     type: "POST",
@@ -621,8 +655,10 @@
                 return;
             }
         });
+
         $("#FabricSelection").click(function () {
             event.preventDefault();
+            $("#modalFabricSelection").modal('show');
             selectedFabricRowId = 0; ResetFabric(); fabricSelectionTable.clear().draw();
             loadBuyerList();
             fabricSelectionTable = $('#fabricSelectionTable').DataTable({
@@ -631,7 +667,7 @@
                 "scrollX": true,
                 "Sorting": true,
                 "searching": true,
-                "autowidth": false,
+                "autoWidth": false,
                 "select": {
                     style: 'single'
                 },
@@ -665,9 +701,11 @@
                 ]
             });
         });
+
         $("#resetFabricBtn").click(function () {
             ResetFabric();
         });
+
         $("#okayBtn").click(function () {
             event.preventDefault();
             debugger
@@ -687,6 +725,7 @@
                 return;
             }
         });
+
         $('#PrintForm').submit(function (e) {
             event.preventDefault();
             var fabric = {
@@ -741,6 +780,7 @@
                 return;
             }
         });
+
         $("#updateBtn").click(function () {
             event.preventDefault();
             if ($('#Printtable tbody tr').hasClass('selected')) {
@@ -798,6 +838,7 @@
                 return;
             }
         });
+
         $("#reviseBtn").click(function () {
             event.preventDefault();
             if ($('#Printtable tbody tr').hasClass('selected')) {
@@ -854,9 +895,11 @@
                 return;
             }
         });
+
         $("#resetBtn").click(function () {
             Reset();
         });
+
         $("#Printtable tbody").contextMenu({
             menuSelector: "#MainContextMenu",
             menuSelected: function (invokedOn, selectedMenu) {
@@ -904,6 +947,7 @@
                 }
             }
         });
+
         function DeleteRow() {
             event.preventDefault();
             var Id = Printtable.rows('.selected').data()[0].Id;
@@ -929,6 +973,7 @@
                 }
             });
         };
+
         function ApproveRow() {
             debugger
             event.preventDefault();
@@ -962,6 +1007,7 @@
                 }
             });
         }
+
         function UnapproveRow() {
             debugger
             event.preventDefault();
@@ -995,6 +1041,7 @@
                 }
             });
         }
+
         function ValidateFabricForm() {
             debugger;
             if ($("#BarCodeSL").val() == "" && $("#BuyerSL option:selected").val() == "" && $("#FabricSL option:selected").val() == "" && $("#CompositionSL option:selected").val() == "" && $("#OrderNoSL").val() == "" && $("#RefNoSL").val() == "") {
@@ -1004,6 +1051,7 @@
                 return true;
             }
         }
+
         function Reset() {
             event.preventDefault();
             $('#Printtable tbody tr').removeClass('selected')
@@ -1024,6 +1072,7 @@
             $("#PrintCoverage").val("");
             $("#OtherInfo").val("");
         }
+
         function ResetFabric() {
             event.preventDefault();
             $("#BarCodeSL").val("");
@@ -1034,6 +1083,7 @@
             $("#RefNoSL").val("");
             $('#fabricSelectionTable tbody tr').removeClass('selected');
         }
+
         function Setvalue(rowdata) {
             $("#BarCode").val(rowdata.fabric.BarCode);
             $("#BuyerName").val(rowdata.fabric.buyer.BuyerName);
@@ -1047,5 +1097,6 @@
             $("#PrintCoverage").val(rowdata.PrintCoverage);
             $("#OtherInfo").val(rowdata.OtherInfo);
         }
+
     });
 </script>

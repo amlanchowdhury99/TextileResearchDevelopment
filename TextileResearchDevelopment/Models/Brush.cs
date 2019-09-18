@@ -24,7 +24,7 @@ namespace TextileResearchDevelopment.Models
         public string LCounterPile { get; set; }
         public string LTension { get; set; }
         public string LRPM { get; set; }
-        public string Speed { get; set; }
+        public string BSpeed { get; set; }
         public string Remarks { get; set; }
 
         public int ReviseStatus { get; set; }

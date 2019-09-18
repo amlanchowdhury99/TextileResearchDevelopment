@@ -518,6 +518,11 @@
             });
         }
 
+        $('#Dyeingtable tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="Search" />');
+        });
+
         var Dyeingtable = $('#Dyeingtable').DataTable({
             dom: 'Bfrtip',
             buttons: [
@@ -533,7 +538,7 @@
                 "type": "GET",
                 "dataType": "JSON"
             },
-            "autowidth": false,
+            "autoWidth": false,
             "scrollY": true,
             "scrollX": true,
             "Sorting": true,
@@ -642,9 +647,16 @@
             ]
         });
 
-        $('#Dyeingtable tfoot th').each(function () {
-            var title = $(this).text();
-            $(this).html('<input type="text" placeholder="Search" />');
+        Dyeingtable.columns().every(function () {
+            var that = this;
+
+            $('input', this.footer()).on('keyup change clear', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
         });
 
         $('#fabricSelectionTable tbody').on('click', 'tr', function () {
@@ -667,14 +679,10 @@
                 }
                 else {
                     Dyeingtable.$('tr.selected').removeClass('selected');
+                    Reset();
                     $(this).addClass('selected');
                     var rowdata = Dyeingtable.row(this).data();
-                    if (rowdata.ApprovedStatus != 0) {
-                        $('#saveBtn').prop("disabled", false);
-                        $('#updateBtn').prop("disabled", true);
-                        $('#reviseBtn').prop("disabled", true);
-                    }
-                    else {
+                    if (rowdata.ApprovedStatus == 0) {
                         Setvalue(rowdata);
                         $('#saveBtn').prop("disabled", true);
                         $('#updateBtn').prop("disabled", false);
@@ -751,7 +759,7 @@
                 "scrollX": true,
                 "Sorting": true,
                 "searching": true,
-                "autowidth": false,
+                "autoWidth": false,
                 "select": {
                     style: 'single'
                 },

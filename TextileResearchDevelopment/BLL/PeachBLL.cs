@@ -150,7 +150,7 @@ namespace TextileResearchDevelopment.BLL
                 peach.Brush = reader["PBrush"].ToString();
                 peach.Speed = reader["PSpeed"].ToString();
                 peach.Dia = reader["PDia"].ToString();
-                peach.GSM = reader["CGSM"].ToString();
+                peach.GSM = reader["PGSM"].ToString();
                 peach.Remarks = reader["PRemarks"].ToString();
 
                 peach.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);

@@ -33,7 +33,7 @@ namespace TextileResearchDevelopment.BLL
                     {
                         MachineType mc = new MachineType();
                         mc.Id = Convert.ToInt32(reader["Id"]);
-                        mc.McNo = reader["CWMcNo"].ToString();
+                        mc.McNo = reader["StenterMcNo"].ToString();
 
                         machineTypes.Add(mc);
                     }
@@ -65,17 +65,17 @@ namespace TextileResearchDevelopment.BLL
                 {
                     while (reader.Read())
                     {
-                        MachineType mc = new MachineType();
-                        mc.Id = Convert.ToInt32(reader["Id"]);
-                        mc.McNo = reader["SProduction"].ToString();
+                        ProductionType p = new ProductionType();
+                        p.Id = Convert.ToInt32(reader["Id"]);
+                        p.Production = reader["SProduction"].ToString();
 
-                        machineTypes.Add(mc);
+                        productionTypes.Add(p);
                     }
                 }
             }
             catch (Exception ex)
             {
-                machineTypes = new List<MachineType>();
+                productionTypes = new List<ProductionType>();
             }
             finally
             {
@@ -211,7 +211,7 @@ namespace TextileResearchDevelopment.BLL
                 stenter.fabric.BarCode = reader["BarCode"].ToString();
 
                 stenter.mc.Id = Convert.ToInt32(reader["SMcNoID"]);
-                stenter.mc.McNo = reader["CompactingMcNo"].ToString();
+                stenter.mc.McNo = reader["StenterMcNo"].ToString();
                 stenter.pr.Id = Convert.ToInt32(reader["STProductionTypeID"]);
                 stenter.pr.Production = reader["SProduction"].ToString();
                 stenter.Speed = reader["STSpeed"].ToString();

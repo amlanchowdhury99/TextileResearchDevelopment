@@ -79,7 +79,8 @@ namespace TextileResearchDevelopment.BLL
                 else
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "INSERT INTO Dryer (FabricID, DRMcNoID, DRTemp, DRSpeed, DRFeed, DRStreching, DRChemical, DRDia, DRGSM, DRShrinkage, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + dryer.fabric.Id + "," + dryer.mc.Id + ",'" + dryer.Temp + "','" + dryer.Speed + "','" + dryer.Feed + "','" + dryer.Streching + "','" + dryer.Chemical + "','" + dryer.Dia + "','" + dryer.GSM + "','" + dryer.Shrinkage + "','" + dryer.Remarks + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                    query = "INSERT INTO Dryer (FabricID, DRMcNoID, DRTemp, DRSpeed, DRFeed, DRStreching, DRChemical, DRDia, DRGSM, DRShrinkage, Remarks, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) " +
+                        "VALUES(" + dryer.fabric.Id + "," + dryer.mc.Id + ",'" + dryer.Temp + "','" + dryer.Speed + "','" + dryer.Feed + "','" + dryer.Streching + "','" + dryer.Chemical + "','" + dryer.Dia + "','" + dryer.GSM + "','" + dryer.Shrinkage + "','" + dryer.Remarks + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
                         query = "SELECT TOP 1 * FROM DryerView order by Id desc";
@@ -213,7 +214,7 @@ namespace TextileResearchDevelopment.BLL
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
                 string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM DryerView WHERE BarCode = '" + dryer.fabric.BarCode + "'";
                 
-                string query = "INSERT INTO Dryer (FabricID, DRMcNoID, DRTemp, DRSpeed, DRFeed, DRStreching, DRChemical, DRDia, DRGSM, DRShrinkage, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + dryer.fabric.Id + "," + dryer.mc.Id + ",'" + dryer.Temp + "','" + dryer.Speed + "','" + dryer.Feed + "','" + dryer.Streching + "','" + dryer.Chemical + "','" + dryer.Dia + "','" + dryer.GSM + "','" + dryer.Shrinkage + "','" + dryer.Remarks + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                string query = "INSERT INTO Dryer (FabricID, DRMcNoID, DRTemp, DRSpeed, DRFeed, DRStreching, DRChemical, DRDia, DRGSM, DRShrinkage, Remarks, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + dryer.fabric.Id + "," + dryer.mc.Id + ",'" + dryer.Temp + "','" + dryer.Speed + "','" + dryer.Feed + "','" + dryer.Streching + "','" + dryer.Chemical + "','" + dryer.Dia + "','" + dryer.GSM + "','" + dryer.Shrinkage + "','" + dryer.Remarks + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
