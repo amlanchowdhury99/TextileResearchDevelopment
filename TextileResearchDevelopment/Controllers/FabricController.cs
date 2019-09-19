@@ -342,5 +342,27 @@ namespace TextileResearchDevelopment.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public ActionResult ResetFabric(Fabric fabric)
+        {
+            try
+            {
+                fabric = FabricBLL.ResetFabric(fabric);
+
+                if (fabric.Id > 0)
+                {
+                    return Json(new { data = "Success" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { data = "Failed" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json(new { data = "Failed" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
     }
 }

@@ -116,6 +116,15 @@ namespace TextileResearchDevelopment.BLL
                         role.Approval = Convert.ToInt32(reader["Approval"]);
                     }
                 }
+                if(DBGateway.recordExist("SELECT * FROM UserInfo WHERE UserName = '" + user.UserName + "' AND SuperAdmin = 1"))
+                {
+                    role.RolePermissionID = 1;
+                }
+                else
+                {
+                    role.RolePermissionID = 0;
+                }
+
             }
             catch (Exception ex)
             {

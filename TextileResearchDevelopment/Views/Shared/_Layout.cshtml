@@ -75,7 +75,7 @@
                             }
                             if (parseInt(result[i]) == 3)
                             {
-                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Washing", "Index", "CW", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Wash", "Index", "CW", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
                             }
                             if (parseInt(result[i]) == 4)
                             {
@@ -122,6 +122,7 @@
                                 $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Role", "Index", "UserManagement", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
                             }
                         }
+                        $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Report", "Index", "Report", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
                     }
                     else
                     {

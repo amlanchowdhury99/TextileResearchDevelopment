@@ -22,6 +22,10 @@
 
 <div id="MainDiv">
 
+    <ul id="MainContextMenu" class="dropdown-menu" role="menu" style="display:none">
+        <li id="CReset"><a tabindex="-1" href="#">Reset</a></li>
+    </ul>
+
     <div class="modal fade" id="modalBuyer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog modal-md" role="document">
@@ -529,19 +533,11 @@
             };
         })(jQuery, window);
 
-        $("#fabricTable tbody").contextMenu({
-            menuSelector: "#contextMenu",
-            menuSelected: function (invokedOn, selectedMenu) {
-                debugger;
-                DeleteRow();
-            }
-        });
-
         SetRoles();
 
         function loadFPList() {
             var s = '';
-            for (var i = 0; i < 12; i++) {
+            for (var i = 1; i <= 12; i++) {
                 if (i == 1)
                     s += '<option value="' + i + '">Knit</option>';
                 if (i == 2)
@@ -644,17 +640,19 @@
                 success: function (response) {
                     debugger;
                     if (response != "" && response != null) {
-                        //if (response.Crud == 0)
-                        //{
-                        //    $('#saveBtn').hide();
-                        //    $('#updateBtn').hide();
-                        //    $('#deleteBtn').hide();
-                        //}
-                        //if (response.LibrarySet == 0)
-                        //{
-                        //    $('#BuyerNameAdd').attr("disabled", "disabled").off('click');
-                        //    $('#FabricTypeAdd').attr("disabled", "disabled").off('click');
-                        //    $('#CompositionTypeAdd').attr("disabled", "disabled").off('click');
+
+                        //if (response.RolePermissionID == 0) {
+                        //    $('#CReset a').addClass('disabled');
+                        //    if (response.Crud == 0) {
+                        //        $('#saveBtn').hide();
+                        //        $('#updateBtn').hide();
+                        //        $('#reviseBtn').hide();
+                        //    }
+                        //    if (response.LibrarySet == 0) {
+                        //        $('#mdBuyer').addClass('disabled');
+                        //        $('#mdFabricType').addClass('disabled');
+                        //        $('#mdComposition').addClass('disabled');
+                        //    }
                         //}
                     }
                     else {
@@ -1125,8 +1123,6 @@
             loadCompositionList();
         });
 
-
-
         $('#fabricTable tfoot th').each(function () {
             var title = $(this).text();
             $(this).html('<input type="text" placeholder="Search" />');
@@ -1241,6 +1237,47 @@
                 $('#updateBtn').prop("disabled", true);
             }
         });
+
+        $("#fabricTable tbody").contextMenu({
+            menuSelector: "#MainContextMenu",
+            menuSelected: function (invokedOn, selectedMenu) {
+                debugger;
+                ResetFabric();
+            }
+        });
+
+        function ResetFabric() {
+            event.preventDefault();
+            var Row = fabricTable.rows('.selected').data()[0];
+            var index = fabricTable.row('.selected').index();
+
+            var Obj =
+            {
+                Id: Row.Id,
+                BarCode: Row.BarCode,
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Fabric/ResetFabric",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(Obj),
+                success: function (response) {
+                    debugger
+                    if (response = "Success") {
+                        Reset();
+                    }
+                    else {
+                        alert("Failed to Reset Fabric!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        };
 
         fabricTable.columns().every(function () {
             var that = this;
@@ -1547,5 +1584,6 @@
                     });
                 }
             });
+
     });
 </script>

@@ -27,10 +27,10 @@
 
 <div id="MainDiv">
 
-    <ul id="MainContextMenu" class="dropdown-menu" role="menu" style="        display: none">
-        <li><a tabindex="-1" href="#">Delete</a></li>
-        <li><a tabindex="-1" href="#">Approve</a></li>
-        <li><a tabindex="-1" href="#">Unapprove</a></li>
+    <ul id="MainContextMenu" class="dropdown-menu" role="menu" style="display: none">
+        <li id="CDelete"><a tabindex="-1" href="#">Delete</a></li>
+        <li id="CApprove"><a tabindex="-1" href="#">Approve</a></li>
+        <li id="CUnApprove"><a tabindex="-1" href="#">Unapprove</a></li>
     </ul>
 
     <ul id="YDContextMenu" class="dropdown-menu" role="menu" style="        display: none">
@@ -283,16 +283,16 @@
                                     <form id="YarnColorForm">
                                         <div class=" form-group">
                                             <div class="form-group col-xs-12 form-inline">
-                                                <label for="YarnColorMD" class="control-label" style="width: 35%;">YarnColor</label>
+                                                <label for="YarnColorMD" class="control-label" style="        width: 35%;">YarnColor</label>
                                                 <div style="        display: inline;">
-                                                    <input type="text" class=" form-control" style="width: 60%;" id="YarnColorMD" placeholder="Yarn Color" required autofocus>
+                                                    <input type="text" class=" form-control" style="        width: 60%;" id="YarnColorMD" placeholder="Yarn Color" required autofocus>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class=" form-group">
                                             <div class="form-group col-xs-12 form-inline">
-                                                <button class="btn btn-warning btn-sm" style="width: 30%;" disabled id="editYarnColorBtn">Update</button>
-                                                <button class="btn btn-danger btn-sm" style="width: 30%;" disabled id="deleteYarnColorBtn">Delete</button>
+                                                <button class="btn btn-warning btn-sm" style="        width: 30%;" disabled id="editYarnColorBtn">Update</button>
+                                                <button class="btn btn-danger btn-sm" style="        width: 30%;" disabled id="deleteYarnColorBtn">Delete</button>
                                                 <div style="        display: inline;">
                                                     <input type="submit" value="Save" id="saveYarnColorBtn" class="btn btn-primary btn-sm" style="        width: 30%;">
                                                 </div>
@@ -302,7 +302,7 @@
                                 </div>
                             </div>
 
-                            <table id="YarnColorTable" class="display nowrap stripe hover order-column" style="width: 100%">
+                            <table id="YarnColorTable" class="display nowrap stripe hover order-column" style="        width: 100%">
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -392,55 +392,58 @@
                                 <div class="panel-body">
                                     <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
-                                            <label for="BarCodeSL" class="control-label" style="width:35%;">BarCode</label>
-                                            <div style="display: inline;">
-                                                <input type="number" class=" form-control" style="width:60%;" id="BarCodeSL" min="0" step="1" data-bind="value:BarCodeSL" placeholder="Bar Code" autofocus>
+                                            <label for="BarCodeSL" class="control-label" style="        width: 35%;">BarCode</label>
+                                            <div style="        display: inline;">
+                                                <input type="number" class=" form-control" style="        width: 60%;" id="BarCodeSL" min="0" step="1" data-bind="value:BarCodeSL" placeholder="Bar Code" autofocus>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
-                                            <label for="BuyerSL" class="control-label" style="width:35%;">Buyer</label>
-                                            <div style=" display: inline;">
-                                                <select name="BuyerSL" id="BuyerSL" style="width:60%;font-size: 12px;" class="form-control" autofocus></select>
+                                            <label for="BuyerSL" class="control-label" style="        width: 35%;">Buyer</label>
+                                            <div style="        display: inline;">
+                                                <select name="BuyerSL" id="BuyerSL" style="        width: 60%;
+        font-size: 12px;" class="form-control" autofocus></select>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
-                                            <label for="FabricSL" class="control-label" style="width:35%;">Fabric</label>
-                                            <div style="display: inline;">
-                                                <select name="FabricSL" id="FabricSL" style="width:60%;font-size: 12px;" class="form-control" autofocus></select>
+                                            <label for="FabricSL" class="control-label" style="        width: 35%;">Fabric</label>
+                                            <div style="        display: inline;">
+                                                <select name="FabricSL" id="FabricSL" style="        width: 60%;
+        font-size: 12px;" class="form-control" autofocus></select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
-                                            <label for="CompositionSL" class="control-label" style="width:35%;">Composition</label>
-                                            <div style="display: inline;">
-                                                <select name="CompositionSL" id="CompositionSL" style="width:60%;font-size: 12px;" class="form-control" autofocus></select>
+                                            <label for="CompositionSL" class="control-label" style="        width: 35%;">Composition</label>
+                                            <div style="        display: inline;">
+                                                <select name="CompositionSL" id="CompositionSL" style="        width: 60%;
+        font-size: 12px;" class="form-control" autofocus></select>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline ">
-                                            <label for="OrderNoSL" class="control-label" style="width:35%;">Order No</label>
-                                            <div style="display: inline;">
-                                                <input type="text" class=" form-control" style="width:60%;" id="OrderNoSL" placeholder="Order No" autofocus>
+                                            <label for="OrderNoSL" class="control-label" style="        width: 35%;">Order No</label>
+                                            <div style="        display: inline;">
+                                                <input type="text" class=" form-control" style="        width: 60%;" id="OrderNoSL" placeholder="Order No" autofocus>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
-                                            <label for="RefNoSL" class="control-label" style="width:35%;">RefNo</label>
-                                            <div style="display: inline;">
-                                                <input type="text" class=" form-control" style="width:60%;" id="RefNoSL" placeholder="Color" autofocus>
+                                            <label for="RefNoSL" class="control-label" style="        width: 35%;">RefNo</label>
+                                            <div style="        display: inline;">
+                                                <input type="text" class=" form-control" style="        width: 60%;" id="RefNoSL" placeholder="Color" autofocus>
                                             </div>
                                         </div>
                                     </div>
                                     <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
-                                            <button class="btn btn-warning btn-sm" style="width:35%;" id="resetFabricBtn">Reset</button>
-                                            <div style="display: inline;">
-                                                <button type="submit" id="searchFabricBtn" class="btn btn-primary btn-sm" style="width:60%;">Search</button>
+                                            <button class="btn btn-warning btn-sm" style="        width: 35%;" id="resetFabricBtn">Reset</button>
+                                            <div style="        display: inline;">
+                                                <button type="submit" id="searchFabricBtn" class="btn btn-primary btn-sm" style="        width: 60%;">Search</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <table id="fabricSelectionTable" class="display nowrap stripe hover order-column" style="width: 100%">
+                            <table id="fabricSelectionTable" class="display nowrap stripe hover order-column" style="        width: 100%">
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -480,28 +483,31 @@
                                     <form id="YDForm">
                                         <div class=" form-group">
                                             <div class="form-group col-xs-4 form-inline">
-                                                <label for="YDCount" class="control-label" style="width:35%;">Count</label>
-                                                <div style=" display: inline;">
-                                                    <select name="YDCount" id="YDCount" style="width:45%;" class="form-control input-sm" required autofocus></select>
-                                                    <a href="#" id="mdYarnCount" class="btn-sm btn-info" style="width:10%;display:inline">
+                                                <label for="YDCount" class="control-label" style="        width: 35%;">Count</label>
+                                                <div style="        display: inline;">
+                                                    <select name="YDCount" id="YDCount" style="        width: 45%;" class="form-control input-sm" required autofocus></select>
+                                                    <a href="#" id="mdYarnCount" class="btn-sm btn-info" style="        width: 10%;
+        display: inline">
                                                         <span class="glyphicon glyphicon-plus"></span>
                                                     </a>
                                                 </div>
                                             </div>
                                             <div class="form-group col-xs-4 form-inline">
-                                                <label for="YDComposition" class="control-label" style="width:35%;">Composition</label>
-                                                <div style=" display: inline;">
-                                                    <select name="YDComposition" id="YDComposition" style="width:45%;" class="form-control input-sm" required autofocus></select>
-                                                    <a href="#" id="mdComposition" class="btn-sm btn-info" style="width:10%;display:inline">
+                                                <label for="YDComposition" class="control-label" style="        width: 35%;">Composition</label>
+                                                <div style="        display: inline;">
+                                                    <select name="YDComposition" id="YDComposition" style="        width: 45%;" class="form-control input-sm" required autofocus></select>
+                                                    <a href="#" id="mdComposition" class="btn-sm btn-info" style="        width: 10%;
+        display: inline">
                                                         <span class="glyphicon glyphicon-plus"></span>
                                                     </a>
                                                 </div>
                                             </div>
                                             <div class="form-group col-xs-4 form-inline">
-                                                <label for="YDType" class="control-label" style="width:35%;">Yarn Type</label>
-                                                <div style=" display: inline;">
-                                                    <select name="YDType" id="YDType" style="width:45%;" class="form-control input-sm" required autofocus></select>
-                                                    <a href="#" id="mdYarnType" class="btn-sm btn-info" style="width:10%;display:inline">
+                                                <label for="YDType" class="control-label" style="        width: 35%;">Yarn Type</label>
+                                                <div style="        display: inline;">
+                                                    <select name="YDType" id="YDType" style="        width: 45%;" class="form-control input-sm" required autofocus></select>
+                                                    <a href="#" id="mdYarnType" class="btn-sm btn-info" style="        width: 10%;
+        display: inline">
                                                         <span class="glyphicon glyphicon-plus"></span>
                                                     </a>
                                                 </div>
@@ -509,40 +515,42 @@
                                         </div>
                                         <div class=" form-group">
                                             <div class="form-group col-xs-4 form-inline">
-                                                <label for="YDColor" class="control-label" style="width:35%;">Yarn Color</label>
-                                                <div style=" display: inline;">
-                                                    <select name="YDColor" id="YDColor" style="width:45%;" class="form-control input-sm" required autofocus></select>
-                                                    <a href="#" id="mdYarnColor" class="btn-sm btn-info" style="width:10%;display:inline">
+                                                <label for="YDColor" class="control-label" style="        width: 35%;">Yarn Color</label>
+                                                <div style="        display: inline;">
+                                                    <select name="YDColor" id="YDColor" style="        width: 45%;" class="form-control input-sm" required autofocus></select>
+                                                    <a href="#" id="mdYarnColor" class="btn-sm btn-info" style="        width: 10%;
+        display: inline">
                                                         <span class="glyphicon glyphicon-plus"></span>
                                                     </a>
                                                 </div>
                                             </div>
                                             <div class="form-group col-xs-4 form-inline">
-                                                <label for="YDBrand" class="control-label" style="width:35%;">Supplier</label>
-                                                <div style=" display: inline;">
-                                                    <select name="YDBrand" id="YDBrand" style="width:45%;" class="form-control input-sm" required autofocus></select>
-                                                    <a href="#" id="mdBrand" class="btn-sm btn-info" style="width:10%;display:inline">
+                                                <label for="YDBrand" class="control-label" style="        width: 35%;">Supplier</label>
+                                                <div style="        display: inline;">
+                                                    <select name="YDBrand" id="YDBrand" style="        width: 45%;" class="form-control input-sm" required autofocus></select>
+                                                    <a href="#" id="mdBrand" class="btn-sm btn-info" style="        width: 10%;
+        display: inline">
                                                         <span class="glyphicon glyphicon-plus"></span>
                                                     </a>
                                                 </div>
                                             </div>
                                             <div class="form-group col-xs-4 form-inline">
-                                                <label for="YDLot" class="control-label" style="width:35%;">Lot</label>
-                                                <div style=" display: inline;">
-                                                    <input type="text" class="form-control" id="YDLot" style="width:60%;" placeholder="Lot" autofocus>
+                                                <label for="YDLot" class="control-label" style="        width: 35%;">Lot</label>
+                                                <div style="        display: inline;">
+                                                    <input type="text" class="form-control" id="YDLot" style="        width: 60%;" placeholder="Lot" autofocus>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class=" form-group">
                                             <div class="form-group col-xs-4 form-inline">
-                                                <label for="YDTPI" class="control-label" style="width:35%;">TPI</label>
-                                                <div style=" display: inline;">
-                                                    <input type="text" class="form-control" id="YDTPI" style="width:60%;" placeholder="TPI" autofocus>
+                                                <label for="YDTPI" class="control-label" style="        width: 35%;">TPI</label>
+                                                <div style="        display: inline;">
+                                                    <input type="text" class="form-control" id="YDTPI" style="        width: 60%;" placeholder="TPI" autofocus>
                                                 </div>
                                             </div>
                                             <div class="form-group col-xs-4 form-inline">
-                                                <button class="btn btn-info btn-sm" style="width: 30%;" disabled id="editYDBtn">Update</button>
-                                                <button class="btn btn-warning btn-sm" style="width: 30%;" type="button" id="resetYDBtn">Reset</button>
+                                                <button class="btn btn-info btn-sm" style="        width: 30%;" disabled id="editYDBtn">Update</button>
+                                                <button class="btn btn-warning btn-sm" style="        width: 30%;" type="button" id="resetYDBtn">Reset</button>
                                                 <div style="        display: inline;">
                                                     <button type="submit" id="saveYDBtn" class="btn btn-primary btn-sm" style="        width: 30%;">Save</button>
                                                 </div>
@@ -574,56 +582,56 @@
                                     <form id="YDRForm">
                                         <div class=" form-group">
                                             <div class="form-group col-xs-4 form-inline">
-                                                <label for="YDRRepeat" class="control-label" style="width:35%;">Repeat</label>
-                                                <div style=" display: inline;">
-                                                    <input type="text" class="form-control" id="YDRRepeat" style="width:60%;" placeholder="Repeat" required autofocus>
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-xs-4 form-inline">
-                                                <label for="YDRColor" class="control-label" style="width:35%;">Color</label>
-                                                <div style=" display: inline;">
-                                                    <input type="text" class="form-control" id="YDRColor" style="width:60%;" placeholder="Color" required autofocus>
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-xs-4 form-inline">
-                                                <label for="YDRFeederNo" class="control-label" style="width:35%;">Feeder No</label>
-                                                <div style=" display: inline;">
-                                                    <input type="text" class="form-control" id="YDRFeederNo" style="width:60%;" placeholder="Feeder No" required autofocus>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class=" form-group">
-                                            <div class="form-group col-xs-4 form-inline">
-                                                <label for="YDRMeasurement" class="control-label" style="width:35%;">Measure.</label>
-                                                <div style=" display: inline;">
-                                                    <input type="text" class="form-control" id="YDRMeasurement" style="width:60%;" placeholder="Measurement" required autofocus>
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-xs-4 form-inline">
-                                                <label for="YDRUOM" class="control-label" style="width:35%;">UOM</label>
-                                                <div style=" display: inline;">
-                                                    <input type="text" class="form-control" id="YDRUOM" style="width:60%;" placeholder="UOM" autofocus>
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-xs-4 form-inline">
-                                                <label for="YDRBatchNo" class="control-label" style="width:35%;">Batch No</label>
-                                                <div style=" display: inline;">
-                                                    <input type="text" class="form-control" id="YDRBatchNo" style="width:60%;" placeholder="Batch No" required autofocus>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class=" form-group">
-                                            <div class="form-group col-xs-4 form-inline">
-                                                <label for="YDRCK" class="control-label" style="width:35%;">CK</label>
-                                                <div style=" display: inline;">
-                                                    <input type="text" class="form-control" id="YDRCK" style="width:60%;" placeholder="CK Number" required autofocus>
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-xs-4 form-inline">
-                                                <button class="btn btn-info btn-sm" style="width: 30%;" disabled id="editYDRBtn">Update</button>
-                                                <button class="btn btn-warning btn-sm" style="width: 30%;" type="button" id="resetYDRBtn">Reset</button>
+                                                <label for="YDRRepeat" class="control-label" style="        width: 35%;">Repeat</label>
                                                 <div style="        display: inline;">
-                                                    <button type="submit" id="saveYDRBtn" class="btn btn-primary btn-sm" style="width: 30%;">Save</button>
+                                                    <input type="text" class="form-control" id="YDRRepeat" style="        width: 60%;" placeholder="Repeat" required autofocus>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-xs-4 form-inline">
+                                                <label for="YDRColor" class="control-label" style="        width: 35%;">Color</label>
+                                                <div style="        display: inline;">
+                                                    <input type="text" class="form-control" id="YDRColor" style="        width: 60%;" placeholder="Color" required autofocus>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-xs-4 form-inline">
+                                                <label for="YDRFeederNo" class="control-label" style="        width: 35%;">Feeder No</label>
+                                                <div style="        display: inline;">
+                                                    <input type="text" class="form-control" id="YDRFeederNo" style="        width: 60%;" placeholder="Feeder No" required autofocus>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-4 form-inline">
+                                                <label for="YDRMeasurement" class="control-label" style="        width: 35%;">Measure.</label>
+                                                <div style="        display: inline;">
+                                                    <input type="text" class="form-control" id="YDRMeasurement" style="        width: 60%;" placeholder="Measurement" required autofocus>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-xs-4 form-inline">
+                                                <label for="YDRUOM" class="control-label" style="        width: 35%;">UOM</label>
+                                                <div style="        display: inline;">
+                                                    <input type="text" class="form-control" id="YDRUOM" style="        width: 60%;" placeholder="UOM" autofocus>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-xs-4 form-inline">
+                                                <label for="YDRBatchNo" class="control-label" style="        width: 35%;">Batch No</label>
+                                                <div style="        display: inline;">
+                                                    <input type="text" class="form-control" id="YDRBatchNo" style="        width: 60%;" placeholder="Batch No" required autofocus>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-4 form-inline">
+                                                <label for="YDRCK" class="control-label" style="        width: 35%;">CK</label>
+                                                <div style="        display: inline;">
+                                                    <input type="text" class="form-control" id="YDRCK" style="        width: 60%;" placeholder="CK Number" required autofocus>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-xs-4 form-inline">
+                                                <button class="btn btn-info btn-sm" style="        width: 30%;" disabled id="editYDRBtn">Update</button>
+                                                <button class="btn btn-warning btn-sm" style="        width: 30%;" type="button" id="resetYDRBtn">Reset</button>
+                                                <div style="        display: inline;">
+                                                    <button type="submit" id="saveYDRBtn" class="btn btn-primary btn-sm" style="        width: 30%;">Save</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -699,10 +707,10 @@
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="McNo" class="control-label" style="width: 35%;">Mc-No</label>
-                        <div style="display: inline;">
-                            <select id="McNo" style="width: 50%;" class="form-control input-sm" required autofocus></select>
-                            <a href="#" class="btn-sm btn-info" style="width: 10%;" id="mdMcNo" data-toggle="modal" data-target="#modalMcNo">
+                        <label for="McNo" class="control-label" style="        width: 35%;">Mc-No</label>
+                        <div style="        display: inline;">
+                            <select id="McNo" style="        width: 50%;" class="form-control input-sm" required autofocus></select>
+                            <a href="#" class="btn-sm btn-info" style="        width: 10%;" id="mdMcNo">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </a>
                         </div>
@@ -798,7 +806,7 @@
         </div>
     </div>
 
-    <table id="knitTable" class="display nowrap stripe hover order-column " style="width: 100%;">
+    <table id="knitTable" class="display nowrap stripe hover order-column " style="        width: 100%;">
         <thead>
             <tr>
                 <th></th>
@@ -883,8 +891,11 @@
         <div class="tab-content clearfix">
             <div class="tab-pane active" id="1a">
                 <br />
-                <button class="btn btn-success btn-sm" style="margin-left:2%; width: 15%;" id="AddYDBtn">Add Yarn Details</button>
-                <table id="YDtable" class="display nowrap stripe hover order-column" style="width: 100%;">
+                <button class="btn btn-success btn-sm" style="        margin-left: 2%;
+        width: 15%;" id="AddYDBtn">
+                    Add Yarn Details
+                </button>
+                <table id="YDtable" class="display nowrap stripe hover order-column" style="        width: 100%;">
                     <thead>
                         <tr>
                             <th></th>
@@ -908,8 +919,11 @@
             </div>
             <div class="tab-pane" id="2a">
                 <br />
-                <button class="btn btn-success btn-sm" style="margin-left:2%; width: 15%;" id="AddYDRBtn">Add Yarn Dyed Repeat</button>
-                <table id="YDRtable" class="display nowrap stripe hover order-column" style=" width: 100%;">
+                <button class="btn btn-success btn-sm" style="        margin-left: 2%;
+        width: 15%;" id="AddYDRBtn">
+                    Add Yarn Dyed Repeat
+                </button>
+                <table id="YDRtable" class="display nowrap stripe hover order-column" style="        width: 100%;">
                     <thead>
                         <tr>
                             <th style="        visibility: hidden;"></th>
@@ -1376,7 +1390,51 @@
             }
         });
 
-        loadMcList();
+        SetRoles();
+
+        function SetRoles() {
+            debugger;
+
+            var user = {
+                Name: "Knit"
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/UserManagement/GetRoles",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(user),
+                success: function (response) {
+                    debugger;
+                    if (response != "" && response != null) {
+                        debugger
+                        if (response.RolePermissionID == 0) {
+                            if (response.Crud == 0) {
+                                $('#saveBtn').hide();
+                                $('#updateBtn').hide();
+                                $('#CDelete a').addClass('disabled');
+                            }
+                            if (response.LibrarySet == 0) {
+                                $('#mdMcNo').attr("disabled", "disabled").off('click');
+                            }
+                            if (response.Approval == 0) {
+                                $('#CApprove a').addClass('disabled');
+                                $('#CUnApprove a').addClass('disabled');
+                            }
+                        }
+                    }
+                    else {
+                        alert("Connection Error!!!");
+                        return;
+                    }
+                    loadMcList();
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        }
 
         function loadMcList() {
             $.ajax({
@@ -2593,6 +2651,7 @@
         $("#mdMcNo").click(function () {
             debugger;
             $("#resetMcNoBtn").click();
+            $("#modalMcNo").modal('show');
         });
 
         $('#McNoTable tbody').on('click', 'tr', function () {
@@ -3054,14 +3113,18 @@
                 var KnitRow = knitTable.rows('.selected').data()[0];
                 var index = knitTable.row('.selected').index();
 
+                var fabric = {
+                    Id: KnitRow.fabric.Id
+                }
+
                 var mc = {
-                    Id: $("#McNoType  option:selected").val()
+                    Id: $("#McNo  option:selected").val()
                 }
 
                 var knitObj =
                 {
                     Id: KnitRow.Id,
-                    FabricID: KnitRow.fabric.Id,
+                    fabric: fabric,
                     BarCode: $("#BarCode").val(),
                     ErpNo: $("#ErpNo").val(),
                     mc: mc,
@@ -3112,25 +3175,29 @@
                 debugger
                 var KnitRow = knitTable.rows('.selected').data()[0];
 
+                var fabric = {
+                    Id: KnitRow.fabric.Id
+                }
+
+                var mc = {
+                    Id: $("#McNo  option:selected").val()
+                }
+
                 var knitObj =
                 {
                     Id: KnitRow.Id,
-                    McNoID: $("#McNo  option:selected").val(),
-                    YarnCountID: $("#YarnCount  option:selected").val(),
-                    McBrandID: $("#Brand  option:selected").val(),
-                    CompositionID: $("#Composition  option:selected").val(),
-                    FabricID: KnitRow.FabricID,
-                    BarCode: KnitRow.BarCode,
-                    YarnBrand: $("#YarnBrand").val(),
-                    YarnLot: $("#YarnLot").val(),
-                    StitchLength: $("#StitchLength").val(),
-                    McNo: $("#McNo").val(),
-                    MCRPM: $("#MCRPM").val(),
-                    GreyWidth: $("#GreyWidth").val().toString(),
+                    fabric: fabric,
+                    BarCode: $("#BarCode").val(),
+                    ErpNo: $("#ErpNo").val(),
+                    mc: mc,
+                    SL: $("#SL").val(),
+                    McSpeed: $("#McSpeed ").val(),
+                    YT: $("#YT").val(),
+                    LT: $("#LT").val(),
+                    GreyDia: $("#GreyDia").val(),
                     GreyGSM: $("#GreyGSM").val(),
-                    TumbleWidth: $("#TumbleWidth").val(),
-                    TumbleGSM: $("#TumbleGSM").val(),
-                    CreateTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
+                    ReqDia: $("#ReqDia").val(),
+                    ReqGSM: $("#ReqGSM").val()
                 };
 
                 $.ajax({

@@ -143,6 +143,7 @@
     <Compile Include="BLL\HSPBLL.cs" />
     <Compile Include="BLL\PeachBLL.cs" />
     <Compile Include="BLL\PrintBLL.cs" />
+    <Compile Include="BLL\QCBLL.cs" />
     <Compile Include="BLL\SingeingBLL.cs" />
     <Compile Include="BLL\StenterBLL.cs" />
     <Compile Include="BLL\WashingBLL.cs" />
@@ -174,9 +175,11 @@
     <Compile Include="Models\HSP.cs" />
     <Compile Include="Models\Peach.cs" />
     <Compile Include="Models\Print.cs" />
+    <Compile Include="Models\QC.cs" />
     <Compile Include="Models\RemarksView.cs">
       <DependentUpon>ReportModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Report.cs" />
     <Compile Include="Models\ReportModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
