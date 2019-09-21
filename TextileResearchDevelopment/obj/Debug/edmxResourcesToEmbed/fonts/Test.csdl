@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TextileResearchDevelopmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Fabric">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BarCode" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BuyerID" Type="Int32" Nullable="false" />
+    <Property Name="FabricTypeID" Type="Int32" Nullable="false" />
+    <Property Name="CompositionTypeID" Type="Int32" Nullable="false" />
+    <Property Name="OrderNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Color" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RefNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BatchNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Season" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Version" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="CreateBy" Type="Int32" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+    <Property Name="UpdateBy" Type="Int32" />
+    <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Byte" />
+  </EntityType>
+  <EntityContainer Name="TextileResearchDevelopmentEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Fabrics" EntityType="Self.Fabric" />
+  </EntityContainer>
+</Schema>

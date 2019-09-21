@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TextileResearchDevelopmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="YarnDyedRepeat">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KnitID" Type="int" Nullable="false" />
+    <Property Name="YDRRepeat" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="YDRColor" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="YDRFeederNo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="YDRMeasurement" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="YDRUOM" Type="varchar" MaxLength="50" />
+    <Property Name="YDRBatchNo" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="YDRCK" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TextileResearchDevelopment.dbo.MasterReportView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="MasterReportView">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="OrderNo" />
+      <PropertyRef Name="Color" />
+      <PropertyRef Name="BarCode" />
+      <PropertyRef Name="FabricTypeID" />
+      <PropertyRef Name="BuyerID" />
+      <PropertyRef Name="BatchNo" />
+      <PropertyRef Name="RefNo" />
+      <PropertyRef Name="Season" />
+      <PropertyRef Name="CompositionTypeID" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="OrderNo" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="Color" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="BarCode" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="BuyerName" Type="varchar" MaxLength="50" />
+    <Property Name="FabricTypeID" Type="int" Nullable="false" />
+    <Property Name="BuyerID" Type="int" Nullable="false" />
+    <Property Name="BatchNo" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="RefNo" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="Season" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="CreateTime" Type="datetime" />
+    <Property Name="CompositionTypeID" Type="int" Nullable="false" />
+    <Property Name="CreateByName" Type="varchar" MaxLength="100" />
+    <Property Name="Composition" Type="varchar" MaxLength="150" />
+    <Property Name="UpdateByName" Type="varchar" MaxLength="100" />
+    <Property Name="FabricTypeName" Type="varchar" MaxLength="50" />
+    <Property Name="Version" Type="varchar" MaxLength="150" />
+    <Property Name="GreyGSM" Type="varchar" MaxLength="200" />
+    <Property Name="YarnTension" Type="varchar" MaxLength="200" />
+    <Property Name="LycraTension" Type="varchar" MaxLength="200" />
+    <Property Name="GreyDia" Type="varchar" MaxLength="200" />
+    <Property Name="ReqDia" Type="varchar" MaxLength="200" />
+    <Property Name="ReqGSM" Type="varchar" MaxLength="200" />
+    <Property Name="SL" Type="varchar" MaxLength="200" />
+    <Property Name="McSpeed" Type="varchar" MaxLength="200" />
+    <Property Name="ErpNo" Type="varchar" MaxLength="150" />
+    <Property Name="McDia" Type="int" />
+    <Property Name="McGauge" Type="int" />
+    <Property Name="McBrand" Type="varchar" MaxLength="50" />
+    <Property Name="McNo" Type="int" />
+    <Property Name="CWMcNo" Type="varchar" MaxLength="50" />
+    <Property Name="CWSEWidth" Type="varchar" MaxLength="150" />
+    <Property Name="CWWashDia" Type="varchar" MaxLength="150" />
+    <Property Name="CWWELength" Type="varchar" MaxLength="150" />
+    <Property Name="CWSpeed" Type="varchar" MaxLength="150" />
+    <Property Name="CWChemical" Type="varchar" MaxLength="150" />
+    <Property Name="CWTemp" Type="varchar" MaxLength="150" />
+    <Property Name="HPTemp" Type="varchar" MaxLength="150" />
+    <Property Name="HPSpeed" Type="varchar" MaxLength="150" />
+    <Property Name="HPTime" Type="varchar" MaxLength="150" />
+    <Property Name="HPFeed" Type="varchar" MaxLength="150" />
+    <Property Name="HPStrech" Type="varchar" MaxLength="150" />
+    <Property Name="HPChemical" Type="varchar" MaxLength="150" />
+    <Property Name="HPDia" Type="varchar" MaxLength="150" />
+    <Property Name="HPGSM" Type="varchar" MaxLength="150" />
+    <Property Name="HPShrinkage" Type="varchar" MaxLength="150" />
+    <Property Name="HSPMcNo" Type="varchar" MaxLength="50" />
+    <Property Name="SFHBurner1" Type="varchar" MaxLength="150" />
+    <Property Name="SFHBurner2" Type="varchar" MaxLength="150" />
+    <Property Name="SFWBurner1" Type="varchar" MaxLength="150" />
+    <Property Name="SFWBurner2" Type="varchar" MaxLength="150" />
+    <Property Name="SSpeed" Type="varchar" MaxLength="150" />
+    <Property Name="SBurner" Type="varchar" MaxLength="150" />
+    <Property Name="SFlamePosition" Type="varchar" MaxLength="150" />
+    <Property Name="DMC" Type="varchar" MaxLength="150" />
+    <Property Name="DSpeed" Type="varchar" MaxLength="150" />
+    <Property Name="DEnzy" Type="varchar" MaxLength="150" />
+    <Property Name="Recipe" Type="varchar" MaxLength="350" />
+    <Property Name="RecipeNo" Type="varchar" MaxLength="150" />
+    <Property Name="Comments" Type="varchar" MaxLength="150" />
+    <Property Name="DyeingTime" Type="varchar" MaxLength="150" />
+    <Property Name="Dyebath" Type="varchar" MaxLength="150" />
+    <Property Name="Whiteness" Type="varchar" MaxLength="150" />
+    <Property Name="RFT" Type="varchar" MaxLength="50" />
+    <Property Name="DyeingDate" Type="date" />
+    <Property Name="History" Type="varchar" MaxLength="50" />
+    <Property Name="STTemp" Type="varchar" MaxLength="150" />
+    <Property Name="STFeed" Type="varchar" MaxLength="150" />
+    <Property Name="STSpeed" Type="varchar" MaxLength="150" />
+    <Property Name="STStreching" Type="varchar" MaxLength="150" />
+    <Property Name="STChemical" Type="varchar" MaxLength="150" />
+    <Property Name="STDia" Type="varchar" MaxLength="150" />
+    <Property Name="STGSM" Type="varchar" MaxLength="150" />
+    <Property Name="STShrinkage" Type="varchar" MaxLength="150" />
+    <Property Name="STRemarks" Type="varchar" MaxLength="150" />
+    <Property Name="StenterMcNo" Type="varchar" MaxLength="50" />
+    <Property Name="SProduction" Type="varchar" MaxLength="50" />
+    <Property Name="DRTemp" Type="varchar" MaxLength="150" />
+    <Property Name="DRFeed" Type="varchar" MaxLength="150" />
+    <Property Name="DRSpeed" Type="varchar" MaxLength="150" />
+    <Property Name="DRStreching" Type="varchar" MaxLength="150" />
+    <Property Name="DRChemical" Type="varchar" MaxLength="150" />
+    <Property Name="DRDia" Type="varchar" MaxLength="150" />
+    <Property Name="DRGSM" Type="varchar" MaxLength="150" />
+    <Property Name="DRShrinkage" Type="varchar" MaxLength="150" />
+    <Property Name="Remarks" Type="varchar" MaxLength="150" />
+    <Property Name="DryerMcNo" Type="varchar" MaxLength="50" />
+    <Property Name="CTemp" Type="varchar" MaxLength="150" />
+    <Property Name="CFeed" Type="varchar" MaxLength="150" />
+    <Property Name="CSpeed" Type="varchar" MaxLength="150" />
+    <Property Name="CSteam" Type="varchar" MaxLength="150" />
+    <Property Name="CDia" Type="varchar" MaxLength="150" />
+    <Property Name="CGSM" Type="varchar" MaxLength="150" />
+    <Property Name="CRemarks" Type="varchar" MaxLength="150" />
+    <Property Name="CCompaction" Type="varchar" MaxLength="150" />
+    <Property Name="CProduction" Type="varchar" MaxLength="50" />
+    <Property Name="CompactingMcNo" Type="varchar" MaxLength="50" />
+    <Property Name="PTaker" Type="varchar" MaxLength="150" />
+    <Property Name="PPlaiter" Type="varchar" MaxLength="150" />
+    <Property Name="PReturn" Type="varchar" MaxLength="150" />
+    <Property Name="PTension" Type="varchar" MaxLength="150" />
+    <Property Name="PRPM" Type="varchar" MaxLength="150" />
+    <Property Name="PBrush" Type="varchar" MaxLength="150" />
+    <Property Name="PSpeed" Type="varchar" MaxLength="150" />
+    <Property Name="PDia" Type="varchar" MaxLength="150" />
+    <Property Name="PGSM" Type="varchar" MaxLength="150" />
+    <Property Name="PRemarks" Type="varchar" MaxLength="150" />
+    <Property Name="BUpperPile" Type="varchar" MaxLength="150" />
+    <Property Name="BUpperCounterPile" Type="varchar" MaxLength="150" />
+    <Property Name="BUpperDrumTension" Type="varchar" MaxLength="150" />
+    <Property Name="BUpperDrumRPM" Type="varchar" MaxLength="150" />
+    <Property Name="BLowerPile" Type="varchar" MaxLength="150" />
+    <Property Name="BLowerCounterPile" Type="varchar" MaxLength="150" />
+    <Property Name="BLowerDrumTension" Type="varchar" MaxLength="150" />
+    <Property Name="BLowerDrumRPM" Type="varchar" MaxLength="150" />
+    <Property Name="BRemarks" Type="nchar" MaxLength="10" />
+    <Property Name="STProductionTypeID" Type="int" />
+    <Property Name="CProductionTypeID" Type="int" />
+    <Property Name="PrintCoverage" Type="varchar" MaxLength="150" />
+    <Property Name="OtherInfo" Type="varchar" MaxLength="150" />
+    <Property Name="PrintMcNo" Type="varchar" MaxLength="50" />
+    <Property Name="PrintFactory" Type="varchar" MaxLength="50" />
+    <Property Name="PrintName" Type="varchar" MaxLength="150" />
+    <Property Name="QDia" Type="varchar" MaxLength="100" />
+    <Property Name="QGSM" Type="varchar" MaxLength="100" />
+    <Property Name="QShrinkage" Type="varchar" MaxLength="100" />
+    <Property Name="QWash" Type="varchar" MaxLength="100" />
+    <Property Name="QWater" Type="varchar" MaxLength="100" />
+    <Property Name="QAcid" Type="varchar" MaxLength="100" />
+    <Property Name="QAlkhali" Type="varchar" MaxLength="100" />
+    <Property Name="QBursting" Type="varchar" MaxLength="100" />
+    <Property Name="QPilling" Type="varchar" MaxLength="100" />
+    <Property Name="QStrech" Type="varchar" MaxLength="100" />
+    <Property Name="QRecovery" Type="varchar" MaxLength="100" />
+    <Property Name="BSpeed" Type="varchar" MaxLength="50" />
+    <Property Name="KnitID" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="YDView">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="KnitID" />
+      <PropertyRef Name="YDCountID" />
+      <PropertyRef Name="YDCompositionID" />
+      <PropertyRef Name="YDYarnTypeID" />
+      <PropertyRef Name="YDYarnColorID" />
+      <PropertyRef Name="YDSupplierID" />
+      <PropertyRef Name="Lot" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="KnitID" Type="int" Nullable="false" />
+    <Property Name="YDCountID" Type="int" Nullable="false" />
+    <Property Name="YDCompositionID" Type="int" Nullable="false" />
+    <Property Name="YDYarnTypeID" Type="int" Nullable="false" />
+    <Property Name="YDYarnColorID" Type="int" Nullable="false" />
+    <Property Name="YDSupplierID" Type="int" Nullable="false" />
+    <Property Name="Lot" Type="int" Nullable="false" />
+    <Property Name="TPI" Type="int" />
+    <Property Name="YarnCount" Type="varchar" MaxLength="50" />
+    <Property Name="YarnComposition" Type="varchar" MaxLength="50" />
+    <Property Name="YarnName" Type="varchar" MaxLength="50" />
+    <Property Name="YarnSupplier" Type="varchar" MaxLength="150" />
+    <Property Name="YarnColor" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityContainer Name="TextileResearchDevelopmentModelStoreContainer">
+    <EntitySet Name="YarnDyedRepeat" EntityType="Self.YarnDyedRepeat" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MasterReportView" EntityType="Self.MasterReportView" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [MasterReportView].[Id] AS [Id], 
+    [MasterReportView].[OrderNo] AS [OrderNo], 
+    [MasterReportView].[Color] AS [Color], 
+    [MasterReportView].[BarCode] AS [BarCode], 
+    [MasterReportView].[BuyerName] AS [BuyerName], 
+    [MasterReportView].[FabricTypeID] AS [FabricTypeID], 
+    [MasterReportView].[BuyerID] AS [BuyerID], 
+    [MasterReportView].[BatchNo] AS [BatchNo], 
+    [MasterReportView].[RefNo] AS [RefNo], 
+    [MasterReportView].[Season] AS [Season], 
+    [MasterReportView].[CreateTime] AS [CreateTime], 
+    [MasterReportView].[CompositionTypeID] AS [CompositionTypeID], 
+    [MasterReportView].[CreateByName] AS [CreateByName], 
+    [MasterReportView].[Composition] AS [Composition], 
+    [MasterReportView].[UpdateByName] AS [UpdateByName], 
+    [MasterReportView].[FabricTypeName] AS [FabricTypeName], 
+    [MasterReportView].[Version] AS [Version], 
+    [MasterReportView].[GreyGSM] AS [GreyGSM], 
+    [MasterReportView].[YarnTension] AS [YarnTension], 
+    [MasterReportView].[LycraTension] AS [LycraTension], 
+    [MasterReportView].[GreyDia] AS [GreyDia], 
+    [MasterReportView].[ReqDia] AS [ReqDia], 
+    [MasterReportView].[ReqGSM] AS [ReqGSM], 
+    [MasterReportView].[SL] AS [SL], 
+    [MasterReportView].[McSpeed] AS [McSpeed], 
+    [MasterReportView].[ErpNo] AS [ErpNo], 
+    [MasterReportView].[McDia] AS [McDia], 
+    [MasterReportView].[McGauge] AS [McGauge], 
+    [MasterReportView].[McBrand] AS [McBrand], 
+    [MasterReportView].[McNo] AS [McNo], 
+    [MasterReportView].[CWMcNo] AS [CWMcNo], 
+    [MasterReportView].[CWSEWidth] AS [CWSEWidth], 
+    [MasterReportView].[CWWashDia] AS [CWWashDia], 
+    [MasterReportView].[CWWELength] AS [CWWELength], 
+    [MasterReportView].[CWSpeed] AS [CWSpeed], 
+    [MasterReportView].[CWChemical] AS [CWChemical], 
+    [MasterReportView].[CWTemp] AS [CWTemp], 
+    [MasterReportView].[HPTemp] AS [HPTemp], 
+    [MasterReportView].[HPSpeed] AS [HPSpeed], 
+    [MasterReportView].[HPTime] AS [HPTime], 
+    [MasterReportView].[HPFeed] AS [HPFeed], 
+    [MasterReportView].[HPStrech] AS [HPStrech], 
+    [MasterReportView].[HPChemical] AS [HPChemical], 
+    [MasterReportView].[HPDia] AS [HPDia], 
+    [MasterReportView].[HPGSM] AS [HPGSM], 
+    [MasterReportView].[HPShrinkage] AS [HPShrinkage], 
+    [MasterReportView].[HSPMcNo] AS [HSPMcNo], 
+    [MasterReportView].[SFHBurner1] AS [SFHBurner1], 
+    [MasterReportView].[SFHBurner2] AS [SFHBurner2], 
+    [MasterReportView].[SFWBurner1] AS [SFWBurner1], 
+    [MasterReportView].[SFWBurner2] AS [SFWBurner2], 
+    [MasterReportView].[SSpeed] AS [SSpeed], 
+    [MasterReportView].[SBurner] AS [SBurner], 
+    [MasterReportView].[SFlamePosition] AS [SFlamePosition], 
+    [MasterReportView].[DMC] AS [DMC], 
+    [MasterReportView].[DSpeed] AS [DSpeed], 
+    [MasterReportView].[DEnzy] AS [DEnzy], 
+    [MasterReportView].[Recipe] AS [Recipe], 
+    [MasterReportView].[RecipeNo] AS [RecipeNo], 
+    [MasterReportView].[Comments] AS [Comments], 
+    [MasterReportView].[DyeingTime] AS [DyeingTime], 
+    [MasterReportView].[Dyebath] AS [Dyebath], 
+    [MasterReportView].[Whiteness] AS [Whiteness], 
+    [MasterReportView].[RFT] AS [RFT], 
+    [MasterReportView].[DyeingDate] AS [DyeingDate], 
+    [MasterReportView].[History] AS [History], 
+    [MasterReportView].[STTemp] AS [STTemp], 
+    [MasterReportView].[STFeed] AS [STFeed], 
+    [MasterReportView].[STSpeed] AS [STSpeed], 
+    [MasterReportView].[STStreching] AS [STStreching], 
+    [MasterReportView].[STChemical] AS [STChemical], 
+    [MasterReportView].[STDia] AS [STDia], 
+    [MasterReportView].[STGSM] AS [STGSM], 
+    [MasterReportView].[STShrinkage] AS [STShrinkage], 
+    [MasterReportView].[STRemarks] AS [STRemarks], 
+    [MasterReportView].[StenterMcNo] AS [StenterMcNo], 
+    [MasterReportView].[SProduction] AS [SProduction], 
+    [MasterReportView].[DRTemp] AS [DRTemp], 
+    [MasterReportView].[DRFeed] AS [DRFeed], 
+    [MasterReportView].[DRSpeed] AS [DRSpeed], 
+    [MasterReportView].[DRStreching] AS [DRStreching], 
+    [MasterReportView].[DRChemical] AS [DRChemical], 
+    [MasterReportView].[DRDia] AS [DRDia], 
+    [MasterReportView].[DRGSM] AS [DRGSM], 
+    [MasterReportView].[DRShrinkage] AS [DRShrinkage], 
+    [MasterReportView].[Remarks] AS [Remarks], 
+    [MasterReportView].[DryerMcNo] AS [DryerMcNo], 
+    [MasterReportView].[CTemp] AS [CTemp], 
+    [MasterReportView].[CFeed] AS [CFeed], 
+    [MasterReportView].[CSpeed] AS [CSpeed], 
+    [MasterReportView].[CSteam] AS [CSteam], 
+    [MasterReportView].[CDia] AS [CDia], 
+    [MasterReportView].[CGSM] AS [CGSM], 
+    [MasterReportView].[CRemarks] AS [CRemarks], 
+    [MasterReportView].[CCompaction] AS [CCompaction], 
+    [MasterReportView].[CProduction] AS [CProduction], 
+    [MasterReportView].[CompactingMcNo] AS [CompactingMcNo], 
+    [MasterReportView].[PTaker] AS [PTaker], 
+    [MasterReportView].[PPlaiter] AS [PPlaiter], 
+    [MasterReportView].[PReturn] AS [PReturn], 
+    [MasterReportView].[PTension] AS [PTension], 
+    [MasterReportView].[PRPM] AS [PRPM], 
+    [MasterReportView].[PBrush] AS [PBrush], 
+    [MasterReportView].[PSpeed] AS [PSpeed], 
+    [MasterReportView].[PDia] AS [PDia], 
+    [MasterReportView].[PGSM] AS [PGSM], 
+    [MasterReportView].[PRemarks] AS [PRemarks], 
+    [MasterReportView].[BUpperPile] AS [BUpperPile], 
+    [MasterReportView].[BUpperCounterPile] AS [BUpperCounterPile], 
+    [MasterReportView].[BUpperDrumTension] AS [BUpperDrumTension], 
+    [MasterReportView].[BUpperDrumRPM] AS [BUpperDrumRPM], 
+    [MasterReportView].[BLowerPile] AS [BLowerPile], 
+    [MasterReportView].[BLowerCounterPile] AS [BLowerCounterPile], 
+    [MasterReportView].[BLowerDrumTension] AS [BLowerDrumTension], 
+    [MasterReportView].[BLowerDrumRPM] AS [BLowerDrumRPM], 
+    [MasterReportView].[BRemarks] AS [BRemarks], 
+    [MasterReportView].[STProductionTypeID] AS [STProductionTypeID], 
+    [MasterReportView].[CProductionTypeID] AS [CProductionTypeID], 
+    [MasterReportView].[PrintCoverage] AS [PrintCoverage], 
+    [MasterReportView].[OtherInfo] AS [OtherInfo], 
+    [MasterReportView].[PrintMcNo] AS [PrintMcNo], 
+    [MasterReportView].[PrintFactory] AS [PrintFactory], 
+    [MasterReportView].[PrintName] AS [PrintName], 
+    [MasterReportView].[QDia] AS [QDia], 
+    [MasterReportView].[QGSM] AS [QGSM], 
+    [MasterReportView].[QShrinkage] AS [QShrinkage], 
+    [MasterReportView].[QWash] AS [QWash], 
+    [MasterReportView].[QWater] AS [QWater], 
+    [MasterReportView].[QAcid] AS [QAcid], 
+    [MasterReportView].[QAlkhali] AS [QAlkhali], 
+    [MasterReportView].[QBursting] AS [QBursting], 
+    [MasterReportView].[QPilling] AS [QPilling], 
+    [MasterReportView].[QStrech] AS [QStrech], 
+    [MasterReportView].[QRecovery] AS [QRecovery], 
+    [MasterReportView].[BSpeed] AS [BSpeed], 
+    [MasterReportView].[KnitID] AS [KnitID]
+    FROM [dbo].[MasterReportView] AS [MasterReportView]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="YDView" EntityType="Self.YDView" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [YDView].[Id] AS [Id], 
+    [YDView].[KnitID] AS [KnitID], 
+    [YDView].[YDCountID] AS [YDCountID], 
+    [YDView].[YDCompositionID] AS [YDCompositionID], 
+    [YDView].[YDYarnTypeID] AS [YDYarnTypeID], 
+    [YDView].[YDYarnColorID] AS [YDYarnColorID], 
+    [YDView].[YDSupplierID] AS [YDSupplierID], 
+    [YDView].[Lot] AS [Lot], 
+    [YDView].[TPI] AS [TPI], 
+    [YDView].[YarnCount] AS [YarnCount], 
+    [YDView].[YarnComposition] AS [YarnComposition], 
+    [YDView].[YarnName] AS [YarnName], 
+    [YDView].[YarnSupplier] AS [YarnSupplier], 
+    [YDView].[YarnColor] AS [YarnColor]
+    FROM [dbo].[YDView] AS [YDView]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

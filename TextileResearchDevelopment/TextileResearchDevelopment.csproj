@@ -172,33 +172,37 @@
     <Compile Include="Models\Compacting.cs" />
     <Compile Include="Models\CW.cs" />
     <Compile Include="Models\Dryer.cs" />
+    <Compile Include="Models\Fabric.cs" />
     <Compile Include="Models\HSP.cs" />
+    <Compile Include="Models\MasterReport.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MasterReport.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MasterReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MasterReport.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MasterReport.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MasterReport.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MasterReportView.cs">
+      <DependentUpon>MasterReport.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Peach.cs" />
     <Compile Include="Models\Print.cs" />
     <Compile Include="Models\QC.cs" />
-    <Compile Include="Models\RemarksView.cs">
-      <DependentUpon>ReportModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Report.cs" />
-    <Compile Include="Models\ReportModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReportModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ReportModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReportModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ReportModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReportModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ReportView.cs">
-      <DependentUpon>ReportModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Singeing.cs" />
+    <Compile Include="Models\YarnDyedRepeat.cs">
+      <DependentUpon>MasterReport.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\YDView.cs">
+      <DependentUpon>MasterReport.tt</DependentUpon>
+    </Compile>
     <Compile Include="ReportDataset\GeneralReport.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -210,7 +214,6 @@
     </Compile>
     <Compile Include="Models\DbClass.cs" />
     <Compile Include="Models\Dyeing.cs" />
-    <Compile Include="Models\Fabric.cs" />
     <Compile Include="Models\Knitting.cs" />
     <Compile Include="Models\Members.cs" />
     <Compile Include="Models\Remarks.cs" />
@@ -263,15 +266,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\ReportModel.Context.tt">
+    <Content Include="Models\MasterReport.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ReportModel.edmx</DependentUpon>
-      <LastGenOutput>ReportModel.Context.cs</LastGenOutput>
+      <DependentUpon>MasterReport.edmx</DependentUpon>
+      <LastGenOutput>MasterReport.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\ReportModel.tt">
+    <Content Include="Models\MasterReport.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ReportModel.edmx</DependentUpon>
-      <LastGenOutput>ReportModel.cs</LastGenOutput>
+      <DependentUpon>MasterReport.edmx</DependentUpon>
+      <LastGenOutput>MasterReport.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
@@ -308,12 +311,12 @@
     <Content Include="Content\icomoon\fonts\icomoon.woff" />
     <Content Include="Content\_bootstrap-datetimepicker.less" />
     <Content Include="Content\bootstrap-datetimepicker-build.less" />
-    <EntityDeploy Include="Models\ReportModel.edmx">
+    <EntityDeploy Include="Models\MasterReport.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ReportModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>MasterReport.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\ReportModel.edmx.diagram">
-      <DependentUpon>ReportModel.edmx</DependentUpon>
+    <Content Include="Models\MasterReport.edmx.diagram">
+      <DependentUpon>MasterReport.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="ReportDataset\GeneralReport.xsc">

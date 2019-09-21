@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TextileResearchDevelopmentModelStoreContainer" CdmEntityContainer="TextileResearchDevelopmentEntities">
+    <EntitySetMapping Name="FabricViews">
+      <EntityTypeMapping TypeName="TextileResearchDevelopmentModel.FabricView">
+        <MappingFragment StoreEntitySet="FabricView">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="BarCode" ColumnName="BarCode" />
+          <ScalarProperty Name="BuyerID" ColumnName="BuyerID" />
+          <ScalarProperty Name="FabricTypeID" ColumnName="FabricTypeID" />
+          <ScalarProperty Name="BuyerName" ColumnName="BuyerName" />
+          <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="Season" ColumnName="Season" />
+          <ScalarProperty Name="BatchNo" ColumnName="BatchNo" />
+          <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+          <ScalarProperty Name="CompositionTypeID" ColumnName="CompositionTypeID" />
+          <ScalarProperty Name="CreateByName" ColumnName="CreateByName" />
+          <ScalarProperty Name="Composition" ColumnName="Composition" />
+          <ScalarProperty Name="UpdateByName" ColumnName="UpdateByName" />
+          <ScalarProperty Name="Knit" ColumnName="Knit" />
+          <ScalarProperty Name="CW" ColumnName="CW" />
+          <ScalarProperty Name="HSP" ColumnName="HSP" />
+          <ScalarProperty Name="Dyeing" ColumnName="Dyeing" />
+          <ScalarProperty Name="Dryer" ColumnName="Dryer" />
+          <ScalarProperty Name="Stenter" ColumnName="Stenter" />
+          <ScalarProperty Name="Compacting" ColumnName="Compacting" />
+          <ScalarProperty Name="Peach" ColumnName="Peach" />
+          <ScalarProperty Name="Brush" ColumnName="Brush" />
+          <ScalarProperty Name="PrintInfo" ColumnName="PrintInfo" />
+          <ScalarProperty Name="QC" ColumnName="QC" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="FabricTypeName" ColumnName="FabricTypeName" />
+          <ScalarProperty Name="Singeing" ColumnName="Singeing" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

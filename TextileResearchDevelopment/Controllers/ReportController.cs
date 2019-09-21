@@ -23,7 +23,7 @@ namespace TextileResearchDevelopment.Controllers
         private ExportFormatType objExportFormatType = ExportFormatType.NoFormat;
         Remarks remark = new Remarks();
 
-        //TextileResearchDevelopmentEntities db = new TextileResearchDevelopmentEntities();
+        TextileResearchDevelopmentEntities db = new TextileResearchDevelopmentEntities();
 
 
         // GET: Report
@@ -152,42 +152,206 @@ namespace TextileResearchDevelopment.Controllers
 
         //}
 
-        [HttpPost]
-        public ActionResult ShowReport(Fabric fabric)
+        public ActionResult ShowReport(string BarCode)
         {
             try
             {
-                SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); cm.Connection = cn; cn.Open();
-                string query = " SELECT * FROM FabricView WHERE BarCode = '" + fabric.BarCode + "'";
-                SqlDataAdapter ADAP = new SqlDataAdapter(query, cn);
-                DataSet DS = new DataSet();
-                ADAP.Fill(DS, "MasterReport");
-                MasterReport rpt = new MasterReport();
-                rpt.SetDatabaseLogon("sa", "x123@slts", "192.168.31.251", "TextileResearchDevelopment");
-                rpt.PrintOptions.PaperOrientation = CrystalDecisions.Shared.PaperOrientation.Landscape;
-                rpt.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperA4;
-                rpt.SetDataSource(DS);
+                GeneralReport ds = new GeneralReport();
+                ReportDocument rd = new ReportDocument();
+                rd.Load(Path.Combine(Server.MapPath("~/Reporting"), "MasterReport.rpt"));
+
+                var masterReport = db.MasterReportViews.Where(a => a.BarCode == BarCode).ToList();
+                var YD = db.YDViews.Where(a => a.KnitID == 7).ToList();
+                var YDR = db.YarnDyedRepeats.Where(a => a.KnitID == 7).ToList();
+
+                //foreach (var item in masterReport)
+                //{
+                //    ds.MasterReportView.AddMasterReportViewRow(
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo,
+                //    item.OrderNo);
+                //};
+
+                foreach (var item in YD)
+                {
+                    ds.YDView.AddYDViewRow(
+                    item.Lot.ToString(),
+                    item.TPI.ToString(),
+                    item.YarnCount,
+                    item.YarnComposition,
+                    item.YarnName,
+                    item.YarnSupplier,
+                    item.YarnColor);
+                };
+
+                foreach (var item in YDR)
+                {
+                    ds.YarnDyedRepeat.AddYarnDyedRepeatRow(
+                    item.YDRRepeat,
+                    item.YDRColor,
+                    item.YDRFeederNo,
+                    item.YDRMeasurement,
+                    item.YDRUOM,
+                    item.YDRBatchNo,
+                    item.YDRCK);
+                };
+
+                rd.SetDataSource(ds);
+                rd.SetDatabaseLogon("sa", "x123@slts");
+
+                //rd.PrintOptions.PaperOrientation = CrystalDecisions.Shared.PaperOrientation.Landscape;
+                //rd.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperA4;
+
+                Stream stream = rd.ExportToStream(ExportFormatType.PortableDocFormat);
+                MemoryStream ms = new MemoryStream();
+                stream.CopyTo(ms);
+                Byte[] fileBuffer = ms.ToArray();
+
                 Response.Buffer = false;
                 Response.ClearContent();
                 Response.ClearHeaders();
-                Stream stream = rpt.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-                stream.Seek(0, SeekOrigin.Begin);
-                cn.Close();
-
-                ReportDocument cryRpt = new ReportDocument();
-                rpt.Load(PUT CRYSTAL REPORT PATH HERE\\CrystalReport1.rpt");
-    
-                crystalReportViewer1.ReportSource = cryRpt;
-                crystalReportViewer1.Refresh();
-
-                return File(stream, "application/pdf", "FabricProcessingSheet.pdf");
+                Response.ContentType = "application/pdf";
+                Response.AddHeader("content-length", fileBuffer.Length.ToString());
+                Response.BinaryWrite(fileBuffer);
+                return null;
             }
-            catch
+            catch(Exception ex)
             {
-                return Json(new { data = "" }, JsonRequestBehavior.AllowGet);
+                return null;
             }
-
-            return Json("", JsonRequestBehavior.AllowGet);
 
         }
 

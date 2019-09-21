@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TextileResearchDevelopmentModelStoreContainer" CdmEntityContainer="TextileResearchDevelopmentEntities">
+    <EntitySetMapping Name="YarnDyedRepeats">
+      <EntityTypeMapping TypeName="TextileResearchDevelopmentModel.YarnDyedRepeat">
+        <MappingFragment StoreEntitySet="YarnDyedRepeat">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="KnitID" ColumnName="KnitID" />
+          <ScalarProperty Name="YDRRepeat" ColumnName="YDRRepeat" />
+          <ScalarProperty Name="YDRColor" ColumnName="YDRColor" />
+          <ScalarProperty Name="YDRFeederNo" ColumnName="YDRFeederNo" />
+          <ScalarProperty Name="YDRMeasurement" ColumnName="YDRMeasurement" />
+          <ScalarProperty Name="YDRUOM" ColumnName="YDRUOM" />
+          <ScalarProperty Name="YDRBatchNo" ColumnName="YDRBatchNo" />
+          <ScalarProperty Name="YDRCK" ColumnName="YDRCK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

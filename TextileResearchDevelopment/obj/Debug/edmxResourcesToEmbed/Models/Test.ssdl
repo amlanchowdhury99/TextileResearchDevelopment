@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TextileResearchDevelopmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TextileResearchDevelopment.dbo.FabricView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="FabricView">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="OrderNo" />
+      <PropertyRef Name="Color" />
+      <PropertyRef Name="BarCode" />
+      <PropertyRef Name="BuyerID" />
+      <PropertyRef Name="FabricTypeID" />
+      <PropertyRef Name="Season" />
+      <PropertyRef Name="BatchNo" />
+      <PropertyRef Name="RefNo" />
+      <PropertyRef Name="CompositionTypeID" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="OrderNo" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="Color" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="BarCode" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="BuyerID" Type="int" Nullable="false" />
+    <Property Name="FabricTypeID" Type="int" Nullable="false" />
+    <Property Name="BuyerName" Type="varchar" MaxLength="50" />
+    <Property Name="UpdateTime" Type="datetime" />
+    <Property Name="CreateTime" Type="datetime" />
+    <Property Name="Season" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="BatchNo" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="RefNo" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="CompositionTypeID" Type="int" Nullable="false" />
+    <Property Name="CreateByName" Type="varchar" MaxLength="100" />
+    <Property Name="Composition" Type="varchar" MaxLength="150" />
+    <Property Name="UpdateByName" Type="varchar" MaxLength="100" />
+    <Property Name="Knit" Type="int" />
+    <Property Name="CW" Type="int" />
+    <Property Name="HSP" Type="int" />
+    <Property Name="Dyeing" Type="int" />
+    <Property Name="Dryer" Type="int" />
+    <Property Name="Stenter" Type="int" />
+    <Property Name="Compacting" Type="int" />
+    <Property Name="Peach" Type="int" />
+    <Property Name="Brush" Type="int" />
+    <Property Name="PrintInfo" Type="int" />
+    <Property Name="QC" Type="int" />
+    <Property Name="Version" Type="varchar" MaxLength="150" />
+    <Property Name="FabricTypeName" Type="varchar" MaxLength="50" />
+    <Property Name="Singeing" Type="int" />
+  </EntityType>
+  <EntityContainer Name="TextileResearchDevelopmentModelStoreContainer">
+    <EntitySet Name="FabricView" EntityType="Self.FabricView" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [FabricView].[Id] AS [Id], 
+    [FabricView].[OrderNo] AS [OrderNo], 
+    [FabricView].[Color] AS [Color], 
+    [FabricView].[BarCode] AS [BarCode], 
+    [FabricView].[BuyerID] AS [BuyerID], 
+    [FabricView].[FabricTypeID] AS [FabricTypeID], 
+    [FabricView].[BuyerName] AS [BuyerName], 
+    [FabricView].[UpdateTime] AS [UpdateTime], 
+    [FabricView].[CreateTime] AS [CreateTime], 
+    [FabricView].[Season] AS [Season], 
+    [FabricView].[BatchNo] AS [BatchNo], 
+    [FabricView].[RefNo] AS [RefNo], 
+    [FabricView].[CompositionTypeID] AS [CompositionTypeID], 
+    [FabricView].[CreateByName] AS [CreateByName], 
+    [FabricView].[Composition] AS [Composition], 
+    [FabricView].[UpdateByName] AS [UpdateByName], 
+    [FabricView].[Knit] AS [Knit], 
+    [FabricView].[CW] AS [CW], 
+    [FabricView].[HSP] AS [HSP], 
+    [FabricView].[Dyeing] AS [Dyeing], 
+    [FabricView].[Dryer] AS [Dryer], 
+    [FabricView].[Stenter] AS [Stenter], 
+    [FabricView].[Compacting] AS [Compacting], 
+    [FabricView].[Peach] AS [Peach], 
+    [FabricView].[Brush] AS [Brush], 
+    [FabricView].[PrintInfo] AS [PrintInfo], 
+    [FabricView].[QC] AS [QC], 
+    [FabricView].[Version] AS [Version], 
+    [FabricView].[FabricTypeName] AS [FabricTypeName], 
+    [FabricView].[Singeing] AS [Singeing]
+    FROM [dbo].[FabricView] AS [FabricView]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

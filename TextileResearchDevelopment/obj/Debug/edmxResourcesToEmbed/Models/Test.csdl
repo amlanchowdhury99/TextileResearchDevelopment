@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TextileResearchDevelopmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="FabricView">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="OrderNo" />
+      <PropertyRef Name="Color" />
+      <PropertyRef Name="BarCode" />
+      <PropertyRef Name="BuyerID" />
+      <PropertyRef Name="FabricTypeID" />
+      <PropertyRef Name="Season" />
+      <PropertyRef Name="BatchNo" />
+      <PropertyRef Name="RefNo" />
+      <PropertyRef Name="CompositionTypeID" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="OrderNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Color" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BarCode" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BuyerID" Type="Int32" Nullable="false" />
+    <Property Name="FabricTypeID" Type="Int32" Nullable="false" />
+    <Property Name="BuyerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+    <Property Name="Season" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BatchNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RefNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CompositionTypeID" Type="Int32" Nullable="false" />
+    <Property Name="CreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Composition" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="UpdateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Knit" Type="Int32" />
+    <Property Name="CW" Type="Int32" />
+    <Property Name="HSP" Type="Int32" />
+    <Property Name="Dyeing" Type="Int32" />
+    <Property Name="Dryer" Type="Int32" />
+    <Property Name="Stenter" Type="Int32" />
+    <Property Name="Compacting" Type="Int32" />
+    <Property Name="Peach" Type="Int32" />
+    <Property Name="Brush" Type="Int32" />
+    <Property Name="PrintInfo" Type="Int32" />
+    <Property Name="QC" Type="Int32" />
+    <Property Name="Version" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="FabricTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Singeing" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="TextileResearchDevelopmentEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="FabricViews" EntityType="Self.FabricView" />
+  </EntityContainer>
+</Schema>

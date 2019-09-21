@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TextileResearchDevelopmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Fabric">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BarCode" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="BuyerID" Type="int" Nullable="false" />
+    <Property Name="FabricTypeID" Type="int" Nullable="false" />
+    <Property Name="CompositionTypeID" Type="int" Nullable="false" />
+    <Property Name="OrderNo" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="Color" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="RefNo" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="BatchNo" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="Season" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="Version" Type="varchar" MaxLength="150" />
+    <Property Name="CreateBy" Type="int" />
+    <Property Name="CreateTime" Type="datetime" />
+    <Property Name="UpdateBy" Type="int" />
+    <Property Name="UpdateTime" Type="datetime" />
+    <Property Name="Status" Type="tinyint" />
+  </EntityType>
+  <EntityContainer Name="TextileResearchDevelopmentModelStoreContainer">
+    <EntitySet Name="Fabric" EntityType="Self.Fabric" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

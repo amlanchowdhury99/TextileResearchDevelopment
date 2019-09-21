@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TextileResearchDevelopmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="YarnDyedRepeat">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KnitID" Type="int" Nullable="false" />
+    <Property Name="YDRRepeat" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="YDRColor" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="YDRFeederNo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="YDRMeasurement" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="YDRUOM" Type="varchar" MaxLength="50" />
+    <Property Name="YDRBatchNo" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="YDRCK" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TextileResearchDevelopment.dbo.MasterReportView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityContainer Name="TextileResearchDevelopmentModelStoreContainer">
+    <EntitySet Name="YarnDyedRepeat" EntityType="Self.YarnDyedRepeat" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

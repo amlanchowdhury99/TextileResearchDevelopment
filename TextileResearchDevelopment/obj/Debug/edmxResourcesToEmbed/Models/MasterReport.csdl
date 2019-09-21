@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TextileResearchDevelopmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="YarnDyedRepeat">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KnitID" Type="Int32" Nullable="false" />
+    <Property Name="YDRRepeat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="YDRColor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="YDRFeederNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="YDRMeasurement" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="YDRUOM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="YDRBatchNo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="YDRCK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MasterReportView">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="OrderNo" />
+      <PropertyRef Name="Color" />
+      <PropertyRef Name="BarCode" />
+      <PropertyRef Name="FabricTypeID" />
+      <PropertyRef Name="BuyerID" />
+      <PropertyRef Name="BatchNo" />
+      <PropertyRef Name="RefNo" />
+      <PropertyRef Name="Season" />
+      <PropertyRef Name="CompositionTypeID" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="OrderNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Color" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BarCode" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BuyerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FabricTypeID" Type="Int32" Nullable="false" />
+    <Property Name="BuyerID" Type="Int32" Nullable="false" />
+    <Property Name="BatchNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RefNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Season" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CreateTime" Type="DateTime" Precision="3" />
+    <Property Name="CompositionTypeID" Type="Int32" Nullable="false" />
+    <Property Name="CreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Composition" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="UpdateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="FabricTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Version" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="GreyGSM" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="YarnTension" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="LycraTension" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="GreyDia" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ReqDia" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ReqGSM" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="SL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="McSpeed" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="ErpNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="McDia" Type="Int32" />
+    <Property Name="McGauge" Type="Int32" />
+    <Property Name="McBrand" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="McNo" Type="Int32" />
+    <Property Name="CWMcNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CWSEWidth" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="CWWashDia" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="CWWELength" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="CWSpeed" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="CWChemical" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="CWTemp" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="HPTemp" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="HPSpeed" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="HPTime" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="HPFeed" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="HPStrech" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="HPChemical" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="HPDia" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="HPGSM" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="HPShrinkage" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="HSPMcNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SFHBurner1" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="SFHBurner2" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="SFWBurner1" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="SFWBurner2" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="SSpeed" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="SBurner" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="SFlamePosition" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="DMC" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="DSpeed" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="DEnzy" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Recipe" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
+    <Property Name="RecipeNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Comments" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="DyeingTime" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Dyebath" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Whiteness" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="RFT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DyeingDate" Type="DateTime" Precision="0" />
+    <Property Name="History" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="STTemp" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="STFeed" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="STSpeed" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="STStreching" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="STChemical" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="STDia" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="STGSM" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="STShrinkage" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="STRemarks" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="StenterMcNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SProduction" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DRTemp" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="DRFeed" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="DRSpeed" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="DRStreching" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="DRChemical" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="DRDia" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="DRGSM" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="DRShrinkage" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Remarks" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="DryerMcNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CTemp" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="CFeed" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="CSpeed" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="CSteam" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="CDia" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="CGSM" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="CRemarks" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="CCompaction" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="CProduction" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CompactingMcNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PTaker" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="PPlaiter" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="PReturn" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="PTension" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="PRPM" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="PBrush" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="PSpeed" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="PDia" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="PGSM" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="PRemarks" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="BUpperPile" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="BUpperCounterPile" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="BUpperDrumTension" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="BUpperDrumRPM" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="BLowerPile" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="BLowerCounterPile" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="BLowerDrumTension" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="BLowerDrumRPM" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="BRemarks" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="STProductionTypeID" Type="Int32" />
+    <Property Name="CProductionTypeID" Type="Int32" />
+    <Property Name="PrintCoverage" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="OtherInfo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="PrintMcNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PrintFactory" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PrintName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="QDia" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="QGSM" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="QShrinkage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="QWash" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="QWater" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="QAcid" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="QAlkhali" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="QBursting" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="QPilling" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="QStrech" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="QRecovery" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="BSpeed" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="KnitID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="YDView">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="KnitID" />
+      <PropertyRef Name="YDCountID" />
+      <PropertyRef Name="YDCompositionID" />
+      <PropertyRef Name="YDYarnTypeID" />
+      <PropertyRef Name="YDYarnColorID" />
+      <PropertyRef Name="YDSupplierID" />
+      <PropertyRef Name="Lot" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="KnitID" Type="Int32" Nullable="false" />
+    <Property Name="YDCountID" Type="Int32" Nullable="false" />
+    <Property Name="YDCompositionID" Type="Int32" Nullable="false" />
+    <Property Name="YDYarnTypeID" Type="Int32" Nullable="false" />
+    <Property Name="YDYarnColorID" Type="Int32" Nullable="false" />
+    <Property Name="YDSupplierID" Type="Int32" Nullable="false" />
+    <Property Name="Lot" Type="Int32" Nullable="false" />
+    <Property Name="TPI" Type="Int32" />
+    <Property Name="YarnCount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="YarnComposition" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="YarnName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="YarnSupplier" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="YarnColor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityContainer Name="TextileResearchDevelopmentEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="YarnDyedRepeats" EntityType="Self.YarnDyedRepeat" />
+    <EntitySet Name="MasterReportViews" EntityType="Self.MasterReportView" />
+    <EntitySet Name="YDViews" EntityType="Self.YDView" />
+  </EntityContainer>
+</Schema>

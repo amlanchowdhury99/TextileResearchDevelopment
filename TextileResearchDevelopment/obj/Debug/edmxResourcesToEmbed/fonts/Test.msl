@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TextileResearchDevelopmentModelStoreContainer" CdmEntityContainer="TextileResearchDevelopmentEntities">
+    <EntitySetMapping Name="Fabrics">
+      <EntityTypeMapping TypeName="TextileResearchDevelopmentModel.Fabric">
+        <MappingFragment StoreEntitySet="Fabric">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BarCode" ColumnName="BarCode" />
+          <ScalarProperty Name="BuyerID" ColumnName="BuyerID" />
+          <ScalarProperty Name="FabricTypeID" ColumnName="FabricTypeID" />
+          <ScalarProperty Name="CompositionTypeID" ColumnName="CompositionTypeID" />
+          <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+          <ScalarProperty Name="BatchNo" ColumnName="BatchNo" />
+          <ScalarProperty Name="Season" ColumnName="Season" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+          <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+          <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

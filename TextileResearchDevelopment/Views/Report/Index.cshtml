@@ -15,7 +15,7 @@
 <div id="MainDiv">
 
     <ul id="MainContextMenu" class="dropdown-menu" role="menu" style="display:none">
-        <li><a tabindex="-1" href="#">Show Report</a></li>
+        <li><a tabindex="-1" href="#">Print Report</a></li>
     </ul>
 
     <div class="panel panel-default ">
@@ -67,7 +67,7 @@
                 <div class="form-group col-xs-4 form-inline">
                     <button class="btn btn-warning btn-sm" style="width:35%;" id="resetFabricBtn">Reset</button>
                     <div style="display: inline;">
-                        <button type="submit" id="searchFabricBtn" class="btn btn-primary btn-sm" style="width:60%;">Search</button>
+                        <button type="submit" id="searchFabricBtn" class="btn btn-primary btn-sm" style="width:35%;">Search</button>
                     </div>
                 </div>
             </div>
@@ -337,7 +337,6 @@
         $("#Reporttable tbody").contextMenu({
             menuSelector: "#MainContextMenu",
             menuSelected: function (invokedOn, selectedMenu) {
-                debugger;
                 ShowReport();
             }
         });
@@ -352,7 +351,8 @@
             }
         }
 
-        function ShowReport() {
+        $("#resetFabricBtn").click(function () {
+            event.preventDefault();
             debugger;
             var Row = Reporttable.rows('.selected').data()[0];
 
@@ -367,8 +367,23 @@
                 dataType: "json",
                 data: JSON.stringify(fabric),
                 success: function (data) {
+
                 }
             });
+        });
+
+        function ShowReport() {
+            debugger;
+            var Row = Reporttable.rows('.selected').data()[0];
+
+            var fabric = {
+                BarCode: Row.BarCode
+            };
+
+            var actionUrl = '@Url.Action("ShowReport", "Report", new { BarCode = "Parameter" })';
+            actionUrl = actionUrl.replace("Parameter", fabric.BarCode);
+
+            window.open(actionUrl, '_blank');
         }
 
     });
