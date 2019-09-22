@@ -23,6 +23,7 @@
 <div id="MainDiv">
 
     <ul id="MainContextMenu" class="dropdown-menu" role="menu" style="display:none">
+        <li id="CDelete"><a tabindex="-1" href="#">Delete</a></li>
         <li id="CReset"><a tabindex="-1" href="#">Reset</a></li>
     </ul>
 
@@ -305,6 +306,7 @@
                     <th>BatchNo</th>
                     <th>Season</th>
                     <th>Version</th>
+                    <th>Status</th>
                     <th>Create Time</th>
                     <th>Create By</th>
                     <th>Update Time</th>
@@ -329,6 +331,7 @@
                     <th>BatchNo</th>
                     <th>Season</th>
                     <th>Version</th>
+                    <th>Status</th>
                     <th>Create Time</th>
                     <th>Create By</th>
                     <th>Update Time</th>
@@ -1189,6 +1192,7 @@
                 { "data": "BatchNo" },
                 { "data": "Season" },
                 { "data": "Version" },
+                { "data": "Status" },
                 {
                     data: "CreateTime",
                     render: function (data, type, row) {
@@ -1242,7 +1246,18 @@
             menuSelector: "#MainContextMenu",
             menuSelected: function (invokedOn, selectedMenu) {
                 debugger;
-                ResetFabric();
+
+                var Status = fabricTable.rows('.selected').data()[0].Status;
+
+                if (Status == "Idle") {
+                    if (selectedMenu.text() == "Delete")
+                        DeleteRow();
+                    if (selectedMenu.text() == "Reset")
+                        ResetFabric();  
+                }
+                else {
+                    alert("This fabrci is already used!!!")
+                }
             }
         });
 
@@ -1270,6 +1285,33 @@
                     }
                     else {
                         alert("Failed to Reset Fabric!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        };
+
+        function DeleteRow() {
+            event.preventDefault();
+            var Row = fabricTable.rows('.selected').data()[0];
+
+            $.ajax({
+                type: "POST",
+                url: "/Fabric/Delete",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({ "Id": Row.Id, "BarCode": Row.BarCode }),
+                success: function (response) {
+                    debugger
+                    if (response = "Success") {
+                        fabricTable.row('.selected').remove().draw(false);
+                        Reset();
+                    }
+                    else {
+                        alert("Failed to Delete!!!");
                         return;
                     }
                 },

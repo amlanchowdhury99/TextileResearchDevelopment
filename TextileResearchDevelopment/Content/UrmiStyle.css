@@ -16,6 +16,10 @@ dt-button {
     opacity: 0.7;
 }
 
+.foot {
+    text-transform: uppercase;
+}
+
 .footer-w3l {
     position: fixed;
     height: 70px;

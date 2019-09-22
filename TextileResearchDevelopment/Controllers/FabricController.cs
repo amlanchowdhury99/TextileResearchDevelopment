@@ -156,14 +156,14 @@ namespace TextileResearchDevelopment.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(int Id)
+        public ActionResult Delete(int Id, string BarCode)
         {
             Boolean Result = false;
             try
             {
                 if (Id > 0)
                 {
-                    Result = FabricBLL.DeleteFabric(Id);
+                    Result = FabricBLL.DeleteFabric(Id, BarCode);
                 }
 
                 if (Result)

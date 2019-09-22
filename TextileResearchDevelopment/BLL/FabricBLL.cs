@@ -543,7 +543,7 @@ namespace TextileResearchDevelopment.BLL
                 else
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "INSERT INTO Fabric (BuyerID, FabricTypeID, CompositionTypeID, OrderNo, Color, RefNo, BatchNo, Season, CreateBy, CreateTime, UpdateTime, Barcode, Version) VALUES(" + fabric.buyer.Id + "," + fabric.fb.Id + "," + fabric.cm.Id + ",'" + fabric.OrderNo + "','" + fabric.Color + "','" + fabric.RefNo + "','" + fabric.BatchNo + "','" + fabric.Season + "',(" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "','" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "','" + fabric.BarCode + "', '" + fabric.Version + "')";
+                    query = "INSERT INTO Fabric (BuyerID, FabricTypeID, CompositionTypeID, OrderNo, Color, RefNo, BatchNo, Season, Status, CreateBy, CreateTime, UpdateTime, Barcode, Version) VALUES(" + fabric.buyer.Id + "," + fabric.fb.Id + "," + fabric.cm.Id + ",'" + fabric.OrderNo + "','" + fabric.Color + "','" + fabric.RefNo + "','" + fabric.BatchNo + "','" + fabric.Season + "', 0 ,(" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "','" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "','" + fabric.BarCode + "', '" + fabric.Version + "')";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
                         AddFabricProcess(fabric);
@@ -629,6 +629,7 @@ namespace TextileResearchDevelopment.BLL
                 fabric.cm.Composition = reader["Composition"].ToString();
                 fabric.OrderNo = reader["OrderNo"].ToString();
                 fabric.Color = reader["Color"].ToString();
+                fabric.Status = Convert.ToInt32(reader["Status"]) == 0 ? "Idle" : "On Progress";
                 fabric.Season = reader["Season"].ToString();
                 fabric.RefNo = reader["RefNo"].ToString();
                 fabric.BatchNo = reader["BatchNo"].ToString();
@@ -671,14 +672,53 @@ namespace TextileResearchDevelopment.BLL
             return ua;
         }
 
-        internal static bool DeleteFabric(int Id)
+        internal static bool DeleteFabric(int Id, string BarCode)
         {
+            SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); cm.Connection = cn; cn.Open();
             try
             {
                 string query = "DELETE FROM Fabric WHERE Id = " + Id;
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    return true;
+                    query = " SELECT * FROM FabricProcess WHERE BarCode = '" + BarCode + "'";
+                    SqlDataReader reader = DBGateway.GetFromDB(query);
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            var columnsName = Enumerable.Range(0, reader.FieldCount).Select(reader.GetName).ToList();
+                            columnsName.RemoveRange(0, 2);
+
+                            foreach (var i in columnsName)
+                            {
+                                if (i.ToString() == "Knit")
+                                {
+                                    cm.CommandText = "DELETE YarnDetails WHERE KnitID = (SELECT Id FROM Knitting WHERE FabricID = "+Id+")";
+                                    cm.ExecuteNonQuery();
+                                    cm.CommandText = "DELETE YarnDyedRepeat WHERE KnitID = (SELECT Id FROM Knitting WHERE FabricID = " + Id + ")";
+                                    cm.ExecuteNonQuery();
+                                    cm.CommandText = "DELETE Knitting WHERE FabricID = " + Id;
+                                    cm.ExecuteNonQuery();
+                                    
+                                }
+                                else if (i.ToString() == "CW")
+                                {
+                                    cm.CommandText = "DELETE ContinueWashing WHERE FabricID = " + Id;
+                                    cm.ExecuteNonQuery();
+                                }
+                                else if (i.ToString() == "Print")
+                                {
+                                    cm.CommandText = "DELETE PrintInfo WHERE FabricID = " + Id;
+                                    cm.ExecuteNonQuery();
+                                }
+                                else
+                                {
+                                    cm.CommandText = "DELETE " + i.ToString() + " WHERE FabricID = " + Id;
+                                    cm.ExecuteNonQuery();
+                                }
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -687,12 +727,13 @@ namespace TextileResearchDevelopment.BLL
             }
             finally
             {
+                cn.Close();
                 if (DBGateway.connection.State == ConnectionState.Open)
                 {
                     DBGateway.connection.Close();
                 }
             }
-            return false;
+            return true;
         }
 
         internal static bool DeleteBuyer(int Id)
