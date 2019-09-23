@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TextileResearchDevelopmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TextileResearchDevelopmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="YarnDyedRepeat">
           <Key>
             <PropertyRef Name="Id" />
@@ -170,6 +170,7 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.MasterReportView' d
           <Property Name="QRecovery" Type="varchar" MaxLength="100" />
           <Property Name="BSpeed" Type="varchar" MaxLength="50" />
           <Property Name="KnitID" Type="int" />
+          <Property Name="UpdateTime" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -191,13 +192,13 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
           <Property Name="YDYarnTypeID" Type="int" Nullable="false" />
           <Property Name="YDYarnColorID" Type="int" Nullable="false" />
           <Property Name="YDSupplierID" Type="int" Nullable="false" />
-          <Property Name="Lot" Type="int" Nullable="false" />
-          <Property Name="TPI" Type="int" />
           <Property Name="YarnCount" Type="varchar" MaxLength="50" />
           <Property Name="YarnComposition" Type="varchar" MaxLength="50" />
           <Property Name="YarnName" Type="varchar" MaxLength="50" />
           <Property Name="YarnSupplier" Type="varchar" MaxLength="150" />
           <Property Name="YarnColor" Type="varchar" MaxLength="50" />
+          <Property Name="Lot" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TPI" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="TextileResearchDevelopmentModelStoreContainer">
           <EntitySet Name="YarnDyedRepeat" EntityType="Self.YarnDyedRepeat" Schema="dbo" store:Type="Tables" />
@@ -338,7 +339,8 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
     [MasterReportView].[QStrech] AS [QStrech], 
     [MasterReportView].[QRecovery] AS [QRecovery], 
     [MasterReportView].[BSpeed] AS [BSpeed], 
-    [MasterReportView].[KnitID] AS [KnitID]
+    [MasterReportView].[KnitID] AS [KnitID], 
+    [MasterReportView].[UpdateTime] AS [UpdateTime]
     FROM [dbo].[MasterReportView] AS [MasterReportView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="YDView" EntityType="Self.YDView" store:Type="Views" store:Schema="dbo">
@@ -350,18 +352,17 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
     [YDView].[YDYarnTypeID] AS [YDYarnTypeID], 
     [YDView].[YDYarnColorID] AS [YDYarnColorID], 
     [YDView].[YDSupplierID] AS [YDSupplierID], 
-    [YDView].[Lot] AS [Lot], 
-    [YDView].[TPI] AS [TPI], 
     [YDView].[YarnCount] AS [YarnCount], 
     [YDView].[YarnComposition] AS [YarnComposition], 
     [YDView].[YarnName] AS [YarnName], 
     [YDView].[YarnSupplier] AS [YarnSupplier], 
-    [YDView].[YarnColor] AS [YarnColor]
+    [YDView].[YarnColor] AS [YarnColor], 
+    [YDView].[Lot] AS [Lot], 
+    [YDView].[TPI] AS [TPI]
     FROM [dbo].[YDView] AS [YDView]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TextileResearchDevelopmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -528,7 +529,13 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
           <Property Name="QRecovery" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="BSpeed" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="KnitID" Type="Int32" />
+          <Property Name="UpdateTime" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityContainer Name="TextileResearchDevelopmentEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="YarnDyedRepeats" EntityType="Self.YarnDyedRepeat" />
+          <EntitySet Name="MasterReportViews" EntityType="Self.MasterReportView" />
+          <EntitySet Name="YDViews" EntityType="TextileResearchDevelopmentModel.YDView" />
+        </EntityContainer>
         <EntityType Name="YDView">
           <Key>
             <PropertyRef Name="Id" />
@@ -547,19 +554,14 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
           <Property Name="YDYarnTypeID" Type="Int32" Nullable="false" />
           <Property Name="YDYarnColorID" Type="Int32" Nullable="false" />
           <Property Name="YDSupplierID" Type="Int32" Nullable="false" />
-          <Property Name="Lot" Type="Int32" Nullable="false" />
-          <Property Name="TPI" Type="Int32" />
           <Property Name="YarnCount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="YarnComposition" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="YarnName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="YarnSupplier" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="YarnColor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lot" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TPI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityContainer Name="TextileResearchDevelopmentEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="YarnDyedRepeats" EntityType="Self.YarnDyedRepeat" />
-          <EntitySet Name="MasterReportViews" EntityType="Self.MasterReportView" />
-          <EntitySet Name="YDViews" EntityType="Self.YDView" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -720,26 +722,27 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
                 <ScalarProperty Name="QRecovery" ColumnName="QRecovery" />
                 <ScalarProperty Name="BSpeed" ColumnName="BSpeed" />
                 <ScalarProperty Name="KnitID" ColumnName="KnitID" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="YDViews">
             <EntityTypeMapping TypeName="TextileResearchDevelopmentModel.YDView">
               <MappingFragment StoreEntitySet="YDView">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="KnitID" ColumnName="KnitID" />
-                <ScalarProperty Name="YDCountID" ColumnName="YDCountID" />
-                <ScalarProperty Name="YDCompositionID" ColumnName="YDCompositionID" />
-                <ScalarProperty Name="YDYarnTypeID" ColumnName="YDYarnTypeID" />
-                <ScalarProperty Name="YDYarnColorID" ColumnName="YDYarnColorID" />
-                <ScalarProperty Name="YDSupplierID" ColumnName="YDSupplierID" />
-                <ScalarProperty Name="Lot" ColumnName="Lot" />
                 <ScalarProperty Name="TPI" ColumnName="TPI" />
-                <ScalarProperty Name="YarnCount" ColumnName="YarnCount" />
-                <ScalarProperty Name="YarnComposition" ColumnName="YarnComposition" />
-                <ScalarProperty Name="YarnName" ColumnName="YarnName" />
-                <ScalarProperty Name="YarnSupplier" ColumnName="YarnSupplier" />
+                <ScalarProperty Name="Lot" ColumnName="Lot" />
                 <ScalarProperty Name="YarnColor" ColumnName="YarnColor" />
+                <ScalarProperty Name="YarnSupplier" ColumnName="YarnSupplier" />
+                <ScalarProperty Name="YarnName" ColumnName="YarnName" />
+                <ScalarProperty Name="YarnComposition" ColumnName="YarnComposition" />
+                <ScalarProperty Name="YarnCount" ColumnName="YarnCount" />
+                <ScalarProperty Name="YDSupplierID" ColumnName="YDSupplierID" />
+                <ScalarProperty Name="YDYarnColorID" ColumnName="YDYarnColorID" />
+                <ScalarProperty Name="YDYarnTypeID" ColumnName="YDYarnTypeID" />
+                <ScalarProperty Name="YDCompositionID" ColumnName="YDCompositionID" />
+                <ScalarProperty Name="YDCountID" ColumnName="YDCountID" />
+                <ScalarProperty Name="KnitID" ColumnName="KnitID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -252,7 +252,7 @@ namespace TextileResearchDevelopment.BLL
                 print.prt.Id = Convert.ToInt32(reader["PrintTypeID"]);
                 print.prt.PrintName = reader["PrintName"].ToString();
                 print.PrintCoverage = reader["PrintCoverage"].ToString();
-                print.OtherInfo = reader["OtherInfo"].ToString();
+                print.OtherInfo = reader["OtherInfo"] == DBNull.Value ? "" : reader["OtherInfo"].ToString();
 
                 print.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
                 print.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);

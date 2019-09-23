@@ -212,13 +212,13 @@ namespace TextileResearchDevelopment.BLL
 
                 dyeing.rft.Id = Convert.ToInt32(reader["RFTNoID"]);
                 dyeing.rft.RFT = reader["RFT"].ToString();
-                dyeing.hs.Id = Convert.ToInt32(reader["HistoryID"]);
-                dyeing.hs.History = reader["History"].ToString();
+                dyeing.hs.Id = reader["HistoryID"] == DBNull.Value ? 0 : Convert.ToInt32(reader["HistoryID"]);
+                dyeing.hs.History = reader["History"] == DBNull.Value ? "" : reader["History"].ToString();
                 dyeing.McNo = reader["DMC"].ToString();
                 dyeing.Speed = reader["DSpeed"].ToString();
                 dyeing.Enzyme = reader["DEnzy"].ToString();
                 dyeing.Recipe = reader["Recipe"].ToString();
-                dyeing.RecipeNo = reader["RecipeNo"].ToString();
+                dyeing.RecipeNo = reader["RecipeNo"] == DBNull.Value ? "" : reader["RecipeNo"].ToString();
                 dyeing.Time = reader["DyeingTime"].ToString();
                 dyeing.DyeingDate = reader.IsDBNull(reader.GetOrdinal("DyeingDate")) == true ? (DateTime?)null : Convert.ToDateTime(reader["DyeingDate"]);
                 dyeing.PH = reader["Dyebath"].ToString();

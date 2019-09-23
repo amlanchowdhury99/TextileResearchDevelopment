@@ -1,19 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="TextileResearchDevelopmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="YarnDyedRepeat">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="KnitID" Type="Int32" Nullable="false" />
-    <Property Name="YDRRepeat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="YDRColor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="YDRFeederNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="YDRMeasurement" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="YDRUOM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="YDRBatchNo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="YDRCK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-  </EntityType>
+  <EntityContainer Name="TextileResearchDevelopmentEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="MasterReportViews" EntityType="TextileResearchDevelopmentModel.MasterReportView" />
+    <EntitySet Name="YDViews" EntityType="TextileResearchDevelopmentModel.YDView" />
+    <EntitySet Name="YarnDyedRepeats" EntityType="TextileResearchDevelopmentModel.YarnDyedRepeat" />
+  </EntityContainer>
   <EntityType Name="MasterReportView">
     <Key>
       <PropertyRef Name="Id" />
@@ -28,15 +19,15 @@
       <PropertyRef Name="CompositionTypeID" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="OrderNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Color" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="BarCode" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="OrderNo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Color" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="BarCode" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="BuyerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="FabricTypeID" Type="Int32" Nullable="false" />
     <Property Name="BuyerID" Type="Int32" Nullable="false" />
-    <Property Name="BatchNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="RefNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Season" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BatchNo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="RefNo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Season" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="CreateTime" Type="DateTime" Precision="3" />
     <Property Name="CompositionTypeID" Type="Int32" Nullable="false" />
     <Property Name="CreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -163,6 +154,7 @@
     <Property Name="QRecovery" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="BSpeed" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="KnitID" Type="Int32" />
+    <Property Name="UpdateTime" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="YDView">
     <Key>
@@ -182,17 +174,26 @@
     <Property Name="YDYarnTypeID" Type="Int32" Nullable="false" />
     <Property Name="YDYarnColorID" Type="Int32" Nullable="false" />
     <Property Name="YDSupplierID" Type="Int32" Nullable="false" />
-    <Property Name="Lot" Type="Int32" Nullable="false" />
-    <Property Name="TPI" Type="Int32" />
+    <Property Name="Lot" Type="String" Nullable="false" />
+    <Property Name="TPI" Type="String" />
     <Property Name="YarnCount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="YarnComposition" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="YarnName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="YarnSupplier" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="YarnColor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
-  <EntityContainer Name="TextileResearchDevelopmentEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="YarnDyedRepeats" EntityType="Self.YarnDyedRepeat" />
-    <EntitySet Name="MasterReportViews" EntityType="Self.MasterReportView" />
-    <EntitySet Name="YDViews" EntityType="Self.YDView" />
-  </EntityContainer>
+  <EntityType Name="YarnDyedRepeat">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KnitID" Type="Int32" Nullable="false" />
+    <Property Name="YDRRepeat" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="YDRColor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="YDRFeederNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="YDRMeasurement" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="YDRUOM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="YDRBatchNo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="YDRCK" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>

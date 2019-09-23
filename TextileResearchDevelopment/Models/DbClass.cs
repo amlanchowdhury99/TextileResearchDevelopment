@@ -89,6 +89,24 @@ namespace TextileResearchDevelopment.Models
 
     }
 
+    public static class NullHelpers
+    {
+        public static string DateToString(object obj)
+        {
+            if (obj == null)
+            {
+                return "";
+            }
+
+            if ((DateTime)obj == DateTime.MinValue)
+            {
+                return "";
+            }
+
+            return ((DateTime)obj).ToString("dd/MM/yyyy");
+        }
+    }
+
     public class Buyer
     {
         public int Id { get; set; }

@@ -144,14 +144,14 @@ namespace TextileResearchDevelopment.BLL
                 qc.Dia = reader["QDia"].ToString();
                 qc.GSM = reader["QGSM"].ToString();
                 qc.Shrinkage = reader["QShrinkage"].ToString();
-                qc.Wash = reader["QWash"].ToString();
-                qc.Water = reader["QWater"].ToString();
-                qc.Acid = reader["QAcid"].ToString();
-                qc.Alkhali = reader["QAlkhali"].ToString();
-                qc.Bursting = reader["QBursting"].ToString();
-                qc.Pilling = reader["QPilling"].ToString();
-                qc.Strech = reader["QStrech"].ToString();
-                qc.Recovery = reader["QRecovery"].ToString();
+                qc.Wash = reader["QWash"] == DBNull.Value ? "" : reader["QWash"].ToString();
+                qc.Water = reader["QWater"] == DBNull.Value ? "" : reader["QWater"].ToString();
+                qc.Acid = reader["QAcid"] == DBNull.Value ? "" : reader["QAcid"].ToString();
+                qc.Alkhali = reader["QAlkhali"] == DBNull.Value ? "" : reader["QAlkhali"].ToString();
+                qc.Bursting = reader["QBursting"] == DBNull.Value ? "" : reader["QBursting"].ToString();
+                qc.Pilling = reader["QPilling"] == DBNull.Value ? "" : reader["QPilling"].ToString();
+                qc.Strech = reader["QStrech"] == DBNull.Value ? "" : reader["QStrech"].ToString();
+                qc.Recovery = reader["QRecovery"] == DBNull.Value ? "" : reader["QRecovery"].ToString();
 
                 qc.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
                 qc.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);

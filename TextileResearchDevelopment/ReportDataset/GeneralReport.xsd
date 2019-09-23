@@ -14,7 +14,7 @@
   <xs:element name="GeneralReport" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="GeneralReport" msprop:Generator_UserDSName="GeneralReport">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="YarnDyedRepeat" msprop:Generator_TableClassName="YarnDyedRepeatDataTable" msprop:Generator_TableVarName="tableYarnDyedRepeat" msprop:Generator_TablePropName="YarnDyedRepeat" msprop:Generator_RowDeletingName="YarnDyedRepeatRowDeleting" msprop:Generator_RowChangingName="YarnDyedRepeatRowChanging" msprop:Generator_RowEvHandlerName="YarnDyedRepeatRowChangeEventHandler" msprop:Generator_RowDeletedName="YarnDyedRepeatRowDeleted" msprop:Generator_UserTableName="YarnDyedRepeat" msprop:Generator_RowChangedName="YarnDyedRepeatRowChanged" msprop:Generator_RowEvArgName="YarnDyedRepeatRowChangeEvent" msprop:Generator_RowClassName="YarnDyedRepeatRow">
+        <xs:element name="YarnDyedRepeat" msprop:Generator_TableClassName="YarnDyedRepeatDataTable" msprop:Generator_TableVarName="tableYarnDyedRepeat" msprop:Generator_RowChangedName="YarnDyedRepeatRowChanged" msprop:Generator_TablePropName="YarnDyedRepeat" msprop:Generator_RowDeletingName="YarnDyedRepeatRowDeleting" msprop:Generator_RowChangingName="YarnDyedRepeatRowChanging" msprop:Generator_RowEvHandlerName="YarnDyedRepeatRowChangeEventHandler" msprop:Generator_RowDeletedName="YarnDyedRepeatRowDeleted" msprop:Generator_RowClassName="YarnDyedRepeatRow" msprop:Generator_UserTableName="YarnDyedRepeat" msprop:Generator_RowEvArgName="YarnDyedRepeatRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="YDRRepeat" msprop:Generator_ColumnVarNameInTable="columnYDRRepeat" msprop:Generator_ColumnPropNameInRow="YDRRepeat" msprop:Generator_ColumnPropNameInTable="YDRRepeatColumn" msprop:Generator_UserColumnName="YDRRepeat">
@@ -69,10 +69,10 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="MasterReportView" msprop:Generator_TableClassName="MasterReportViewDataTable" msprop:Generator_TableVarName="tableMasterReportView" msprop:Generator_RowChangedName="MasterReportViewRowChanged" msprop:Generator_TablePropName="MasterReportView" msprop:Generator_RowDeletingName="MasterReportViewRowDeleting" msprop:Generator_RowChangingName="MasterReportViewRowChanging" msprop:Generator_RowEvHandlerName="MasterReportViewRowChangeEventHandler" msprop:Generator_RowDeletedName="MasterReportViewRowDeleted" msprop:Generator_RowClassName="MasterReportViewRow" msprop:Generator_UserTableName="MasterReportView" msprop:Generator_RowEvArgName="MasterReportViewRowChangeEvent">
+        <xs:element name="MasterReportView" msprop:Generator_TableClassName="MasterReportViewDataTable" msprop:Generator_TableVarName="tableMasterReportView" msprop:Generator_TablePropName="MasterReportView" msprop:Generator_RowDeletingName="MasterReportViewRowDeleting" msprop:Generator_RowChangingName="MasterReportViewRowChanging" msprop:Generator_RowEvHandlerName="MasterReportViewRowChangeEventHandler" msprop:Generator_RowDeletedName="MasterReportViewRowDeleted" msprop:Generator_UserTableName="MasterReportView" msprop:Generator_RowChangedName="MasterReportViewRowChanged" msprop:Generator_RowEvArgName="MasterReportViewRowChangeEvent" msprop:Generator_RowClassName="MasterReportViewRow">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:int" />
+              <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:string" />
               <xs:element name="OrderNo" msprop:Generator_ColumnVarNameInTable="columnOrderNo" msprop:Generator_ColumnPropNameInRow="OrderNo" msprop:Generator_ColumnPropNameInTable="OrderNoColumn" msprop:Generator_UserColumnName="OrderNo">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -101,8 +101,8 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="FabricTypeID" msprop:Generator_ColumnVarNameInTable="columnFabricTypeID" msprop:Generator_ColumnPropNameInRow="FabricTypeID" msprop:Generator_ColumnPropNameInTable="FabricTypeIDColumn" msprop:Generator_UserColumnName="FabricTypeID" type="xs:int" />
-              <xs:element name="BuyerID" msprop:Generator_ColumnVarNameInTable="columnBuyerID" msprop:Generator_ColumnPropNameInRow="BuyerID" msprop:Generator_ColumnPropNameInTable="BuyerIDColumn" msprop:Generator_UserColumnName="BuyerID" type="xs:int" />
+              <xs:element name="FabricTypeID" msprop:Generator_ColumnVarNameInTable="columnFabricTypeID" msprop:Generator_ColumnPropNameInRow="FabricTypeID" msprop:Generator_ColumnPropNameInTable="FabricTypeIDColumn" msprop:Generator_UserColumnName="FabricTypeID" type="xs:string" />
+              <xs:element name="BuyerID" msprop:Generator_ColumnVarNameInTable="columnBuyerID" msprop:Generator_ColumnPropNameInRow="BuyerID" msprop:Generator_ColumnPropNameInTable="BuyerIDColumn" msprop:Generator_UserColumnName="BuyerID" type="xs:string" />
               <xs:element name="BatchNo" msprop:Generator_ColumnVarNameInTable="columnBatchNo" msprop:Generator_ColumnPropNameInRow="BatchNo" msprop:Generator_ColumnPropNameInTable="BatchNoColumn" msprop:Generator_UserColumnName="BatchNo">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -124,8 +124,8 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="CreateTime" msprop:Generator_ColumnVarNameInTable="columnCreateTime" msprop:Generator_ColumnPropNameInRow="CreateTime" msprop:Generator_ColumnPropNameInTable="CreateTimeColumn" msprop:Generator_UserColumnName="CreateTime" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="CompositionTypeID" msprop:Generator_ColumnVarNameInTable="columnCompositionTypeID" msprop:Generator_ColumnPropNameInRow="CompositionTypeID" msprop:Generator_ColumnPropNameInTable="CompositionTypeIDColumn" msprop:Generator_UserColumnName="CompositionTypeID" type="xs:int" />
+              <xs:element name="CreateTime" msprop:Generator_ColumnVarNameInTable="columnCreateTime" msprop:Generator_ColumnPropNameInRow="CreateTime" msprop:Generator_ColumnPropNameInTable="CreateTimeColumn" msprop:Generator_UserColumnName="CreateTime" type="xs:string" minOccurs="0" />
+              <xs:element name="CompositionTypeID" msprop:Generator_ColumnVarNameInTable="columnCompositionTypeID" msprop:Generator_ColumnPropNameInRow="CompositionTypeID" msprop:Generator_ColumnPropNameInTable="CompositionTypeIDColumn" msprop:Generator_UserColumnName="CompositionTypeID" type="xs:string" />
               <xs:element name="CreateByName" msprop:Generator_ColumnVarNameInTable="columnCreateByName" msprop:Generator_ColumnPropNameInRow="CreateByName" msprop:Generator_ColumnPropNameInTable="CreateByNameColumn" msprop:Generator_UserColumnName="CreateByName" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -224,8 +224,8 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="McDia" msprop:Generator_ColumnVarNameInTable="columnMcDia" msprop:Generator_ColumnPropNameInRow="McDia" msprop:Generator_ColumnPropNameInTable="McDiaColumn" msprop:Generator_UserColumnName="McDia" type="xs:int" minOccurs="0" />
-              <xs:element name="McGauge" msprop:Generator_ColumnVarNameInTable="columnMcGauge" msprop:Generator_ColumnPropNameInRow="McGauge" msprop:Generator_ColumnPropNameInTable="McGaugeColumn" msprop:Generator_UserColumnName="McGauge" type="xs:int" minOccurs="0" />
+              <xs:element name="McDia" msprop:Generator_ColumnVarNameInTable="columnMcDia" msprop:Generator_ColumnPropNameInRow="McDia" msprop:Generator_ColumnPropNameInTable="McDiaColumn" msprop:Generator_UserColumnName="McDia" type="xs:string" minOccurs="0" />
+              <xs:element name="McGauge" msprop:Generator_ColumnVarNameInTable="columnMcGauge" msprop:Generator_ColumnPropNameInRow="McGauge" msprop:Generator_ColumnPropNameInTable="McGaugeColumn" msprop:Generator_UserColumnName="McGauge" type="xs:string" minOccurs="0" />
               <xs:element name="McBrand" msprop:Generator_ColumnVarNameInTable="columnMcBrand" msprop:Generator_ColumnPropNameInRow="McBrand" msprop:Generator_ColumnPropNameInTable="McBrandColumn" msprop:Generator_UserColumnName="McBrand" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -233,7 +233,7 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="McNo" msprop:Generator_ColumnVarNameInTable="columnMcNo" msprop:Generator_ColumnPropNameInRow="McNo" msprop:Generator_ColumnPropNameInTable="McNoColumn" msprop:Generator_UserColumnName="McNo" type="xs:int" minOccurs="0" />
+              <xs:element name="McNo" msprop:Generator_ColumnVarNameInTable="columnMcNo" msprop:Generator_ColumnPropNameInRow="McNo" msprop:Generator_ColumnPropNameInTable="McNoColumn" msprop:Generator_UserColumnName="McNo" type="xs:string" minOccurs="0" />
               <xs:element name="CWMcNo" msprop:Generator_ColumnVarNameInTable="columnCWMcNo" msprop:Generator_ColumnPropNameInRow="CWMcNo" msprop:Generator_ColumnPropNameInTable="CWMcNoColumn" msprop:Generator_UserColumnName="CWMcNo" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -437,13 +437,6 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Comments" msprop:Generator_ColumnVarNameInTable="columnComments" msprop:Generator_ColumnPropNameInRow="Comments" msprop:Generator_ColumnPropNameInTable="CommentsColumn" msprop:Generator_UserColumnName="Comments" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="150" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
               <xs:element name="DyeingTime" msprop:Generator_ColumnVarNameInTable="columnDyeingTime" msprop:Generator_ColumnPropNameInRow="DyeingTime" msprop:Generator_ColumnPropNameInTable="DyeingTimeColumn" msprop:Generator_UserColumnName="DyeingTime" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -472,7 +465,7 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="DyeingDate" msprop:Generator_ColumnVarNameInTable="columnDyeingDate" msprop:Generator_ColumnPropNameInRow="DyeingDate" msprop:Generator_ColumnPropNameInTable="DyeingDateColumn" msprop:Generator_UserColumnName="DyeingDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DyeingDate" msprop:Generator_ColumnVarNameInTable="columnDyeingDate" msprop:Generator_ColumnPropNameInRow="DyeingDate" msprop:Generator_ColumnPropNameInTable="DyeingDateColumn" msprop:Generator_UserColumnName="DyeingDate" type="xs:string" minOccurs="0" />
               <xs:element name="History" msprop:Generator_ColumnVarNameInTable="columnHistory" msprop:Generator_ColumnPropNameInRow="History" msprop:Generator_ColumnPropNameInTable="HistoryColumn" msprop:Generator_UserColumnName="History" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -830,8 +823,8 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="STProductionTypeID" msprop:Generator_ColumnVarNameInTable="columnSTProductionTypeID" msprop:Generator_ColumnPropNameInRow="STProductionTypeID" msprop:Generator_ColumnPropNameInTable="STProductionTypeIDColumn" msprop:Generator_UserColumnName="STProductionTypeID" type="xs:int" minOccurs="0" />
-              <xs:element name="CProductionTypeID" msprop:Generator_ColumnVarNameInTable="columnCProductionTypeID" msprop:Generator_ColumnPropNameInRow="CProductionTypeID" msprop:Generator_ColumnPropNameInTable="CProductionTypeIDColumn" msprop:Generator_UserColumnName="CProductionTypeID" type="xs:int" minOccurs="0" />
+              <xs:element name="STProductionTypeID" msprop:Generator_ColumnVarNameInTable="columnSTProductionTypeID" msprop:Generator_ColumnPropNameInRow="STProductionTypeID" msprop:Generator_ColumnPropNameInTable="STProductionTypeIDColumn" msprop:Generator_UserColumnName="STProductionTypeID" type="xs:string" minOccurs="0" />
+              <xs:element name="CProductionTypeID" msprop:Generator_ColumnVarNameInTable="columnCProductionTypeID" msprop:Generator_ColumnPropNameInRow="CProductionTypeID" msprop:Generator_ColumnPropNameInTable="CProductionTypeIDColumn" msprop:Generator_UserColumnName="CProductionTypeID" type="xs:string" minOccurs="0" />
               <xs:element name="PrintCoverage" msprop:Generator_ColumnVarNameInTable="columnPrintCoverage" msprop:Generator_ColumnPropNameInRow="PrintCoverage" msprop:Generator_ColumnPropNameInTable="PrintCoverageColumn" msprop:Generator_UserColumnName="PrintCoverage" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
@@ -951,11 +944,12 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="KnitID" msprop:Generator_ColumnVarNameInTable="columnKnitID" msprop:Generator_ColumnPropNameInRow="KnitID" msprop:Generator_ColumnPropNameInTable="KnitIDColumn" msprop:Generator_UserColumnName="KnitID" type="xs:int" minOccurs="0" />
+              <xs:element name="KnitID" msprop:Generator_ColumnVarNameInTable="columnKnitID" msprop:Generator_ColumnPropNameInRow="KnitID" msprop:Generator_ColumnPropNameInTable="KnitIDColumn" msprop:Generator_UserColumnName="KnitID" type="xs:string" minOccurs="0" />
+              <xs:element name="UpdateTime" msprop:Generator_ColumnVarNameInTable="columnUpdateTime" msprop:Generator_ColumnPropNameInRow="UpdateTime" msprop:Generator_ColumnPropNameInTable="UpdateTimeColumn" msprop:Generator_UserColumnName="UpdateTime" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="YDView" msprop:Generator_TableClassName="YDViewDataTable" msprop:Generator_TableVarName="tableYDView" msprop:Generator_RowChangedName="YDViewRowChanged" msprop:Generator_TablePropName="YDView" msprop:Generator_RowDeletingName="YDViewRowDeleting" msprop:Generator_RowChangingName="YDViewRowChanging" msprop:Generator_RowEvHandlerName="YDViewRowChangeEventHandler" msprop:Generator_RowDeletedName="YDViewRowDeleted" msprop:Generator_RowClassName="YDViewRow" msprop:Generator_UserTableName="YDView" msprop:Generator_RowEvArgName="YDViewRowChangeEvent">
+        <xs:element name="YDView" msprop:Generator_TableClassName="YDViewDataTable" msprop:Generator_TableVarName="tableYDView" msprop:Generator_TablePropName="YDView" msprop:Generator_RowDeletingName="YDViewRowDeleting" msprop:Generator_RowChangingName="YDViewRowChanging" msprop:Generator_RowEvHandlerName="YDViewRowChangeEventHandler" msprop:Generator_RowDeletedName="YDViewRowDeleted" msprop:Generator_UserTableName="YDView" msprop:Generator_RowChangedName="YDViewRowChanged" msprop:Generator_RowEvArgName="YDViewRowChangeEvent" msprop:Generator_RowClassName="YDViewRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Lot" msprop:Generator_ColumnVarNameInTable="columnLot" msprop:Generator_ColumnPropNameInRow="Lot" msprop:Generator_ColumnPropNameInTable="LotColumn" msprop:Generator_UserColumnName="Lot" type="xs:string" />

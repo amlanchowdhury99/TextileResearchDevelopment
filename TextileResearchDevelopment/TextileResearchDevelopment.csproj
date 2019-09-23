@@ -174,23 +174,23 @@
     <Compile Include="Models\Dryer.cs" />
     <Compile Include="Models\Fabric.cs" />
     <Compile Include="Models\HSP.cs" />
-    <Compile Include="Models\MasterReport.Context.cs">
+    <Compile Include="Models\MasterReportModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MasterReport.Context.tt</DependentUpon>
+      <DependentUpon>MasterReportModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MasterReport.cs">
+    <Compile Include="Models\MasterReportModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MasterReport.tt</DependentUpon>
+      <DependentUpon>MasterReportModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\MasterReport.Designer.cs">
+    <Compile Include="Models\MasterReportModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MasterReport.edmx</DependentUpon>
+      <DependentUpon>MasterReportModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\MasterReportView.cs">
-      <DependentUpon>MasterReport.tt</DependentUpon>
+      <DependentUpon>MasterReportModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Peach.cs" />
     <Compile Include="Models\Print.cs" />
@@ -198,10 +198,10 @@
     <Compile Include="Models\Report.cs" />
     <Compile Include="Models\Singeing.cs" />
     <Compile Include="Models\YarnDyedRepeat.cs">
-      <DependentUpon>MasterReport.tt</DependentUpon>
+      <DependentUpon>MasterReportModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\YDView.cs">
-      <DependentUpon>MasterReport.tt</DependentUpon>
+      <DependentUpon>MasterReportModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ReportDataset\GeneralReport.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -220,18 +220,6 @@
     <Compile Include="Models\Stenter.cs" />
     <Compile Include="Models\TestReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reporting\CrystalReport1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CrystalReport1.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reporting\MasterReport.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MasterReport.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\animate-css\animate.css" />
@@ -272,15 +260,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\MasterReport.Context.tt">
+    <Content Include="Models\MasterReportModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MasterReport.edmx</DependentUpon>
-      <LastGenOutput>MasterReport.Context.cs</LastGenOutput>
+      <DependentUpon>MasterReportModel.edmx</DependentUpon>
+      <LastGenOutput>MasterReportModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\MasterReport.tt">
+    <Content Include="Models\MasterReportModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MasterReport.edmx</DependentUpon>
-      <LastGenOutput>MasterReport.cs</LastGenOutput>
+      <DependentUpon>MasterReportModel.edmx</DependentUpon>
+      <LastGenOutput>MasterReportModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
@@ -317,12 +305,12 @@
     <Content Include="Content\icomoon\fonts\icomoon.woff" />
     <Content Include="Content\_bootstrap-datetimepicker.less" />
     <Content Include="Content\bootstrap-datetimepicker-build.less" />
-    <EntityDeploy Include="Models\MasterReport.edmx">
+    <EntityDeploy Include="Models\MasterReportModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MasterReport.Designer.cs</LastGenOutput>
+      <LastGenOutput>MasterReportModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\MasterReport.edmx.diagram">
-      <DependentUpon>MasterReport.edmx</DependentUpon>
+    <Content Include="Models\MasterReportModel.edmx.diagram">
+      <DependentUpon>MasterReportModel.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="ReportDataset\GeneralReport.xsc">
@@ -362,6 +350,7 @@
     <Content Include="Scripts\pdfmake.min.js" />
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\typeahead.bundle.js" />
+    <Content Include="Scripts\UrmiPlugin.js" />
     <Content Include="Scripts\vfs_fonts.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -412,14 +401,7 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reporting\CrystalReport1.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CrystalReport1.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reporting\MasterReport.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>MasterReport.cs</LastGenOutput>
-    </EmbeddedResource>
+    <Content Include="Reporting\MasterReport.rpt" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

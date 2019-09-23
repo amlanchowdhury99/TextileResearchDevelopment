@@ -811,8 +811,6 @@ namespace TextileResearchDevelopment.ReportDataset {
             
             private global::System.Data.DataColumn columnRecipeNo;
             
-            private global::System.Data.DataColumn columnComments;
-            
             private global::System.Data.DataColumn columnDyeingTime;
             
             private global::System.Data.DataColumn columnDyebath;
@@ -964,6 +962,8 @@ namespace TextileResearchDevelopment.ReportDataset {
             private global::System.Data.DataColumn columnBSpeed;
             
             private global::System.Data.DataColumn columnKnitID;
+            
+            private global::System.Data.DataColumn columnUpdateTime;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -1467,14 +1467,6 @@ namespace TextileResearchDevelopment.ReportDataset {
             public global::System.Data.DataColumn RecipeNoColumn {
                 get {
                     return this.columnRecipeNo;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn CommentsColumn {
-                get {
-                    return this.columnComments;
                 }
             }
             
@@ -2088,6 +2080,14 @@ namespace TextileResearchDevelopment.ReportDataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn UpdateTimeColumn {
+                get {
+                    return this.columnUpdateTime;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2124,18 +2124,18 @@ namespace TextileResearchDevelopment.ReportDataset {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public MasterReportViewRow AddMasterReportViewRow(
-                        int Id, 
+                        string Id, 
                         string OrderNo, 
                         string Color, 
                         string BarCode, 
                         string BuyerName, 
-                        int FabricTypeID, 
-                        int BuyerID, 
+                        string FabricTypeID, 
+                        string BuyerID, 
                         string BatchNo, 
                         string RefNo, 
                         string Season, 
-                        System.DateTime CreateTime, 
-                        int CompositionTypeID, 
+                        string CreateTime, 
+                        string CompositionTypeID, 
                         string CreateByName, 
                         string Composition, 
                         string UpdateByName, 
@@ -2150,10 +2150,10 @@ namespace TextileResearchDevelopment.ReportDataset {
                         string SL, 
                         string McSpeed, 
                         string ErpNo, 
-                        int McDia, 
-                        int McGauge, 
+                        string McDia, 
+                        string McGauge, 
                         string McBrand, 
-                        int McNo, 
+                        string McNo, 
                         string CWMcNo, 
                         string CWSEWidth, 
                         string CWWashDia, 
@@ -2183,12 +2183,11 @@ namespace TextileResearchDevelopment.ReportDataset {
                         string DEnzy, 
                         string Recipe, 
                         string RecipeNo, 
-                        string Comments, 
                         string DyeingTime, 
                         string Dyebath, 
                         string Whiteness, 
                         string RFT, 
-                        System.DateTime DyeingDate, 
+                        string DyeingDate, 
                         string History, 
                         string STTemp, 
                         string STFeed, 
@@ -2240,8 +2239,8 @@ namespace TextileResearchDevelopment.ReportDataset {
                         string BLowerDrumTension, 
                         string BLowerDrumRPM, 
                         string BRemarks, 
-                        int STProductionTypeID, 
-                        int CProductionTypeID, 
+                        string STProductionTypeID, 
+                        string CProductionTypeID, 
                         string PrintCoverage, 
                         string OtherInfo, 
                         string PrintMcNo, 
@@ -2259,7 +2258,8 @@ namespace TextileResearchDevelopment.ReportDataset {
                         string QStrech, 
                         string QRecovery, 
                         string BSpeed, 
-                        int KnitID) {
+                        string KnitID, 
+                        string UpdateTime) {
                 MasterReportViewRow rowMasterReportViewRow = ((MasterReportViewRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Id,
@@ -2321,7 +2321,6 @@ namespace TextileResearchDevelopment.ReportDataset {
                         DEnzy,
                         Recipe,
                         RecipeNo,
-                        Comments,
                         DyeingTime,
                         Dyebath,
                         Whiteness,
@@ -2397,7 +2396,8 @@ namespace TextileResearchDevelopment.ReportDataset {
                         QStrech,
                         QRecovery,
                         BSpeed,
-                        KnitID};
+                        KnitID,
+                        UpdateTime};
                 rowMasterReportViewRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMasterReportViewRow);
                 return rowMasterReportViewRow;
@@ -2479,7 +2479,6 @@ namespace TextileResearchDevelopment.ReportDataset {
                 this.columnDEnzy = base.Columns["DEnzy"];
                 this.columnRecipe = base.Columns["Recipe"];
                 this.columnRecipeNo = base.Columns["RecipeNo"];
-                this.columnComments = base.Columns["Comments"];
                 this.columnDyeingTime = base.Columns["DyeingTime"];
                 this.columnDyebath = base.Columns["Dyebath"];
                 this.columnWhiteness = base.Columns["Whiteness"];
@@ -2556,12 +2555,13 @@ namespace TextileResearchDevelopment.ReportDataset {
                 this.columnQRecovery = base.Columns["QRecovery"];
                 this.columnBSpeed = base.Columns["BSpeed"];
                 this.columnKnitID = base.Columns["KnitID"];
+                this.columnUpdateTime = base.Columns["UpdateTime"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             private void InitClass() {
-                this.columnId = new global::System.Data.DataColumn("Id", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnId = new global::System.Data.DataColumn("Id", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnId);
                 this.columnOrderNo = new global::System.Data.DataColumn("OrderNo", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnOrderNo);
@@ -2571,9 +2571,9 @@ namespace TextileResearchDevelopment.ReportDataset {
                 base.Columns.Add(this.columnBarCode);
                 this.columnBuyerName = new global::System.Data.DataColumn("BuyerName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnBuyerName);
-                this.columnFabricTypeID = new global::System.Data.DataColumn("FabricTypeID", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnFabricTypeID = new global::System.Data.DataColumn("FabricTypeID", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnFabricTypeID);
-                this.columnBuyerID = new global::System.Data.DataColumn("BuyerID", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnBuyerID = new global::System.Data.DataColumn("BuyerID", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnBuyerID);
                 this.columnBatchNo = new global::System.Data.DataColumn("BatchNo", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnBatchNo);
@@ -2581,9 +2581,9 @@ namespace TextileResearchDevelopment.ReportDataset {
                 base.Columns.Add(this.columnRefNo);
                 this.columnSeason = new global::System.Data.DataColumn("Season", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSeason);
-                this.columnCreateTime = new global::System.Data.DataColumn("CreateTime", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                this.columnCreateTime = new global::System.Data.DataColumn("CreateTime", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCreateTime);
-                this.columnCompositionTypeID = new global::System.Data.DataColumn("CompositionTypeID", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnCompositionTypeID = new global::System.Data.DataColumn("CompositionTypeID", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCompositionTypeID);
                 this.columnCreateByName = new global::System.Data.DataColumn("CreateByName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCreateByName);
@@ -2613,13 +2613,13 @@ namespace TextileResearchDevelopment.ReportDataset {
                 base.Columns.Add(this.columnMcSpeed);
                 this.columnErpNo = new global::System.Data.DataColumn("ErpNo", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnErpNo);
-                this.columnMcDia = new global::System.Data.DataColumn("McDia", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnMcDia = new global::System.Data.DataColumn("McDia", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnMcDia);
-                this.columnMcGauge = new global::System.Data.DataColumn("McGauge", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnMcGauge = new global::System.Data.DataColumn("McGauge", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnMcGauge);
                 this.columnMcBrand = new global::System.Data.DataColumn("McBrand", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnMcBrand);
-                this.columnMcNo = new global::System.Data.DataColumn("McNo", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnMcNo = new global::System.Data.DataColumn("McNo", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnMcNo);
                 this.columnCWMcNo = new global::System.Data.DataColumn("CWMcNo", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCWMcNo);
@@ -2679,8 +2679,6 @@ namespace TextileResearchDevelopment.ReportDataset {
                 base.Columns.Add(this.columnRecipe);
                 this.columnRecipeNo = new global::System.Data.DataColumn("RecipeNo", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRecipeNo);
-                this.columnComments = new global::System.Data.DataColumn("Comments", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnComments);
                 this.columnDyeingTime = new global::System.Data.DataColumn("DyeingTime", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDyeingTime);
                 this.columnDyebath = new global::System.Data.DataColumn("Dyebath", typeof(string), null, global::System.Data.MappingType.Element);
@@ -2689,7 +2687,7 @@ namespace TextileResearchDevelopment.ReportDataset {
                 base.Columns.Add(this.columnWhiteness);
                 this.columnRFT = new global::System.Data.DataColumn("RFT", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRFT);
-                this.columnDyeingDate = new global::System.Data.DataColumn("DyeingDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                this.columnDyeingDate = new global::System.Data.DataColumn("DyeingDate", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDyeingDate);
                 this.columnHistory = new global::System.Data.DataColumn("History", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnHistory);
@@ -2793,9 +2791,9 @@ namespace TextileResearchDevelopment.ReportDataset {
                 base.Columns.Add(this.columnBLowerDrumRPM);
                 this.columnBRemarks = new global::System.Data.DataColumn("BRemarks", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnBRemarks);
-                this.columnSTProductionTypeID = new global::System.Data.DataColumn("STProductionTypeID", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnSTProductionTypeID = new global::System.Data.DataColumn("STProductionTypeID", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSTProductionTypeID);
-                this.columnCProductionTypeID = new global::System.Data.DataColumn("CProductionTypeID", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnCProductionTypeID = new global::System.Data.DataColumn("CProductionTypeID", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCProductionTypeID);
                 this.columnPrintCoverage = new global::System.Data.DataColumn("PrintCoverage", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPrintCoverage);
@@ -2831,8 +2829,10 @@ namespace TextileResearchDevelopment.ReportDataset {
                 base.Columns.Add(this.columnQRecovery);
                 this.columnBSpeed = new global::System.Data.DataColumn("BSpeed", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnBSpeed);
-                this.columnKnitID = new global::System.Data.DataColumn("KnitID", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnKnitID = new global::System.Data.DataColumn("KnitID", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnKnitID);
+                this.columnUpdateTime = new global::System.Data.DataColumn("UpdateTime", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUpdateTime);
                 this.columnId.AllowDBNull = false;
                 this.columnOrderNo.AllowDBNull = false;
                 this.columnOrderNo.MaxLength = 150;
@@ -2894,7 +2894,6 @@ namespace TextileResearchDevelopment.ReportDataset {
                 this.columnDEnzy.MaxLength = 150;
                 this.columnRecipe.MaxLength = 350;
                 this.columnRecipeNo.MaxLength = 150;
-                this.columnComments.MaxLength = 150;
                 this.columnDyeingTime.MaxLength = 150;
                 this.columnDyebath.MaxLength = 150;
                 this.columnWhiteness.MaxLength = 150;
@@ -3555,9 +3554,9 @@ namespace TextileResearchDevelopment.ReportDataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int Id {
+            public string Id {
                 get {
-                    return ((int)(this[this.tableMasterReportView.IdColumn]));
+                    return ((string)(this[this.tableMasterReportView.IdColumn]));
                 }
                 set {
                     this[this.tableMasterReportView.IdColumn] = value;
@@ -3615,9 +3614,9 @@ namespace TextileResearchDevelopment.ReportDataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int FabricTypeID {
+            public string FabricTypeID {
                 get {
-                    return ((int)(this[this.tableMasterReportView.FabricTypeIDColumn]));
+                    return ((string)(this[this.tableMasterReportView.FabricTypeIDColumn]));
                 }
                 set {
                     this[this.tableMasterReportView.FabricTypeIDColumn] = value;
@@ -3626,9 +3625,9 @@ namespace TextileResearchDevelopment.ReportDataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int BuyerID {
+            public string BuyerID {
                 get {
-                    return ((int)(this[this.tableMasterReportView.BuyerIDColumn]));
+                    return ((string)(this[this.tableMasterReportView.BuyerIDColumn]));
                 }
                 set {
                     this[this.tableMasterReportView.BuyerIDColumn] = value;
@@ -3670,10 +3669,10 @@ namespace TextileResearchDevelopment.ReportDataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public System.DateTime CreateTime {
+            public string CreateTime {
                 get {
                     try {
-                        return ((global::System.DateTime)(this[this.tableMasterReportView.CreateTimeColumn]));
+                        return ((string)(this[this.tableMasterReportView.CreateTimeColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'CreateTime\' in table \'MasterReportView\' is DBNull.", e);
@@ -3686,9 +3685,9 @@ namespace TextileResearchDevelopment.ReportDataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int CompositionTypeID {
+            public string CompositionTypeID {
                 get {
-                    return ((int)(this[this.tableMasterReportView.CompositionTypeIDColumn]));
+                    return ((string)(this[this.tableMasterReportView.CompositionTypeIDColumn]));
                 }
                 set {
                     this[this.tableMasterReportView.CompositionTypeIDColumn] = value;
@@ -3921,10 +3920,10 @@ namespace TextileResearchDevelopment.ReportDataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int McDia {
+            public string McDia {
                 get {
                     try {
-                        return ((int)(this[this.tableMasterReportView.McDiaColumn]));
+                        return ((string)(this[this.tableMasterReportView.McDiaColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'McDia\' in table \'MasterReportView\' is DBNull.", e);
@@ -3937,10 +3936,10 @@ namespace TextileResearchDevelopment.ReportDataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int McGauge {
+            public string McGauge {
                 get {
                     try {
-                        return ((int)(this[this.tableMasterReportView.McGaugeColumn]));
+                        return ((string)(this[this.tableMasterReportView.McGaugeColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'McGauge\' in table \'MasterReportView\' is DBNull.", e);
@@ -3969,10 +3968,10 @@ namespace TextileResearchDevelopment.ReportDataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int McNo {
+            public string McNo {
                 get {
                     try {
-                        return ((int)(this[this.tableMasterReportView.McNoColumn]));
+                        return ((string)(this[this.tableMasterReportView.McNoColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'McNo\' in table \'MasterReportView\' is DBNull.", e);
@@ -4449,22 +4448,6 @@ namespace TextileResearchDevelopment.ReportDataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Comments {
-                get {
-                    try {
-                        return ((string)(this[this.tableMasterReportView.CommentsColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'Comments\' in table \'MasterReportView\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableMasterReportView.CommentsColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string DyeingTime {
                 get {
                     try {
@@ -4529,10 +4512,10 @@ namespace TextileResearchDevelopment.ReportDataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public System.DateTime DyeingDate {
+            public string DyeingDate {
                 get {
                     try {
-                        return ((global::System.DateTime)(this[this.tableMasterReportView.DyeingDateColumn]));
+                        return ((string)(this[this.tableMasterReportView.DyeingDateColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'DyeingDate\' in table \'MasterReportView\' is DBNull.", e);
@@ -5361,10 +5344,10 @@ namespace TextileResearchDevelopment.ReportDataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int STProductionTypeID {
+            public string STProductionTypeID {
                 get {
                     try {
-                        return ((int)(this[this.tableMasterReportView.STProductionTypeIDColumn]));
+                        return ((string)(this[this.tableMasterReportView.STProductionTypeIDColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'STProductionTypeID\' in table \'MasterReportView\' is DBNull.", e);
@@ -5377,10 +5360,10 @@ namespace TextileResearchDevelopment.ReportDataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int CProductionTypeID {
+            public string CProductionTypeID {
                 get {
                     try {
-                        return ((int)(this[this.tableMasterReportView.CProductionTypeIDColumn]));
+                        return ((string)(this[this.tableMasterReportView.CProductionTypeIDColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'CProductionTypeID\' in table \'MasterReportView\' is DBNull.", e);
@@ -5665,10 +5648,10 @@ namespace TextileResearchDevelopment.ReportDataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int KnitID {
+            public string KnitID {
                 get {
                     try {
-                        return ((int)(this[this.tableMasterReportView.KnitIDColumn]));
+                        return ((string)(this[this.tableMasterReportView.KnitIDColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'KnitID\' in table \'MasterReportView\' is DBNull.", e);
@@ -5676,6 +5659,22 @@ namespace TextileResearchDevelopment.ReportDataset {
                 }
                 set {
                     this[this.tableMasterReportView.KnitIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string UpdateTime {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.UpdateTimeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'UpdateTime\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.UpdateTimeColumn] = value;
                 }
             }
             
@@ -6265,18 +6264,6 @@ namespace TextileResearchDevelopment.ReportDataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetRecipeNoNull() {
                 this[this.tableMasterReportView.RecipeNoColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsCommentsNull() {
-                return this.IsNull(this.tableMasterReportView.CommentsColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetCommentsNull() {
-                this[this.tableMasterReportView.CommentsColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7189,6 +7176,18 @@ namespace TextileResearchDevelopment.ReportDataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetKnitIDNull() {
                 this[this.tableMasterReportView.KnitIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsUpdateTimeNull() {
+                return this.IsNull(this.tableMasterReportView.UpdateTimeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetUpdateTimeNull() {
+                this[this.tableMasterReportView.UpdateTimeColumn] = global::System.Convert.DBNull;
             }
         }
         

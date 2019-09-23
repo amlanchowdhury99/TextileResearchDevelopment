@@ -11,11 +11,7 @@
     <script type="text/javascript" src="~/Scripts/bootstrap3-typeahead.min.js"></script>
     <style>
 
-        .form-group .control-label.required:after {
-            content: "*";
-            color: red;
-            font-size: 18px;
-        }
+
 
         tfoot input {
             width: 100%;
@@ -33,7 +29,6 @@
 <br />
 
 <div id="MainDiv">
-
     <ul id="MainContextMenu" class="dropdown-menu" role="menu" style="        display: none">
         <li id="CDelete"><a tabindex="-1" href="#">Delete</a></li>
         <li id="CApprove"><a tabindex="-1" href="#">Approve</a></li>
@@ -399,20 +394,20 @@
                                 <div class="panel-body">
                                     <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
-                                            <label for="BarCodeSL" class="control-label required" style="        width: 35%;">BarCode</label>
+                                            <label for="BarCodeSL" class="control-label" style="        width: 35%;">BarCode</label>
                                             <div style="        display: inline;">
                                                 <input type="number" class=" form-control" style="        width: 60%;" id="BarCodeSL" min="0" step="1" data-bind="value:BarCodeSL" placeholder="Bar Code" autofocus>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
-                                            <label for="BuyerSL" class="control-label required" style="        width: 35%;">Buyer</label>
+                                            <label for="BuyerSL" class="control-label" style="        width: 35%;">Buyer</label>
                                             <div style="        display: inline;">
                                                 <select name="BuyerSL" id="BuyerSL" style="        width: 60%;
         font-size: 12px;" class="form-control" autofocus></select>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
-                                            <label for="FabricSL" class="control-label required" style="        width: 35%;">Fabric</label>
+                                            <label for="FabricSL" class="control-label" style="        width: 35%;">Fabric</label>
                                             <div style="        display: inline;">
                                                 <select name="FabricSL" id="FabricSL" style="        width: 60%;
         font-size: 12px;" class="form-control" autofocus></select>
@@ -421,20 +416,20 @@
                                     </div>
                                     <div class=" form-group">
                                         <div class="form-group col-xs-4 form-inline">
-                                            <label for="CompositionSL" class="control-label required" style="        width: 35%;">Composition</label>
+                                            <label for="CompositionSL" class="control-label" style="        width: 35%;">Composition</label>
                                             <div style="        display: inline;">
                                                 <select name="CompositionSL" id="CompositionSL" style="        width: 60%;
         font-size: 12px;" class="form-control" autofocus></select>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline ">
-                                            <label for="OrderNoSL" class="control-label required" style="        width: 35%;">Order No</label>
+                                            <label for="OrderNoSL" class="control-label" style="        width: 35%;">Order No</label>
                                             <div style="        display: inline;">
                                                 <input type="text" class=" form-control" style="        width: 60%;" id="OrderNoSL" placeholder="Order No" autofocus>
                                             </div>
                                         </div>
                                         <div class="form-group col-xs-4 form-inline">
-                                            <label for="RefNoSL" class="control-label required" style="        width: 35%;">RefNo</label>
+                                            <label for="RefNoSL" class="control-label" style="        width: 35%;">RefNo</label>
                                             <div style="        display: inline;">
                                                 <input type="text" class=" form-control" style="        width: 60%;" id="RefNoSL" placeholder="Color" autofocus>
                                             </div>
@@ -550,7 +545,7 @@
                                         </div>
                                         <div class=" form-group">
                                             <div class="form-group col-xs-4 form-inline">
-                                                <label for="YDTPI" class="control-label required" style="        width: 35%;">TPI</label>
+                                                <label for="YDTPI" class="control-label" style="        width: 35%;">TPI</label>
                                                 <div style="        display: inline;">
                                                     <input type="text" class="form-control" id="YDTPI" style="        width: 60%;" placeholder="TPI" autofocus>
                                                 </div>
@@ -615,7 +610,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group col-xs-4 form-inline">
-                                                <label for="YDRUOM" class="control-label required" style="        width: 35%;">UOM</label>
+                                                <label for="YDRUOM" class="control-label" style="        width: 35%;">UOM</label>
                                                 <div style="        display: inline;">
                                                     <input type="text" class="form-control" id="YDRUOM" style="        width: 60%;" placeholder="UOM" autofocus>
                                                 </div>
@@ -743,9 +738,9 @@
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="McSpeed" class="control-label required" style="        width: 35%;">Mc Speed</label>
+                        <label for="McSpeed" class="control-label" style="        width: 35%;">Mc Speed</label>
                         <div style="        display: inline;">
-                            <input type="text" class="form-control" style="        width: 60%;" id="McSpeed" placeholder="Machine Speed" required autofocus>
+                            <input type="text" class="form-control" style="        width: 60%;" id="McSpeed" placeholder="Machine Speed" autofocus>
                         </div>
                     </div>
                 </div>
@@ -757,29 +752,29 @@
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="YT" class="control-label required" style="        width: 35%;">Y. Tension</label>
+                        <label for="YT" class="control-label" style="        width: 35%;">Y. Tension</label>
                         <div style="        display: inline;">
-                            <input type="text" class=" form-control" style="        width: 60%;" id="YT" placeholder="Yarn Tension" required autofocus>
+                            <input type="text" class=" form-control" style="        width: 60%;" id="YT" placeholder="Yarn Tension" autofocus>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="LT" class="control-label required" style="        width: 35%;">L. Tension</label>
+                        <label for="LT" class="control-label" style="        width: 35%;">L. Tension</label>
                         <div style="        display: inline;">
-                            <input type="text" class=" form-control" style="        width: 60%;" id="LT" placeholder="Lycra Tension" required autofocus>
+                            <input type="text" class=" form-control" style="        width: 60%;" id="LT" placeholder="Lycra Tension" autofocus>
                         </div>
                     </div>
                 </div>
                 <div class=" form-group">
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="GreyDia" class="control-label required" style="        width: 35%;">Grey Dia</label>
+                        <label for="GreyDia" class="control-label" style="        width: 35%;">Grey Dia</label>
                         <div style="        display: inline;">
-                            <input type="text" class=" form-control" style="        width: 60%;" id="GreyDia" placeholder="Grey Dia" required autofocus>
+                            <input type="text" class=" form-control" style="        width: 60%;" id="GreyDia" placeholder="Grey Dia" autofocus>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="GreyGSM" class="control-label required" style="        width: 35%;">Grey GSM</label>
+                        <label for="GreyGSM" class="control-label" style="        width: 35%;">Grey GSM</label>
                         <div style="        display: inline;">
-                            <input type="text" class=" form-control" style="        width: 60%;" id="GreyGSM" placeholder="Grey GSM" required autofocus>
+                            <input type="text" class=" form-control" style="        width: 60%;" id="GreyGSM" placeholder="Grey GSM" autofocus>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
@@ -797,9 +792,9 @@
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="ReviseStatus" class="control-label required" style="        width: 35%;">Revise Status</label>
+                        <label for="ReviseStatus" class="control-label" style="        width: 35%;">Revise Status</label>
                         <div style="        display: inline;">
-                            <input type="text" class=" form-control" style="        width: 60%;" id="ReviseStatus" placeholder="Req. GSM" readonly>
+                            <input type="text" class=" form-control" style="        width: 60%;" id="ReviseStatus" readonly>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
@@ -3703,16 +3698,28 @@
         $("#knitTable tbody").contextMenu({
             menuSelector: "#MainContextMenu",
             menuSelected: function (invokedOn, selectedMenu) {
-                debugger;
 
                 var ApprovedStatus = knitTable.rows('.selected').data()[0].ApprovedStatus;
+                var BarCode = knitTable.rows('.selected').data()[0].BarCode;
                 if (ApprovedStatus == 0) {
                     if (selectedMenu.text() == "Delete")
                         DeleteRow();
-                    if (selectedMenu.text() == "Approve")
-                        ApproveRow();
+                    if (selectedMenu.text() == "Approve") {
+                        var rows = knitTable.rows(function (idx, data, node) {
+                            return data.BarCode === BarCode && data.ApprovedStatus == 1 ?
+                                    true : false;
+                        }).data();
+
+                        if (rows.length == 0) {
+                            ApproveRow();
+                        }
+                        else {
+                            alert("The order with same BarCode is already approved!!!")
+                        }
+                    }
+
                     if (selectedMenu.text() == "Unapprove")
-                        alert("This order is not approved yet!!!")
+                        alert("This order is not approved yet!!!");
                 }
                 else {
                     if (selectedMenu.text() == "Unapprove") {

@@ -165,6 +165,7 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.MasterReportView' d
     <Property Name="QRecovery" Type="varchar" MaxLength="100" />
     <Property Name="BSpeed" Type="varchar" MaxLength="50" />
     <Property Name="KnitID" Type="int" />
+    <Property Name="UpdateTime" Type="datetime" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -333,7 +334,8 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
     [MasterReportView].[QStrech] AS [QStrech], 
     [MasterReportView].[QRecovery] AS [QRecovery], 
     [MasterReportView].[BSpeed] AS [BSpeed], 
-    [MasterReportView].[KnitID] AS [KnitID]
+    [MasterReportView].[KnitID] AS [KnitID], 
+    [MasterReportView].[UpdateTime] AS [UpdateTime]
     FROM [dbo].[MasterReportView] AS [MasterReportView]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="YDView" EntityType="Self.YDView" store:Type="Views" store:Schema="dbo">

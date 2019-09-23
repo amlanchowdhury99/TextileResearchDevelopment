@@ -150,5 +150,6 @@ namespace TextileResearchDevelopment.Models
         public string QRecovery { get; set; }
         public string BSpeed { get; set; }
         public Nullable<int> KnitID { get; set; }
+        public Nullable<System.DateTime> UpdateTime { get; set; }
     }
 }

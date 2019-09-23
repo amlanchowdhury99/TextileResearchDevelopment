@@ -212,8 +212,8 @@ namespace TextileResearchDevelopment.BLL
 
                 stenter.mc.Id = Convert.ToInt32(reader["SMcNoID"]);
                 stenter.mc.McNo = reader["StenterMcNo"].ToString();
-                stenter.pr.Id = Convert.ToInt32(reader["STProductionTypeID"]);
-                stenter.pr.Production = reader["SProduction"].ToString();
+                stenter.pr.Id = reader["STProductionTypeID"] == DBNull.Value ? 0 : Convert.ToInt32(reader["STProductionTypeID"]);
+                stenter.pr.Production = reader["SProduction"] == DBNull.Value ? "" : reader["SProduction"].ToString();
                 stenter.Speed = reader["STSpeed"].ToString();
                 stenter.Temp = reader["STTemp"].ToString();
                 stenter.Speed = reader["STSpeed"].ToString();
@@ -223,7 +223,7 @@ namespace TextileResearchDevelopment.BLL
                 stenter.Dia = reader["STDia"].ToString();
                 stenter.GSM = reader["STGSM"].ToString();
                 stenter.Shrinkage = reader["STShrinkage"].ToString();
-                stenter.Remarks = reader["STRemarks"].ToString();
+                stenter.Remarks = reader["STRemarks"] == DBNull.Value ? "" : reader["STRemarks"].ToString();
 
                 stenter.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
                 stenter.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);

@@ -151,7 +151,7 @@ namespace TextileResearchDevelopment.BLL
                 peach.Speed = reader["PSpeed"].ToString();
                 peach.Dia = reader["PDia"].ToString();
                 peach.GSM = reader["PGSM"].ToString();
-                peach.Remarks = reader["PRemarks"].ToString();
+                peach.Remarks = reader["PRemarks"] == DBNull.Value ? "" : reader["PRemarks"].ToString();
 
                 peach.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
                 peach.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);

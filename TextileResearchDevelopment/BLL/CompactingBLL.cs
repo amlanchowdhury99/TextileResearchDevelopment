@@ -212,17 +212,17 @@ namespace TextileResearchDevelopment.BLL
 
                 compacting.mc.Id = Convert.ToInt32(reader["CMcNoID"]);
                 compacting.mc.McNo = reader["CompactingMcNo"].ToString();
-                compacting.pr.Id = Convert.ToInt32(reader["CProductionTypeID"]);
-                compacting.pr.Production = reader["CProduction"].ToString();
+                compacting.pr.Id = reader["CProductionTypeID"] == DBNull.Value ? 0 : Convert.ToInt32(reader["CProductionTypeID"]);
+                compacting.pr.Production = reader["CProduction"] == DBNull.Value ? "" : reader["CProduction"].ToString();
                 compacting.Speed = reader["CSpeed"].ToString();
                 compacting.Temp = reader["CTemp"].ToString();
                 compacting.Speed = reader["CSpeed"].ToString();
                 compacting.Feed = reader["CFeed"].ToString();
                 compacting.Steam = reader["CSteam"].ToString();
-                compacting.Compaction = reader["CCompaction"].ToString();
+                compacting.Compaction = reader["CCompaction"] == DBNull.Value ? "" : reader["CCompaction"].ToString();
                 compacting.Dia = reader["CDia"].ToString();
                 compacting.GSM = reader["CGSM"].ToString();
-                compacting.Remarks = reader["CRemarks"].ToString();
+                compacting.Remarks = reader["CRemarks"] == DBNull.Value ? "" : reader["CRemarks"].ToString();
 
                 compacting.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
                 compacting.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);

@@ -185,7 +185,7 @@ namespace TextileResearchDevelopment.BLL
                 hsp.Chemical = reader["HPChemical"].ToString();
                 hsp.Dia = reader["HPDia"].ToString();
                 hsp.GSM = reader["HPGSM"].ToString();
-                hsp.Shrinkage = reader["HPShrinkage"].ToString();
+                hsp.Shrinkage = reader["HPShrinkage"] == DBNull.Value ? "" : reader["HPShrinkage"].ToString();
 
                 hsp.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
                 hsp.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);

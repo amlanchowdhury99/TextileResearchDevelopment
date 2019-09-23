@@ -3,43 +3,40 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Textile Research Development </title>
+    <title>@ViewBag.Title - Textile Research Development</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/dataTables")
+    @Scripts.Render("~/bundles/dx")
     @Scripts.Render("~/bundles/moment")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/fileExport")
+
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:midnightblue; ">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
-                @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
             <div id="ActionLinkBar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                </ul>
-                <p>
-                    <p id="SignOutUserName" style="color:white; display:none"></p>
-                    <a id="SignOutBtn" style="float:right;" href="#" class="btn btn-info btn-sm">
-                        <span class="glyphicon glyphicon-log-out"></span> Log out
-                    </a>
-                </p>
+                <ul class="nav navbar-nav"></ul>
+                <p id="SignOutUserName" style="color:white; display:none"></p>
+                <a id="SignOutBtn" style="float:right;margin-top:1%" href="#" class="btn btn-danger btn-sm">
+                    <span class="glyphicon glyphicon-log-out"></span> Log out
+                </a>
             </div>
         </div>
     </div>
     <div class="container body-content" id="MainDiv">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Textile Research Development</p>
-        </footer>
     </div>
 
     @RenderSection("scripts", required: false)
@@ -74,41 +71,58 @@
                             }
                             if (parseInt(result[i]) == 2)
                             {
-                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Knitting", "Index", "Knitting", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Knit", "Index", "Knitting", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
                             }
                             if (parseInt(result[i]) == 3)
                             {
-                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Dyeing", "Index", "Dyeing", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Wash", "Index", "CW", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
                             }
                             if (parseInt(result[i]) == 4)
                             {
-                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Slitting", "Index", "Slitting", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Heat", "Index", "HSP", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
                             }
                             if (parseInt(result[i]) == 5)
                             {
-                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Stenter", "Index", "Stenter", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Singe", "Index", "Singeing", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
                             }
                             if (parseInt(result[i]) == 6)
                             {
-                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Aop-Print", "Index", "AopPrint", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Dye", "Index", "Dyeing", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
                             }
                             if (parseInt(result[i]) == 7)
                             {
-                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Test-Report", "Index", "TestReport", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Dryer", "Index", "Dryer", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
                             }
                             if (parseInt(result[i]) == 8)
                             {
-                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Remarks", "Index", "Remarks", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Stenter", "Index", "Stenter", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
                             }
                             if (parseInt(result[i]) == 9)
                             {
-                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Report", "Index", "Report", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Compact", "Index", "Compacting", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
                             }
                             if (parseInt(result[i]) == 10)
                             {
-                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("UserManagement", "Index", "UserManagement", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Peach", "Index", "Peach", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                            }
+                            if (parseInt(result[i]) == 11)
+                            {
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Brush", "Index", "Brush", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                            }
+                            if (parseInt(result[i]) == 12)
+                            {
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Print", "Index", "PrintInfo", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                            }
+                            if (parseInt(result[i]) == 13)
+                            {
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("QC", "Index", "QC", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                            }
+                            if (parseInt(result[i]) == 14)
+                            {
+                                $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Role", "Index", "UserManagement", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
                             }
                         }
+                        $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Report", "Index", "Report", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
                     }
                     else
                     {

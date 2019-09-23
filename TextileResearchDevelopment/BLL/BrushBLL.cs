@@ -151,7 +151,7 @@ namespace TextileResearchDevelopment.BLL
                 brush.LTension = reader["BLowerDrumTension"].ToString();
                 brush.LRPM = reader["BLowerDrumRPM"].ToString();
                 brush.BSpeed = reader["BSpeed"].ToString();
-                brush.Remarks = reader["BRemarks"].ToString();
+                brush.Remarks = reader["BRemarks"] == DBNull.Value ? "" : reader["BRemarks"].ToString();
 
                 brush.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
                 brush.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);

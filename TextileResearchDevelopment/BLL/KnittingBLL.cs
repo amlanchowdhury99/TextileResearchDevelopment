@@ -1344,12 +1344,12 @@ namespace TextileResearchDevelopment.BLL
                 knit.mc.McGauge = reader["McGauge"].ToString();
                 knit.mc.McBrand = reader["McBrand"].ToString();
 
-                knit.McSpeed = reader["McSpeed"].ToString();
+                knit.McSpeed = reader["McSpeed"] == DBNull.Value ? "" : reader["McSpeed"].ToString();
                 knit.SL = reader["SL"].ToString();
-                knit.YT = reader["YarnTension"].ToString();
-                knit.LT = reader["LycraTension"].ToString();
-                knit.GreyDia = reader["GreyDia"].ToString();
-                knit.GreyGSM = reader["GreyGSM"].ToString();
+                knit.YT = reader["YarnTension"] == DBNull.Value ? "" : reader["YarnTension"].ToString();
+                knit.LT = reader["LycraTension"] == DBNull.Value ? "" : reader["LycraTension"].ToString();
+                knit.GreyDia = reader["GreyDia"] == DBNull.Value ? "" : reader["GreyDia"].ToString();
+                knit.GreyGSM = reader["GreyGSM"] == DBNull.Value ? "" : reader["GreyGSM"].ToString();
                 knit.ReqDia = reader["ReqDia"].ToString();
                 knit.ReqGSM = reader["ReqGSM"].ToString();
 
@@ -1458,7 +1458,7 @@ namespace TextileResearchDevelopment.BLL
                 yd.yct.YarnColor = reader["YarnColor"].ToString();
 
                 yd.Lot = reader["Lot"].ToString();
-                yd.TPI = reader["TPI"].ToString();
+                yd.TPI = reader["TPI"] == DBNull.Value ? "" : reader["TPI"].ToString();
             }
             catch(Exception ex)
             {
@@ -1480,7 +1480,7 @@ namespace TextileResearchDevelopment.BLL
                 ydr.YDRColor = reader["YDRColor"].ToString();
                 ydr.YDRFeederNo = reader["YDRFeederNo"].ToString();
                 ydr.YDRMeasurement = reader["YDRMeasurement"].ToString();
-                ydr.YDRUOM = reader["YDRUOM"].ToString();
+                ydr.YDRUOM = reader["YDRUOM"] == DBNull.Value ? "" : reader["YDRUOM"].ToString();
                 ydr.YDRBatchNo = reader["YDRBatchNo"].ToString();
                 ydr.YDRCK = reader["YDRCK"].ToString();
             }

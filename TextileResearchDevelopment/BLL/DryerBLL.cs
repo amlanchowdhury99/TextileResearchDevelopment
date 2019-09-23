@@ -186,7 +186,7 @@ namespace TextileResearchDevelopment.BLL
                 dryer.Dia = reader["DRDia"].ToString();
                 dryer.GSM = reader["DRGSM"].ToString();
                 dryer.Shrinkage = reader["DRShrinkage"].ToString();
-                dryer.Remarks = reader["Remarks"].ToString();
+                dryer.Remarks = reader["Remarks"] == DBNull.Value ? "" : reader["Remarks"].ToString();
 
                 dryer.ReviseStatus = Convert.ToInt32(reader["ReviseStatus"]);
                 dryer.ApprovedStatus = Convert.ToInt32(reader["ApprovedStatus"]);

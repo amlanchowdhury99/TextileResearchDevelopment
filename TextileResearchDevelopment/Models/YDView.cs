@@ -21,12 +21,12 @@ namespace TextileResearchDevelopment.Models
         public int YDYarnTypeID { get; set; }
         public int YDYarnColorID { get; set; }
         public int YDSupplierID { get; set; }
-        public int Lot { get; set; }
-        public Nullable<int> TPI { get; set; }
         public string YarnCount { get; set; }
         public string YarnComposition { get; set; }
         public string YarnName { get; set; }
         public string YarnSupplier { get; set; }
         public string YarnColor { get; set; }
+        public string Lot { get; set; }
+        public string TPI { get; set; }
     }
 }
