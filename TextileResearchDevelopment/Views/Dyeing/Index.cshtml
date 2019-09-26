@@ -27,9 +27,9 @@
 <div id="MainDiv">
 
     <ul id="MainContextMenu" class="dropdown-menu" role="menu" style="display:none">
-        <li><a tabindex="-1" href="#">Delete</a></li>
-        <li><a tabindex="-1" href="#">Approve</a></li>
-        <li><a tabindex="-1" href="#">Unapprove</a></li>
+        <li id="CDelete"><a tabindex="-1" href="#">Delete</a></li>
+        <li id="CApprove"><a tabindex="-1" href="#">Approve</a></li>
+        <li id="CUnapprove"><a tabindex="-1" href="#">Unapprove</a></li>
     </ul>
 
     <input type="checkbox" id="hidden" value="option1" style="display:none;">
@@ -437,7 +437,49 @@
             }
         });
 
-        loadHistoryList();
+        SetRoles();
+
+        function SetRoles() {
+            debugger;
+
+            var user = {
+                Name: "Dyeing"
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/UserManagement/GetRoles",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(user),
+                success: function (response) {
+                    debugger;
+                    if (response != "" && response != null) {
+                        debugger
+                        if (response.RolePermissionID == 0) {
+                            if (response.Crud == 0) {
+                                $('#saveBtn').hide();
+                                $('#reviseBtn').hide();
+                                $('#updateBtn').hide();
+                                $('#CDelete a').addClass('disabled');
+                            }
+                            if (response.Approval == 0) {
+                                $('#CApprove a').addClass('disabled');
+                                $('#CUnapprove a').addClass('disabled');
+                            }
+                        }
+                    }
+                    else {
+                        alert("Connection Error!!!");
+                        return;
+                    }
+                    loadHistoryList();
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        }
 
         function loadHistoryList() {
             debugger;

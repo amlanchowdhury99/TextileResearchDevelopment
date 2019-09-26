@@ -60,10 +60,11 @@
                 type: 'GET',
                 dataType: "json",
                 success: function (result) {
-                    if (result != null && result != "")
+                    if (result != null)
                     {
-                        var result = result.split(',');
-                        for (let i = 0; i < result.length; i++)
+                        if (result != "") {
+                            var result = result.split(',');
+                            for (let i = 0; i < result.length; i++)
                         {
                             if (parseInt(result[i]) == 1)
                             {
@@ -122,6 +123,8 @@
                                 $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Role", "Index", "UserManagement", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
                             }
                         }
+                        }
+
                         $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Report", "Index", "Report", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
                     }
                     else

@@ -32,17 +32,17 @@
     <ul id="MainContextMenu" class="dropdown-menu" role="menu" style="        display: none">
         <li id="CDelete"><a tabindex="-1" href="#">Delete</a></li>
         <li id="CApprove"><a tabindex="-1" href="#">Approve</a></li>
-        <li id="CUnApprove"><a tabindex="-1" href="#">Unapprove</a></li>
+        <li id="CUnapprove"><a tabindex="-1" href="#">Unapprove</a></li>
     </ul>
 
     <ul id="YDContextMenu" class="dropdown-menu" role="menu" style="        display: none">
-        <li><a tabindex="-1" href="#">Update</a></li>
-        <li><a tabindex="-1" href="#">Delete</a></li>
+        <li id="YDUpdate"><a tabindex="-1" href="#">Update</a></li>
+        <li id="YDDelete"><a tabindex="-1" href="#">Delete</a></li>
     </ul>
 
     <ul id="YDRContextMenu" class="dropdown-menu" role="menu" style="        display: none">
-        <li><a tabindex="-1" href="#">Update</a></li>
-        <li><a tabindex="-1" href="#">Delete</a></li>
+        <li id="YDRUpdate"><a tabindex="-1" href="#">Update</a></li>
+        <li id="YDRDelete"><a tabindex="-1" href="#">Delete</a></li>
     </ul>
 
     <div class="modal fade" id="modalMcNo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -964,7 +964,7 @@
 <script>
     $(document).ready(function () {
         debugger;
-        var selectedFabricRowId = 0;
+        var selecteFabricRowId = 0;
         var YarnColorTable = $('#YarnColorTable').DataTable({
             buttons: [],
             "ajax":
@@ -1426,15 +1426,24 @@
                         if (response.RolePermissionID == 0) {
                             if (response.Crud == 0) {
                                 $('#saveBtn').hide();
+                                $('#reviseBtn').hide();
                                 $('#updateBtn').hide();
                                 $('#CDelete a').addClass('disabled');
+
+                                $('#AddYDBtn').hide();
+                                $('#AddYDRBtn').hide();
+                                $('#YDDelete a').addClass('disabled');
+                                $('#YDUpdate a').addClass('disabled');
+                                $('#YDRDelete a').addClass('disabled');
+                                $('#YDRUpdate a').addClass('disabled');
+                                
                             }
                             if (response.LibrarySet == 0) {
-                                $('#mdMcNo').attr("disabled", "disabled").off('click');
+                                $('#mdMcNo').addClass('disabled');
                             }
                             if (response.Approval == 0) {
                                 $('#CApprove a').addClass('disabled');
-                                $('#CUnApprove a').addClass('disabled');
+                                $('#CUnapprove a').addClass('disabled');
                             }
                         }
                     }

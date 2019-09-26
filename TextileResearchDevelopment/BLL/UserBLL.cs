@@ -66,6 +66,8 @@ namespace TextileResearchDevelopment.BLL
                         role = new RoleNode();
                         role.Id = Convert.ToInt32(reader["Id"]);
                         role.val = 1;
+                        role.value = Convert.ToInt32(reader["Sector"]);
+
                         role.title = user.Sectors[reader["Sector"].ToString()];
                         query = "SELECT * FROM UserRole WHERE UserPermissionID = " + role.Id;
                         cm1.CommandText = query;
@@ -148,7 +150,7 @@ namespace TextileResearchDevelopment.BLL
                 string query = "SELECT Count(*) As count FROM UserInfo WHERE UserName = '" + user.UserName + "'";
                 if (DBGateway.GetNumberForRows(query))
                 {
-                    query = " UPDATE UserInfo SET Name = '" + user.Name + "', UserName = '" + user.UserName + "', Password = '" + user.Password + "', SuperAdmin = " + user.SuperAdmin + " WHERE UserName = '" + user.UserName + "'";
+                    query = " UPDATE UserInfo SET Name = '" + user.Name + "', UserName = '" + user.UserName + "', Password = '" + user.Password + "', SuperAdmin = " + user.SuperAdmin + ", Report = " + user.Report + " WHERE UserName = '" + user.UserName + "'";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
                         foreach (var i in user.rootNode)
@@ -200,7 +202,7 @@ namespace TextileResearchDevelopment.BLL
                                 query = " DELETE UserRole WHERE UserPermissionID = " + UserPermissionQuery + "";
                                 if (DBGateway.ExecutionToDB(query, 1))
                                 {
-                                    query = " DELETE UserPermission WHERE UserName = '" + user.UserName + "', Sector = " + key;
+                                    query = " DELETE UserPermission WHERE UserName = '" + user.UserName + "' AND Sector = " + key;
                                     result = DBGateway.ExecutionToDB(query, 1);
                                 }
                             }
@@ -251,8 +253,8 @@ namespace TextileResearchDevelopment.BLL
                 string query = "SELECT * FROM UserInfo WHERE UserName = '"+ user.UserName+ "'";
                 if (!DBGateway.recordExist(query))
                 {
-                    query = " INSERT INTO UserInfo (Name, UserName, Password, Date, SuperAdmin) " +
-                                                   " VALUES('" + user.Name + "','" + user.UserName + "','" + user.Password + "','" + user.CreateDate.ToString("yyyy/MM/dd") + "', 0)";
+                    query = " INSERT INTO UserInfo (Name, UserName, Password, Date, SuperAdmin, Report) " +
+                                                   " VALUES('" + user.Name + "','" + user.UserName + "','" + user.Password + "','" + user.CreateDate.ToString("yyyy/MM/dd") + "', 0,  " + user.Report + ")";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
                         foreach(var i in user.rootNode)
@@ -392,7 +394,7 @@ namespace TextileResearchDevelopment.BLL
             }
             catch (Exception ex)
             {
-                return PermissionString;
+                return null;
             }
             finally
             {
@@ -455,7 +457,7 @@ namespace TextileResearchDevelopment.BLL
                         user.Name = reader["Name"].ToString();
                         user.UserName = reader["UserName"].ToString();
                         user.Password = reader["Password"].ToString();
-                        //user.LogIn = Convert.ToInt32(reader["LogIn"]);
+                        user.Report = Convert.ToInt32(reader["Report"]);
                         users.Add(user);
                     }
                 }

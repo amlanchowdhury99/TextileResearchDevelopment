@@ -11,6 +11,7 @@ using TextileResearchDevelopment.DataAccessLayer;
 using System.IO;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web.Configuration;
 using TextileResearchDevelopment.ReportDataset;
 
 namespace TextileResearchDevelopment.Controllers
@@ -20,148 +21,75 @@ namespace TextileResearchDevelopment.Controllers
         static string connectionStr = DBGateway.connectionString;
         private ReportDocument objReportDocument = new ReportDocument();
         private ExportFormatType objExportFormatType = ExportFormatType.NoFormat;
-        Remarks remark = new Remarks();
 
         TextileResearchDevelopmentEntities db = new TextileResearchDevelopmentEntities();
-
-
-        // GET: Report
 
         public ActionResult Index()
         {
             return View();
         }
 
-        [HttpPost]
-        public JsonResult GetSearchResult(Report searchObj)
-        {
-            List<Report> data = new List<Report>();
-            try
-            {
-                //data = ReportBLL.Search(searchObj);
-            }
-            catch (Exception ex)
-            {
-                data = new List<Report>();
-            }
-
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
-
-        //[HttpPost]
-        //public ActionResult BarCodeAuthorization(int BarCode)
-        //{
-        //    Boolean Result = false;
-        //    try
-        //    {
-        //        if (BarCode > 0)
-        //        {
-        //            //Result = ReportBLL.BarCodeAuthorization(BarCode);
-        //        }
-        //        if (BarCode == 0)
-        //        {
-        //            Result = true;
-        //        }
-
-        //        if (Result)
-        //        {
-        //            return Json("true", JsonRequestBehavior.AllowGet);
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        return Json(null, JsonRequestBehavior.AllowGet);
-        //    }
-
-        //    return Json("false", JsonRequestBehavior.AllowGet);
-        //}
-
-        //public FileStreamResult ShowReport(string pFileDownloadName)
-        //{
-
-        //    Response.Buffer = false;
-        //    Response.ClearContent();
-        //    Response.ClearHeaders();
-        //    Response.Clear();
-        //    Response.Buffer = true;
-
-        //    objExportFormatType = ExportFormatType.PortableDocFormat;
-        //    Stream oStream = objReportDocument.ExportToStream(objExportFormatType);
-        //    byte[] byteArray = new byte[oStream.Length];
-        //    oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
-        //    Response.ContentType = "application/pdf";
-        //    pFileDownloadName += ".pdf";
-        //    Response.BinaryWrite(byteArray);
-        //    Response.Flush();
-        //    Response.Close();
-        //    objReportDocument.Close();
-        //    objReportDocument.Dispose();
-
-        //    return File(oStream, Response.ContentType, pFileDownloadName);
-
-        //}
-
-        //public ActionResult ExportReport(int Id)
-        //{
-        //    GeneralReport ds = new GeneralReport();
-        //    ReportDocument rd = new ReportDocument();
-        //    rd.Load(Path.Combine(Server.MapPath("~/Reporting"), "MasterReport.rpt"));
-
-        //    //var c = db.RemarksViews.Where(a => a.Id == Id).ToList();
-
-        //    //foreach (var item in c)
-        //    //{
-        //    //    ds.GeneralRpt.AddGeneralRptRow(
-        //    //    item.BuyerName,
-        //    //    item.FabricName,
-        //    //    item.OrderNo,
-        //    //    item.Color,
-        //    //    item.Note,
-        //    //    item.RequiredWidth,
-        //    //    item.RequiredGSM.ToString(),
-        //    //    item.LabdipStatus,
-        //    //    item.ChallanNo,
-        //    //    item.DeliveryQty.ToString(),
-        //    //    item.DeliveryDate.ToString(),
-        //    //    item.McDiaGauge,
-        //    //    item.YarnCount,
-        //    //    item.YarnBrand,
-        //    //    item.YarnLot,
-        //    //    item.StitchLength.ToString(),
-        //    //    item.KnitUnit,
-        //    //    item.MCNO.ToString(),
-        //    //    item.MCRPM.ToString(),
-        //    //    item.GreyWidth.ToString(),
-        //    //    item.GreyGSM.ToString(),
-        //    //    item.TumbleWidthKnit.ToString(),
-        //    //    item.TumbleGSM.ToString(),
-        //    //    item.McBrand);
-        //    //};
-
-        //    rd.SetDataSource(ds);
-
-        //    rd.SetDatabaseLogon("sa", "123");
-        //    Response.Buffer = false;
-        //    Response.ClearContent();
-        //    Response.ClearHeaders();
-        //    Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-        //    stream.Seek(0, SeekOrigin.Begin);
-
-        //    return File(stream, "application/pdf", "FabricProcessingSheet.pdf");
-
-        //}
-
-        public ActionResult ShowReport(string BarCode)
+        public ActionResult ShowReport(int FabricID)
         {
             try
             {
                 GeneralReport ds = new GeneralReport();
                 ReportDocument rd = new ReportDocument();
                 rd.Load(Path.Combine(Server.MapPath("~/Reporting"), "MasterReport.rpt"));
+                int report = 0;
+                SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader; cm.Connection = cn; cn.Open();
+                cm.CommandText = "SELECT * FROM UserInfo WHERE UserName = '" + System.Web.HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
+                reader = cm.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        report = Convert.ToInt32(reader["Report"]);
+                    }
+                }
+                cn.Close();
 
-                var masterReport = db.MasterReportViews.Where(a => a.BarCode == BarCode).ToList();
-                var YD = db.YDViews.Where(a => a.KnitID == 7).ToList();
-                var YDR = db.YarnDyedRepeats.Where(a => a.KnitID == 7).ToList();
+                var masterReport = new List<MasterReportView>(); var YD = new List<YDView>(); var YDR = new List<YarnDyedRepeat>();
+
+                if (report == 1)
+                {
+                    int KnitID = 0;
+                    string BarCodeQuery = "SELECT Id FROM Knitting WHERE FabricID = " + FabricID + " AND ApprovedStatus = 1";
+                    cm.CommandText = BarCodeQuery;
+                    cn.Open();
+                    reader = cm.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            KnitID = Convert.ToInt32(reader["Id"]);
+                        }
+                    }
+                    cn.Close();
+                    masterReport = db.MasterReportViews.Where(a => a.Id == FabricID).ToList();
+                    if(KnitID != 0)
+                    {
+                        YD = db.YDViews.Where(a => a.KnitID == KnitID).ToList();
+                        YDR = db.YarnDyedRepeats.Where(a => a.KnitID == KnitID).ToList();
+                    }
+
+                    if (masterReport[0].CProductionTypeID == null)
+                    {
+                        masterReport[0].CProductionTypeID = 0;
+                    }
+                    else
+                    {
+                        masterReport[0].CProduction = "A.P Compacting(Lafer-02)";
+                    }
+                    if (masterReport[0].STProductionTypeID == null)
+                    {
+                        masterReport[0].STProductionTypeID = 0;
+                    }
+                    else
+                    {
+                        masterReport[0].SProduction = "A.Peach Finish(Brukner-03)";
+                    }
+                }
 
                 foreach (var item in masterReport)
                 {

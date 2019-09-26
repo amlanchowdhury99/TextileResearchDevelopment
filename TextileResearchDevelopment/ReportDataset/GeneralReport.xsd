@@ -14,7 +14,7 @@
   <xs:element name="GeneralReport" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="GeneralReport" msprop:Generator_UserDSName="GeneralReport">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="YarnDyedRepeat" msprop:Generator_TableClassName="YarnDyedRepeatDataTable" msprop:Generator_TableVarName="tableYarnDyedRepeat" msprop:Generator_RowChangedName="YarnDyedRepeatRowChanged" msprop:Generator_TablePropName="YarnDyedRepeat" msprop:Generator_RowDeletingName="YarnDyedRepeatRowDeleting" msprop:Generator_RowChangingName="YarnDyedRepeatRowChanging" msprop:Generator_RowEvHandlerName="YarnDyedRepeatRowChangeEventHandler" msprop:Generator_RowDeletedName="YarnDyedRepeatRowDeleted" msprop:Generator_RowClassName="YarnDyedRepeatRow" msprop:Generator_UserTableName="YarnDyedRepeat" msprop:Generator_RowEvArgName="YarnDyedRepeatRowChangeEvent">
+        <xs:element name="YarnDyedRepeat" msprop:Generator_TableClassName="YarnDyedRepeatDataTable" msprop:Generator_TableVarName="tableYarnDyedRepeat" msprop:Generator_TablePropName="YarnDyedRepeat" msprop:Generator_RowDeletingName="YarnDyedRepeatRowDeleting" msprop:Generator_RowChangingName="YarnDyedRepeatRowChanging" msprop:Generator_RowEvHandlerName="YarnDyedRepeatRowChangeEventHandler" msprop:Generator_RowDeletedName="YarnDyedRepeatRowDeleted" msprop:Generator_UserTableName="YarnDyedRepeat" msprop:Generator_RowChangedName="YarnDyedRepeatRowChanged" msprop:Generator_RowEvArgName="YarnDyedRepeatRowChangeEvent" msprop:Generator_RowClassName="YarnDyedRepeatRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="YDRRepeat" msprop:Generator_ColumnVarNameInTable="columnYDRRepeat" msprop:Generator_ColumnPropNameInRow="YDRRepeat" msprop:Generator_ColumnPropNameInTable="YDRRepeatColumn" msprop:Generator_UserColumnName="YDRRepeat">
@@ -69,7 +69,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="MasterReportView" msprop:Generator_TableClassName="MasterReportViewDataTable" msprop:Generator_TableVarName="tableMasterReportView" msprop:Generator_TablePropName="MasterReportView" msprop:Generator_RowDeletingName="MasterReportViewRowDeleting" msprop:Generator_RowChangingName="MasterReportViewRowChanging" msprop:Generator_RowEvHandlerName="MasterReportViewRowChangeEventHandler" msprop:Generator_RowDeletedName="MasterReportViewRowDeleted" msprop:Generator_UserTableName="MasterReportView" msprop:Generator_RowChangedName="MasterReportViewRowChanged" msprop:Generator_RowEvArgName="MasterReportViewRowChangeEvent" msprop:Generator_RowClassName="MasterReportViewRow">
+        <xs:element name="MasterReportView" msprop:Generator_TableClassName="MasterReportViewDataTable" msprop:Generator_TableVarName="tableMasterReportView" msprop:Generator_RowChangedName="MasterReportViewRowChanged" msprop:Generator_TablePropName="MasterReportView" msprop:Generator_RowDeletingName="MasterReportViewRowDeleting" msprop:Generator_RowChangingName="MasterReportViewRowChanging" msprop:Generator_RowEvHandlerName="MasterReportViewRowChangeEventHandler" msprop:Generator_RowDeletedName="MasterReportViewRowDeleted" msprop:Generator_RowClassName="MasterReportViewRow" msprop:Generator_UserTableName="MasterReportView" msprop:Generator_RowEvArgName="MasterReportViewRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:string" />
@@ -949,7 +949,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="YDView" msprop:Generator_TableClassName="YDViewDataTable" msprop:Generator_TableVarName="tableYDView" msprop:Generator_TablePropName="YDView" msprop:Generator_RowDeletingName="YDViewRowDeleting" msprop:Generator_RowChangingName="YDViewRowChanging" msprop:Generator_RowEvHandlerName="YDViewRowChangeEventHandler" msprop:Generator_RowDeletedName="YDViewRowDeleted" msprop:Generator_UserTableName="YDView" msprop:Generator_RowChangedName="YDViewRowChanged" msprop:Generator_RowEvArgName="YDViewRowChangeEvent" msprop:Generator_RowClassName="YDViewRow">
+        <xs:element name="YDView" msprop:Generator_TableClassName="YDViewDataTable" msprop:Generator_TableVarName="tableYDView" msprop:Generator_RowChangedName="YDViewRowChanged" msprop:Generator_TablePropName="YDView" msprop:Generator_RowDeletingName="YDViewRowDeleting" msprop:Generator_RowChangingName="YDViewRowChanging" msprop:Generator_RowEvHandlerName="YDViewRowChangeEventHandler" msprop:Generator_RowDeletedName="YDViewRowDeleted" msprop:Generator_RowClassName="YDViewRow" msprop:Generator_UserTableName="YDView" msprop:Generator_RowEvArgName="YDViewRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Lot" msprop:Generator_ColumnVarNameInTable="columnLot" msprop:Generator_ColumnPropNameInRow="Lot" msprop:Generator_ColumnPropNameInTable="LotColumn" msprop:Generator_UserColumnName="Lot" type="xs:string" />

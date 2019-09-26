@@ -50,6 +50,7 @@ namespace TextileResearchDevelopment.Models
         public string PermissionString { get; set; }
         public DateTime CreateDate { get; set; }
         public int LogIn { get; set; }
+        public int Report { get; set; }
     }
 
     public class RoleNode
@@ -62,6 +63,7 @@ namespace TextileResearchDevelopment.Models
 
         public int Id { get; set; }
         public int val { get; set; }
+        public int value { get; set; }
         public string title { get; set; }
         public Role role { get; set; }
         public List<Child> children { get; set; }

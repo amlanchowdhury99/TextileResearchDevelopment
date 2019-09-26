@@ -377,11 +377,12 @@
             var Row = Reporttable.rows('.selected').data()[0];
 
             var fabric = {
+                Id: Row.Id,
                 BarCode: Row.BarCode
             };
 
-            var actionUrl = '@Url.Action("ShowReport", "Report", new { BarCode = "Parameter" })';
-            actionUrl = actionUrl.replace("Parameter", fabric.BarCode);
+            var actionUrl = '@Url.Action("ShowReport", "Report", new { @FabricID = "FabricParameter" })';
+            actionUrl = actionUrl.replace("FabricParameter", fabric.Id);
 
             window.open(actionUrl, '_blank');
         }

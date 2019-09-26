@@ -73,7 +73,6 @@ namespace TextileResearchDevelopment.Models
         public string DEnzy { get; set; }
         public string Recipe { get; set; }
         public string RecipeNo { get; set; }
-        public string Comments { get; set; }
         public string DyeingTime { get; set; }
         public string Dyebath { get; set; }
         public string Whiteness { get; set; }

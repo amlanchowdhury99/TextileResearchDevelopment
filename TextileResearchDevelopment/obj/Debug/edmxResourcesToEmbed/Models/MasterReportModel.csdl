@@ -86,7 +86,6 @@
     <Property Name="DEnzy" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="Recipe" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
     <Property Name="RecipeNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-    <Property Name="Comments" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="DyeingTime" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="Dyebath" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="Whiteness" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
@@ -165,11 +164,6 @@
     <Property Name="KnitID" Type="Int32" />
     <Property Name="UpdateTime" Type="DateTime" Precision="3" />
   </EntityType>
-  <EntityContainer Name="TextileResearchDevelopmentEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="YarnDyedRepeats" EntityType="Self.YarnDyedRepeat" />
-    <EntitySet Name="MasterReportViews" EntityType="Self.MasterReportView" />
-    <EntitySet Name="YDViews" EntityType="TextileResearchDevelopmentModel.YDView" />
-  </EntityContainer>
   <EntityType Name="YDView">
     <Key>
       <PropertyRef Name="Id" />
@@ -193,7 +187,12 @@
     <Property Name="YarnName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="YarnSupplier" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="YarnColor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Lot" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lot" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="TPI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
+  <EntityContainer Name="TextileResearchDevelopmentEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="YarnDyedRepeats" EntityType="Self.YarnDyedRepeat" />
+    <EntitySet Name="MasterReportViews" EntityType="Self.MasterReportView" />
+    <EntitySet Name="YDViews" EntityType="Self.YDView" />
+  </EntityContainer>
 </Schema>

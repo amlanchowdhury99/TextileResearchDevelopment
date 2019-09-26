@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="TextileResearchDevelopmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="TextileResearchDevelopmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="YarnDyedRepeat">
           <Key>
             <PropertyRef Name="Id" />
@@ -93,7 +93,6 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.MasterReportView' d
           <Property Name="DEnzy" Type="varchar" MaxLength="150" />
           <Property Name="Recipe" Type="varchar" MaxLength="350" />
           <Property Name="RecipeNo" Type="varchar" MaxLength="150" />
-          <Property Name="Comments" Type="varchar" MaxLength="150" />
           <Property Name="DyeingTime" Type="varchar" MaxLength="150" />
           <Property Name="Dyebath" Type="varchar" MaxLength="150" />
           <Property Name="Whiteness" Type="varchar" MaxLength="150" />
@@ -263,7 +262,6 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
     [MasterReportView].[DEnzy] AS [DEnzy], 
     [MasterReportView].[Recipe] AS [Recipe], 
     [MasterReportView].[RecipeNo] AS [RecipeNo], 
-    [MasterReportView].[Comments] AS [Comments], 
     [MasterReportView].[DyeingTime] AS [DyeingTime], 
     [MasterReportView].[Dyebath] AS [Dyebath], 
     [MasterReportView].[Whiteness] AS [Whiteness], 
@@ -362,7 +360,8 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
     FROM [dbo].[YDView] AS [YDView]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TextileResearchDevelopmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -452,7 +451,6 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
           <Property Name="DEnzy" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="Recipe" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
           <Property Name="RecipeNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="Comments" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="DyeingTime" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="Dyebath" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="Whiteness" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
@@ -531,11 +529,6 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
           <Property Name="KnitID" Type="Int32" />
           <Property Name="UpdateTime" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityContainer Name="TextileResearchDevelopmentEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="YarnDyedRepeats" EntityType="Self.YarnDyedRepeat" />
-          <EntitySet Name="MasterReportViews" EntityType="Self.MasterReportView" />
-          <EntitySet Name="YDViews" EntityType="TextileResearchDevelopmentModel.YDView" />
-        </EntityContainer>
         <EntityType Name="YDView">
           <Key>
             <PropertyRef Name="Id" />
@@ -559,9 +552,14 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
           <Property Name="YarnName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="YarnSupplier" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="YarnColor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Lot" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lot" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="TPI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityContainer Name="TextileResearchDevelopmentEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="YarnDyedRepeats" EntityType="Self.YarnDyedRepeat" />
+          <EntitySet Name="MasterReportViews" EntityType="Self.MasterReportView" />
+          <EntitySet Name="YDViews" EntityType="Self.YDView" />
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -645,7 +643,6 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
                 <ScalarProperty Name="DEnzy" ColumnName="DEnzy" />
                 <ScalarProperty Name="Recipe" ColumnName="Recipe" />
                 <ScalarProperty Name="RecipeNo" ColumnName="RecipeNo" />
-                <ScalarProperty Name="Comments" ColumnName="Comments" />
                 <ScalarProperty Name="DyeingTime" ColumnName="DyeingTime" />
                 <ScalarProperty Name="Dyebath" ColumnName="Dyebath" />
                 <ScalarProperty Name="Whiteness" ColumnName="Whiteness" />
@@ -729,20 +726,20 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
           <EntitySetMapping Name="YDViews">
             <EntityTypeMapping TypeName="TextileResearchDevelopmentModel.YDView">
               <MappingFragment StoreEntitySet="YDView">
-                <ScalarProperty Name="TPI" ColumnName="TPI" />
-                <ScalarProperty Name="Lot" ColumnName="Lot" />
-                <ScalarProperty Name="YarnColor" ColumnName="YarnColor" />
-                <ScalarProperty Name="YarnSupplier" ColumnName="YarnSupplier" />
-                <ScalarProperty Name="YarnName" ColumnName="YarnName" />
-                <ScalarProperty Name="YarnComposition" ColumnName="YarnComposition" />
-                <ScalarProperty Name="YarnCount" ColumnName="YarnCount" />
-                <ScalarProperty Name="YDSupplierID" ColumnName="YDSupplierID" />
-                <ScalarProperty Name="YDYarnColorID" ColumnName="YDYarnColorID" />
-                <ScalarProperty Name="YDYarnTypeID" ColumnName="YDYarnTypeID" />
-                <ScalarProperty Name="YDCompositionID" ColumnName="YDCompositionID" />
-                <ScalarProperty Name="YDCountID" ColumnName="YDCountID" />
-                <ScalarProperty Name="KnitID" ColumnName="KnitID" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="KnitID" ColumnName="KnitID" />
+                <ScalarProperty Name="YDCountID" ColumnName="YDCountID" />
+                <ScalarProperty Name="YDCompositionID" ColumnName="YDCompositionID" />
+                <ScalarProperty Name="YDYarnTypeID" ColumnName="YDYarnTypeID" />
+                <ScalarProperty Name="YDYarnColorID" ColumnName="YDYarnColorID" />
+                <ScalarProperty Name="YDSupplierID" ColumnName="YDSupplierID" />
+                <ScalarProperty Name="YarnCount" ColumnName="YarnCount" />
+                <ScalarProperty Name="YarnComposition" ColumnName="YarnComposition" />
+                <ScalarProperty Name="YarnName" ColumnName="YarnName" />
+                <ScalarProperty Name="YarnSupplier" ColumnName="YarnSupplier" />
+                <ScalarProperty Name="YarnColor" ColumnName="YarnColor" />
+                <ScalarProperty Name="Lot" ColumnName="Lot" />
+                <ScalarProperty Name="TPI" ColumnName="TPI" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

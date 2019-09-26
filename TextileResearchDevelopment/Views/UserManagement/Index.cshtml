@@ -39,21 +39,25 @@
                     </div>
                 </div>
                 <div class=" form-group">
-                    <div class="form-group col-xs-1 form-inline">
-                        <label for="Role" class="control-label" style="width:100%;">Roles</label>
-                    </div>
-                    <div class="form-group col-xs-3 form-inline">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Role" class="control-label" style="width:25%;">Roles</label>
                         <div style="display: inline;">
-                            <div id="Role" class="treeSelector" style="width:100%;display: inline-block;"></div>
+                            <div id="Role" class="treeSelector" style="width:70%;display: inline-block;"></div>
                         </div>
                     </div>
-                    <div class="form-group col-xs-6 form-inline">
-                        <button class="btn btn-warning btn-sm" style="width:25%;" id="resetBtn">Reset</button>
+                    <div class="form-group col-xs-4 form-inline">
                         <div style="display: inline;">
-                            <input type="submit" value="Save" class="btn btn-success btn-sm" style="width:22%;" id="saveBtn">
+                            <input type="checkbox" id="Report" style="width:5%;" value="">
+                        </div>
+                        <label for="Report" class="control-label" style="width:90%;">Report</label>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <button class="btn btn-warning btn-sm" style="width:32%;" id="resetBtn">Reset</button>
+                        <div style="display: inline;">
+                            <input type="submit" value="Save" class="btn btn-success btn-sm" style="width:32%;" id="saveBtn">
                         </div>
                         <div style="display: inline;">
-                            <input type="submit" value="Update" class="btn btn-primary btn-sm" disabled="disabled" style="width:23%;" id="updateBtn">
+                            <input type="submit" value="Update" class="btn btn-primary btn-sm" disabled="disabled" style="width:32%;" id="updateBtn">
                         </div>
                     </div>
                 </div>
@@ -69,6 +73,7 @@
                 <th>Name</th>
                 <th>UserName</th>
                 <th>Password</th>
+                <th>Report</th>
             </tr>
         </thead>
     </table>
@@ -505,7 +510,7 @@
             vals = values;
         }, {
 
-                checkWithParent: true,
+                checkWithParent: false,
                 titleWithParent: true,
                 notViewClickParentTitle: false,
                 disabled: false,
@@ -547,7 +552,12 @@
                 },
                 { "data": "Name" },
                 { "data": "UserName" },
-                { "data": "Password" }
+                { "data": "Password" },
+                {
+
+                    "visible": false,
+                    "data": "Report"
+                }
             ]
         }).columns.adjust().draw();
 
@@ -595,12 +605,13 @@
             $("#Name").val("");
             $("#UserName").val("");
             $("#Password").val("");
+            $('#Report').prop('checked', false);
 
             $('div.treeSelector').treeSelector(rootNode, [], function (e, values) {
                 debugger;
                 vals = [];
             }, {
-                    checkWithParent: true,
+                    checkWithParent: false,
                     titleWithParent: true,
                     notViewClickParentTitle: false,
                     disabled: false,
@@ -628,6 +639,12 @@
             event.preventDefault();
 
             rootNode.forEach(function (item, i) {
+                if (findValueInArray(item["value"], vals) == true) {
+                    item["val"] = 1;
+                }
+                else {
+                    item["val"] = 0;
+                };
                 item.children.forEach(function (a, j) {
                     if (findValueInArray(a["value"], vals) == true) {
                         item["val"] = 1; a["val"] = 1;
@@ -645,6 +662,7 @@
                 Password: $("#Password").val(),
                 rootNode: rootNode,
                 PermissionString: PermissionString,
+                Report: $("#Report").prop("checked") == false ? 0 : 1,
                 CreateDate: moment(Date.now()).format("DD/MM/YYYY")
             };
 
@@ -731,6 +749,9 @@
             debugger;
             var arr = [];
             Nodes.forEach(function (item, i) {
+                if (item["val"] == 1) {
+                    arr.push(item.value);
+                }
                 item.children.forEach(function (a, j) {
                     if (a["val"] == 1) {
                         arr.push(a.value);
@@ -748,6 +769,13 @@
             $("#Name").val(rowdata.Name);
             $("#UserName").val(rowdata.UserName);
             $("#Password").val(rowdata.Password);
+            $("#Password").val(rowdata.Password);
+            if (rowdata.Report == 0) {
+                $('#Report').prop('checked', false);
+            }
+            else {
+                $('#Report').prop('checked', true);
+            }
 
             var user = {
                 UserName: rowdata.UserName
@@ -766,9 +794,9 @@
                             debugger;
                             vals = values;
                         }, {
-                                checkWithParent: true,
+                                checkWithParent: false,
                                 titleWithParent: true,
-                                notViewClickParentTitle: false,
+                                notViewClickParentTitle: true,
                                 disabled: false,
                                 emptyOptonPlaceholder: 'asd'
 
@@ -796,6 +824,12 @@
                 var index = UserTable.row('.selected').index();
 
                 rootNode.forEach(function (item, i) {
+                    if (findValueInArray(item["value"], vals) == true) {
+                        item["val"] = 1;
+                    }
+                    else {
+                        item["val"] = 0;
+                    };
                     item.children.forEach(function (a, j) {
                         if (findValueInArray(a["value"], vals) == true) {
                             item["val"] = 1; a["val"] = 1;
@@ -811,6 +845,7 @@
                     Name: $("#Name").val(),
                     UserName: $("#UserName").val(),
                     Password: $("#Password").val(),
+                    Report: $("#Report").prop("checked") == false ? 0 : 1,
                     rootNode: rootNode
                 };
 

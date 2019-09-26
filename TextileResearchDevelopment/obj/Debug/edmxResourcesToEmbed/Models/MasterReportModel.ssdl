@@ -88,7 +88,6 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.MasterReportView' d
     <Property Name="DEnzy" Type="varchar" MaxLength="150" />
     <Property Name="Recipe" Type="varchar" MaxLength="350" />
     <Property Name="RecipeNo" Type="varchar" MaxLength="150" />
-    <Property Name="Comments" Type="varchar" MaxLength="150" />
     <Property Name="DyeingTime" Type="varchar" MaxLength="150" />
     <Property Name="Dyebath" Type="varchar" MaxLength="150" />
     <Property Name="Whiteness" Type="varchar" MaxLength="150" />
@@ -258,7 +257,6 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
     [MasterReportView].[DEnzy] AS [DEnzy], 
     [MasterReportView].[Recipe] AS [Recipe], 
     [MasterReportView].[RecipeNo] AS [RecipeNo], 
-    [MasterReportView].[Comments] AS [Comments], 
     [MasterReportView].[DyeingTime] AS [DyeingTime], 
     [MasterReportView].[Dyebath] AS [Dyebath], 
     [MasterReportView].[Whiteness] AS [Whiteness], 
