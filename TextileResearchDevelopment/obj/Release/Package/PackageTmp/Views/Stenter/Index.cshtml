@@ -1195,19 +1195,38 @@
 
             $.ajax({
                 type: "POST",
-                url: "/Stenter/Unapprove",
+                url: "/Fabric/GetApprovedStatus",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify(Obj),
+                data: JSON.stringify({ "BarCode": Row.fabric.BarCode, "tableName": "Stenter" }),
                 success: function (response) {
                     debugger
-                    if (response.data != "" && response.data != null) {
-                        debugger
-                        Stentertable.row(index).data(response.data).draw();
-                        Reset();
+                    if (response == true) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/Stenter/Unapprove",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(Obj),
+                            success: function (response) {
+                                debugger
+                                if (response.data != "" && response.data != null) {
+                                    debugger
+                                    Stentertable.row(index).data(response.data).draw();
+                                    Reset();
+                                }
+                                else {
+                                    alert("Failed to Unapprove!!!");
+                                    return;
+                                }
+                            },
+                            failure: function () {
+                                $("#tblItems").append(" Error when fetching data please contact administrator");
+                            }
+                        });
                     }
                     else {
-                        alert("Failed to Unapprove!!!");
+                        alert("This Order is already approved in next process!!!");
                         return;
                     }
                 },

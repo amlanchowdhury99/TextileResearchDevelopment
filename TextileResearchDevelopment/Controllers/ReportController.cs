@@ -79,22 +79,23 @@ namespace TextileResearchDevelopment.Controllers
                     }
                     else
                     {
-                        if(masterReport[0].CProductionTypeID == 6)
-                        {
-                            masterReport[0].CProduction = "A. Brush(" + masterReport[0].CompactingMcNo+ ")";
-                        }
-                        if (masterReport[0].CProductionTypeID == 7)
-                        {
-                            masterReport[0].CProduction = "A.Peach Finish(" + masterReport[0].CompactingMcNo + ")";
-                        }
-                        if (masterReport[0].CProductionTypeID == 8)
-                        {
-                            masterReport[0].CProduction = "A AOP(" + masterReport[0].CompactingMcNo + ")";
-                        }
-                        if (masterReport[0].CProductionTypeID == 9)
-                        {
-                            masterReport[0].CProduction = "SP. Chemical Finish(" + masterReport[0].CompactingMcNo + ")";
-                        }
+                        //if(masterReport[0].CProductionTypeID == 6)
+                        //{
+                        //    masterReport[0].CProduction = "A. Brush(" + masterReport[0].CompactingMcNo+ ")";
+                        //}
+                        //if (masterReport[0].CProductionTypeID == 7)
+                        //{
+                        //    masterReport[0].CProduction = "A.Peach Finish(" + masterReport[0].CompactingMcNo + ")";
+                        //}
+                        //if (masterReport[0].CProductionTypeID == 8)
+                        //{
+                        //    masterReport[0].CProduction = "A AOP(" + masterReport[0].CompactingMcNo + ")";
+                        //}
+                        //if (masterReport[0].CProductionTypeID == 9)
+                        //{
+                        //    masterReport[0].CProduction = "SP. Chemical Finish(" + masterReport[0].CompactingMcNo + ")";
+                        //}
+                        masterReport[0].CProduction = "SP. Chemical Finish";
                     }
                     if (masterReport[0].STProductionTypeID == null)
                     {
@@ -102,22 +103,25 @@ namespace TextileResearchDevelopment.Controllers
                     }
                     else
                     {
-                        if (masterReport[0].STProductionTypeID == 1)
-                        {
-                            masterReport[0].SProduction = "A. Brush(" + masterReport[0].StenterMcNo+ ")";
-                        }
-                        if (masterReport[0].STProductionTypeID == 2)
-                        {
-                            masterReport[0].SProduction = "A.Peach Finish(" + masterReport[0].StenterMcNo + ")";
-                        }
-                        if (masterReport[0].STProductionTypeID == 3)
-                        {
-                            masterReport[0].SProduction = "A AOP(" + masterReport[0].StenterMcNo + ")";
-                        }
-                        if (masterReport[0].STProductionTypeID == 4)
-                        {
-                            masterReport[0].SProduction = "SP. Chemical Finish(" + masterReport[0].StenterMcNo + ")";
-                        }
+                        //if (masterReport[0].STProductionTypeID == 1)
+                        //{
+                        //    masterReport[0].SProduction = "A. Brush(" + masterReport[0].StenterMcNo+ ")";
+                        //}
+                        //if (masterReport[0].STProductionTypeID == 2)
+                        //{
+                        //    masterReport[0].SProduction = "A.Peach Finish(" + masterReport[0].StenterMcNo + ")";
+                        //}
+                        //if (masterReport[0].STProductionTypeID == 3)
+                        //{
+                        //    masterReport[0].SProduction = "A AOP(" + masterReport[0].StenterMcNo + ")";
+                        //}
+                        //if (masterReport[0].STProductionTypeID == 4)
+                        //{
+                        //    masterReport[0].SProduction = "SP. Chemical Finish(" + masterReport[0].StenterMcNo + ")";
+                        //}
+
+                        masterReport[0].SProduction = "SP. Chemical Finish";
+
                     }
                 }
 

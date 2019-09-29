@@ -85,7 +85,6 @@
                             <table id="McNoTable" class="display nowrap stripe hover order-column" style="        width: 550px">
                                 <thead>
                                     <tr>
-                                        <th></th>
                                         <th>Id</th>
                                         <th>Machine No</th>
                                         <th>Dia</th>
@@ -143,7 +142,6 @@
                             <table id="YarnCountTable" class="display nowrap stripe hover order-column" style="        width: 100%">
                                 <thead>
                                     <tr>
-                                        <th></th>
                                         <th>Id</th>
                                         <th>Count</th>
                                     </tr>
@@ -197,7 +195,6 @@
                             <table id="CompositionTable" class="display nowrap stripe hover order-column" style="        width: 100%">
                                 <thead>
                                     <tr>
-                                        <th></th>
                                         <th>Id</th>
                                         <th>Composition</th>
                                     </tr>
@@ -252,7 +249,6 @@
                             <table id="YarnTypeTable" class="display nowrap stripe hover order-column" style="        width: 100%">
                                 <thead>
                                     <tr>
-                                        <th></th>
                                         <th>Id</th>
                                         <th>Yarn Type</th>
                                     </tr>
@@ -307,7 +303,6 @@
                             <table id="YarnColorTable" class="display nowrap stripe hover order-column" style="        width: 100%">
                                 <thead>
                                     <tr>
-                                        <th></th>
                                         <th>Id</th>
                                         <th>Yarn Color</th>
                                     </tr>
@@ -361,7 +356,6 @@
                             <table id="BrandTable" class="display nowrap stripe hover order-column" style="        width: 100%">
                                 <thead>
                                     <tr>
-                                        <th></th>
                                         <th>Id</th>
                                         <th>Brand</th>
                                     </tr>
@@ -720,7 +714,7 @@
                     <div class="form-group col-xs-4 form-inline">
                         <label for="McBrand" class="control-label required" style="        width: 35%;">Mc Brand</label>
                         <div style="        display: inline;">
-                            <input type="text" class=" form-control" style="        width: 60%;" id="McBrand" placeholder="Machine Brand" required autofocus>
+                            <input type="text" class=" form-control" style="        width: 60%;" id="McBrand" placeholder="Machine Brand" readonly required autofocus>
                         </div>
                     </div>
                 </div>
@@ -728,13 +722,13 @@
                     <div class="form-group col-xs-4 form-inline">
                         <label for="McDia" class="control-label required" style="        width: 35%;">Mc Dia</label>
                         <div style="        display: inline;">
-                            <input type="text" class=" form-control" style="        width: 60%;" id="McDia" placeholder="Machine Dia" required autofocus>
+                            <input type="text" class=" form-control" style="        width: 60%;" id="McDia" placeholder="Machine Dia" readonly required autofocus>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
                         <label for="McGauge" class="control-label required" style="        width: 35%;">Mc Gauge</label>
                         <div style="        display: inline;">
-                            <input type="text" class=" form-control" style="        width: 60%;" id="McGauge" placeholder="Machine Gauge" required autofocus>
+                            <input type="text" class=" form-control" style="        width: 60%;" id="McGauge" placeholder="Machine Gauge" readonly required autofocus>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
@@ -987,21 +981,11 @@
                 {
                     "targets": [0],
                     "searchable": false,
-                    "orderable": false
-                },
-                {
-                    "targets": [1],
-                    "searchable": false,
                     "orderable": false,
                     "visible": false
                 }
             ],
             "columns": [
-                {
-                    "render": function (data, type, full, meta) {
-                        return YarnColorTable.data().count();
-                    }
-                },
                 { "data": "Id" },
                 { "data": "YarnColor" }
             ]
@@ -1028,21 +1012,11 @@
                 {
                     "targets": [0],
                     "searchable": false,
-                    "orderable": false
-                },
-                {
-                    "targets": [1],
-                    "searchable": false,
                     "orderable": false,
                     "visible": false
                 }
             ],
             "columns": [
-                {
-                    "render": function (data, type, full, meta) {
-                        return YarnTypeTable.data().count();
-                    }
-                },
                 { "data": "Id" },
                 { "data": "YarnName" }
             ]
@@ -1069,21 +1043,11 @@
                 {
                     "targets": [0],
                     "searchable": false,
-                    "orderable": false
-                },
-                {
-                    "targets": [1],
-                    "searchable": false,
                     "orderable": false,
                     "visible": false
                 }
             ],
             "columns": [
-                {
-                    "render": function (data, type, full, meta) {
-                        return CompositionTable.data().count();
-                    }
-                },
                 { "data": "Id" },
                 { "data": "Composition" }
             ]
@@ -1180,21 +1144,11 @@
                 {
                     "targets": [0],
                     "searchable": false,
-                    "orderable": true
-                },
-                {
-                    "targets": [1],
-                    "searchable": false,
                     "orderable": false,
                     "visible": false
                 }
             ],
             "columns": [
-                {
-                    "render": function (data, type, full, meta) {
-                        return YarnCountTable.data().count();
-                    }
-                },
                 { "data": "Id" },
                 { "data": "YarnCount" }
             ]
@@ -1220,21 +1174,11 @@
                 {
                     "targets": [0],
                     "searchable": false,
-                    "orderable": false
-                },
-                {
-                    "targets": [1],
-                    "searchable": false,
                     "orderable": false,
                     "visible": false
                 }
             ],
             "columns": [
-                {
-                    "render": function (data, type, full, meta) {
-                        return BrandTable.data().count();
-                    }
-                },
                 { "data": "Id" },
                 { "data": "YarnSupplier" }
             ]
@@ -1257,15 +1201,9 @@
                 style: 'single'
             },
             "columnDefs": [
-                { "searchable": false, "orderable": false, "targets": [0] },
-                { "searchable": false, "orderable": false, "visible": false, "targets": [1] }
+                { "searchable": false, "orderable": false, "visible": false, "targets": [0] }
             ],
             "columns": [
-                {
-                    "render": function (data, type, full, meta) {
-                        return McNoTable.data().count();
-                    }
-                },
                 { "data": "Id" },
                 { "data": "McNo" },
                 { "data": "McDia" },
@@ -1436,7 +1374,7 @@
                                 $('#YDUpdate a').addClass('disabled');
                                 $('#YDRDelete a').addClass('disabled');
                                 $('#YDRUpdate a').addClass('disabled');
-                                
+
                             }
                             if (response.LibrarySet == 0) {
                                 $('#mdMcNo').addClass('disabled');
@@ -2997,6 +2935,10 @@
                         $('#updateBtn').prop("disabled", false);
                         $('#reviseBtn').prop("disabled", false);
                     }
+                    else {
+                        $('#AddYDBtn').prop("disabled", true);
+                        $('#AddYDRBtn').prop("disabled", true);
+                    }
                 }
             }
         });
@@ -3532,19 +3474,38 @@
 
             $.ajax({
                 type: "POST",
-                url: "/Knitting/Unapprove",
+                url: "/Fabric/GetApprovedStatus",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify(knitObj),
+                data: JSON.stringify({ "BarCode": Row.BarCode, "tableName": "Knit" }),
                 success: function (response) {
                     debugger
-                    if (response.data != "" && response.data != null) {
-                        debugger
-                        knitTable.row(index).data(response.data).draw();
-                        Reset();
+                    if (response == true) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/Knitting/Unapprove",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(knitObj),
+                            success: function (response) {
+                                debugger
+                                if (response.data != "" && response.data != null) {
+                                    debugger
+                                    knitTable.row(index).data(response.data).draw();
+                                    Reset();
+                                }
+                                else {
+                                    alert("Failed to Unapprove!!!");
+                                    return;
+                                }
+                            },
+                            failure: function () {
+                                $("#tblItems").append(" Error when fetching data please contact administrator");
+                            }
+                        });
                     }
                     else {
-                        alert("Failed to Unapprove!!!");
+                        alert("This Order is already approved in next process!!!");
                         return;
                     }
                 },
@@ -3553,27 +3514,6 @@
                 }
             });
 
-            //$.ajax({
-            //    type: "POST",
-            //    url: "/UserManagement/HasRight",
-            //    contentType: "application/json; charset=utf-8",
-            //    dataType: "json",
-            //    data: JSON.stringify({ text: "Knitting" }),
-            //    success: function (response) {
-            //        debugger
-            //        if (response == "true") {
-            //            debugger
-
-            //        }
-            //        else {
-            //            alert("You are not authorized to approve!!!");
-            //            return;
-            //        }
-            //    },
-            //    failure: function () {
-            //        $("#tblItems").append(" Error when fetching data please contact administrator");
-            //    }
-            //});
         }
 
         function ValidateFabricForm() {
@@ -3597,6 +3537,8 @@
             $('#saveBtn').prop("disabled", false);
             $('#updateBtn').prop("disabled", true);
             $('#reviseBtn').prop("disabled", true);
+            $('#AddYDBtn').prop("disabled", false);
+            $('#AddYDRBtn').prop("disabled", false);
 
             $("#BarCode").val("");
             $("#BuyerName").val("");
@@ -3716,7 +3658,7 @@
                     if (selectedMenu.text() == "Approve") {
                         var rows = knitTable.rows(function (idx, data, node) {
                             return data.BarCode === BarCode && data.ApprovedStatus == 1 ?
-                                    true : false;
+                                true : false;
                         }).data();
 
                         if (rows.length == 0) {

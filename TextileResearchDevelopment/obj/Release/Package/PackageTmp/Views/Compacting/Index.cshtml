@@ -231,7 +231,7 @@
                 </div>
                 <div class=" form-group">
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="Remarks" class="control-label required" style="width:35%;">Remarks</label>
+                        <label for="Remarks" class="control-label" style="width:35%;">Remarks</label>
                         <div style="display: inline;">
                             <input type="text" class=" form-control" style="width:60%;" id="Remarks" placeholder="Remarks" autofocus>
                         </div>
@@ -1179,19 +1179,38 @@
 
             $.ajax({
                 type: "POST",
-                url: "/Compacting/Unapprove",
+                url: "/Fabric/GetApprovedStatus",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify(Obj),
+                data: JSON.stringify({ "BarCode": Row.fabric.BarCode, "tableName": "Compacting" }),
                 success: function (response) {
                     debugger
-                    if (response.data != "" && response.data != null) {
-                        debugger
-                        Compactingtable.row(index).data(response.data).draw();
-                        Reset();
+                    if (response == true) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/Compacting/Unapprove",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(Obj),
+                            success: function (response) {
+                                debugger
+                                if (response.data != "" && response.data != null) {
+                                    debugger
+                                    Compactingtable.row(index).data(response.data).draw();
+                                    Reset();
+                                }
+                                else {
+                                    alert("Failed to Unapprove!!!");
+                                    return;
+                                }
+                            },
+                            failure: function () {
+                                $("#tblItems").append(" Error when fetching data please contact administrator");
+                            }
+                        });
                     }
                     else {
-                        alert("Failed to Unapprove!!!");
+                        alert("This Order is already approved in next process!!!");
                         return;
                     }
                 },
@@ -1199,6 +1218,8 @@
                     $("#tblItems").append(" Error when fetching data please contact administrator");
                 }
             });
+
+
         }
 
         function ValidateFabricForm() {
