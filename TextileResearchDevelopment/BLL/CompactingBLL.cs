@@ -96,7 +96,7 @@ namespace TextileResearchDevelopment.BLL
                 if (compacting.Id > 0)
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE Compacting SET FabricID = '" + compacting.fabric.Id + "', CMcNoID = " + compacting.mc.Id + ", CProductionTypeID = " + compacting.pr.Id + ", CTemp = '" + compacting.Temp + "', CSpeed = '" + compacting.Speed + "', CFeed = '" + compacting.Feed + "', CSteam = '" + compacting.Steam + "', CCompaction = '" + compacting.Compaction + "', CDia = '" + compacting.Dia + "', CGSM = '" + compacting.GSM + "', CRemarks = '" + compacting.Remarks + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
+                    query = "UPDATE Compacting SET FabricID = '" + compacting.fabric.Id + "', CMcNoID = " + compacting.mc.Id + ", CProductionTypeID = " + compacting.pr.Id + ", CTemp = '" + compacting.Temp + "', CSpeed = '" + compacting.Speed + "', CFeed = '" + compacting.Feed + "', CSteam = '" + compacting.Steam + "', CCompaction = '" + compacting.Compaction + "', CDia = '" + compacting.Dia + "', CGSM = '" + compacting.GSM + "', CRemarks = '" + compacting.Remarks + "', UpdateBy = (" + GetCreateByQuery + "), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm")+"'";
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
@@ -288,7 +288,7 @@ namespace TextileResearchDevelopment.BLL
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM CompactingView order by Id desc";
+                    query = "SELECT TOP 1* FROM CompactingView WHERE Id = " + compacting.Id;
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
@@ -321,7 +321,7 @@ namespace TextileResearchDevelopment.BLL
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM CompactingView order by Id desc";
+                    query = "SELECT TOP 1* FROM CompactingView WHERE Id = " + compacting.Id;
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {

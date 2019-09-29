@@ -125,7 +125,7 @@
 
     <div class="panel panel-default ">
         <div class="panel-heading">
-            <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Create Heat Setting Parameters Order</h5>
+            <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Create Singeing Order</h5>
         </div>
         <div class="panel-body">
             <form id="SGForm">
@@ -1073,19 +1073,38 @@
 
             $.ajax({
                 type: "POST",
-                url: "/Singeing/Unapprove",
+                url: "/Fabric/GetApprovedStatus",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify(Obj),
+                data: JSON.stringify({ "BarCode": Row.fabric.BarCode, "tableName": "Singeing" }),
                 success: function (response) {
                     debugger
-                    if (response.data != "" && response.data != null) {
-                        debugger
-                        SGtable.row(index).data(response.data).draw();
-                        Reset();
+                    if (response == true) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/Singeing/Unapprove",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(Obj),
+                            success: function (response) {
+                                debugger
+                                if (response.data != "" && response.data != null) {
+                                    debugger
+                                    SGtable.row(index).data(response.data).draw();
+                                    Reset();
+                                }
+                                else {
+                                    alert("Failed to Unapprove!!!");
+                                    return;
+                                }
+                            },
+                            failure: function () {
+                                $("#tblItems").append(" Error when fetching data please contact administrator");
+                            }
+                        });
                     }
                     else {
-                        alert("Failed to Unapprove!!!");
+                        alert("This Order is already approved in next process!!!");
                         return;
                     }
                 },
@@ -1093,6 +1112,8 @@
                     $("#tblItems").append(" Error when fetching data please contact administrator");
                 }
             });
+
+
         }
 
         function ValidateFabricForm() {

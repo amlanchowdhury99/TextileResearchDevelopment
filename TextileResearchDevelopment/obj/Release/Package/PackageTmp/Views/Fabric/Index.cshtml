@@ -644,19 +644,23 @@
                     debugger;
                     if (response != "" && response != null) {
 
-                        //if (response.RolePermissionID == 0) {
-                        //    $('#CReset a').addClass('disabled');
-                        //    if (response.Crud == 0) {
-                        //        $('#saveBtn').hide();
-                        //        $('#updateBtn').hide();
-                        //        $('#reviseBtn').hide();
-                        //    }
-                        //    if (response.LibrarySet == 0) {
-                        //        $('#mdBuyer').addClass('disabled');
-                        //        $('#mdFabricType').addClass('disabled');
-                        //        $('#mdComposition').addClass('disabled');
-                        //    }
-                        //}
+                        if (response.RolePermissionID == 0) {
+
+                            $('#CReset a').addClass('disabled');
+                            
+                            if (response.Crud == 0) {
+                                $('#saveBtn').hide();
+                                $('#updateBtn').hide();
+                                $('#reviseBtn').hide();
+
+                                $('#CDelete a').addClass('disabled');
+                            }
+                            if (response.LibrarySet == 0) {
+                                $('#mdBuyer').addClass('disabled');
+                                $('#mdFabricType').addClass('disabled');
+                                $('#mdComposition').addClass('disabled');
+                            }
+                        }
                     }
                     else {
                         alert("Connection Error!!!");
@@ -669,8 +673,6 @@
                 }
             });
         }
-
-
 
         $("#mdBuyer").click(function () {
             debugger;

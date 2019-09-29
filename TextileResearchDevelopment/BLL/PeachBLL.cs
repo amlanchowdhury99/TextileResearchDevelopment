@@ -28,7 +28,7 @@ namespace TextileResearchDevelopment.BLL
                 if (peach.Id > 0)
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE Peach SET FabricID = '" + peach.fabric.Id + "', PTaker = '" + peach.Taker + "', PPlaiter = '" + peach.Plaiter + "', PReturn = '" + peach.Return + "', PTension = '" + peach.Tension + "', PRPM = '" + peach.RPM + "', PBrush = '" + peach.Brush + "', PSpeed = '" + peach.Speed + "',  PDia = '" + peach.Dia + "', PGSM = '" + peach.GSM + "', PRemarks = '" + peach.Remarks + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
+                    query = "UPDATE Peach SET FabricID = '" + peach.fabric.Id + "', PTaker = '" + peach.Taker + "', PPlaiter = '" + peach.Plaiter + "', PReturn = '" + peach.Return + "', PTension = '" + peach.Tension + "', PRPM = '" + peach.RPM + "', PBrush = '" + peach.Brush + "', PSpeed = '" + peach.Speed + "',  PDia = '" + peach.Dia + "', PGSM = '" + peach.GSM + "', PRemarks = '" + peach.Remarks + "', UpdateBy = (" + GetCreateByQuery + "), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "'";
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
@@ -217,7 +217,7 @@ namespace TextileResearchDevelopment.BLL
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM PeachView order by Id desc";
+                    query = "SELECT TOP 1* FROM PeachView WHERE Id = " + peach.Id;
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
@@ -250,7 +250,7 @@ namespace TextileResearchDevelopment.BLL
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM PeachView order by Id desc";
+                    query = "SELECT TOP 1* FROM PeachView WHERE Id = " + peach.Id;
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {

@@ -78,7 +78,6 @@
           <ScalarProperty Name="DEnzy" ColumnName="DEnzy" />
           <ScalarProperty Name="Recipe" ColumnName="Recipe" />
           <ScalarProperty Name="RecipeNo" ColumnName="RecipeNo" />
-          <ScalarProperty Name="Comments" ColumnName="Comments" />
           <ScalarProperty Name="DyeingTime" ColumnName="DyeingTime" />
           <ScalarProperty Name="Dyebath" ColumnName="Dyebath" />
           <ScalarProperty Name="Whiteness" ColumnName="Whiteness" />
@@ -162,20 +161,20 @@
     <EntitySetMapping Name="YDViews">
       <EntityTypeMapping TypeName="TextileResearchDevelopmentModel.YDView">
         <MappingFragment StoreEntitySet="YDView">
-          <ScalarProperty Name="TPI" ColumnName="TPI" />
-          <ScalarProperty Name="Lot" ColumnName="Lot" />
-          <ScalarProperty Name="YarnColor" ColumnName="YarnColor" />
-          <ScalarProperty Name="YarnSupplier" ColumnName="YarnSupplier" />
-          <ScalarProperty Name="YarnName" ColumnName="YarnName" />
-          <ScalarProperty Name="YarnComposition" ColumnName="YarnComposition" />
-          <ScalarProperty Name="YarnCount" ColumnName="YarnCount" />
-          <ScalarProperty Name="YDSupplierID" ColumnName="YDSupplierID" />
-          <ScalarProperty Name="YDYarnColorID" ColumnName="YDYarnColorID" />
-          <ScalarProperty Name="YDYarnTypeID" ColumnName="YDYarnTypeID" />
-          <ScalarProperty Name="YDCompositionID" ColumnName="YDCompositionID" />
-          <ScalarProperty Name="YDCountID" ColumnName="YDCountID" />
-          <ScalarProperty Name="KnitID" ColumnName="KnitID" />
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="KnitID" ColumnName="KnitID" />
+          <ScalarProperty Name="YDCountID" ColumnName="YDCountID" />
+          <ScalarProperty Name="YDCompositionID" ColumnName="YDCompositionID" />
+          <ScalarProperty Name="YDYarnTypeID" ColumnName="YDYarnTypeID" />
+          <ScalarProperty Name="YDYarnColorID" ColumnName="YDYarnColorID" />
+          <ScalarProperty Name="YDSupplierID" ColumnName="YDSupplierID" />
+          <ScalarProperty Name="YarnCount" ColumnName="YarnCount" />
+          <ScalarProperty Name="YarnComposition" ColumnName="YarnComposition" />
+          <ScalarProperty Name="YarnName" ColumnName="YarnName" />
+          <ScalarProperty Name="YarnSupplier" ColumnName="YarnSupplier" />
+          <ScalarProperty Name="YarnColor" ColumnName="YarnColor" />
+          <ScalarProperty Name="Lot" ColumnName="Lot" />
+          <ScalarProperty Name="TPI" ColumnName="TPI" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

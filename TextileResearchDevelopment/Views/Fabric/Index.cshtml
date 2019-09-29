@@ -64,7 +64,6 @@
                             <table id="BuyerTable" class="display nowrap stripe hover order-column" style="        width: 550px;">
                                 <thead>
                                     <tr>
-                                        <th></th>
                                         <th>Id</th>
                                         <th>Buyer</th>
                                     </tr>
@@ -118,7 +117,6 @@
                             <table id="FabricTypeTable" class="display nowrap stripe hover order-column" style="        width: 550px;">
                                 <thead>
                                     <tr>
-                                        <th></th>
                                         <th>Id</th>
                                         <th>FabricType</th>
                                     </tr>
@@ -172,7 +170,6 @@
                             <table id="CompositionTable" class="display nowrap stripe hover order-column" style="        width: 550px;">
                                 <thead>
                                     <tr>
-                                        <th></th>
                                         <th>Id</th>
                                         <th>Composition</th>
                                     </tr>
@@ -278,7 +275,7 @@
                     <div class="form-group col-xs-4 form-inline">
                         <button class="btn btn-warning btn-sm" style="width:32%;" id="resetBtn">Reset</button>
                         <div style="display: inline;">
-                            <input type="submit" value="Update" class="btn btn-primary btn-sm" style="width:32%;" id="updateBtn">
+                            <input type="submit" value="Update" class="btn btn-primary btn-sm" style="width:32%;" disabled="disabled" id="updateBtn">
                         </div>
                         <div style="display: inline;">
                             <input type="submit" value="Save" class="btn btn-primary btn-sm" style="width:32%;" id="saveBtn">
@@ -377,21 +374,11 @@
                 {
                     "targets": [0],
                     "searchable": false,
-                    "orderable": false
-                },
-                {
-                    "targets": [1],
-                    "searchable": false,
                     "orderable": false,
                     "visible": false
                 }
             ],
             "columns": [
-                {
-                    "render": function (data, type, full, meta) {
-                        return BuyerTable.data().count();
-                    }
-                },
                 { "data": "Id" },
                 { "data": "BuyerName" }
             ]
@@ -418,21 +405,11 @@
                 {
                     "targets": [0],
                     "searchable": false,
-                    "orderable": false
-                },
-                {
-                    "targets": [1],
-                    "searchable": false,
                     "orderable": false,
                     "visible": false
                 }
             ],
             "columns": [
-                {
-                    "render": function (data, type, full, meta) {
-                        return FabricTypeTable.data().count();
-                    }
-                },
                 { "data": "Id" },
                 { "data": "FabricTypeName" }
             ]
@@ -459,21 +436,11 @@
                 {
                     "targets": [0],
                     "searchable": false,
-                    "orderable": false
-                },
-                {
-                    "targets": [1],
-                    "searchable": false,
                     "orderable": false,
                     "visible": false
                 }
             ],
             "columns": [
-                {
-                    "render": function (data, type, full, meta) {
-                        return CompositionTable.data().count();
-                    }
-                },
                 { "data": "Id" },
                 { "data": "Composition" }
             ]
@@ -646,9 +613,9 @@
 
                         if (response.RolePermissionID == 0) {
 
-                            $('#CDelete a').addClass('disabled');
                             $('#CReset a').addClass('disabled');
-                            
+                            $('#CDelete a').addClass('disabled');
+
                             if (response.Crud == 0) {
                                 $('#saveBtn').hide();
                                 $('#updateBtn').hide();
@@ -1224,7 +1191,7 @@
 
         $('#fabricTable tbody').on('click', 'tr', function () {
             event.preventDefault();
-
+            debugger;
             if (fabricTable.data().any()) {
                 if ($(this).hasClass('selected')) {
                     $(this).removeClass('selected');
@@ -1235,6 +1202,10 @@
                     fabricTable.$('tr.selected').removeClass('selected');
                     $(this).addClass('selected');
                     Setvalue(rowdata);
+                    $('#saveBtn').prop("disabled", true);
+                    if (rowdata.Status != "Active") {
+                        $('#updateBtn').prop("disabled", false);
+                    }
                 }
             }
             else {
@@ -1250,20 +1221,27 @@
 
                 var Status = fabricTable.rows('.selected').data()[0].Status;
 
-                if (Status == "Idle") {
-                    if (selectedMenu.text() == "Delete")
-                        DeleteRow();
-                    if (selectedMenu.text() == "Reset")
-                        ResetFabric();  
+                if (Status == "Active") {
+                    if (selectedMenu.text() == "Delete") {
+                        alert("First reset the Fabric!!!");
+                    }
+                    if (selectedMenu.text() == "Reset") {
+                        ResetFabric();
+                    }
                 }
                 else {
-                    alert("This fabrci is already used!!!")
+                    if (Status == "Idle") {
+                        if (selectedMenu.text() == "Delete") {
+                            DeleteRow();
+                        }
+                    }
                 }
             }
         });
 
         function ResetFabric() {
             event.preventDefault();
+            debugger;
             var Row = fabricTable.rows('.selected').data()[0];
             var index = fabricTable.row('.selected').index();
 
@@ -1526,8 +1504,6 @@
             $("#BatchNo").val(rowdata.BatchNo);
             $("#Season").val(rowdata.Season);
             $("#Version").val(rowdata.Version);
-            $('#saveBtn').prop("disabled", true);
-            $('#updateBtn').prop("disabled", false);
             $("#FP").val("");
             $('#FP').multiselect('refresh');
 

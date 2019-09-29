@@ -96,7 +96,7 @@ namespace TextileResearchDevelopment.BLL
                 if (stenter.Id > 0)
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE Stenter SET FabricID = '" + stenter.fabric.Id + "', SMcNoID = " + stenter.mc.Id + ", STProductionTypeID = " + stenter.pr.Id + ", STTemp = '" + stenter.Temp + "', STSpeed = '" + stenter.Speed + "', STFeed = '" + stenter.Feed + "', STStreching = '" + stenter.Streching + "', STChemical = '" + stenter.Chemical + "', STDia = '" + stenter.Dia + "', STGSM = '" + stenter.GSM + "', STShrinkage = '" + stenter.Shrinkage + "', STRemarks = '" + stenter.Remarks + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
+                    query = "UPDATE Stenter SET FabricID = '" + stenter.fabric.Id + "', SMcNoID = " + stenter.mc.Id + ", STProductionTypeID = " + stenter.pr.Id + ", STTemp = '" + stenter.Temp + "', STSpeed = '" + stenter.Speed + "', STFeed = '" + stenter.Feed + "', STStreching = '" + stenter.Streching + "', STChemical = '" + stenter.Chemical + "', STDia = '" + stenter.Dia + "', STGSM = '" + stenter.GSM + "', STShrinkage = '" + stenter.Shrinkage + "', STRemarks = '" + stenter.Remarks + "', UpdateBy = (" + GetCreateByQuery + "), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "'";
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
@@ -289,7 +289,7 @@ namespace TextileResearchDevelopment.BLL
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM StenterView order by Id desc";
+                    query = "SELECT TOP 1* FROM StenterView WHERE Id = " + stenter.Id;
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
@@ -322,7 +322,7 @@ namespace TextileResearchDevelopment.BLL
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM StenterView order by Id desc";
+                    query = "SELECT TOP 1* FROM StenterView WHERE Id = " + stenter.Id;
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {

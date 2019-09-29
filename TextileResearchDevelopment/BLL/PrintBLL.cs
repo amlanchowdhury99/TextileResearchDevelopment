@@ -131,7 +131,7 @@ namespace TextileResearchDevelopment.BLL
                 if (print.Id > 0)
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE PrintInfo SET FabricID = '" + print.fabric.Id + "', MachineTypeID = " + print.mc.Id + ", PrintFactoryID = " + print.ptf.Id + ", PrintTypeID = " + print.prt.Id + ", PrintCoverage = '" + print.PrintCoverage + "', OtherInfo = '" + print.OtherInfo + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
+                    query = "UPDATE PrintInfo SET FabricID = '" + print.fabric.Id + "', MachineTypeID = " + print.mc.Id + ", PrintFactoryID = " + print.ptf.Id + ", PrintTypeID = " + print.prt.Id + ", PrintCoverage = '" + print.PrintCoverage + "', OtherInfo = '" + print.OtherInfo + "', UpdateBy = (" + GetCreateByQuery + "), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "'";
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
@@ -318,7 +318,7 @@ namespace TextileResearchDevelopment.BLL
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM PrintView order by Id desc";
+                    query = "SELECT TOP 1* FROM PrintView WHERE Id = " + print.Id;
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
@@ -351,7 +351,7 @@ namespace TextileResearchDevelopment.BLL
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM PrintView order by Id desc";
+                    query = "SELECT TOP 1* FROM PrintView WHERE Id = " + print.Id;
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {

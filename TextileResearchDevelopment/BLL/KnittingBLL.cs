@@ -577,7 +577,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string query = "";
-                query = yarn.Id == 0 ? "INSERT INTO YarnCountType (YarnCount) VALUES('" + yarn.YarnCount + "')" : "UPDATE YarnCount SET YarnCount = '" + yarn.YarnCount + "' WHERE Id = " + yarn.Id;
+                query = yarn.Id == 0 ? "INSERT INTO YarnCountType (YarnCount) VALUES('" + yarn.YarnCount + "')" : "UPDATE YarnCountType SET YarnCount = '" + yarn.YarnCount + "' WHERE Id = " + yarn.Id;
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     if(yarn.Id > 0)

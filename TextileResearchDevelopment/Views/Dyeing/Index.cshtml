@@ -130,7 +130,7 @@
 
     <div class="panel panel-default ">
         <div class="panel-heading">
-            <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Create Heat Setting Parameters Order</h5>
+            <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Create Dyeing Order</h5>
         </div>
         <div class="panel-body">
             <form id="DyeingForm">
@@ -208,19 +208,13 @@
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="Comments" class="control-label required" style="width:35%;">Comments</label>
+                        <label for="HistoryType" class="control-label" style="width:35%;">History</label>
                         <div style="display: inline;">
-                            <input type="text" class=" form-control" style="width:60%;" id="Comments" placeholder="Comments" required autofocus>
+                            <select name="HistoryType" id="HistoryType" style="width:60%;" class="form-control" autofocus></select>
                         </div>
                     </div>
                 </div>
                 <div class=" form-group">
-                    <div class="form-group col-xs-4 form-inline">
-                        <label for="HistoryType" class="control-label" style="width:35%;">History</label>
-                        <div style="display: inline;">
-                            <select name="HistoryType" id="HistoryType" style="width:60%;" class="form-control input-sm" autofocus></select>
-                        </div>
-                    </div>
                     <div class="form-group col-xs-4 form-inline">
                         <label for="Time" class="control-label required" style="width:35%;">Time</label>
                         <div style="display: inline;">
@@ -231,6 +225,12 @@
                         <label for="RFTType" class="control-label required" style="width:35%;">RFT</label>
                         <div style="display: inline;">
                             <select name="RFTType" id="RFTType" style="width:60%;" class="form-control" required autofocus></select>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="PH" class="control-label required" style="width:35%;">DyeBath</label>
+                        <div style="display: inline;">
+                            <input type="text" class=" form-control" style="width:60%;" id="PH" required autofocus>
                         </div>
                     </div>
                 </div>
@@ -245,25 +245,19 @@
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="PH" class="control-label required" style="width:35%;">DyeBath</label>
-                        <div style="display: inline;">
-                            <input type="text" class=" form-control" style="width:60%;" id="PH" required autofocus>
-                        </div>
-                    </div>
-                    <div class="form-group col-xs-4 form-inline">
                         <label for="Value" class="control-label required" style="width:35%;">Whiteness Val</label>
                         <div style="display: inline;">
                             <input type="text" class=" form-control" style="width:60%;" id="Value" required autofocus>
                         </div>
                     </div>
-                </div>
-                <div class=" form-group">
                     <div class="form-group col-xs-4 form-inline">
                         <label for="ReviseStatus" class="control-label" style="        width: 35%;">Revise Status</label>
                         <div style="        display: inline;">
                             <input type="text" class=" form-control" style="        width: 60%;" id="ReviseStatus" readonly>
                         </div>
                     </div>
+                </div>
+                <div class=" form-group">
                     <div class="form-group col-xs-4 form-inline">
                         <button class="btn btn-warning btn-sm" style="width:25%;" id="resetBtn">Reset</button>
                         <div style="display: inline;">
@@ -298,9 +292,9 @@
                 <th>McNo</th>
                 <th>Speed</th>
                 <th>Enzyme</th>
+                <th>History</th>
                 <th>RecipeNo</th>
                 <th>Recipe</th>
-                <th>Comments</th>
                 <th>Time</th>
                 <th>DyeingDate</th>
                 <th>RFT</th>
@@ -332,9 +326,9 @@
                 <th>McNo</th>
                 <th>Speed</th>
                 <th>Enzyme</th>
+                <th>History</th>
                 <th>RecipeNo</th>
                 <th>Recipe</th>
-                <th>Comments</th>
                 <th>Time</th>
                 <th>DyeingDate</th>
                 <th>RFT</th>
@@ -577,11 +571,7 @@
 
         var Dyeingtable = $('#Dyeingtable').DataTable({
             dom: 'Bfrtip',
-            buttons: [
-                {
-                    extend: 'excelHtml5'
-                }
-            ],
+            buttons: [],
             "ajax":
             {
                 "url": "/Dyeing/GetData",
@@ -633,14 +623,12 @@
                 { "data": "fabric.cm.Composition" },
                 { "data": "fabric.OrderNo" },
                 { "data": "fabric.RefNo" },
-                { "data": "rft.RFT" },
-                { "data": "hs.History" },
                 { "data": "McNo" },
                 { "data": "Speed" },
                 { "data": "Enzyme" },
+                { "data": "hs.History" },
                 { "data": "RecipeNo" },
                 { "data": "Recipe" },
-                { "data": "Comments" },
                 { "data": "Time" },
                 {
                     data: "DyeingDate",
@@ -648,6 +636,7 @@
                         return moment(data).format("DD/MM/YYYY");
                     }
                 },
+                { "data": "rft.RFT" },
                 { "data": "PH" },
                 { "data": "Value" },
                 { "data": "ReviseStatus" },
@@ -871,6 +860,69 @@
 
         });
 
+        $("#Dyeingtable tbody").contextMenu({
+            menuSelector: "#MainContextMenu",
+            menuSelected: function (invokedOn, selectedMenu) {
+                debugger;
+
+                var ApprovedStatus = Dyeingtable.rows('.selected').data()[0].ApprovedStatus;
+                if (ApprovedStatus == 0) {
+                    if (selectedMenu.text() == "Delete")
+                        DeleteRow();
+                    if (selectedMenu.text() == "Approve") {
+
+                        var BarCode = Dyeingtable.rows('.selected').data()[0].BarCode;
+                        var rows = Dyeingtable.rows(function (idx, data, node) {
+                            return data.BarCode === BarCode && data.ApprovedStatus == 1 ?
+                                true : false;
+                        }).data();
+
+                        if (rows.length == 0) {
+                            ApproveRow();
+                        }
+                        else {
+                            alert("The order with same BarCode is already approved!!!")
+                        }
+
+                    }
+                    if (selectedMenu.text() == "Unapprove")
+                        alert("This order is not approved yet!!!")
+                }
+                else {
+                    if (selectedMenu.text() == "Unapprove") {
+                        var knitObj =
+                        {
+                            Id: Dyeingtable.rows('.selected').data()[0].Id
+                        };
+                        $.ajax({
+                            type: "POST",
+                            url: "/Knitting/CheckUnapproveEligibility",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(knitObj),
+                            success: function (response) {
+                                debugger
+                                if (response == "true") {
+                                    UnapproveRow();
+                                }
+                                else {
+                                    alert("This order is already used in Dyeing!!!");
+                                    return;
+                                }
+                            },
+                            failure: function () {
+                                $("#tblItems").append(" Error when fetching data please contact administrator");
+                            }
+                        });
+                    }
+                    else {
+                        alert("This order is already approved!!!");
+                        return;
+                    }
+                }
+            }
+        });
+
         $('#DyeingForm').submit(function (e) {
             event.preventDefault();
             debugger
@@ -900,7 +952,6 @@
                     Enzyme: $("#Enzyme").val(),
                     RecipeNo: $("#RecipeNo").val(),
                     Recipe: $("#Recipe").val(),
-                    Comments: $("#Comments ").val(),
                     Time: $("#Time").val(),
                     DyeingDate: $("#DyeingDate").data().date,
                     PH: $("#PH").val(),
@@ -966,7 +1017,6 @@
                     Enzyme: $("#Enzyme").val(),
                     RecipeNo: $("#RecipeNo").val(),
                     Recipe: $("#Recipe").val(),
-                    Comments: $("#Comments ").val(),
                     Time: $("#Time").val(),
                     DyeingDate: $("#DyeingDate").data().date,
                     PH: $("#PH").val(),
@@ -1077,68 +1127,7 @@
             Reset();
         });
 
-        $("#Dyeingtable tbody").contextMenu({
-            menuSelector: "#MainContextMenu",
-            menuSelected: function (invokedOn, selectedMenu) {
-                debugger;
 
-                var ApprovedStatus = Dyeingtable.rows('.selected').data()[0].ApprovedStatus;
-                if (ApprovedStatus == 0) {
-                    if (selectedMenu.text() == "Delete")
-                        DeleteRow();
-                    if (selectedMenu.text() == "Approve") {
-
-                        var BarCode = Dyeingtable.rows('.selected').data()[0].BarCode;
-                        var rows = Dyeingtable.rows(function (idx, data, node) {
-                            return data.BarCode === BarCode && data.ApprovedStatus == 1 ?
-                                true : false;
-                        }).data();
-
-                        if (rows.length == 0) {
-                            ApproveRow();
-                        }
-                        else {
-                            alert("The order with same BarCode is already approved!!!")
-                        }
-
-                    }
-                    if (selectedMenu.text() == "Unapprove")
-                        alert("This order is not approved yet!!!")
-                }
-                else {
-                    if (selectedMenu.text() == "Unapprove") {
-                        var knitObj =
-                        {
-                            Id: Dyeingtable.rows('.selected').data()[0].Id
-                        };
-                        $.ajax({
-                            type: "POST",
-                            url: "/Knitting/CheckUnapproveEligibility",
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json",
-                            data: JSON.stringify(knitObj),
-                            success: function (response) {
-                                debugger
-                                if (response == "true") {
-                                    UnapproveRow();
-                                }
-                                else {
-                                    alert("This order is already used in Dyeing!!!");
-                                    return;
-                                }
-                            },
-                            failure: function () {
-                                $("#tblItems").append(" Error when fetching data please contact administrator");
-                            }
-                        });
-                    }
-                    else {
-                        alert("This order is already approved!!!");
-                        return;
-                    }
-                }
-            }
-        });
 
         function DeleteRow() {
             event.preventDefault();
@@ -1219,19 +1208,38 @@
 
             $.ajax({
                 type: "POST",
-                url: "/Dyeing/Unapprove",
+                url: "/Fabric/GetApprovedStatus",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify(Obj),
+                data: JSON.stringify({ "BarCode": Row.fabric.BarCode, "tableName": "Dyeing" }),
                 success: function (response) {
                     debugger
-                    if (response.data != "" && response.data != null) {
-                        debugger
-                        Dyeingtable.row(index).data(response.data).draw();
-                        Reset();
+                    if (response == true) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/Dyeing/Unapprove",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(Obj),
+                            success: function (response) {
+                                debugger
+                                if (response.data != "" && response.data != null) {
+                                    debugger
+                                    Dyeingtable.row(index).data(response.data).draw();
+                                    Reset();
+                                }
+                                else {
+                                    alert("Failed to Unapprove!!!");
+                                    return;
+                                }
+                            },
+                            failure: function () {
+                                $("#tblItems").append(" Error when fetching data please contact administrator");
+                            }
+                        });
                     }
                     else {
-                        alert("Failed to Unapprove!!!");
+                        alert("This Order is already approved in next process!!!");
                         return;
                     }
                 },
@@ -1276,7 +1284,6 @@
             $("#Enzyme").val("");
             $("#RecipeNo").val("");
             $("#Recipe").val("");
-            $("#Comments").val("");
             $("#Time").val("");
             $("#DyeingDate").val("");
             $("#PH").val("");
@@ -1310,7 +1317,6 @@
             $("#Enzyme").val(rowdata.Enzyme);
             $("#RecipeNo").val(rowdata.RecipeNo);
             $("#Recipe").val(rowdata.Recipe);
-            $("#Comments").val(rowdata.Comments);
             $("#Time").val(rowdata.Time);
             $("#DyeingDate").val(rowdata.DyeingDate);
             $("#PH").val(rowdata.PH);

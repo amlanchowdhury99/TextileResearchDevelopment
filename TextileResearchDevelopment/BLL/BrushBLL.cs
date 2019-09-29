@@ -28,7 +28,7 @@ namespace TextileResearchDevelopment.BLL
                 if (brush.Id > 0)
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE Brush SET FabricID = '" + brush.fabric.Id + "', BUpperPile = '" + brush.UPile + "', BUpperCounterPile = '" + brush.UCounterPile + "', BUpperDrumTension = '" + brush.UTension + "', BUpperDrumRPM = '" + brush.URPM + "', BLowerPile = '" + brush.LPile + "', BLowerCounterPile = '" + brush.LCounterPile + "',  BLowerDrumTension = '" + brush.LTension + "', BLowerDrumRPM = '" + brush.LRPM + "', BSpeed = '" + brush.BSpeed + "', BRemarks = '" + brush.Remarks + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
+                    query = "UPDATE Brush SET FabricID = '" + brush.fabric.Id + "', BUpperPile = '" + brush.UPile + "', BUpperCounterPile = '" + brush.UCounterPile + "', BUpperDrumTension = '" + brush.UTension + "', BUpperDrumRPM = '" + brush.URPM + "', BLowerPile = '" + brush.LPile + "', BLowerCounterPile = '" + brush.LCounterPile + "',  BLowerDrumTension = '" + brush.LTension + "', BLowerDrumRPM = '" + brush.LRPM + "', BSpeed = '" + brush.BSpeed + "', BRemarks = '" + brush.Remarks + "', UpdateBy = (" + GetCreateByQuery + "), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "'";
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
@@ -213,11 +213,12 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string GetApproveByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
+
                 string query = " UPDATE Brush SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + brush.Id + " AND ApprovedStatus = 0 ";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM BrushView order by Id desc";
+                    query = "SELECT TOP 1* FROM BrushView WHERE Id = " + brush.Id;
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
@@ -250,7 +251,7 @@ namespace TextileResearchDevelopment.BLL
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM BrushView order by Id desc";
+                    query = "SELECT TOP 1* FROM BrushView WHERE Id = " + brush.Id;
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {

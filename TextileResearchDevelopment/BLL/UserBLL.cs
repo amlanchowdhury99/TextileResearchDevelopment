@@ -388,7 +388,7 @@ namespace TextileResearchDevelopment.BLL
 
                 if(UserName == "SuperAdmin@gmail.com")
                 {
-                    PermissionString = PermissionString == "" ? "14" : PermissionString + "," + "14";
+                    PermissionString = PermissionString == "" ? "1,2,3,4,5,6,7,8,9,10,11,12,13,14" : PermissionString + "," + "14";
                 }
 
             }

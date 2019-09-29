@@ -364,5 +364,21 @@ namespace TextileResearchDevelopment.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult GetApprovedStatus(string BarCode, string tableName)
+        {
+            Boolean result = false;
+            try
+            {
+                result = FabricBLL.GetApprovedStatus(BarCode, tableName);
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

@@ -22,6 +22,10 @@ dt-button {
     font-size: 18px;
 }
 
+#ActionLinkBar ul li a{
+    font-size: 15.25px;
+}
+
 .foot {
     text-transform: uppercase;
 }

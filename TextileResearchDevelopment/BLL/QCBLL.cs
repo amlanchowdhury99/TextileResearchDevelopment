@@ -27,7 +27,7 @@ namespace TextileResearchDevelopment.BLL
                 if (qc.Id > 0)
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE QC SET FabricID = '" + qc.fabric.Id + "', QDia = '" + qc.Dia + "', QGSM = '" + qc.GSM + "', QShrinkage = '" + qc.Shrinkage + "', QWash = '" + qc.Wash + "', QWater = '" + qc.Water + "', QAcid = '" + qc.Acid + "', QAlkhali = '" + qc.Alkhali + "',  QBursting = '" + qc.Bursting + "', QPilling = '" + qc.Pilling + "', QStrech = '" + qc.Strech + "', QRecovery = '" + qc.Recovery + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
+                    query = "UPDATE QC SET FabricID = '" + qc.fabric.Id + "', QDia = '" + qc.Dia + "', QGSM = '" + qc.GSM + "', QShrinkage = '" + qc.Shrinkage + "', QWash = '" + qc.Wash + "', QWater = '" + qc.Water + "', QAcid = '" + qc.Acid + "', QAlkhali = '" + qc.Alkhali + "',  QBursting = '" + qc.Bursting + "', QPilling = '" + qc.Pilling + "', QStrech = '" + qc.Strech + "', QRecovery = '" + qc.Recovery + "', UpdateBy = (" + GetCreateByQuery + "), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "'";
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
@@ -217,7 +217,7 @@ namespace TextileResearchDevelopment.BLL
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM QCView order by Id desc";
+                    query = "SELECT TOP 1* FROM QCView WHERE Id = " + qc.Id;
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
@@ -250,7 +250,7 @@ namespace TextileResearchDevelopment.BLL
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM QCView order by Id desc";
+                    query = "SELECT TOP 1* FROM QCView WHERE Id = " + qc.Id;
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {

@@ -27,11 +27,11 @@ namespace TextileResearchDevelopment.BLL
                 if (singeing.Id > 0)
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE Singeing SET FabricID = '" + singeing.fabric.Id + "',  SFHBurner1 = '" + singeing.HBurner1 + "', SFHBurner2 = '" + singeing.HBurner2 + "', SFWBurner1 = '" + singeing.WBurner1 + "', SFWBurner2 = '" + singeing.WBurner2 + "', SSpeed = '" + singeing.Speed + "', SBurner = '" + singeing.Burner + "', SFlamePosition = '" + singeing.Position + "', UpdateBy = ('" + GetCreateByQuery + "'), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm");
+                    query = "UPDATE Singeing SET FabricID = '" + singeing.fabric.Id + "',  SFHBurner1 = '" + singeing.HBurner1 + "', SFHBurner2 = '" + singeing.HBurner2 + "', SFWBurner1 = '" + singeing.WBurner1 + "', SFWBurner2 = '" + singeing.WBurner2 + "', SSpeed = '" + singeing.Speed + "', SBurner = '" + singeing.Burner + "', SFlamePosition = '" + singeing.Position + "', UpdateBy = (" + GetCreateByQuery + "), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "'";
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
-                        query = "SELECT * FROM cwView WHERE Id = " + singeing.Id;
+                        query = "SELECT * FROM SingeingView WHERE Id = " + singeing.Id;
                         SqlDataReader reader = DBGateway.GetFromDB(query);
                         if (reader.HasRows)
                         {
@@ -212,7 +212,7 @@ namespace TextileResearchDevelopment.BLL
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM SingeingView order by Id desc";
+                    query = "SELECT TOP 1* FROM SingeingView WHERE Id = " + singeing.Id;
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
@@ -245,7 +245,7 @@ namespace TextileResearchDevelopment.BLL
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = "SELECT TOP 1* FROM SingeingView order by Id desc";
+                    query = "SELECT TOP 1* FROM SingeingView WHERE Id = " + singeing.Id;
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {

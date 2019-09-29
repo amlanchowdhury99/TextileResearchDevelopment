@@ -629,7 +629,7 @@ namespace TextileResearchDevelopment.BLL
                 fabric.cm.Composition = reader["Composition"].ToString();
                 fabric.OrderNo = reader["OrderNo"].ToString();
                 fabric.Color = reader["Color"].ToString();
-                fabric.Status = Convert.ToInt32(reader["Status"]) == 0 ? "Idle" : "On Progress";
+                fabric.Status = GetFabricStatus(fabric.Id) > 0 ? "Active" : "Idle";
                 fabric.Season = reader["Season"].ToString();
                 fabric.RefNo = reader["RefNo"].ToString();
                 fabric.BatchNo = reader["BatchNo"].ToString();
@@ -693,13 +693,13 @@ namespace TextileResearchDevelopment.BLL
                             {
                                 if (i.ToString() == "Knit")
                                 {
-                                    cm.CommandText = "DELETE YarnDetails WHERE KnitID = (SELECT Id FROM Knitting WHERE FabricID = "+Id+")";
+                                    cm.CommandText = "DELETE YarnDetails WHERE KnitID = (SELECT TOP 1(Id) FROM Knitting WHERE FabricID = " + Id + ")";
                                     cm.ExecuteNonQuery();
-                                    cm.CommandText = "DELETE YarnDyedRepeat WHERE KnitID = (SELECT Id FROM Knitting WHERE FabricID = " + Id + ")";
+                                    cm.CommandText = "DELETE YarnDyedRepeat WHERE KnitID = (SELECT TOP 1(Id) FROM Knitting WHERE FabricID = " + Id + ")";
                                     cm.ExecuteNonQuery();
                                     cm.CommandText = "DELETE Knitting WHERE FabricID = " + Id;
                                     cm.ExecuteNonQuery();
-                                    
+
                                 }
                                 else if (i.ToString() == "CW")
                                 {
@@ -719,6 +719,8 @@ namespace TextileResearchDevelopment.BLL
                             }
                         }
                     }
+                    cm.CommandText = "DELETE FabricProcess WHERE BarCode = '" + BarCode + "'";
+                    cm.ExecuteNonQuery();
                 }
             }
             catch (Exception ex)
@@ -1025,6 +1027,170 @@ namespace TextileResearchDevelopment.BLL
                 }
             }
             return mainQuery;
+        }
+
+        private static int GetFabricStatus(int Id)
+        {
+            SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader1; cm.Connection = cn; cn.Open();
+            var count = 0;
+            try
+            {
+                var columnsName = new List<string>();
+                string FabricBarCodeQuery = "SELECT BarCode FROM Fabric WHERE Id = " + Id;
+                string query = " SELECT * FROM FabricProcess WHERE BarCode = (" + FabricBarCodeQuery + ")";
+                reader1 = DBGateway.GetFromDB(query);
+                if (reader1.HasRows)
+                {
+                    while (reader1.Read())
+                    {
+                        columnsName = Enumerable.Range(0, reader1.FieldCount).Select(reader1.GetName).ToList();
+                        columnsName.RemoveRange(0, 2);
+                    }
+                }
+                cn.Close();
+                int i = 0;
+                while (i < columnsName.Count)
+                {
+                    if (columnsName[i].ToString() == "Knit")
+                    {
+                        query = " SELECT * FROM Knitting WHERE FabricID = " + Id + " AND ApprovedStatus = 1";
+                        cm.CommandText = query;
+                        cn.Open();
+                        reader1 = cm.ExecuteReader();
+                        if (reader1.Read())
+                        {
+                            count++;
+                            break;
+                        }
+                        cn.Close();
+                    }
+                    else if (columnsName[i].ToString() == "CW")
+                    {
+                        query = " SELECT * FROM ContinueWashing WHERE FabricID = " + Id + " AND ApprovedStatus = 1";
+                        cm.CommandText = query;
+                        cn.Open();
+                        reader1 = cm.ExecuteReader();
+                        if (reader1.Read())
+                        {
+                            count++;
+                            break;
+                        }
+                        cn.Close();
+                    }
+                    else if (columnsName[i].ToString() == "Print")
+                    {
+                        query = " SELECT * FROM PrintInfo WHERE FabricID = " + Id + " AND ApprovedStatus = 1";
+                        cm.CommandText = query;
+                        cn.Open();
+                        reader1 = cm.ExecuteReader();
+                        if (reader1.Read())
+                        {
+                            count++;
+                            break;
+                        }
+                        cn.Close();
+                    }
+                    else
+                    {
+                        query = " SELECT * FROM " + i.ToString() + " WHERE FabricID = " + Id + " AND ApprovedStatus = 1";
+                        cm.CommandText = query;
+                        cn.Open();
+                        reader1 = cm.ExecuteReader();
+                        if (reader1.Read())
+                        {
+                            count++;
+                            break;
+                        }
+                        cn.Close();
+                    }
+                    i++;
+                }
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+            finally
+            {
+                cn.Close();
+            }
+            return count;
+        }
+
+        public static bool GetApprovedStatus(string BarCode, string tableName)
+        {
+            Boolean result = false;
+            try
+            {
+                var columnsName = new Dictionary<int, string>();
+                string query = " SELECT * FROM FabricProcess WHERE BarCode = '" + BarCode + "'";
+
+                SqlDataReader reader = DBGateway.GetFromDB(query);
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            if (reader.GetValue(i).ToString() == "1")
+                            {
+                                columnsName.Add(columnsName.Count, reader.GetName(i).ToString());
+                            }
+                        }
+                    }
+                }
+
+                if (columnsName.FirstOrDefault(x => x.Value == tableName).Key == columnsName.Count - 1)
+                {
+                    result = true;
+                }
+                else
+                {
+                    string nextSectorName = columnsName[columnsName.FirstOrDefault(x => x.Value == tableName).Key + 1];
+                    string FabricIDQuery = "SELECT Id FROM Fabric WHERE BarCode = '" + BarCode + "'";
+                    if (nextSectorName == "Knit")
+                    {
+                        nextSectorName = "Knitting";
+                    }
+                    else if (nextSectorName == "CW")
+                    {
+                        nextSectorName =  "ContinueWashing";
+                    }
+                    else if (nextSectorName == "Print")
+                    {
+                        nextSectorName =  "PrintInfo";
+                    }
+                    query = "SELECT * FROM " + nextSectorName + " WHERE FabricID = (" + FabricIDQuery + ")";
+                    if (DBGateway.recordExist(query))
+                    {
+                        query = "SELECT * FROM " + nextSectorName + " WHERE FabricID = (" + FabricIDQuery + ") AND ApprovedStatus = 1";
+                        if (DBGateway.recordExist(query))
+                        {
+                            result = false;
+                        }
+                        else
+                        {
+                            result = true;
+                        }
+                    }
+                    else
+                    {
+                        result = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+            return result;
         }
 
     }
