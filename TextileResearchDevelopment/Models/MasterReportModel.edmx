@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TextileResearchDevelopmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TextileResearchDevelopmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="YarnDyedRepeat">
           <Key>
             <PropertyRef Name="Id" />
@@ -33,6 +33,7 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.MasterReportView' d
             <PropertyRef Name="RefNo" />
             <PropertyRef Name="Season" />
             <PropertyRef Name="CompositionTypeID" />
+            <PropertyRef Name="FinalApprovalID" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="OrderNo" Type="varchar" MaxLength="150" Nullable="false" />
@@ -88,7 +89,6 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.MasterReportView' d
           <Property Name="SSpeed" Type="varchar" MaxLength="150" />
           <Property Name="SBurner" Type="varchar" MaxLength="150" />
           <Property Name="SFlamePosition" Type="varchar" MaxLength="150" />
-          <Property Name="DMC" Type="varchar" MaxLength="150" />
           <Property Name="DSpeed" Type="varchar" MaxLength="150" />
           <Property Name="DEnzy" Type="varchar" MaxLength="150" />
           <Property Name="Recipe" Type="varchar" MaxLength="350" />
@@ -170,6 +170,45 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.MasterReportView' d
           <Property Name="BSpeed" Type="varchar" MaxLength="50" />
           <Property Name="KnitID" Type="int" />
           <Property Name="UpdateTime" Type="datetime" />
+          <Property Name="FinalApprovalID" Type="int" Nullable="false" />
+          <Property Name="FinalApprovalStatus" Type="varchar" MaxLength="50" />
+          <Property Name="BRCreateByName" Type="varchar" MaxLength="100" />
+          <Property Name="BRCreateTime" Type="datetime" />
+          <Property Name="CompactCreateByName" Type="varchar" MaxLength="100" />
+          <Property Name="CompactCreateTime" Type="datetime" />
+          <Property Name="PeachCreateByName" Type="varchar" MaxLength="100" />
+          <Property Name="PeachCreateTime" Type="datetime" />
+          <Property Name="PRCreateByName" Type="varchar" MaxLength="100" />
+          <Property Name="PRCreateTime" Type="datetime" />
+          <Property Name="QCCreateTime" Type="datetime" />
+          <Property Name="QCCreateByName" Type="varchar" MaxLength="100" />
+          <Property Name="KnitCreateTime" Type="datetime" />
+          <Property Name="KnitCreateByName" Type="varchar" MaxLength="100" />
+          <Property Name="CWCreateTime" Type="datetime" />
+          <Property Name="CWCreateByName" Type="varchar" MaxLength="100" />
+          <Property Name="HSPCreateTime" Type="datetime" />
+          <Property Name="HSPCreateByName" Type="varchar" MaxLength="100" />
+          <Property Name="SGCreateTime" Type="datetime" />
+          <Property Name="SGCreateByName" Type="varchar" MaxLength="100" />
+          <Property Name="DyeingCreateTime" Type="datetime" />
+          <Property Name="DyeingCreateByName" Type="varchar" MaxLength="100" />
+          <Property Name="DRCreateTime" Type="datetime" />
+          <Property Name="DRCreateByName" Type="varchar" MaxLength="100" />
+          <Property Name="STCreateTime" Type="datetime" />
+          <Property Name="STCreateByName" Type="varchar" MaxLength="100" />
+          <Property Name="BRRevise" Type="int" />
+          <Property Name="CompactRevise" Type="int" />
+          <Property Name="PeachRevise" Type="int" />
+          <Property Name="QCRevise" Type="int" />
+          <Property Name="KnitRevise" Type="int" />
+          <Property Name="CWRevise" Type="int" />
+          <Property Name="HSPRevise" Type="int" />
+          <Property Name="SGRevise" Type="int" />
+          <Property Name="DyeingRevise" Type="int" />
+          <Property Name="DRRevise" Type="int" />
+          <Property Name="STRevise" Type="int" />
+          <Property Name="PRRevise" Type="int" />
+          <Property Name="DyeingMcNo" Type="varchar" MaxLength="150" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -257,7 +296,6 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
     [MasterReportView].[SSpeed] AS [SSpeed], 
     [MasterReportView].[SBurner] AS [SBurner], 
     [MasterReportView].[SFlamePosition] AS [SFlamePosition], 
-    [MasterReportView].[DMC] AS [DMC], 
     [MasterReportView].[DSpeed] AS [DSpeed], 
     [MasterReportView].[DEnzy] AS [DEnzy], 
     [MasterReportView].[Recipe] AS [Recipe], 
@@ -338,7 +376,46 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
     [MasterReportView].[QRecovery] AS [QRecovery], 
     [MasterReportView].[BSpeed] AS [BSpeed], 
     [MasterReportView].[KnitID] AS [KnitID], 
-    [MasterReportView].[UpdateTime] AS [UpdateTime]
+    [MasterReportView].[UpdateTime] AS [UpdateTime], 
+    [MasterReportView].[FinalApprovalID] AS [FinalApprovalID], 
+    [MasterReportView].[FinalApprovalStatus] AS [FinalApprovalStatus], 
+    [MasterReportView].[BRCreateByName] AS [BRCreateByName], 
+    [MasterReportView].[BRCreateTime] AS [BRCreateTime], 
+    [MasterReportView].[CompactCreateByName] AS [CompactCreateByName], 
+    [MasterReportView].[CompactCreateTime] AS [CompactCreateTime], 
+    [MasterReportView].[PeachCreateByName] AS [PeachCreateByName], 
+    [MasterReportView].[PeachCreateTime] AS [PeachCreateTime], 
+    [MasterReportView].[PRCreateByName] AS [PRCreateByName], 
+    [MasterReportView].[PRCreateTime] AS [PRCreateTime], 
+    [MasterReportView].[QCCreateTime] AS [QCCreateTime], 
+    [MasterReportView].[QCCreateByName] AS [QCCreateByName], 
+    [MasterReportView].[KnitCreateTime] AS [KnitCreateTime], 
+    [MasterReportView].[KnitCreateByName] AS [KnitCreateByName], 
+    [MasterReportView].[CWCreateTime] AS [CWCreateTime], 
+    [MasterReportView].[CWCreateByName] AS [CWCreateByName], 
+    [MasterReportView].[HSPCreateTime] AS [HSPCreateTime], 
+    [MasterReportView].[HSPCreateByName] AS [HSPCreateByName], 
+    [MasterReportView].[SGCreateTime] AS [SGCreateTime], 
+    [MasterReportView].[SGCreateByName] AS [SGCreateByName], 
+    [MasterReportView].[DyeingCreateTime] AS [DyeingCreateTime], 
+    [MasterReportView].[DyeingCreateByName] AS [DyeingCreateByName], 
+    [MasterReportView].[DRCreateTime] AS [DRCreateTime], 
+    [MasterReportView].[DRCreateByName] AS [DRCreateByName], 
+    [MasterReportView].[STCreateTime] AS [STCreateTime], 
+    [MasterReportView].[STCreateByName] AS [STCreateByName], 
+    [MasterReportView].[BRRevise] AS [BRRevise], 
+    [MasterReportView].[CompactRevise] AS [CompactRevise], 
+    [MasterReportView].[PeachRevise] AS [PeachRevise], 
+    [MasterReportView].[QCRevise] AS [QCRevise], 
+    [MasterReportView].[KnitRevise] AS [KnitRevise], 
+    [MasterReportView].[CWRevise] AS [CWRevise], 
+    [MasterReportView].[HSPRevise] AS [HSPRevise], 
+    [MasterReportView].[SGRevise] AS [SGRevise], 
+    [MasterReportView].[DyeingRevise] AS [DyeingRevise], 
+    [MasterReportView].[DRRevise] AS [DRRevise], 
+    [MasterReportView].[STRevise] AS [STRevise], 
+    [MasterReportView].[PRRevise] AS [PRRevise], 
+    [MasterReportView].[DyeingMcNo] AS [DyeingMcNo]
     FROM [dbo].[MasterReportView] AS [MasterReportView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="YDView" EntityType="Self.YDView" store:Type="Views" store:Schema="dbo">
@@ -360,8 +437,7 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
     FROM [dbo].[YDView] AS [YDView]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TextileResearchDevelopmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -379,6 +455,37 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
           <Property Name="YDRBatchNo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="YDRCK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
+        <EntityType Name="YDView">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="KnitID" />
+            <PropertyRef Name="YDCountID" />
+            <PropertyRef Name="YDCompositionID" />
+            <PropertyRef Name="YDYarnTypeID" />
+            <PropertyRef Name="YDYarnColorID" />
+            <PropertyRef Name="YDSupplierID" />
+            <PropertyRef Name="Lot" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="KnitID" Type="Int32" Nullable="false" />
+          <Property Name="YDCountID" Type="Int32" Nullable="false" />
+          <Property Name="YDCompositionID" Type="Int32" Nullable="false" />
+          <Property Name="YDYarnTypeID" Type="Int32" Nullable="false" />
+          <Property Name="YDYarnColorID" Type="Int32" Nullable="false" />
+          <Property Name="YDSupplierID" Type="Int32" Nullable="false" />
+          <Property Name="YarnCount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="YarnComposition" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="YarnName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="YarnSupplier" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="YarnColor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Lot" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TPI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="TextileResearchDevelopmentEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="YarnDyedRepeats" EntityType="Self.YarnDyedRepeat" />
+          <EntitySet Name="YDViews" EntityType="Self.YDView" />
+          <EntitySet Name="MasterReportViews" EntityType="TextileResearchDevelopmentModel.MasterReportView" />
+        </EntityContainer>
         <EntityType Name="MasterReportView">
           <Key>
             <PropertyRef Name="Id" />
@@ -391,17 +498,18 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
             <PropertyRef Name="RefNo" />
             <PropertyRef Name="Season" />
             <PropertyRef Name="CompositionTypeID" />
+            <PropertyRef Name="FinalApprovalID" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="OrderNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Color" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BarCode" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OrderNo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Color" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="BarCode" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="BuyerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FabricTypeID" Type="Int32" Nullable="false" />
           <Property Name="BuyerID" Type="Int32" Nullable="false" />
-          <Property Name="BatchNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="RefNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Season" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BatchNo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="RefNo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Season" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="CompositionTypeID" Type="Int32" Nullable="false" />
           <Property Name="CreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -446,7 +554,6 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
           <Property Name="SSpeed" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="SBurner" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="SFlamePosition" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="DMC" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="DSpeed" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="DEnzy" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="Recipe" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
@@ -528,38 +635,46 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
           <Property Name="BSpeed" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="KnitID" Type="Int32" />
           <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+          <Property Name="FinalApprovalID" Type="Int32" Nullable="false" />
+          <Property Name="FinalApprovalStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BRCreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BRCreateTime" Type="DateTime" Precision="3" />
+          <Property Name="CompactCreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CompactCreateTime" Type="DateTime" Precision="3" />
+          <Property Name="PeachCreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PeachCreateTime" Type="DateTime" Precision="3" />
+          <Property Name="PRCreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PRCreateTime" Type="DateTime" Precision="3" />
+          <Property Name="QCCreateTime" Type="DateTime" Precision="3" />
+          <Property Name="QCCreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="KnitCreateTime" Type="DateTime" Precision="3" />
+          <Property Name="KnitCreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CWCreateTime" Type="DateTime" Precision="3" />
+          <Property Name="CWCreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="HSPCreateTime" Type="DateTime" Precision="3" />
+          <Property Name="HSPCreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SGCreateTime" Type="DateTime" Precision="3" />
+          <Property Name="SGCreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DyeingCreateTime" Type="DateTime" Precision="3" />
+          <Property Name="DyeingCreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DRCreateTime" Type="DateTime" Precision="3" />
+          <Property Name="DRCreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="STCreateTime" Type="DateTime" Precision="3" />
+          <Property Name="STCreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BRRevise" Type="Int32" />
+          <Property Name="CompactRevise" Type="Int32" />
+          <Property Name="PeachRevise" Type="Int32" />
+          <Property Name="QCRevise" Type="Int32" />
+          <Property Name="KnitRevise" Type="Int32" />
+          <Property Name="CWRevise" Type="Int32" />
+          <Property Name="HSPRevise" Type="Int32" />
+          <Property Name="SGRevise" Type="Int32" />
+          <Property Name="DyeingRevise" Type="Int32" />
+          <Property Name="DRRevise" Type="Int32" />
+          <Property Name="STRevise" Type="Int32" />
+          <Property Name="PRRevise" Type="Int32" />
+          <Property Name="DyeingMcNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="YDView">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="KnitID" />
-            <PropertyRef Name="YDCountID" />
-            <PropertyRef Name="YDCompositionID" />
-            <PropertyRef Name="YDYarnTypeID" />
-            <PropertyRef Name="YDYarnColorID" />
-            <PropertyRef Name="YDSupplierID" />
-            <PropertyRef Name="Lot" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="KnitID" Type="Int32" Nullable="false" />
-          <Property Name="YDCountID" Type="Int32" Nullable="false" />
-          <Property Name="YDCompositionID" Type="Int32" Nullable="false" />
-          <Property Name="YDYarnTypeID" Type="Int32" Nullable="false" />
-          <Property Name="YDYarnColorID" Type="Int32" Nullable="false" />
-          <Property Name="YDSupplierID" Type="Int32" Nullable="false" />
-          <Property Name="YarnCount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="YarnComposition" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="YarnName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="YarnSupplier" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="YarnColor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Lot" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TPI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityContainer Name="TextileResearchDevelopmentEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="YarnDyedRepeats" EntityType="Self.YarnDyedRepeat" />
-          <EntitySet Name="MasterReportViews" EntityType="Self.MasterReportView" />
-          <EntitySet Name="YDViews" EntityType="Self.YDView" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -581,148 +696,6 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MasterReportViews">
-            <EntityTypeMapping TypeName="TextileResearchDevelopmentModel.MasterReportView">
-              <MappingFragment StoreEntitySet="MasterReportView">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
-                <ScalarProperty Name="Color" ColumnName="Color" />
-                <ScalarProperty Name="BarCode" ColumnName="BarCode" />
-                <ScalarProperty Name="BuyerName" ColumnName="BuyerName" />
-                <ScalarProperty Name="FabricTypeID" ColumnName="FabricTypeID" />
-                <ScalarProperty Name="BuyerID" ColumnName="BuyerID" />
-                <ScalarProperty Name="BatchNo" ColumnName="BatchNo" />
-                <ScalarProperty Name="RefNo" ColumnName="RefNo" />
-                <ScalarProperty Name="Season" ColumnName="Season" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="CompositionTypeID" ColumnName="CompositionTypeID" />
-                <ScalarProperty Name="CreateByName" ColumnName="CreateByName" />
-                <ScalarProperty Name="Composition" ColumnName="Composition" />
-                <ScalarProperty Name="UpdateByName" ColumnName="UpdateByName" />
-                <ScalarProperty Name="FabricTypeName" ColumnName="FabricTypeName" />
-                <ScalarProperty Name="Version" ColumnName="Version" />
-                <ScalarProperty Name="GreyGSM" ColumnName="GreyGSM" />
-                <ScalarProperty Name="YarnTension" ColumnName="YarnTension" />
-                <ScalarProperty Name="LycraTension" ColumnName="LycraTension" />
-                <ScalarProperty Name="GreyDia" ColumnName="GreyDia" />
-                <ScalarProperty Name="ReqDia" ColumnName="ReqDia" />
-                <ScalarProperty Name="ReqGSM" ColumnName="ReqGSM" />
-                <ScalarProperty Name="SL" ColumnName="SL" />
-                <ScalarProperty Name="McSpeed" ColumnName="McSpeed" />
-                <ScalarProperty Name="ErpNo" ColumnName="ErpNo" />
-                <ScalarProperty Name="McDia" ColumnName="McDia" />
-                <ScalarProperty Name="McGauge" ColumnName="McGauge" />
-                <ScalarProperty Name="McBrand" ColumnName="McBrand" />
-                <ScalarProperty Name="McNo" ColumnName="McNo" />
-                <ScalarProperty Name="CWMcNo" ColumnName="CWMcNo" />
-                <ScalarProperty Name="CWSEWidth" ColumnName="CWSEWidth" />
-                <ScalarProperty Name="CWWashDia" ColumnName="CWWashDia" />
-                <ScalarProperty Name="CWWELength" ColumnName="CWWELength" />
-                <ScalarProperty Name="CWSpeed" ColumnName="CWSpeed" />
-                <ScalarProperty Name="CWChemical" ColumnName="CWChemical" />
-                <ScalarProperty Name="CWTemp" ColumnName="CWTemp" />
-                <ScalarProperty Name="HPTemp" ColumnName="HPTemp" />
-                <ScalarProperty Name="HPSpeed" ColumnName="HPSpeed" />
-                <ScalarProperty Name="HPTime" ColumnName="HPTime" />
-                <ScalarProperty Name="HPFeed" ColumnName="HPFeed" />
-                <ScalarProperty Name="HPStrech" ColumnName="HPStrech" />
-                <ScalarProperty Name="HPChemical" ColumnName="HPChemical" />
-                <ScalarProperty Name="HPDia" ColumnName="HPDia" />
-                <ScalarProperty Name="HPGSM" ColumnName="HPGSM" />
-                <ScalarProperty Name="HPShrinkage" ColumnName="HPShrinkage" />
-                <ScalarProperty Name="HSPMcNo" ColumnName="HSPMcNo" />
-                <ScalarProperty Name="SFHBurner1" ColumnName="SFHBurner1" />
-                <ScalarProperty Name="SFHBurner2" ColumnName="SFHBurner2" />
-                <ScalarProperty Name="SFWBurner1" ColumnName="SFWBurner1" />
-                <ScalarProperty Name="SFWBurner2" ColumnName="SFWBurner2" />
-                <ScalarProperty Name="SSpeed" ColumnName="SSpeed" />
-                <ScalarProperty Name="SBurner" ColumnName="SBurner" />
-                <ScalarProperty Name="SFlamePosition" ColumnName="SFlamePosition" />
-                <ScalarProperty Name="DMC" ColumnName="DMC" />
-                <ScalarProperty Name="DSpeed" ColumnName="DSpeed" />
-                <ScalarProperty Name="DEnzy" ColumnName="DEnzy" />
-                <ScalarProperty Name="Recipe" ColumnName="Recipe" />
-                <ScalarProperty Name="RecipeNo" ColumnName="RecipeNo" />
-                <ScalarProperty Name="DyeingTime" ColumnName="DyeingTime" />
-                <ScalarProperty Name="Dyebath" ColumnName="Dyebath" />
-                <ScalarProperty Name="Whiteness" ColumnName="Whiteness" />
-                <ScalarProperty Name="RFT" ColumnName="RFT" />
-                <ScalarProperty Name="DyeingDate" ColumnName="DyeingDate" />
-                <ScalarProperty Name="History" ColumnName="History" />
-                <ScalarProperty Name="STTemp" ColumnName="STTemp" />
-                <ScalarProperty Name="STFeed" ColumnName="STFeed" />
-                <ScalarProperty Name="STSpeed" ColumnName="STSpeed" />
-                <ScalarProperty Name="STStreching" ColumnName="STStreching" />
-                <ScalarProperty Name="STChemical" ColumnName="STChemical" />
-                <ScalarProperty Name="STDia" ColumnName="STDia" />
-                <ScalarProperty Name="STGSM" ColumnName="STGSM" />
-                <ScalarProperty Name="STShrinkage" ColumnName="STShrinkage" />
-                <ScalarProperty Name="STRemarks" ColumnName="STRemarks" />
-                <ScalarProperty Name="StenterMcNo" ColumnName="StenterMcNo" />
-                <ScalarProperty Name="SProduction" ColumnName="SProduction" />
-                <ScalarProperty Name="DRTemp" ColumnName="DRTemp" />
-                <ScalarProperty Name="DRFeed" ColumnName="DRFeed" />
-                <ScalarProperty Name="DRSpeed" ColumnName="DRSpeed" />
-                <ScalarProperty Name="DRStreching" ColumnName="DRStreching" />
-                <ScalarProperty Name="DRChemical" ColumnName="DRChemical" />
-                <ScalarProperty Name="DRDia" ColumnName="DRDia" />
-                <ScalarProperty Name="DRGSM" ColumnName="DRGSM" />
-                <ScalarProperty Name="DRShrinkage" ColumnName="DRShrinkage" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="DryerMcNo" ColumnName="DryerMcNo" />
-                <ScalarProperty Name="CTemp" ColumnName="CTemp" />
-                <ScalarProperty Name="CFeed" ColumnName="CFeed" />
-                <ScalarProperty Name="CSpeed" ColumnName="CSpeed" />
-                <ScalarProperty Name="CSteam" ColumnName="CSteam" />
-                <ScalarProperty Name="CDia" ColumnName="CDia" />
-                <ScalarProperty Name="CGSM" ColumnName="CGSM" />
-                <ScalarProperty Name="CRemarks" ColumnName="CRemarks" />
-                <ScalarProperty Name="CCompaction" ColumnName="CCompaction" />
-                <ScalarProperty Name="CProduction" ColumnName="CProduction" />
-                <ScalarProperty Name="CompactingMcNo" ColumnName="CompactingMcNo" />
-                <ScalarProperty Name="PTaker" ColumnName="PTaker" />
-                <ScalarProperty Name="PPlaiter" ColumnName="PPlaiter" />
-                <ScalarProperty Name="PReturn" ColumnName="PReturn" />
-                <ScalarProperty Name="PTension" ColumnName="PTension" />
-                <ScalarProperty Name="PRPM" ColumnName="PRPM" />
-                <ScalarProperty Name="PBrush" ColumnName="PBrush" />
-                <ScalarProperty Name="PSpeed" ColumnName="PSpeed" />
-                <ScalarProperty Name="PDia" ColumnName="PDia" />
-                <ScalarProperty Name="PGSM" ColumnName="PGSM" />
-                <ScalarProperty Name="PRemarks" ColumnName="PRemarks" />
-                <ScalarProperty Name="BUpperPile" ColumnName="BUpperPile" />
-                <ScalarProperty Name="BUpperCounterPile" ColumnName="BUpperCounterPile" />
-                <ScalarProperty Name="BUpperDrumTension" ColumnName="BUpperDrumTension" />
-                <ScalarProperty Name="BUpperDrumRPM" ColumnName="BUpperDrumRPM" />
-                <ScalarProperty Name="BLowerPile" ColumnName="BLowerPile" />
-                <ScalarProperty Name="BLowerCounterPile" ColumnName="BLowerCounterPile" />
-                <ScalarProperty Name="BLowerDrumTension" ColumnName="BLowerDrumTension" />
-                <ScalarProperty Name="BLowerDrumRPM" ColumnName="BLowerDrumRPM" />
-                <ScalarProperty Name="BRemarks" ColumnName="BRemarks" />
-                <ScalarProperty Name="STProductionTypeID" ColumnName="STProductionTypeID" />
-                <ScalarProperty Name="CProductionTypeID" ColumnName="CProductionTypeID" />
-                <ScalarProperty Name="PrintCoverage" ColumnName="PrintCoverage" />
-                <ScalarProperty Name="OtherInfo" ColumnName="OtherInfo" />
-                <ScalarProperty Name="PrintMcNo" ColumnName="PrintMcNo" />
-                <ScalarProperty Name="PrintFactory" ColumnName="PrintFactory" />
-                <ScalarProperty Name="PrintName" ColumnName="PrintName" />
-                <ScalarProperty Name="QDia" ColumnName="QDia" />
-                <ScalarProperty Name="QGSM" ColumnName="QGSM" />
-                <ScalarProperty Name="QShrinkage" ColumnName="QShrinkage" />
-                <ScalarProperty Name="QWash" ColumnName="QWash" />
-                <ScalarProperty Name="QWater" ColumnName="QWater" />
-                <ScalarProperty Name="QAcid" ColumnName="QAcid" />
-                <ScalarProperty Name="QAlkhali" ColumnName="QAlkhali" />
-                <ScalarProperty Name="QBursting" ColumnName="QBursting" />
-                <ScalarProperty Name="QPilling" ColumnName="QPilling" />
-                <ScalarProperty Name="QStrech" ColumnName="QStrech" />
-                <ScalarProperty Name="QRecovery" ColumnName="QRecovery" />
-                <ScalarProperty Name="BSpeed" ColumnName="BSpeed" />
-                <ScalarProperty Name="KnitID" ColumnName="KnitID" />
-                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="YDViews">
             <EntityTypeMapping TypeName="TextileResearchDevelopmentModel.YDView">
               <MappingFragment StoreEntitySet="YDView">
@@ -740,6 +713,186 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
                 <ScalarProperty Name="YarnColor" ColumnName="YarnColor" />
                 <ScalarProperty Name="Lot" ColumnName="Lot" />
                 <ScalarProperty Name="TPI" ColumnName="TPI" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MasterReportViews">
+            <EntityTypeMapping TypeName="TextileResearchDevelopmentModel.MasterReportView">
+              <MappingFragment StoreEntitySet="MasterReportView">
+                <ScalarProperty Name="DyeingMcNo" ColumnName="DyeingMcNo" />
+                <ScalarProperty Name="PRRevise" ColumnName="PRRevise" />
+                <ScalarProperty Name="STRevise" ColumnName="STRevise" />
+                <ScalarProperty Name="DRRevise" ColumnName="DRRevise" />
+                <ScalarProperty Name="DyeingRevise" ColumnName="DyeingRevise" />
+                <ScalarProperty Name="SGRevise" ColumnName="SGRevise" />
+                <ScalarProperty Name="HSPRevise" ColumnName="HSPRevise" />
+                <ScalarProperty Name="CWRevise" ColumnName="CWRevise" />
+                <ScalarProperty Name="KnitRevise" ColumnName="KnitRevise" />
+                <ScalarProperty Name="QCRevise" ColumnName="QCRevise" />
+                <ScalarProperty Name="PeachRevise" ColumnName="PeachRevise" />
+                <ScalarProperty Name="CompactRevise" ColumnName="CompactRevise" />
+                <ScalarProperty Name="BRRevise" ColumnName="BRRevise" />
+                <ScalarProperty Name="STCreateByName" ColumnName="STCreateByName" />
+                <ScalarProperty Name="STCreateTime" ColumnName="STCreateTime" />
+                <ScalarProperty Name="DRCreateByName" ColumnName="DRCreateByName" />
+                <ScalarProperty Name="DRCreateTime" ColumnName="DRCreateTime" />
+                <ScalarProperty Name="DyeingCreateByName" ColumnName="DyeingCreateByName" />
+                <ScalarProperty Name="DyeingCreateTime" ColumnName="DyeingCreateTime" />
+                <ScalarProperty Name="SGCreateByName" ColumnName="SGCreateByName" />
+                <ScalarProperty Name="SGCreateTime" ColumnName="SGCreateTime" />
+                <ScalarProperty Name="HSPCreateByName" ColumnName="HSPCreateByName" />
+                <ScalarProperty Name="HSPCreateTime" ColumnName="HSPCreateTime" />
+                <ScalarProperty Name="CWCreateByName" ColumnName="CWCreateByName" />
+                <ScalarProperty Name="CWCreateTime" ColumnName="CWCreateTime" />
+                <ScalarProperty Name="KnitCreateByName" ColumnName="KnitCreateByName" />
+                <ScalarProperty Name="KnitCreateTime" ColumnName="KnitCreateTime" />
+                <ScalarProperty Name="QCCreateByName" ColumnName="QCCreateByName" />
+                <ScalarProperty Name="QCCreateTime" ColumnName="QCCreateTime" />
+                <ScalarProperty Name="PRCreateTime" ColumnName="PRCreateTime" />
+                <ScalarProperty Name="PRCreateByName" ColumnName="PRCreateByName" />
+                <ScalarProperty Name="PeachCreateTime" ColumnName="PeachCreateTime" />
+                <ScalarProperty Name="PeachCreateByName" ColumnName="PeachCreateByName" />
+                <ScalarProperty Name="CompactCreateTime" ColumnName="CompactCreateTime" />
+                <ScalarProperty Name="CompactCreateByName" ColumnName="CompactCreateByName" />
+                <ScalarProperty Name="BRCreateTime" ColumnName="BRCreateTime" />
+                <ScalarProperty Name="BRCreateByName" ColumnName="BRCreateByName" />
+                <ScalarProperty Name="FinalApprovalStatus" ColumnName="FinalApprovalStatus" />
+                <ScalarProperty Name="FinalApprovalID" ColumnName="FinalApprovalID" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="KnitID" ColumnName="KnitID" />
+                <ScalarProperty Name="BSpeed" ColumnName="BSpeed" />
+                <ScalarProperty Name="QRecovery" ColumnName="QRecovery" />
+                <ScalarProperty Name="QStrech" ColumnName="QStrech" />
+                <ScalarProperty Name="QPilling" ColumnName="QPilling" />
+                <ScalarProperty Name="QBursting" ColumnName="QBursting" />
+                <ScalarProperty Name="QAlkhali" ColumnName="QAlkhali" />
+                <ScalarProperty Name="QAcid" ColumnName="QAcid" />
+                <ScalarProperty Name="QWater" ColumnName="QWater" />
+                <ScalarProperty Name="QWash" ColumnName="QWash" />
+                <ScalarProperty Name="QShrinkage" ColumnName="QShrinkage" />
+                <ScalarProperty Name="QGSM" ColumnName="QGSM" />
+                <ScalarProperty Name="QDia" ColumnName="QDia" />
+                <ScalarProperty Name="PrintName" ColumnName="PrintName" />
+                <ScalarProperty Name="PrintFactory" ColumnName="PrintFactory" />
+                <ScalarProperty Name="PrintMcNo" ColumnName="PrintMcNo" />
+                <ScalarProperty Name="OtherInfo" ColumnName="OtherInfo" />
+                <ScalarProperty Name="PrintCoverage" ColumnName="PrintCoverage" />
+                <ScalarProperty Name="CProductionTypeID" ColumnName="CProductionTypeID" />
+                <ScalarProperty Name="STProductionTypeID" ColumnName="STProductionTypeID" />
+                <ScalarProperty Name="BRemarks" ColumnName="BRemarks" />
+                <ScalarProperty Name="BLowerDrumRPM" ColumnName="BLowerDrumRPM" />
+                <ScalarProperty Name="BLowerDrumTension" ColumnName="BLowerDrumTension" />
+                <ScalarProperty Name="BLowerCounterPile" ColumnName="BLowerCounterPile" />
+                <ScalarProperty Name="BLowerPile" ColumnName="BLowerPile" />
+                <ScalarProperty Name="BUpperDrumRPM" ColumnName="BUpperDrumRPM" />
+                <ScalarProperty Name="BUpperDrumTension" ColumnName="BUpperDrumTension" />
+                <ScalarProperty Name="BUpperCounterPile" ColumnName="BUpperCounterPile" />
+                <ScalarProperty Name="BUpperPile" ColumnName="BUpperPile" />
+                <ScalarProperty Name="PRemarks" ColumnName="PRemarks" />
+                <ScalarProperty Name="PGSM" ColumnName="PGSM" />
+                <ScalarProperty Name="PDia" ColumnName="PDia" />
+                <ScalarProperty Name="PSpeed" ColumnName="PSpeed" />
+                <ScalarProperty Name="PBrush" ColumnName="PBrush" />
+                <ScalarProperty Name="PRPM" ColumnName="PRPM" />
+                <ScalarProperty Name="PTension" ColumnName="PTension" />
+                <ScalarProperty Name="PReturn" ColumnName="PReturn" />
+                <ScalarProperty Name="PPlaiter" ColumnName="PPlaiter" />
+                <ScalarProperty Name="PTaker" ColumnName="PTaker" />
+                <ScalarProperty Name="CompactingMcNo" ColumnName="CompactingMcNo" />
+                <ScalarProperty Name="CProduction" ColumnName="CProduction" />
+                <ScalarProperty Name="CCompaction" ColumnName="CCompaction" />
+                <ScalarProperty Name="CRemarks" ColumnName="CRemarks" />
+                <ScalarProperty Name="CGSM" ColumnName="CGSM" />
+                <ScalarProperty Name="CDia" ColumnName="CDia" />
+                <ScalarProperty Name="CSteam" ColumnName="CSteam" />
+                <ScalarProperty Name="CSpeed" ColumnName="CSpeed" />
+                <ScalarProperty Name="CFeed" ColumnName="CFeed" />
+                <ScalarProperty Name="CTemp" ColumnName="CTemp" />
+                <ScalarProperty Name="DryerMcNo" ColumnName="DryerMcNo" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="DRShrinkage" ColumnName="DRShrinkage" />
+                <ScalarProperty Name="DRGSM" ColumnName="DRGSM" />
+                <ScalarProperty Name="DRDia" ColumnName="DRDia" />
+                <ScalarProperty Name="DRChemical" ColumnName="DRChemical" />
+                <ScalarProperty Name="DRStreching" ColumnName="DRStreching" />
+                <ScalarProperty Name="DRSpeed" ColumnName="DRSpeed" />
+                <ScalarProperty Name="DRFeed" ColumnName="DRFeed" />
+                <ScalarProperty Name="DRTemp" ColumnName="DRTemp" />
+                <ScalarProperty Name="SProduction" ColumnName="SProduction" />
+                <ScalarProperty Name="StenterMcNo" ColumnName="StenterMcNo" />
+                <ScalarProperty Name="STRemarks" ColumnName="STRemarks" />
+                <ScalarProperty Name="STShrinkage" ColumnName="STShrinkage" />
+                <ScalarProperty Name="STGSM" ColumnName="STGSM" />
+                <ScalarProperty Name="STDia" ColumnName="STDia" />
+                <ScalarProperty Name="STChemical" ColumnName="STChemical" />
+                <ScalarProperty Name="STStreching" ColumnName="STStreching" />
+                <ScalarProperty Name="STSpeed" ColumnName="STSpeed" />
+                <ScalarProperty Name="STFeed" ColumnName="STFeed" />
+                <ScalarProperty Name="STTemp" ColumnName="STTemp" />
+                <ScalarProperty Name="History" ColumnName="History" />
+                <ScalarProperty Name="DyeingDate" ColumnName="DyeingDate" />
+                <ScalarProperty Name="RFT" ColumnName="RFT" />
+                <ScalarProperty Name="Whiteness" ColumnName="Whiteness" />
+                <ScalarProperty Name="Dyebath" ColumnName="Dyebath" />
+                <ScalarProperty Name="DyeingTime" ColumnName="DyeingTime" />
+                <ScalarProperty Name="RecipeNo" ColumnName="RecipeNo" />
+                <ScalarProperty Name="Recipe" ColumnName="Recipe" />
+                <ScalarProperty Name="DEnzy" ColumnName="DEnzy" />
+                <ScalarProperty Name="DSpeed" ColumnName="DSpeed" />
+                <ScalarProperty Name="SFlamePosition" ColumnName="SFlamePosition" />
+                <ScalarProperty Name="SBurner" ColumnName="SBurner" />
+                <ScalarProperty Name="SSpeed" ColumnName="SSpeed" />
+                <ScalarProperty Name="SFWBurner2" ColumnName="SFWBurner2" />
+                <ScalarProperty Name="SFWBurner1" ColumnName="SFWBurner1" />
+                <ScalarProperty Name="SFHBurner2" ColumnName="SFHBurner2" />
+                <ScalarProperty Name="SFHBurner1" ColumnName="SFHBurner1" />
+                <ScalarProperty Name="HSPMcNo" ColumnName="HSPMcNo" />
+                <ScalarProperty Name="HPShrinkage" ColumnName="HPShrinkage" />
+                <ScalarProperty Name="HPGSM" ColumnName="HPGSM" />
+                <ScalarProperty Name="HPDia" ColumnName="HPDia" />
+                <ScalarProperty Name="HPChemical" ColumnName="HPChemical" />
+                <ScalarProperty Name="HPStrech" ColumnName="HPStrech" />
+                <ScalarProperty Name="HPFeed" ColumnName="HPFeed" />
+                <ScalarProperty Name="HPTime" ColumnName="HPTime" />
+                <ScalarProperty Name="HPSpeed" ColumnName="HPSpeed" />
+                <ScalarProperty Name="HPTemp" ColumnName="HPTemp" />
+                <ScalarProperty Name="CWTemp" ColumnName="CWTemp" />
+                <ScalarProperty Name="CWChemical" ColumnName="CWChemical" />
+                <ScalarProperty Name="CWSpeed" ColumnName="CWSpeed" />
+                <ScalarProperty Name="CWWELength" ColumnName="CWWELength" />
+                <ScalarProperty Name="CWWashDia" ColumnName="CWWashDia" />
+                <ScalarProperty Name="CWSEWidth" ColumnName="CWSEWidth" />
+                <ScalarProperty Name="CWMcNo" ColumnName="CWMcNo" />
+                <ScalarProperty Name="McNo" ColumnName="McNo" />
+                <ScalarProperty Name="McBrand" ColumnName="McBrand" />
+                <ScalarProperty Name="McGauge" ColumnName="McGauge" />
+                <ScalarProperty Name="McDia" ColumnName="McDia" />
+                <ScalarProperty Name="ErpNo" ColumnName="ErpNo" />
+                <ScalarProperty Name="McSpeed" ColumnName="McSpeed" />
+                <ScalarProperty Name="SL" ColumnName="SL" />
+                <ScalarProperty Name="ReqGSM" ColumnName="ReqGSM" />
+                <ScalarProperty Name="ReqDia" ColumnName="ReqDia" />
+                <ScalarProperty Name="GreyDia" ColumnName="GreyDia" />
+                <ScalarProperty Name="LycraTension" ColumnName="LycraTension" />
+                <ScalarProperty Name="YarnTension" ColumnName="YarnTension" />
+                <ScalarProperty Name="GreyGSM" ColumnName="GreyGSM" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="FabricTypeName" ColumnName="FabricTypeName" />
+                <ScalarProperty Name="UpdateByName" ColumnName="UpdateByName" />
+                <ScalarProperty Name="Composition" ColumnName="Composition" />
+                <ScalarProperty Name="CreateByName" ColumnName="CreateByName" />
+                <ScalarProperty Name="CompositionTypeID" ColumnName="CompositionTypeID" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Season" ColumnName="Season" />
+                <ScalarProperty Name="RefNo" ColumnName="RefNo" />
+                <ScalarProperty Name="BatchNo" ColumnName="BatchNo" />
+                <ScalarProperty Name="BuyerID" ColumnName="BuyerID" />
+                <ScalarProperty Name="FabricTypeID" ColumnName="FabricTypeID" />
+                <ScalarProperty Name="BuyerName" ColumnName="BuyerName" />
+                <ScalarProperty Name="BarCode" ColumnName="BarCode" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="OrderNo" ColumnName="OrderNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

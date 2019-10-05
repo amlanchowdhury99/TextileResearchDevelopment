@@ -140,6 +140,7 @@ namespace TextileResearchDevelopment.BLL
                 qc.fabric.cm.Composition = reader["Composition"].ToString();
                 qc.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 qc.fabric.BarCode = reader["BarCode"].ToString();
+                qc.fabric.ProcessString = FabricBLL.GetProcessString(reader["BarCode"].ToString());
 
                 qc.Dia = reader["QDia"].ToString();
                 qc.GSM = reader["QGSM"].ToString();

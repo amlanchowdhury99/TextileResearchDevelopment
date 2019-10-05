@@ -15,6 +15,7 @@ namespace TextileResearchDevelopment.Models
             fabric = new Fabric();
             rft = new RFTType();
             hs = new HistoryType();
+            mc = new MachineType();
             children = new Role();
         }
         public Role children { get; set; }
@@ -23,6 +24,7 @@ namespace TextileResearchDevelopment.Models
         public Fabric fabric { get; set; }
 
         public HistoryType hs { get; set; }
+        public MachineType mc { get; set; }
         public string McNo { get; set; }
         public string Speed { get; set; }
         public string Enzyme { get; set; }

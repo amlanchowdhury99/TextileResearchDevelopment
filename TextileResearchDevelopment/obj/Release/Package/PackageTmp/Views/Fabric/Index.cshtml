@@ -6,9 +6,6 @@
 }
 
 <head>
-    <script type="text/javascript" src="~/Scripts/bootstrap3-typeahead.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/bootstrap-multiselect.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-multiselect.css">
     <style>
         tfoot input {
             width: 100%;
@@ -65,6 +62,7 @@
                                 <thead>
                                     <tr>
                                         <th>Id</th>
+                                        <th>Status</th>
                                         <th>Buyer</th>
                                     </tr>
                                 </thead>
@@ -118,6 +116,7 @@
                                 <thead>
                                     <tr>
                                         <th>Id</th>
+                                        <th>Status</th>
                                         <th>FabricType</th>
                                     </tr>
                                 </thead>
@@ -171,6 +170,7 @@
                                 <thead>
                                     <tr>
                                         <th>Id</th>
+                                        <th>Status</th>
                                         <th>Composition</th>
                                     </tr>
                                 </thead>
@@ -226,7 +226,7 @@
                     <div class="form-group col-xs-4 form-inline">
                         <label for="Color" class="control-label" style="width:35%;">Color</label>
                         <div style="display: inline;">
-                            <input type="text" class="typeahead form-control" style="width:60%;" id="Color" placeholder="Color" required autofocus>
+                            <input type="text" class=" form-control" style="width:60%;" id="Color" placeholder="Color" required autofocus>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
@@ -238,7 +238,7 @@
                     <div class="form-group col-xs-4 form-inline">
                         <label for="BatchNo" class="control-label" style="width:35%;">Batch No</label>
                         <div style="display: inline;">
-                            <input type="text" class="typeahead form-control" style="width:60%;" id="BatchNo" placeholder="Batch No" required autofocus>
+                            <input type="text" class=" form-control" style="width:60%;" id="BatchNo" placeholder="Batch No" required autofocus>
                         </div>
                     </div>
                 </div>
@@ -304,6 +304,7 @@
                     <th>Season</th>
                     <th>Version</th>
                     <th>Status</th>
+                    <th>FinalApproval</th>
                     <th>Create Time</th>
                     <th>Create By</th>
                     <th>Update Time</th>
@@ -329,6 +330,7 @@
                     <th>Season</th>
                     <th>Version</th>
                     <th>Status</th>
+                    <th>FinalApproval</th>
                     <th>Create Time</th>
                     <th>Create By</th>
                     <th>Update Time</th>
@@ -340,7 +342,7 @@
 
     <div class="footer-w3l">
         <div class="content">
-            <img src='../Content/images/logo.png' ; style="width:71px; height:40px">
+            <img src='../Content/images/logo.png'>
             <p class="foot">2019 © URMI IT Department. All rights reserved.</p>
         </div>
     </div>
@@ -350,7 +352,6 @@
 <script>
 
     $(document).ready(function () {
-        var ColId = "";
 
         var BuyerTable = $('#BuyerTable').DataTable({
             buttons: [],
@@ -372,7 +373,7 @@
             },
             "columnDefs": [
                 {
-                    "targets": [0],
+                    "targets": [0, 1],
                     "searchable": false,
                     "orderable": false,
                     "visible": false
@@ -380,6 +381,7 @@
             ],
             "columns": [
                 { "data": "Id" },
+                { "data": "Status" },
                 { "data": "BuyerName" }
             ]
         });
@@ -403,7 +405,7 @@
             },
             "columnDefs": [
                 {
-                    "targets": [0],
+                    "targets": [0, 1],
                     "searchable": false,
                     "orderable": false,
                     "visible": false
@@ -411,6 +413,7 @@
             ],
             "columns": [
                 { "data": "Id" },
+                { "data": "Status" },
                 { "data": "FabricTypeName" }
             ]
         });
@@ -434,7 +437,7 @@
             },
             "columnDefs": [
                 {
-                    "targets": [0],
+                    "targets": [0, 1],
                     "searchable": false,
                     "orderable": false,
                     "visible": false
@@ -442,6 +445,7 @@
             ],
             "columns": [
                 { "data": "Id" },
+                { "data": "Status" },
                 { "data": "Composition" }
             ]
         });
@@ -505,7 +509,54 @@
 
         SetRoles();
 
+        function SetRoles() {
+            debugger;
+
+            var user = {
+                Name: "Fabric"
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/UserManagement/GetRoles",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(user),
+                success: function (response) {
+                    debugger;
+                    if (response != "" && response != null) {
+
+                        if (response.RolePermissionID == 0) {
+
+                            $('#CReset a').addClass('disabled');
+                            $('#CDelete a').addClass('disabled');
+
+                            if (response.Crud == 0) {
+                                $('#saveBtn').hide();
+                                $('#updateBtn').hide();
+                                $('#reviseBtn').hide();
+                            }
+                            if (response.LibrarySet == 0) {
+                                $('#mdBuyer').addClass('disabled');
+                                $('#mdFabricType').addClass('disabled');
+                                $('#mdComposition').addClass('disabled');
+                            }
+                        }
+                    }
+                    else {
+                        alert("Connection Error!!!");
+                        return;
+                    }
+                    loadFPList();
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        }
+
         function loadFPList() {
+            debugger;
             var s = '';
             for (var i = 1; i <= 12; i++) {
                 if (i == 1)
@@ -544,6 +595,7 @@
         }
 
         function loadCompositionList() {
+            debugger;
             $.ajax({
                 type: "GET",
                 url: "/Fabric/GetCompositionTypeList",
@@ -594,51 +646,7 @@
             });
         }
 
-        function SetRoles() {
-            debugger;
 
-            var user = {
-                Name: "Fabric"
-            }
-
-            $.ajax({
-                type: "POST",
-                url: "/UserManagement/GetRoles",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                data: JSON.stringify(user),
-                success: function (response) {
-                    debugger;
-                    if (response != "" && response != null) {
-
-                        if (response.RolePermissionID == 0) {
-
-                            $('#CReset a').addClass('disabled');
-                            $('#CDelete a').addClass('disabled');
-
-                            if (response.Crud == 0) {
-                                $('#saveBtn').hide();
-                                $('#updateBtn').hide();
-                                $('#reviseBtn').hide();
-                            }
-                            if (response.LibrarySet == 0) {
-                                $('#mdBuyer').addClass('disabled');
-                                $('#mdFabricType').addClass('disabled');
-                                $('#mdComposition').addClass('disabled');
-                            }
-                        }
-                    }
-                    else {
-                        alert("Connection Error!!!");
-                        return;
-                    }
-                    loadFPList();
-                },
-                failure: function () {
-                    $("#tblItems").append(" Error when fetching data please contact administrator");
-                }
-            });
-        }
 
         $("#mdBuyer").click(function () {
             debugger;
@@ -706,6 +714,11 @@
                 var Row = BuyerTable.rows('.selected').data()[0];
                 var index = BuyerTable.row('.selected').index();
 
+                if (Row.Status == 1) {
+                    alert("This buyer is used already in Fabric!!!");
+                    return;
+                }
+
                 var Obj =
                 {
                     Id: Row.Id,
@@ -747,6 +760,11 @@
             if ($('#BuyerTable tbody tr').hasClass('selected')) {
                 debugger
                 var Row = BuyerTable.rows('.selected').data()[0];
+
+                if (Row.Status == 1) {
+                    alert("This buyer is used already in Fabric!!!");
+                    return;
+                }
 
                 $.ajax({
                     type: "POST",
@@ -859,6 +877,11 @@
                 var Row = FabricTypeTable.rows('.selected').data()[0];
                 var index = FabricTypeTable.row('.selected').index();
 
+                if (Row.Status == 1) {
+                    alert("This fabric type is used already in Fabric!!!");
+                    return;
+                }
+
                 var Obj =
                 {
                     Id: Row.Id,
@@ -900,6 +923,11 @@
             if ($('#FabricTypeTable tbody tr').hasClass('selected')) {
                 debugger
                 var Row = FabricTypeTable.rows('.selected').data()[0];
+
+                if (Row.Status == 1) {
+                    alert("This fabrci type is used already in Fabric!!!");
+                    return;
+                }
 
                 $.ajax({
                     type: "POST",
@@ -1011,6 +1039,11 @@
                 var Row = CompositionTable.rows('.selected').data()[0];
                 var index = CompositionTable.row('.selected').index();
 
+                if (Row.Status == 1) {
+                    alert("This composition is used already in Fabric!!!");
+                    return;
+                }
+
                 var Obj =
                 {
                     Id: Row.Id,
@@ -1052,6 +1085,11 @@
             if ($('#CompositionTable tbody tr').hasClass('selected')) {
                 debugger
                 var Row = CompositionTable.rows('.selected').data()[0];
+
+                if (Row.Status == 1) {
+                    alert("This composition is used already in Fabric!!!");
+                    return;
+                }
 
                 $.ajax({
                     type: "POST",
@@ -1101,6 +1139,7 @@
 
         var fabricTable = $('#fabricTable').DataTable({
             dom: 'Bfrtip',
+            "processing": true,
             "ajax":
             {
                 "url": "/Fabric/GetData",
@@ -1108,7 +1147,7 @@
                 "dataType": "JSON"
             },
             "autoWidth": false,
-            "scrollY": true,
+            "scrollY": '20vh',
             "scrollX": true,
             "Sorting": true,
             "searching": true,
@@ -1161,6 +1200,7 @@
                 { "data": "Season" },
                 { "data": "Version" },
                 { "data": "Status" },
+                { "data": "st.Status" },
                 {
                     data: "CreateTime",
                     render: function (data, type, row) {
@@ -1205,6 +1245,9 @@
                     $('#saveBtn').prop("disabled", true);
                     if (rowdata.Status != "Active") {
                         $('#updateBtn').prop("disabled", false);
+                    }
+                    else {
+                        $('#updateBtn').prop("disabled", true);
                     }
                 }
             }
@@ -1591,18 +1634,18 @@
             $('#fabricTable tbody tr').removeClass('selected');
         }
 
-        $('input.typeahead').keydown(function () {
-            ColId = $(this).attr('id');
-        });
+        //$('input.typeahead').keydown(function () {
+        //    ColId = $(this).attr('id');
+        //});
 
-        $('input.typeahead').typeahead(
-            {
-                source: function (query, process) {
-                    return $.get('/Fabric/GetMatchingData', { query: query, col: ColId }, function (data) {
-                        return process(data);
-                    });
-                }
-            });
+        //$('input.typeahead').typeahead(
+        //    {
+        //        source: function (query, process) {
+        //            return $.get('/Fabric/GetMatchingData', { query: query, col: ColId }, function (data) {
+        //                return process(data);
+        //            });
+        //        }
+        //    });
 
     });
 </script>

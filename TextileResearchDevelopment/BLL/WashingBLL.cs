@@ -175,6 +175,7 @@ namespace TextileResearchDevelopment.BLL
                 cw.fabric.cm.Composition = reader["Composition"].ToString();
                 cw.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 cw.fabric.BarCode = reader["BarCode"].ToString();
+                cw.fabric.ProcessString = FabricBLL.GetProcessString(reader["BarCode"].ToString());
 
                 cw.mc.Id = Convert.ToInt32(reader["CWMcNoId"]);
                 cw.mc.McNo = reader["CWMcNo"].ToString();

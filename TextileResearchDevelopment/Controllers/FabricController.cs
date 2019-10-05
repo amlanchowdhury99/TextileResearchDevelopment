@@ -14,9 +14,9 @@ namespace TextileResearchDevelopment.Controllers
 {
     public class FabricController : Controller
     {
-        public ActionResult Index()
+        public PartialViewResult Index()
         {
-            return View();
+            return PartialView();
         }
 
         [HttpGet]
@@ -31,10 +31,10 @@ namespace TextileResearchDevelopment.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { data = new List<Buyer>()}, JsonRequestBehavior.AllowGet);
+                return Json(new { data = new List<Buyer>() }, JsonRequestBehavior.AllowGet);
             }
 
-            return Json( new { data = buyers }, JsonRequestBehavior.AllowGet);
+            return Json(new { data = buyers }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
@@ -71,6 +71,24 @@ namespace TextileResearchDevelopment.Controllers
             }
 
             return Json(new { data = cms }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetStatusTypeList()
+        {
+            JsonResult result = new JsonResult();
+            List<StatusType> statusTypes = new List<StatusType>();
+
+            try
+            {
+                statusTypes = FabricBLL.GetStatusTypeList();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { data = new List<StatusType>() }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { data = statusTypes }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -123,10 +141,10 @@ namespace TextileResearchDevelopment.Controllers
         {
             try
             {
-                if(fabric.Id == 0)
+                if (fabric.Id == 0)
                 {
                     fabric.BarCode = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + FabricBLL.GetSerial((DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString()).ToString());
-                    
+
                 }
                 fabric = FabricBLL.CRUD(fabric);
             }
@@ -314,7 +332,7 @@ namespace TextileResearchDevelopment.Controllers
         {
             List<string> matchingList = new List<string>();
             try
-            { 
+            {
                 matchingList = FabricBLL.GetMatchingData(query, Col);
             }
             catch (Exception ex)
@@ -322,7 +340,7 @@ namespace TextileResearchDevelopment.Controllers
                 // Info
                 Console.Write(ex);
             }
-            return Json( matchingList, JsonRequestBehavior.AllowGet);
+            return Json(matchingList, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -362,6 +380,66 @@ namespace TextileResearchDevelopment.Controllers
             {
                 return Json(new { data = "Failed" }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [HttpPost]
+        public ActionResult FinalUnApprovedFabric(Fabric fabric)
+        {
+            try
+            {
+                fabric = FabricBLL.FinalUnApprovedFabric(fabric);
+
+                if (fabric.Id > 0)
+                {
+                    return Json(true, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(false, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult FinalApprovedFabric(Fabric fabric)
+        {
+            try
+            {
+                fabric = FabricBLL.FinalApprovedFabric(fabric);
+
+                if (fabric.Id > 0)
+                {
+                    return Json(true, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(false, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetUnApprovedStatus(string BarCode, string tableName)
+        {
+            Boolean result = false;
+            try
+            {
+                result = FabricBLL.GetUnApprovedStatus(BarCode, tableName);
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

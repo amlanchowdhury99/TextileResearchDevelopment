@@ -14,6 +14,37 @@
     <Property Name="YDRBatchNo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="YDRCK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
   </EntityType>
+  <EntityType Name="YDView">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="KnitID" />
+      <PropertyRef Name="YDCountID" />
+      <PropertyRef Name="YDCompositionID" />
+      <PropertyRef Name="YDYarnTypeID" />
+      <PropertyRef Name="YDYarnColorID" />
+      <PropertyRef Name="YDSupplierID" />
+      <PropertyRef Name="Lot" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="KnitID" Type="Int32" Nullable="false" />
+    <Property Name="YDCountID" Type="Int32" Nullable="false" />
+    <Property Name="YDCompositionID" Type="Int32" Nullable="false" />
+    <Property Name="YDYarnTypeID" Type="Int32" Nullable="false" />
+    <Property Name="YDYarnColorID" Type="Int32" Nullable="false" />
+    <Property Name="YDSupplierID" Type="Int32" Nullable="false" />
+    <Property Name="YarnCount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="YarnComposition" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="YarnName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="YarnSupplier" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="YarnColor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Lot" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TPI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityContainer Name="TextileResearchDevelopmentEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="YarnDyedRepeats" EntityType="Self.YarnDyedRepeat" />
+    <EntitySet Name="YDViews" EntityType="Self.YDView" />
+    <EntitySet Name="MasterReportViews" EntityType="TextileResearchDevelopmentModel.MasterReportView" />
+  </EntityContainer>
   <EntityType Name="MasterReportView">
     <Key>
       <PropertyRef Name="Id" />
@@ -26,17 +57,18 @@
       <PropertyRef Name="RefNo" />
       <PropertyRef Name="Season" />
       <PropertyRef Name="CompositionTypeID" />
+      <PropertyRef Name="FinalApprovalID" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="OrderNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Color" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="BarCode" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="OrderNo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Color" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="BarCode" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="BuyerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="FabricTypeID" Type="Int32" Nullable="false" />
     <Property Name="BuyerID" Type="Int32" Nullable="false" />
-    <Property Name="BatchNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="RefNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Season" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BatchNo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="RefNo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Season" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="CreateTime" Type="DateTime" Precision="3" />
     <Property Name="CompositionTypeID" Type="Int32" Nullable="false" />
     <Property Name="CreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -81,7 +113,6 @@
     <Property Name="SSpeed" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="SBurner" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="SFlamePosition" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-    <Property Name="DMC" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="DSpeed" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="DEnzy" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="Recipe" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
@@ -163,36 +194,44 @@
     <Property Name="BSpeed" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="KnitID" Type="Int32" />
     <Property Name="UpdateTime" Type="DateTime" Precision="3" />
+    <Property Name="FinalApprovalID" Type="Int32" Nullable="false" />
+    <Property Name="FinalApprovalStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BRCreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="BRCreateTime" Type="DateTime" Precision="3" />
+    <Property Name="CompactCreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CompactCreateTime" Type="DateTime" Precision="3" />
+    <Property Name="PeachCreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="PeachCreateTime" Type="DateTime" Precision="3" />
+    <Property Name="PRCreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="PRCreateTime" Type="DateTime" Precision="3" />
+    <Property Name="QCCreateTime" Type="DateTime" Precision="3" />
+    <Property Name="QCCreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="KnitCreateTime" Type="DateTime" Precision="3" />
+    <Property Name="KnitCreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CWCreateTime" Type="DateTime" Precision="3" />
+    <Property Name="CWCreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="HSPCreateTime" Type="DateTime" Precision="3" />
+    <Property Name="HSPCreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="SGCreateTime" Type="DateTime" Precision="3" />
+    <Property Name="SGCreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DyeingCreateTime" Type="DateTime" Precision="3" />
+    <Property Name="DyeingCreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DRCreateTime" Type="DateTime" Precision="3" />
+    <Property Name="DRCreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="STCreateTime" Type="DateTime" Precision="3" />
+    <Property Name="STCreateByName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="BRRevise" Type="Int32" />
+    <Property Name="CompactRevise" Type="Int32" />
+    <Property Name="PeachRevise" Type="Int32" />
+    <Property Name="QCRevise" Type="Int32" />
+    <Property Name="KnitRevise" Type="Int32" />
+    <Property Name="CWRevise" Type="Int32" />
+    <Property Name="HSPRevise" Type="Int32" />
+    <Property Name="SGRevise" Type="Int32" />
+    <Property Name="DyeingRevise" Type="Int32" />
+    <Property Name="DRRevise" Type="Int32" />
+    <Property Name="STRevise" Type="Int32" />
+    <Property Name="PRRevise" Type="Int32" />
+    <Property Name="DyeingMcNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
   </EntityType>
-  <EntityType Name="YDView">
-    <Key>
-      <PropertyRef Name="Id" />
-      <PropertyRef Name="KnitID" />
-      <PropertyRef Name="YDCountID" />
-      <PropertyRef Name="YDCompositionID" />
-      <PropertyRef Name="YDYarnTypeID" />
-      <PropertyRef Name="YDYarnColorID" />
-      <PropertyRef Name="YDSupplierID" />
-      <PropertyRef Name="Lot" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="KnitID" Type="Int32" Nullable="false" />
-    <Property Name="YDCountID" Type="Int32" Nullable="false" />
-    <Property Name="YDCompositionID" Type="Int32" Nullable="false" />
-    <Property Name="YDYarnTypeID" Type="Int32" Nullable="false" />
-    <Property Name="YDYarnColorID" Type="Int32" Nullable="false" />
-    <Property Name="YDSupplierID" Type="Int32" Nullable="false" />
-    <Property Name="YarnCount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="YarnComposition" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="YarnName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="YarnSupplier" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-    <Property Name="YarnColor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="Lot" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="TPI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityContainer Name="TextileResearchDevelopmentEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="YarnDyedRepeats" EntityType="Self.YarnDyedRepeat" />
-    <EntitySet Name="MasterReportViews" EntityType="Self.MasterReportView" />
-    <EntitySet Name="YDViews" EntityType="Self.YDView" />
-  </EntityContainer>
 </Schema>

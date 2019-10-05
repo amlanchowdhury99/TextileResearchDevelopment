@@ -209,6 +209,7 @@ namespace TextileResearchDevelopment.BLL
                 compacting.fabric.cm.Composition = reader["Composition"].ToString();
                 compacting.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 compacting.fabric.BarCode = reader["BarCode"].ToString();
+                compacting.fabric.ProcessString = FabricBLL.GetProcessString(reader["BarCode"].ToString());
 
                 compacting.mc.Id = Convert.ToInt32(reader["CMcNoID"]);
                 compacting.mc.McNo = reader["CompactingMcNo"].ToString();

@@ -174,6 +174,7 @@ namespace TextileResearchDevelopment.BLL
                 hsp.fabric.cm.Composition = reader["Composition"].ToString();
                 hsp.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 hsp.fabric.BarCode = reader["BarCode"].ToString();
+                hsp.fabric.ProcessString = FabricBLL.GetProcessString(reader["BarCode"].ToString());
 
                 hsp.mc.Id = Convert.ToInt32(reader["HPMcNoId"]);
                 hsp.mc.McNo = reader["HSPMcNo"].ToString();

@@ -15,6 +15,7 @@ namespace TextileResearchDevelopment.BLL
     {
         public static List<Fabric> fabrics = new List<Fabric>();
         public static List<Buyer> buyers = new List<Buyer>();
+        public static List<StatusType> statusTypes = new List<StatusType>();
         public static List<FabricType> FabricTypes = new List<FabricType>();
         public static List<CompositionType> compositionTypes = new List<CompositionType>();
 
@@ -79,6 +80,39 @@ namespace TextileResearchDevelopment.BLL
             return matchingList;
         }
 
+        internal static List<StatusType> GetStatusTypeList()
+        {
+            try
+            {
+                statusTypes = new List<StatusType>();
+                string query = "SELECT * FROM ApprovalStatusType";
+                SqlDataReader reader = DBGateway.GetFromDB(query);
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        StatusType statusType = new StatusType();
+                        statusType.Id = Convert.ToInt32(reader["Id"]);
+                        statusType.Status = reader["FinalApprovalStatus"].ToString();
+                        statusTypes.Add(statusType);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+
+            return statusTypes;
+        }
+
         public static List<Buyer> GetBuyerTypeList()
         {
             try
@@ -93,6 +127,7 @@ namespace TextileResearchDevelopment.BLL
                         Buyer buyer = new Buyer();
                         buyer.Id = Convert.ToInt32(reader["Id"]);
                         buyer.BuyerName = reader["BuyerName"].ToString();
+                        buyer.Status = GetStatusSL(Convert.ToInt32(reader["Id"]), "BuyerID") == true ? 1 : 0;
                         buyers.Add(buyer);
                     }
                 }
@@ -110,6 +145,31 @@ namespace TextileResearchDevelopment.BLL
             }
 
             return buyers;
+        }
+
+        private static bool GetStatusSL(int Id, string colName)
+        {
+            SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader1; cm.Connection = cn; cn.Open();
+            try
+            {
+                var columnsName = new List<string>();
+                string query = "SELECT * FROM Fabric WHERE "+ colName + " = " + Id;
+                cm.CommandText = query;
+                reader1 = cm.ExecuteReader();
+                if (reader1.Read())
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            finally
+            {
+                cn.Close();
+            }
+            return false;
         }
 
         internal static bool IsFabricDuplicate(Fabric fabric)
@@ -163,6 +223,41 @@ namespace TextileResearchDevelopment.BLL
             return true;
         }
 
+        internal static string GetProcessString(string BarCode)
+        {
+            var columnsName = "";
+            SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader1; cm.Connection = cn; cn.Open();
+            try
+            {
+                string query = " SELECT * FROM FabricProcess WHERE BarCode = '" + BarCode + "'";
+                cm.CommandText = query;
+                reader1 = cm.ExecuteReader();
+                if (reader1.HasRows)
+                {
+                    while (reader1.Read())
+                    {
+                        for (int i = 0; i < reader1.FieldCount; i++)
+                        {
+                            if (reader1.GetValue(i).ToString() == "1")
+                            {
+                                columnsName = columnsName == "" ? reader1.GetName(i).ToString() : columnsName + " -> " + reader1.GetName(i).ToString();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+            finally
+            {
+                cn.Close();
+            }
+
+            return columnsName;
+        }
+
         public static List<FabricType> GetFabricTypeList()
         {
             try
@@ -177,7 +272,7 @@ namespace TextileResearchDevelopment.BLL
                         FabricType fabricType = new FabricType();
                         fabricType.Id = Convert.ToInt32(reader["Id"]);
                         fabricType.FabricTypeName = reader["FabricTypeName"].ToString();
-
+                        fabricType.Status = GetStatusSL(Convert.ToInt32(reader["Id"]), "FabricTypeID") == true ? 1 : 0;
                         FabricTypes.Add(fabricType);
                     }
                 }
@@ -211,7 +306,7 @@ namespace TextileResearchDevelopment.BLL
                         CompositionType cm = new CompositionType();
                         cm.Id = Convert.ToInt32(reader["Id"]);
                         cm.Composition = reader["Composition"].ToString();
-
+                        cm.Status = GetStatusSL(Convert.ToInt32(reader["Id"]), "CompositionTypeID") == true ? 1 : 0;
                         compositionTypes.Add(cm);
                     }
                 }
@@ -383,8 +478,9 @@ namespace TextileResearchDevelopment.BLL
                                 cm.CommandText = "UPDATE " + i.ToString() + " SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE FabricID = " + fabric.Id;
                                 cm.ExecuteNonQuery();
                             }
-
                         }
+                        cm.CommandText = "UPDATE Fabric SET FinalApprovalID = 1 WHERE BarCode = '" + fabric.BarCode + "'";
+                        cm.ExecuteNonQuery();
                     }
                 }
             }
@@ -543,7 +639,7 @@ namespace TextileResearchDevelopment.BLL
                 else
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "INSERT INTO Fabric (BuyerID, FabricTypeID, CompositionTypeID, OrderNo, Color, RefNo, BatchNo, Season, Status, CreateBy, CreateTime, UpdateTime, Barcode, Version) VALUES(" + fabric.buyer.Id + "," + fabric.fb.Id + "," + fabric.cm.Id + ",'" + fabric.OrderNo + "','" + fabric.Color + "','" + fabric.RefNo + "','" + fabric.BatchNo + "','" + fabric.Season + "', 0 ,(" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "','" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "','" + fabric.BarCode + "', '" + fabric.Version + "')";
+                    query = "INSERT INTO Fabric (BuyerID, FabricTypeID, CompositionTypeID, OrderNo, Color, RefNo, BatchNo, Season, Status, CreateBy, CreateTime, UpdateTime, Barcode, Version, FinalApprovalID) VALUES(" + fabric.buyer.Id + "," + fabric.fb.Id + "," + fabric.cm.Id + ",'" + fabric.OrderNo + "','" + fabric.Color + "','" + fabric.RefNo + "','" + fabric.BatchNo + "','" + fabric.Season + "', 0 ,(" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "','" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "','" + fabric.BarCode + "', '" + fabric.Version + "', 1)";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
                         AddFabricProcess(fabric);
@@ -624,6 +720,8 @@ namespace TextileResearchDevelopment.BLL
                 fabric.buyer.Id = Convert.ToInt32(reader["BuyerID"]);
                 fabric.fb.Id = Convert.ToInt32(reader["FabricTypeID"]);
                 fabric.cm.Id = Convert.ToInt32(reader["CompositionTypeID"]);
+                fabric.st.Id = Convert.ToInt32(reader["FinalApprovalID"]);
+                fabric.st.Status = reader["FinalApprovalStatus"].ToString();
                 fabric.buyer.BuyerName = reader["BuyerName"].ToString();
                 fabric.fb.FabricTypeName = reader["FabricTypeName"].ToString();
                 fabric.cm.Composition = reader["Composition"].ToString();
@@ -832,12 +930,33 @@ namespace TextileResearchDevelopment.BLL
                             fabric.buyer.Id = Convert.ToInt32(reader["BuyerID"]);
                             fabric.fb.Id = Convert.ToInt32(reader["FabricTypeID"]);
                             fabric.cm.Id = Convert.ToInt32(reader["CompositionTypeID"]);
+                            fabric.st.Id = Convert.ToInt32(reader["FinalApprovalID"]);
+                            fabric.st.Status = reader["FinalApprovalStatus"].ToString();
+                            fabric.LastProcess = GetLastProcess(fabric.Id) == true ? "Complete" : "InComplete";
                             fabric.buyer.BuyerName = reader["BuyerName"].ToString();
                             fabric.fb.FabricTypeName = reader["FabricTypeName"].ToString();
                             fabric.cm.Composition = reader["Composition"].ToString();
                             fabric.OrderNo = reader["OrderNo"].ToString();
                             fabric.RefNo = reader["RefNo"].ToString();
-                            fabrics.Add(fabric);
+
+                            if(fabricearchObj.Note == "Report")
+                            {
+                                if(fabricearchObj.st.Id > 0)
+                                {
+                                    if(fabricearchObj.st.Id == fabric.st.Id)
+                                    {
+                                        fabrics.Add(fabric);
+                                    }
+                                }
+                                else
+                                {
+                                    fabrics.Add(fabric);
+                                }
+                            }
+                            else
+                            {
+                                fabrics.Add(fabric);
+                            }
                         }
                     }
                 }
@@ -856,6 +975,65 @@ namespace TextileResearchDevelopment.BLL
             }
 
             return fabrics;
+        }
+
+        private static bool GetLastProcess(int Id)
+        {
+            SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader1; cm.Connection = cn; cn.Open();
+            try
+            {
+                var columnsName = new Dictionary<int, string>();
+                string FabricBarCodeQuery = "SELECT BarCode FROM Fabric WHERE Id = " + Id;
+                string query = " SELECT * FROM FabricProcess WHERE BarCode = (" + FabricBarCodeQuery + ")";
+                cm.CommandText = query; reader1 = cm.ExecuteReader();
+                if (reader1.HasRows)
+                {
+                    while (reader1.Read())
+                    {
+                        for (int i = 0; i < reader1.FieldCount; i++)
+                        {
+                            if (reader1.GetValue(i).ToString() == "1")
+                            {
+                                columnsName.Add(columnsName.Count, reader1.GetName(i).ToString());
+                            }
+                        }
+                    }
+                }
+                cn.Close();
+                string LastSectorName = columnsName[columnsName.Count - 1];
+                if (LastSectorName == "Knit")
+                {
+                    LastSectorName = "Knitting";
+                }
+                else if (LastSectorName == "CW")
+                {
+                    LastSectorName = "ContinueWashing";
+                }
+                else if (LastSectorName == "Print")
+                {
+                    LastSectorName = "PrintInfo";
+                }
+                
+                query = "SELECT * FROM " + LastSectorName + " WHERE FabricID = " + Id + " AND ApprovedStatus = 1";
+                cm.CommandText = query;
+                cn.Open();
+                if(cm.ExecuteReader().Read())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            finally
+            {
+                cn.Close();
+            }
         }
 
         public static string GetfabricearchQuery(Fabric fabricearchObj)
@@ -959,7 +1137,10 @@ namespace TextileResearchDevelopment.BLL
 
                             if (reader["Seq_No"] == DBNull.Value)
                             {
-                                mainQuery = "(SELECT * FROM FabricView) AS A";
+                                if (!BarCodeList.Contains(reader["BarCode"].ToString()))
+                                {
+                                    BarCodeList.Add(reader["BarCode"].ToString());
+                                }
                             }
                             else
                             {
@@ -993,7 +1174,6 @@ namespace TextileResearchDevelopment.BLL
                     }
                     else
                     {
-
                         if (DBGateway.recordExist(firstQuery))
                         {
                             mainQuery = "(SELECT * FROM FabricView) AS A";
@@ -1117,6 +1297,140 @@ namespace TextileResearchDevelopment.BLL
             return count;
         }
 
+        public static Fabric FinalApprovedFabric(Fabric fabric)
+        {
+            try
+            {
+                string query = " UPDATE Fabric SET FinalApprovalID = 2 WHERE Id = " + fabric.Id;
+
+                if (DBGateway.ExecutionToDB(query, 1))
+                {
+                    fabric.st.Id = 2;
+                }
+            }
+            catch (Exception ex)
+            {
+                fabric = new Fabric();
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+            return fabric;
+        }
+
+        public static Fabric FinalUnApprovedFabric(Fabric fabric)
+        {
+            try
+            {
+                string query = " UPDATE Fabric SET FinalApprovalID = 1 WHERE Id = " + fabric.Id;
+
+                if (DBGateway.ExecutionToDB(query, 1))
+                {
+                    fabric.st.Id = 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                fabric = new Fabric();
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+            return fabric;
+        }
+
+        public static bool GetUnApprovedStatus(string BarCode, string tableName)
+        {
+            Boolean result = false;
+            try
+            {
+                string query = "SELECT * FROM Fabric WHERE BarCode = '" + BarCode + "' AND FinalApprovalID = 2 ";
+                if (DBGateway.recordExist(query))
+                {
+                    result = false;
+                }
+                else
+                {
+                    var columnsName = new Dictionary<int, string>();
+                    query = " SELECT * FROM FabricProcess WHERE BarCode = '" + BarCode + "'";
+
+                    SqlDataReader reader = DBGateway.GetFromDB(query);
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+                                if (reader.GetValue(i).ToString() == "1")
+                                {
+                                    columnsName.Add(columnsName.Count, reader.GetName(i).ToString());
+                                }
+                            }
+                        }
+                    }
+
+                    if (columnsName.FirstOrDefault(x => x.Value == tableName).Key == columnsName.Count - 1)
+                    {
+                        result = true;
+                    }
+                    else
+                    {
+                        string nextSectorName = columnsName[columnsName.FirstOrDefault(x => x.Value == tableName).Key + 1];
+                        string FabricIDQuery = "SELECT Id FROM Fabric WHERE BarCode = '" + BarCode + "'";
+                        if (nextSectorName == "Knit")
+                        {
+                            nextSectorName = "Knitting";
+                        }
+                        else if (nextSectorName == "CW")
+                        {
+                            nextSectorName = "ContinueWashing";
+                        }
+                        else if (nextSectorName == "Print")
+                        {
+                            nextSectorName = "PrintInfo";
+                        }
+                        query = "SELECT * FROM " + nextSectorName + " WHERE FabricID = (" + FabricIDQuery + ")";
+                        if (DBGateway.recordExist(query))
+                        {
+                            query = "SELECT * FROM " + nextSectorName + " WHERE FabricID = (" + FabricIDQuery + ") AND ApprovedStatus = 1";
+                            if (DBGateway.recordExist(query))
+                            {
+                                result = false;
+                            }
+                            else
+                            {
+                                result = true;
+                            }
+                        }
+                        else
+                        {
+                            result = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+            return result;
+        }
+
         public static bool GetApprovedStatus(string BarCode, string tableName)
         {
             Boolean result = false;
@@ -1140,42 +1454,42 @@ namespace TextileResearchDevelopment.BLL
                     }
                 }
 
-                if (columnsName.FirstOrDefault(x => x.Value == tableName).Key == columnsName.Count - 1)
+                if (columnsName.FirstOrDefault(x => x.Value == tableName).Key == 0)
                 {
                     result = true;
                 }
                 else
                 {
-                    string nextSectorName = columnsName[columnsName.FirstOrDefault(x => x.Value == tableName).Key + 1];
+                    string prevSectorName = columnsName[columnsName.FirstOrDefault(x => x.Value == tableName).Key - 1];
                     string FabricIDQuery = "SELECT Id FROM Fabric WHERE BarCode = '" + BarCode + "'";
-                    if (nextSectorName == "Knit")
+                    if (prevSectorName == "Knit")
                     {
-                        nextSectorName = "Knitting";
+                        prevSectorName = "Knitting";
                     }
-                    else if (nextSectorName == "CW")
+                    else if (prevSectorName == "CW")
                     {
-                        nextSectorName =  "ContinueWashing";
+                        prevSectorName = "ContinueWashing";
                     }
-                    else if (nextSectorName == "Print")
+                    else if (prevSectorName == "Print")
                     {
-                        nextSectorName =  "PrintInfo";
+                        prevSectorName = "PrintInfo";
                     }
-                    query = "SELECT * FROM " + nextSectorName + " WHERE FabricID = (" + FabricIDQuery + ")";
+                    query = "SELECT * FROM " + prevSectorName + " WHERE FabricID = (" + FabricIDQuery + ")";
                     if (DBGateway.recordExist(query))
                     {
-                        query = "SELECT * FROM " + nextSectorName + " WHERE FabricID = (" + FabricIDQuery + ") AND ApprovedStatus = 1";
+                        query = "SELECT * FROM " + prevSectorName + " WHERE FabricID = (" + FabricIDQuery + ") AND ApprovedStatus = 1";
                         if (DBGateway.recordExist(query))
                         {
-                            result = false;
+                            result = true;
                         }
                         else
                         {
-                            result = true;
+                            result = false;
                         }
                     }
                     else
                     {
-                        result = true;
+                        result = false;
                     }
                 }
             }

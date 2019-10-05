@@ -209,6 +209,7 @@ namespace TextileResearchDevelopment.BLL
                 stenter.fabric.cm.Composition = reader["Composition"].ToString();
                 stenter.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 stenter.fabric.BarCode = reader["BarCode"].ToString();
+                stenter.fabric.ProcessString = FabricBLL.GetProcessString(reader["BarCode"].ToString());
 
                 stenter.mc.Id = Convert.ToInt32(reader["SMcNoID"]);
                 stenter.mc.McNo = reader["StenterMcNo"].ToString();

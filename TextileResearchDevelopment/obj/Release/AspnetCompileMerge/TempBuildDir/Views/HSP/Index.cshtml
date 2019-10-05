@@ -1,0 +1,1266 @@
+﻿@{
+    if (Request.IsAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<head>
+    <script type="text/javascript" src="~/Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap3-typeahead.min.js"></script>
+    <style>
+        tfoot input {
+            width: 100%;
+            padding: 3px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<br />
+
+<div id="MainDiv">
+
+
+    <ul id="MainContextMenu" class="dropdown-menu" role="menu" style="display: none">
+        <li id="CDelete"><a tabindex="-1" href="#">Delete</a></li>
+        <li id="CApprove"><a tabindex="-1" href="#">Approve</a></li>
+        <li id="CUnapprove"><a tabindex="-1" href="#">Unapprove</a></li>
+    </ul>
+
+    <input type="checkbox" id="hidden" value="option1" style="display:none;">
+
+    <div class="text-left">
+        <button href="" id="FabricSelection" class="btn-info sm-4">
+            Select Fabric
+        </button>
+    </div>
+
+    <div class="modal fade" id="modalFabricSelection" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Select Fabric</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Searching Criteria</div>
+                                <div class="panel-body">
+                                    <div class=" form-group">
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <label for="BarCodeSL" class="control-label" style="width:35%;">BarCode</label>
+                                            <div style="display: inline;">
+                                                <input type="number" class=" form-control" style="width:60%;" id="BarCodeSL" min="0" step="1" data-bind="value:BarCodeSL" placeholder="Bar Code" autofocus>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <label for="BuyerSL" class="control-label" style="width:35%;">Buyer</label>
+                                            <div style=" display: inline;">
+                                                <select name="BuyerSL" id="BuyerSL" style="width:60%;font-size: 12px;" class="form-control" autofocus></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <label for="FabricSL" class="control-label" style="width:35%;">Fabric</label>
+                                            <div style="display: inline;">
+                                                <select name="FabricSL" id="FabricSL" style="width:60%;font-size: 12px;" class="form-control" autofocus></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class=" form-group">
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <label for="CompositionSL" class="control-label" style="width:35%;">Composition</label>
+                                            <div style="display: inline;">
+                                                <select name="CompositionSL" id="CompositionSL" style="width:60%;font-size: 12px;" class="form-control" autofocus></select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-4 form-inline ">
+                                            <label for="OrderNoSL" class="control-label" style="width:35%;">Order No</label>
+                                            <div style="display: inline;">
+                                                <input type="text" class=" form-control" style="width:60%;" id="OrderNoSL" placeholder="Order No" autofocus>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <label for="RefNoSL" class="control-label" style="width:35%;">RefNo</label>
+                                            <div style="display: inline;">
+                                                <input type="text" class=" form-control" style="width:60%;" id="RefNoSL" placeholder="Color" autofocus>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class=" form-group">
+                                        <div class="form-group col-xs-4 form-inline">
+                                            <button class="btn btn-warning btn-sm" style="width:35%;" id="resetFabricBtn">Reset</button>
+                                            <div style="display: inline;">
+                                                <button type="submit" id="searchFabricBtn" class="btn btn-primary btn-sm" style="width:60%;">Search</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <table id="fabricSelectionTable" class="display nowrap stripe hover order-column" style="width: 100%">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Id</th>
+                                        <th>BarCode</th>
+                                        <th>BuyerName</th>
+                                        <th>FabricType</th>
+                                        <th>Composition</th>
+                                        <th>OrderNo</th>
+                                        <th>RefNo</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="submit" id="okayBtn" class="btn btn-success">Okay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default ">
+        <div class="panel-heading">
+            <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Create Heat Setting Parameters Order</h5>
+        </div>
+        <div class="panel-body">
+            <form id="HSPForm">
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="BarCode" class="control-label required" style="width:35%;">BarCode</label>
+                        <div style=" display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="BarCode" required readonly>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="BuyerName" class="control-label required" style="width:35%;">Buyer</label>
+                        <div style=" display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="BuyerName" required readonly>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="FabricTypeName" class="control-label required" style="width:35%;">Fabric</label>
+                        <div style=" display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="FabricTypeName" required readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Composition" class="control-label required" style="width:35%;">Composition</label>
+                        <div style=" display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="Composition" required readonly>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="OrderNo" class="control-label required" style="width:35%;">OrderNo</label>
+                        <div style="display: inline;">
+                            <input type="text" class=" form-control" style="width:60%;" id="OrderNo" placeholder="Order No" readonly required>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="RefNo" class="control-label required" style="width:35%;">RefNo</label>
+                        <div style="display: inline;">
+                            <input type="text" class=" form-control" style="width:60%;" id="RefNo" placeholder="Ref No" readonly required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="McNoType" class="control-label required" style="width:35%;">Machine No</label>
+                        <div style="display: inline;">
+                            <select name="McNoType" id="McNoType" style="width:60%;" class="form-control input-sm" required autofocus></select>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Temp" class="control-label required" style="width:35%;">Temp</label>
+                        <div style="display: inline;">
+                            <input type="text" class=" form-control" style="width:60%;" id="Temp" placeholder="Temp(Degree celsius)" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Speed" class="control-label required" style="width:35%;">Speed</label>
+                        <div style="display: inline;">
+                            <input type="text" class=" form-control" style="width:60%;" id="Speed" placeholder="Speed(m/min)" required autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Time" class="control-label required" style="width:35%;">Time</label>
+                        <div style="display: inline;">
+                            <input type="text" class=" form-control" style="width:60%;" id="Time" placeholder="Time(Sec)" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Feed" class="control-label required" style="width:35%;">Feed</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="Feed" placeholder="Feed(%)" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Streching" class="control-label required" style="width:35%;">Streching</label>
+                        <div style="display: inline;">
+                            <input type="text" class=" form-control" style="width:60%;" id="Streching" placeholder="Streching(%)" required autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Chemical" class="control-label required" style="width:35%;">Chemical</label>
+                        <div style="display: inline;">
+                            <input type="text" class=" form-control" style="width:60%;" id="Chemical" placeholder="Chemical" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Dia" class="control-label required" style="width:35%;">Dia</label>
+                        <div style="display: inline;">
+                            <input type="text" class=" form-control" style="width:60%;" id="Dia" placeholder="Dia" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="GSM" class="control-label required" style="width:35%;">GSM</label>
+                        <div style="display: inline;">
+                            <input type="text" class=" form-control" style="width:60%;" id="GSM" placeholder="GSM" required autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Shrinkage" class="control-label" style="width:35%;">Shrinkage</label>
+                        <div style="display: inline;">
+                            <input type="text" class=" form-control" style="width:60%;" id="Shrinkage" placeholder="Shrinkage" autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="ReviseStatus" class="control-label" style="        width: 35%;">Revise Status</label>
+                        <div style="        display: inline;">
+                            <input type="text" class=" form-control" style="        width: 60%;" id="ReviseStatus" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <button class="btn btn-warning btn-sm" style="width:25%;" id="resetBtn">Reset</button>
+                        <div style="display: inline;">
+                            <input type="submit" value="Save" class="btn btn-success btn-sm" style="width:22%;" id="saveBtn">
+                        </div>
+                        <div style="display: inline;">
+                            <input type="submit" value="Revise" class="btn btn-info btn-sm" disabled="disabled" style="width:23%;" id="reviseBtn">
+                        </div>
+                        <div style="display: inline;">
+                            <input type="submit" value="Update" class="btn btn-primary btn-sm" disabled="disabled" style="width:23%;" id="updateBtn">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <table id="HSPtable" class="display nowrap stripe hover order-column " style="width: 200px;">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Id</th>
+                <th>FabricID</th>
+                <th>McNoID</th>
+                <th>BarCode</th>
+                <th>Buyer</th>
+                <th>Fabric</th>
+                <th>Composition</th>
+                <th>OrderNo</th>
+                <th>RefNo</th>
+                <th>McNo</th>
+                <th>Temp</th>
+                <th>Speed</th>
+                <th>Time</th>
+                <th>Feed</th>
+                <th>Streching</th>
+                <th>Chemical</th>
+                <th>Dia</th>
+                <th>GSM</th>
+                <th>Shrinkage</th>
+                <th>Revise</th>
+                <th>Aprroved</th>
+                <th>Create Time</th>
+                <th>Create By</th>
+                <th>Update Time</th>
+                <th>Update By</th>
+                <th>Approved Time</th>
+                <th>Approved By</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th style="visibility:hidden;"></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>BarCode</th>
+                <th>Buyer</th>
+                <th>Fabric</th>
+                <th>Composition</th>
+                <th>OrderNo</th>
+                <th>RefNo</th>
+                <th>McNo</th>
+                <th>Temp</th>
+                <th>Speed</th>
+                <th>Time</th>
+                <th>Feed</th>
+                <th>Streching</th>
+                <th>Chemical</th>
+                <th>Dia</th>
+                <th>GSM</th>
+                <th>Shrinkage</th>
+                <th>Revise</th>
+                <th>Aprroved</th>
+                <th>Create Time</th>
+                <th>Create By</th>
+                <th>Update Time</th>
+                <th>Update By</th>
+                <th>Approved Time</th>
+                <th>Approved By</th>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="footer-w3l">
+        <div class="content">
+            <img src='../Content/images/logo.png' ; style="width:71px; height:40px">
+            <p class="foot">2019 © URMI IT Department. All rights reserved.</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        var selectedFabricRowId = 0;
+        var fabricSelectionTable = $('#fabricSelectionTable').DataTable();
+
+        (function ($, window) {
+
+            $.fn.contextMenu = function (settings) {
+
+                return this.each(function () {
+
+                    // Open context menu
+                    $(this).on("contextmenu", function (e) {
+                        debugger;
+                        // return native menu if pressing control
+                        if (e.ctrlKey) return;
+
+                        if ($('#HSPtable tbody tr').hasClass('selected') == false) return;
+
+                        //open menu
+                        var $menu = $(settings.menuSelector)
+                            .data("invokedOn", $(e.target))
+                            .show()
+                            .css({
+                                position: "absolute",
+                                left: getMenuPosition(e.clientX, 'width', 'scrollLeft'),
+                                top: getMenuPosition(e.clientY, 'height', 'scrollTop')
+                            })
+                            .off('click')
+                            .on('click', 'a', function (e) {
+                                $menu.hide();
+                                var $invokedOn = $menu.data("invokedOn");
+                                var $selectedMenu = $(e.target);
+
+                                settings.menuSelected.call(this, $invokedOn, $selectedMenu);
+                            });
+
+                        return false;
+                    });
+
+                    //make sure menu closes on any click
+                    $('body').click(function () {
+                        $(settings.menuSelector).hide();
+                    });
+                });
+
+                function getMenuPosition(mouse, direction, scrollDir) {
+                    var win = $(window)[direction](),
+                        scroll = $(window)[scrollDir](),
+                        menu = $(settings.menuSelector)[direction](),
+                        position = mouse + scroll;
+
+                    // opening menu would pass the side of the page
+                    if (mouse + menu > win && menu < mouse)
+                        position -= menu;
+
+                    return position;
+                }
+
+            };
+        })(jQuery, window);
+
+        $('html').bind('keypress', function (e) {
+            if (e.keyCode == 13) {
+                return false;
+            }
+        });
+
+        SetRoles();
+
+        function SetRoles() {
+            debugger;
+
+            var user = {
+                Name: "HSP"
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/UserManagement/GetRoles",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(user),
+                success: function (response) {
+                    debugger;
+                    if (response != "" && response != null) {
+                        debugger
+                        if (response.RolePermissionID == 0) {
+                            if (response.Crud == 0) {
+                                $('#saveBtn').hide();
+                                $('#reviseBtn').hide();
+                                $('#updateBtn').hide();
+                                $('#CDelete a').addClass('disabled');
+                            }
+                            if (response.Approval == 0) {
+                                $('#CApprove a').addClass('disabled');
+                                $('#CUnapprove a').addClass('disabled');
+                            }
+                        }
+                    }
+                    else {
+                        alert("Connection Error!!!");
+                        return;
+                    }
+                    loadMcList();
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        }
+
+        function loadMcList() {
+            debugger;
+            $.ajax({
+                type: "GET",
+                url: "/HSP/GetMachineList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select Machine</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].McNo + '</option>';
+                    }
+                    $("#McNoType").html(s);
+                    loadBuyerList();
+                }
+            });
+        }
+
+        function loadBuyerList() {
+            debugger;
+            $.ajax({
+                type: "GET",
+                url: "/Fabric/GetBuyerList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select Buyer</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].BuyerName + '</option>';
+                    }
+                    $("#BuyerSL").html(s);
+                    loadFabricTypeList();
+                }
+            });
+        }
+
+        function loadFabricTypeList() {
+            debugger;
+            $.ajax({
+                type: "GET",
+                url: "/Fabric/GetFabricTypeList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select Fabric</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].FabricTypeName + '</option>';
+                    }
+                    $("#FabricSL").html(s);
+                    loadCompositionList();
+                }
+            });
+        }
+
+        function loadCompositionList() {
+            debugger;
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetCompositionTypeList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select Composition</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].Composition + '</option>';
+                    }
+                    $("#CompositionSL").html(s);
+                }
+            });
+        }
+
+        $('#HSPtable tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="Search" />');
+        });
+
+        var HSPtable = $('#HSPtable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excelHtml5'
+                }
+            ],
+            "ajax":
+            {
+                "url": "/HSP/GetData",
+                "type": "GET",
+                "dataType": "JSON"
+            },
+            "pageLength": 25,
+            "autoWidth": false,
+            "scrollY": true,
+            "scrollX": true,
+            "Sorting": true,
+            "searching": true,
+            "destroy": true,
+            "select": {
+                style: 'single'
+            },
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "searchable": false,
+                    "orderable": false,
+                },
+                {
+                    "targets": [1, 2, 3],
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    "targets": "_all",
+                    "width": "100px"
+                }
+
+            ],
+
+            "columns": [
+                {
+                    "searchable": false,
+                    "render": function (data, type, full, meta) {
+                        return HSPtable.data().count();
+                    }
+                },
+                { "data": "Id" },
+                { "data": "fabric.Id" },
+                { "data": "mc.Id" },
+                { "data": "fabric.BarCode" },
+                { "data": "fabric.buyer.BuyerName" },
+                { "data": "fabric.fb.FabricTypeName" },
+                { "data": "fabric.cm.Composition" },
+                { "data": "fabric.OrderNo" },
+                { "data": "fabric.RefNo" },
+                { "data": "mc.McNo" },
+                { "data": "Temp" },
+                { "data": "Speed" },
+                { "data": "Time" },
+                { "data": "Feed" },
+                { "data": "Chemical" },
+                { "data": "Streching" },
+                { "data": "Dia" },
+                { "data": "GSM" },
+                { "data": "Shrinkage" },
+                { "data": "ReviseStatus" },
+                { "data": "ApprovedStatus" },
+                {
+                    data: "CreateTime",
+                    render: function (data, type, row) {
+                        return moment(data).format("DD/MM/YYYY h:mm a");
+                    }
+                },
+                { "data": "CreateByName" },
+                {
+                    data: "UpdateTime",
+                    render: function (data, type, row) {
+                        if (data != null)
+                            return moment(data).format("DD/MM/YYYY h:mm a");
+                        else
+                            return "N/A"
+                    }
+                },
+                {
+                    "data": "UpdateByName",
+                    render: function (data, type, row) {
+                        if (data != "")
+                            return data;
+                        else
+                            return "N/A"
+                    }
+                },
+                {
+                    data: "ApprovedTime",
+                    render: function (data, type, row) {
+                        if (data != null)
+                            return moment(data).format("DD/MM/YYYY h:mm a");
+                        else
+                            return "N/A"
+                    }
+                },
+                {
+                    "data": "ApprovedByName",
+                    render: function (data, type, row) {
+                        if (data != "")
+                            return data;
+                        else
+                            return "N/A"
+                    }
+                }
+            ]
+        });
+
+        HSPtable.columns().every(function () {
+            var that = this;
+
+            $('input', this.footer()).on('keyup change clear', function () {
+                if (that.search() !== this.value) {
+                    that
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+
+        $('#HSPtable tbody').on('click', 'tr', function () {
+
+            if ((HSPtable.data().any())) {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                    Reset();
+                }
+                else {
+                    HSPtable.$('tr.selected').removeClass('selected');
+                    Reset();
+                    $(this).addClass('selected');
+                    var rowdata = HSPtable.row(this).data();
+                    if (rowdata.ApprovedStatus == 0) {
+                        Setvalue(rowdata);
+                        $('#saveBtn').prop("disabled", true);
+                        $('#updateBtn').prop("disabled", false);
+                        $('#reviseBtn').prop("disabled", false);
+                    }
+                }
+            }
+        });
+
+        $('#fabricSelectionTable tbody').on('click', 'tr', function () {
+            event.preventDefault();
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            }
+            else {
+                fabricSelectionTable.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+
+        $("#searchFabricBtn").click(function () {
+            event.preventDefault();
+
+            debugger;
+            if (ValidateFabricForm() == true) {
+
+                var buyer = {
+                    Id: $("#BuyerSL option:selected").val()
+                }
+                var fb = {
+                    Id: $("#FabricSL option:selected").val()
+                }
+                var cm = {
+                    Id: $("#CompositionSL option:selected").val()
+                }
+
+                var fabricSearchObj = {
+                    BarCode: $("#BarCodeSL").val().toString(),
+                    buyer: buyer,
+                    fb: fb,
+                    cm: cm,
+                    OrderNo: $("#OrderNoSL").val().length > 0 ? $("#OrderNoSL").val().toString() : '',
+                    RefNo: $("#RefNoSL").val().length > 0 ? $("#ColorSL").val().toString() : '',
+                    Note: "HSP"
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Fabric/FabricSearch",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(fabricSearchObj),
+                    success: function (response) {
+                        if (response != "" && response != null) {
+                            fabricSelectionTable.clear().draw();
+                            fabricSelectionTable.rows.add(response).draw();
+                        }
+                        else {
+                            alert("Failed to Search!!! No Data Found!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select Atleast One Searching Criteria!!!");
+                return;
+            }
+
+        });
+
+        $("#FabricSelection").click(function () {
+            event.preventDefault();
+            $("#modalFabricSelection").modal('show');
+            selectedFabricRowId = 0; ResetFabric(); fabricSelectionTable.clear().draw();
+
+            loadBuyerList();
+
+            fabricSelectionTable = $('#fabricSelectionTable').DataTable({
+                buttons: [],
+                "scrollY": true,
+                "scrollX": true,
+                "Sorting": true,
+                "searching": true,
+                "autoWidth": false,
+                "select": {
+                    style: 'single'
+                },
+                "destroy": true,
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        "searchable": false,
+                        "orderable": false,
+                        "visible": false
+                    },
+                ],
+                "columns": [
+                    {
+                        "searchable": false,
+                        "render": function (data, type, full, meta) {
+                            return fabricSelectionTable.data().count();
+                        }
+                    },
+                    {
+                        "searchable": false,
+                        "visible": false,
+                        "data": "Id"
+                    },
+                    { "data": "BarCode" },
+                    { "data": "buyer.BuyerName" },
+                    { "data": "fb.FabricTypeName" },
+                    { "data": "cm.Composition" },
+                    { "data": "OrderNo" },
+                    { "data": "RefNo" }
+                ]
+            });
+
+        });
+
+        $("#resetFabricBtn").click(function () {
+            ResetFabric();
+        });
+
+        $("#okayBtn").click(function () {
+            event.preventDefault();
+            debugger
+            if ($('#fabricSelectionTable tbody tr').hasClass('selected')) {
+                selectedFabricRowId = fabricSelectionTable.rows('.selected').data()[0].Id;
+                $('#BarCode').val(fabricSelectionTable.rows('.selected').data()[0].BarCode);
+                $('#BuyerName').val(fabricSelectionTable.rows('.selected').data()[0].buyer.BuyerName);
+                $('#FabricTypeName').val(fabricSelectionTable.rows('.selected').data()[0].fb.FabricTypeName);
+                $('#Composition').val(fabricSelectionTable.rows('.selected').data()[0].cm.Composition);
+                $('#OrderNo').val(fabricSelectionTable.rows('.selected').data()[0].OrderNo);
+                $('#RefNo').val(fabricSelectionTable.rows('.selected').data()[0].RefNo);
+                $("#modalFabricSelection .close").click();
+                $('#hidden').prop('checked', true);
+            }
+            else {
+                alert('Please Select A Row.')
+                return;
+            }
+
+        });
+
+        $('#HSPForm').submit(function (e) {
+            event.preventDefault();
+
+            var fabric = {
+                Id: selectedFabricRowId,
+                BarCode: $("#BarCode").val()
+            }
+
+            var mc = {
+                Id: $("#McNoType  option:selected").val()
+            }
+
+            debugger;
+            if ($('#hidden').is(':checked') == true) {
+                var Obj =
+                {
+                    Id: '0',
+                    fabric: fabric,
+                    mc: mc,
+                    Temp: $("#Temp").val(),
+                    Speed: $("#Speed").val(),
+                    Time: $("#Time").val(),
+                    Feed: $("#Feed").val(),
+                    Streching: $("#Streching").val(),
+                    Chemical: $("#Chemical ").val(),
+                    Dia: $("#Dia").val(),
+                    GSM: $("#GSM").val(),
+                    Shrinkage: $("#Shrinkage").val()
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "/HSP/CRUD",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(Obj),
+                    success: function (response) {
+                        debugger
+                        if (response.data != "" && response.data != null) {
+                            HSPtable.row.add(response.data).draw();
+                            Reset();
+                        }
+                        else {
+                            alert("Failed to Save!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select Fabric!!!");
+                return;
+            }
+        });
+
+        $("#updateBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#HSPtable tbody tr').hasClass('selected')) {
+                debugger
+                var HSPRow = HSPtable.rows('.selected').data()[0];
+                var index = HSPtable.row('.selected').index();
+
+                var fabric = {
+                    Id: HSPRow.fabric.Id,
+                    BarCode: $("#BarCode").val()
+                }
+
+                var mc = {
+                    Id: $("#McNoType option:selected").val()
+                }
+
+                var Obj =
+                {
+                    Id: HSPRow.Id,
+                    fabric: fabric,
+                    mc: mc,
+                    Temp: $("#Temp").val(),
+                    Speed: $("#Speed").val(),
+                    Time: $("#Time").val(),
+                    Feed: $("#Feed").val(),
+                    Streching: $("#Streching").val(),
+                    Chemical: $("#Chemical ").val(),
+                    Dia: $("#Dia").val(),
+                    GSM: $("#GSM").val(),
+                    Shrinkage: $("#Shrinkage").val()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/HSP/CRUD",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(Obj),
+                    success: function (response) {
+                        debugger
+                        if (response.data != "" && response.data != null) {
+                            debugger
+                            HSPtable.row(index).data(response.data).draw();
+                            Reset();
+                        }
+                        else {
+                            alert("Failed to Update!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#reviseBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#HSPtable tbody tr').hasClass('selected')) {
+                debugger
+                var HSPRow = HSPtable.rows('.selected').data()[0];
+
+                var fabric = {
+                    Id: HSPRow.fabric.Id,
+                    BarCode: $("#BarCode").val()
+                }
+
+                var mc = {
+                    Id: $("#McNoType  option:selected").val()
+                }
+
+                var Obj =
+                {
+                    Id: HSPRow.Id,
+                    fabric: fabric,
+                    mc: mc,
+                    Temp: $("#Temp").val(),
+                    Speed: $("#Speed").val(),
+                    Time: $("#Time").val(),
+                    Feed: $("#Feed").val(),
+                    Streching: $("#Streching").val(),
+                    Chemical: $("#Chemical ").val(),
+                    Dia: $("#Dia").val(),
+                    GSM: $("#GSM").val(),
+                    Shrinkage: $("#Shrinkage").val()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/HSP/Revise",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(Obj),
+                    success: function (response) {
+                        debugger
+                        if (response.data != "" && response.data != null) {
+                            debugger
+                            HSPtable.row.add(response.data).draw();
+                            Reset();
+                        }
+                        else {
+                            alert("Failed to Revise!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+
+
+        });
+
+        $("#resetBtn").click(function () {
+            Reset();
+        });
+
+        $("#HSPtable tbody").contextMenu({
+            menuSelector: "#MainContextMenu",
+            menuSelected: function (invokedOn, selectedMenu) {
+                debugger;
+
+                var ApprovedStatus = HSPtable.rows('.selected').data()[0].ApprovedStatus;
+                if (ApprovedStatus == 0) {
+                    if (selectedMenu.text() == "Delete")
+                        DeleteRow();
+                    if (selectedMenu.text() == "Approve") {
+
+                        var BarCode = HSPtable.rows('.selected').data()[0].BarCode;
+                        var rows = HSPtable.rows(function (idx, data, node) {
+                            return data.BarCode === BarCode && data.ApprovedStatus == 1 ?
+                                true : false;
+                        }).data();
+
+                        if (rows.length == 0) {
+                            ApproveRow();
+                        }
+                        else {
+                            alert("The order with same BarCode is already approved!!!")
+                        }
+
+
+                    }
+                    if (selectedMenu.text() == "Unapprove")
+                        alert("This order is not approved yet!!!")
+                }
+                else {
+                    if (selectedMenu.text() == "Unapprove") {
+                        var knitObj =
+                        {
+                            Id: HSPtable.rows('.selected').data()[0].Id
+                        };
+                        $.ajax({
+                            type: "POST",
+                            url: "/Knitting/CheckUnapproveEligibility",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(knitObj),
+                            success: function (response) {
+                                debugger
+                                if (response == "true") {
+                                    UnapproveRow();
+                                }
+                                else {
+                                    alert("This order is already used in Dyeing!!!");
+                                    return;
+                                }
+                            },
+                            failure: function () {
+                                $("#tblItems").append(" Error when fetching data please contact administrator");
+                            }
+                        });
+                    }
+                    else {
+                        alert("This order is already approved!!!");
+                        return;
+                    }
+                }
+            }
+        });
+
+        function DeleteRow() {
+            event.preventDefault();
+            var Id = HSPtable.rows('.selected').data()[0].Id;
+
+            $.ajax({
+                type: "POST",
+                url: "/HSP/Delete",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({ "Id": Id }),
+                success: function (response) {
+                    debugger
+                    if (response = "Success") {
+                        HSPtable.row('.selected').remove().draw(false);
+                        Reset();
+                    }
+                    else {
+                        alert("Failed to Delete!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        };
+
+        function ApproveRow() {
+            debugger
+            event.preventDefault();
+
+            var Row = HSPtable.rows('.selected').data()[0];
+            var index = HSPtable.row('.selected').index();
+
+            var Obj =
+            {
+                Id: Row.Id,
+                ApprovedTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/HSP/Approve",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(Obj),
+                success: function (response) {
+                    debugger
+                    if (response.data != "" && response.data != null) {
+                        debugger
+                        HSPtable.row(index).data(response.data).draw();
+                        Reset();
+                    }
+                    else {
+                        alert("Failed to Approve!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        }
+
+        function UnapproveRow() {
+            debugger
+            event.preventDefault();
+
+            var Row = HSPtable.rows('.selected').data()[0];
+            var index = HSPtable.row('.selected').index();
+
+            var Obj =
+            {
+                Id: Row.Id,
+                ApprovedTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Fabric/GetApprovedStatus",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({ "BarCode": Row.fabric.BarCode, "tableName": "HSP" }),
+                success: function (response) {
+                    debugger
+                    if (response == true) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/HSP/Unapprove",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(Obj),
+                            success: function (response) {
+                                debugger
+                                if (response.data != "" && response.data != null) {
+                                    debugger
+                                    HSPtable.row(index).data(response.data).draw();
+                                    Reset();
+                                }
+                                else {
+                                    alert("Failed to Unapprove!!!");
+                                    return;
+                                }
+                            },
+                            failure: function () {
+                                $("#tblItems").append(" Error when fetching data please contact administrator");
+                            }
+                        });
+                    }
+                    else {
+                        alert("This Order is already approved in next process!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+
+
+        }
+
+        function ValidateFabricForm() {
+            debugger;
+            if ($("#BarCodeSL").val() == "" && $("#BuyerSL option:selected").val() == "" && $("#FabricSL option:selected").val() == "" && $("#CompositionSL option:selected").val() == "" && $("#OrderNoSL").val() == "" && $("#RefNoSL").val() == "") {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        function Reset() {
+            event.preventDefault();
+            $('#HSPtable tbody tr').removeClass('selected')
+
+            selectedFabricRowId = 0;
+
+            $('#hidden').prop('checked', false);
+            $('#saveBtn').prop("disabled", false);
+            $('#updateBtn').prop("disabled", true);
+            $('#reviseBtn').prop("disabled", true);
+
+            $("#BarCode").val("");
+            $("#BuyerName").val("");
+            $("#FabricTypeName").val("");
+            $("#Composition").val("");
+            $("#OrderNo").val("");
+            $("#RefNo").val("");
+
+            $("#McNoType").val("");
+            $("#Temp").val("");
+            $("#Speed").val("");
+            $("#Time").val("");
+            $("#Feed").val("");
+            $("#Chemical").val("");
+            $("#Streching").val("");
+            $("#Dia").val("");
+            $("#GSM").val("");
+            $("#Shrinkage").val("");
+            $("#ReviseStatus").val("");
+        }
+
+        function ResetFabric() {
+            event.preventDefault();
+            $("#BarCodeSL").val("");
+            $("#BuyerSL").val("");
+            $("#FabricSL").val("");
+            $("#CompositionSL").val("");
+            $("#OrderNoSL").val("");
+            $("#RefNoSL").val("");
+            $('#fabricSelectionTable tbody tr').removeClass('selected');
+        }
+
+        function Setvalue(rowdata) {
+            $("#BarCode").val(rowdata.fabric.BarCode);
+            $("#BuyerName").val(rowdata.fabric.buyer.BuyerName);
+            $("#FabricTypeName").val(rowdata.fabric.fb.FabricTypeName);
+            $("#Composition").val(rowdata.fabric.cm.Composition);
+            $("#OrderNo").val(rowdata.fabric.OrderNo);
+            $("#RefNo").val(rowdata.fabric.RefNo);
+
+            $("#McNoType").val(rowdata.mc.Id);
+            $("#Temp").val(rowdata.Temp);
+            $("#Speed").val(rowdata.Speed);
+            $("#Time").val(rowdata.Time);
+            $("#Feed").val(rowdata.Feed);
+            $("#Chemical").val(rowdata.Chemical);
+            $("#Streching").val(rowdata.Streching);
+            $("#GSM").val(rowdata.GSM);
+            $("#Dia").val(rowdata.Dia);
+            $("#Shrinkage").val(rowdata.Shrinkage);
+            $("#ReviseStatus").val(rowdata.ReviseStatus);
+        }
+
+    });
+
+</script>

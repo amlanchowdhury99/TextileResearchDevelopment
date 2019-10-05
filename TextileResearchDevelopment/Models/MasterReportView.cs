@@ -68,7 +68,6 @@ namespace TextileResearchDevelopment.Models
         public string SSpeed { get; set; }
         public string SBurner { get; set; }
         public string SFlamePosition { get; set; }
-        public string DMC { get; set; }
         public string DSpeed { get; set; }
         public string DEnzy { get; set; }
         public string Recipe { get; set; }
@@ -150,5 +149,44 @@ namespace TextileResearchDevelopment.Models
         public string BSpeed { get; set; }
         public Nullable<int> KnitID { get; set; }
         public Nullable<System.DateTime> UpdateTime { get; set; }
+        public int FinalApprovalID { get; set; }
+        public string FinalApprovalStatus { get; set; }
+        public string BRCreateByName { get; set; }
+        public Nullable<System.DateTime> BRCreateTime { get; set; }
+        public string CompactCreateByName { get; set; }
+        public Nullable<System.DateTime> CompactCreateTime { get; set; }
+        public string PeachCreateByName { get; set; }
+        public Nullable<System.DateTime> PeachCreateTime { get; set; }
+        public string PRCreateByName { get; set; }
+        public Nullable<System.DateTime> PRCreateTime { get; set; }
+        public Nullable<System.DateTime> QCCreateTime { get; set; }
+        public string QCCreateByName { get; set; }
+        public Nullable<System.DateTime> KnitCreateTime { get; set; }
+        public string KnitCreateByName { get; set; }
+        public Nullable<System.DateTime> CWCreateTime { get; set; }
+        public string CWCreateByName { get; set; }
+        public Nullable<System.DateTime> HSPCreateTime { get; set; }
+        public string HSPCreateByName { get; set; }
+        public Nullable<System.DateTime> SGCreateTime { get; set; }
+        public string SGCreateByName { get; set; }
+        public Nullable<System.DateTime> DyeingCreateTime { get; set; }
+        public string DyeingCreateByName { get; set; }
+        public Nullable<System.DateTime> DRCreateTime { get; set; }
+        public string DRCreateByName { get; set; }
+        public Nullable<System.DateTime> STCreateTime { get; set; }
+        public string STCreateByName { get; set; }
+        public Nullable<int> BRRevise { get; set; }
+        public Nullable<int> CompactRevise { get; set; }
+        public Nullable<int> PeachRevise { get; set; }
+        public Nullable<int> QCRevise { get; set; }
+        public Nullable<int> KnitRevise { get; set; }
+        public Nullable<int> CWRevise { get; set; }
+        public Nullable<int> HSPRevise { get; set; }
+        public Nullable<int> SGRevise { get; set; }
+        public Nullable<int> DyeingRevise { get; set; }
+        public Nullable<int> DRRevise { get; set; }
+        public Nullable<int> STRevise { get; set; }
+        public Nullable<int> PRRevise { get; set; }
+        public string DyeingMcNo { get; set; }
     }
 }

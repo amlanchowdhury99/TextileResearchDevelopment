@@ -141,6 +141,7 @@ namespace TextileResearchDevelopment.BLL
                 peach.fabric.cm.Composition = reader["Composition"].ToString();
                 peach.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 peach.fabric.BarCode = reader["BarCode"].ToString();
+                peach.fabric.ProcessString = FabricBLL.GetProcessString(reader["BarCode"].ToString());
 
                 peach.Taker = reader["PTaker"].ToString();
                 peach.Plaiter = reader["PPlaiter"].ToString();

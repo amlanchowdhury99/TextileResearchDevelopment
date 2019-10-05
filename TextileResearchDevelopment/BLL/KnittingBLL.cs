@@ -572,6 +572,31 @@ namespace TextileResearchDevelopment.BLL
             return mc;
         }
 
+        private static bool GetStatusSL(int Id, string colName)
+        {
+            SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader1; cm.Connection = cn; cn.Open();
+            try
+            {
+                var columnsName = new List<string>();
+                string query = "SELECT * FROM Knitting WHERE " + colName + " = " + Id;
+                cm.CommandText = query;
+                reader1 = cm.ExecuteReader();
+                if (reader1.Read())
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            finally
+            {
+                cn.Close();
+            }
+            return false;
+        }
+
         public static YarnCountType AddYarnCount(YarnCountType yarn)
         {
             try
@@ -890,6 +915,7 @@ namespace TextileResearchDevelopment.BLL
                         McDiaGauge.McDia = reader["McDia"].ToString();
                         McDiaGauge.McGauge = reader["McGauge"].ToString();
                         McDiaGauge.McBrand = reader["McBrand"].ToString();
+                        McDiaGauge.Status = GetStatusSL(Convert.ToInt32(reader["Id"]), "McNoID") == true ? 1 : 0;
 
                         McDiaGauges.Add(McDiaGauge);
                     }
@@ -1333,6 +1359,7 @@ namespace TextileResearchDevelopment.BLL
                 knit.fabric.cm.Composition = reader["Composition"].ToString();
                 knit.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 knit.BarCode = reader["BarCode"].ToString();
+                knit.fabric.ProcessString = FabricBLL.GetProcessString(reader["BarCode"].ToString());
 
                 knit.ydList = GetYDList(knit.Id);
                 knit.ydrList = GetYDRList(knit.Id);

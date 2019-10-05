@@ -244,6 +244,7 @@ namespace TextileResearchDevelopment.BLL
                 print.fabric.cm.Composition = reader["Composition"].ToString();
                 print.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 print.fabric.BarCode = reader["BarCode"].ToString();
+                print.fabric.ProcessString = FabricBLL.GetProcessString(reader["BarCode"].ToString());
 
                 print.mc.Id = Convert.ToInt32(reader["MachineTypeID"]);
                 print.mc.McNo = reader["PrintMcNo"].ToString();

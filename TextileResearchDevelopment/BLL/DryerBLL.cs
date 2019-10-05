@@ -175,6 +175,7 @@ namespace TextileResearchDevelopment.BLL
                 dryer.fabric.cm.Composition = reader["Composition"].ToString();
                 dryer.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 dryer.fabric.BarCode = reader["BarCode"].ToString();
+                dryer.fabric.ProcessString = FabricBLL.GetProcessString(reader["BarCode"].ToString());
 
                 dryer.mc.Id = Convert.ToInt32(reader["DRMcNoID"]);
                 dryer.mc.McNo = reader["DryerMcNo"].ToString();

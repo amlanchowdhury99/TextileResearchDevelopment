@@ -141,6 +141,7 @@ namespace TextileResearchDevelopment.BLL
                 brush.fabric.cm.Composition = reader["Composition"].ToString();
                 brush.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 brush.fabric.BarCode = reader["BarCode"].ToString();
+                brush.fabric.ProcessString = FabricBLL.GetProcessString(reader["BarCode"].ToString());
 
                 brush.UPile = reader["BUpperPile"].ToString();
                 brush.UCounterPile = reader["BUpperCounterPile"].ToString();

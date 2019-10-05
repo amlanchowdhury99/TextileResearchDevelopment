@@ -6,8 +6,6 @@
 }
 
 <head>
-    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/bootstrap3-typeahead.min.js"></script>
     <style>
         tfoot input {
             width: 100%;
@@ -267,18 +265,21 @@
         </div>
     </div>
 
+    <p id="ProcessString" class="text-uppercase text-primary" style="font-weight:bold"></p>
+
     <table id="QCtable" class="display nowrap stripe hover order-column " style="width: 200px;">
         <thead>
             <tr>
                 <th></th>
                 <th>Id</th>
                 <th>FabricID</th>
+                <th>ProcessString</th>
+                <th>BarCode</th>
                 <th>Buyer</th>
                 <th>Fabric</th>
                 <th>Composition</th>
                 <th>OrderNo</th>
                 <th>RefNo</th>
-                <th>BarCode</th>
                 <th>Dia</th>
                 <th>GSM</th>
                 <th>Shrinkage</th>
@@ -305,12 +306,13 @@
                 <th style="visibility:hidden;"></th>
                 <th></th>
                 <th></th>
+                <th></th>
+                <th>BarCode</th>
                 <th>Buyer</th>
                 <th>Fabric</th>
                 <th>Composition</th>
                 <th>OrderNo</th>
                 <th>RefNo</th>
-                <th>BarCode</th>
                 <th>Dia</th>
                 <th>GSM</th>
                 <th>Shrinkage</th>
@@ -336,7 +338,7 @@
 
     <div class="footer-w3l">
         <div class="content">
-            <img src='../Content/images/logo.png' ; style="width:71px; height:40px">
+            <img src='../Content/images/logo.png'>
             <p class="foot">2019 © URMI IT Department. All rights reserved.</p>
         </div>
     </div>
@@ -517,11 +519,8 @@
 
         var QCtable = $('#QCtable').DataTable({
             dom: 'Bfrtip',
-            buttons: [
-                {
-                    extend: 'excelHtml5'
-                }
-            ],
+            buttons: [],
+            "processing": true,
             "ajax":
             {
                 "url": "/QC/GetData",
@@ -530,7 +529,7 @@
             },
             "pageLength": 25,
             "autoWidth": false,
-            "scrollY": true,
+            "scrollY": '20vh',
             "scrollX": true,
             "Sorting": true,
             "searching": true,
@@ -545,7 +544,7 @@
                     "orderable": false,
                 },
                 {
-                    "targets": [1, 2],
+                    "targets": [1, 2, 3],
                     "visible": false,
                     "searchable": false
                 },
@@ -565,12 +564,13 @@
                 },
                 { "data": "Id" },
                 { "data": "fabric.Id" },
+                { "data": "fabric.ProcessString" },
+                { "data": "fabric.BarCode" },
                 { "data": "fabric.buyer.BuyerName" },
                 { "data": "fabric.fb.FabricTypeName" },
                 { "data": "fabric.cm.Composition" },
                 { "data": "fabric.OrderNo" },
                 { "data": "fabric.RefNo" },
-                { "data": "fabric.BarCode" },
                 { "data": "Dia" },
                 { "data": "GSM" },
                 { "data": "Shrinkage" },
@@ -665,6 +665,7 @@
                     Reset();
                     $(this).addClass('selected');
                     var rowdata = QCtable.row(this).data();
+                    $('#ProcessString').text(rowdata.fabric.ProcessString);
                     if (rowdata.ApprovedStatus == 0) {
                         Setvalue(rowdata);
                         $('#saveBtn').prop("disabled", true);
@@ -1012,30 +1013,7 @@
                 }
                 else {
                     if (selectedMenu.text() == "Unapprove") {
-                        var knitObj =
-                        {
-                            Id: QCtable.rows('.selected').data()[0].Id
-                        };
-                        $.ajax({
-                            type: "POST",
-                            url: "/Knitting/CheckUnapproveEligibility",
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json",
-                            data: JSON.stringify(knitObj),
-                            success: function (response) {
-                                debugger
-                                if (response == "true") {
-                                    UnapproveRow();
-                                }
-                                else {
-                                    alert("This order is already used in Dyeing!!!");
-                                    return;
-                                }
-                            },
-                            failure: function () {
-                                $("#tblItems").append(" Error when fetching data please contact administrator");
-                            }
-                        });
+                        UnapproveRow();
                     }
                     else {
                         alert("This order is already approved!!!");
@@ -1087,19 +1065,40 @@
 
             $.ajax({
                 type: "POST",
-                url: "/QC/Approve",
+                url: "/Fabric/GetApprovedStatus",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify(Obj),
+                data: JSON.stringify({ "BarCode": Row.fabric.BarCode, "tableName": "QC" }),
                 success: function (response) {
                     debugger
-                    if (response.data != "" && response.data != null) {
-                        debugger
-                        QCtable.row(index).data(response.data).draw();
-                        Reset();
+                    if (response == true) {
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/QC/Approve",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(Obj),
+                            success: function (response) {
+                                debugger
+                                if (response.data != "" && response.data != null) {
+                                    debugger
+                                    QCtable.row(index).data(response.data).draw();
+                                    Reset();
+                                }
+                                else {
+                                    alert("Failed to Approve!!!");
+                                    return;
+                                }
+                            },
+                            failure: function () {
+                                $("#tblItems").append(" Error when fetching data please contact administrator");
+                            }
+                        });
+
                     }
                     else {
-                        alert("Failed to Approve!!!");
+                        alert("This Order is not approved in previous process!!!");
                         return;
                     }
                 },
@@ -1107,6 +1106,8 @@
                     $("#tblItems").append(" Error when fetching data please contact administrator");
                 }
             });
+
+
         }
 
         function UnapproveRow() {
@@ -1124,7 +1125,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/Fabric/GetApprovedStatus",
+                url: "/Fabric/GetUnApprovedStatus",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 data: JSON.stringify({ "BarCode": Row.fabric.BarCode, "tableName": "QC" }),
@@ -1155,7 +1156,7 @@
                         });
                     }
                     else {
-                        alert("This Order is already approved in next process!!!");
+                        alert("This Order is already approved finally by Super Admin!!!");
                         return;
                     }
                 },
@@ -1182,7 +1183,7 @@
             $('#QCtable tbody tr').removeClass('selected')
 
             selectedFabricRowId = 0;
-
+            $('#ProcessString').text('');
             $('#hidden').prop('checked', false);
             $('#saveBtn').prop("disabled", false);
             $('#updateBtn').prop("disabled", true);

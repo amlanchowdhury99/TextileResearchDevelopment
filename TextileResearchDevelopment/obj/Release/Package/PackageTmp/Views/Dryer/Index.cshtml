@@ -6,8 +6,6 @@
 }
 
 <head>
-    <script type="text/javascript" src="~/Scripts/bootstrap.js"></script>
-    <script type="text/javascript" src="~/Scripts/bootstrap3-typeahead.min.js"></script>
     <style>
         tfoot input {
             width: 100%;
@@ -259,6 +257,8 @@
         </div>
     </div>
 
+    <p id="ProcessString" class="text-uppercase text-primary" style="font-weight:bold"></p>
+
     <table id="DRtable" class="display nowrap stripe hover order-column " style="width: 200px;">
         <thead>
             <tr>
@@ -266,6 +266,7 @@
                 <th>Id</th>
                 <th>FabricID</th>
                 <th>McNoID</th>
+                <th>ProcessString</th>
                 <th>BarCode</th>
                 <th>Buyer</th>
                 <th>Fabric</th>
@@ -295,6 +296,7 @@
         <tfoot>
             <tr>
                 <th style="visibility:hidden;"></th>
+                <th></th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -328,7 +330,7 @@
 
     <div class="footer-w3l">
         <div class="content">
-            <img src='../Content/images/logo.png' ; style="width:71px; height:40px">
+            <img src='../Content/images/logo.png'>
             <p class="foot">2019 © URMI IT Department. All rights reserved.</p>
         </div>
     </div>
@@ -527,16 +529,7 @@
 
         var DRtable = $('#DRtable').DataTable({
             dom: 'Bfrtip',
-            buttons: [
-                {
-                    extend: 'excelHtml5',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
-
-                'colvis'
-            ],
+            buttons: [],
             "pageLength": 25,
             "ajax":
             {
@@ -544,8 +537,9 @@
                 "type": "GET",
                 "dataType": "JSON"
             },
+            "processing": true,
             "autoWidth": false,
-            "scrollY": true,
+            "scrollY": '20vh',
             "scrollX": true,
             "Sorting": true,
             "searching": true,
@@ -560,7 +554,7 @@
                     "orderable": false,
                 },
                 {
-                    "targets": [1, 2, 3],
+                    "targets": [1, 2, 3, 4],
                     "visible": false,
                     "searchable": false
                 },
@@ -581,6 +575,7 @@
                 { "data": "Id" },
                 { "data": "fabric.Id" },
                 { "data": "mc.Id" },
+                { "data": "fabric.ProcessString" },
                 { "data": "fabric.BarCode" },
                 { "data": "fabric.buyer.BuyerName" },
                 { "data": "fabric.fb.FabricTypeName" },
@@ -681,6 +676,7 @@
                     Reset();
                     $(this).addClass('selected');
                     var rowdata = DRtable.row(this).data();
+                    $('#ProcessString').text(rowdata.fabric.ProcessString);
                     if (rowdata.ApprovedStatus == 0) {
                         Setvalue(rowdata);
                         $('#saveBtn').prop("disabled", true);
@@ -1038,30 +1034,7 @@
                 }
                 else {
                     if (selectedMenu.text() == "Unapprove") {
-                        var knitObj =
-                        {
-                            Id: DRtable.rows('.selected').data()[0].Id
-                        };
-                        $.ajax({
-                            type: "POST",
-                            url: "/Knitting/CheckUnapproveEligibility",
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json",
-                            data: JSON.stringify(knitObj),
-                            success: function (response) {
-                                debugger
-                                if (response == "true") {
-                                    UnapproveRow();
-                                }
-                                else {
-                                    alert("This order is already used in Dyeing!!!");
-                                    return;
-                                }
-                            },
-                            failure: function () {
-                                $("#tblItems").append(" Error when fetching data please contact administrator");
-                            }
-                        });
+                        UnapproveRow();
                     }
                     else {
                         alert("This order is already approved!!!");
@@ -1157,21 +1130,41 @@
                 success: function (response) {
                     debugger
                     if (response == true) {
+
                         $.ajax({
                             type: "POST",
-                            url: "/Dryer/Unapprove",
+                            url: "/Fabric/GetUnApprovedStatus",
                             contentType: "application/json; charset=utf-8",
                             dataType: "json",
-                            data: JSON.stringify(Obj),
+                            data: JSON.stringify({ "BarCode": Row.fabric.BarCode, "tableName": "Dryer" }),
                             success: function (response) {
                                 debugger
-                                if (response.data != "" && response.data != null) {
-                                    debugger
-                                    DRtable.row(index).data(response.data).draw();
-                                    Reset();
+                                if (response == true) {
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "/Dryer/Unapprove",
+                                        contentType: "application/json; charset=utf-8",
+                                        dataType: "json",
+                                        data: JSON.stringify(Obj),
+                                        success: function (response) {
+                                            debugger
+                                            if (response.data != "" && response.data != null) {
+                                                debugger
+                                                DRtable.row(index).data(response.data).draw();
+                                                Reset();
+                                            }
+                                            else {
+                                                alert("Failed to Unapprove!!!");
+                                                return;
+                                            }
+                                        },
+                                        failure: function () {
+                                            $("#tblItems").append(" Error when fetching data please contact administrator");
+                                        }
+                                    });
                                 }
                                 else {
-                                    alert("Failed to Unapprove!!!");
+                                    alert("This Order is not approved in next process!!!");
                                     return;
                                 }
                             },
@@ -1179,9 +1172,10 @@
                                 $("#tblItems").append(" Error when fetching data please contact administrator");
                             }
                         });
+
                     }
                     else {
-                        alert("This Order is already approved in next process!!!");
+                        alert("This Order is already approved in previous process!!!");
                         return;
                     }
                 },
@@ -1189,6 +1183,8 @@
                     $("#tblItems").append(" Error when fetching data please contact administrator");
                 }
             });
+
+
         }
 
         function ValidateFabricForm() {
@@ -1206,7 +1202,7 @@
             $('#DRtable tbody tr').removeClass('selected')
 
             selectedFabricRowId = 0;
-
+            $('#ProcessString').text('');
             $('#hidden').prop('checked', false);
             $('#saveBtn').prop("disabled", false);
             $('#updateBtn').prop("disabled", true);

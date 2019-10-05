@@ -4,18 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Textile Research Development</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("head", required: false)
+    @Styles.Render("~/bundles/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/dataTables")
-    @Scripts.Render("~/bundles/dx")
-    @Scripts.Render("~/bundles/moment")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/fileExport")
-
+    
 </head>
 <body>
+    @*@Scripts.Render("~/bundles/dx")*@
+    @*@Scripts.Render("~/bundles/fileExport")*@
     <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:midnightblue; ">
         <div class="container">
             <div class="navbar-header">
@@ -38,7 +34,11 @@
         @RenderBody()
         <hr />
     </div>
-
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/moment")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/dataTables")
     @RenderSection("scripts", required: false)
 </body>
 </html>

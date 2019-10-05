@@ -1,14 +1,14 @@
-﻿.dataTable > thead > tr > th  {
-    color:sandybrown;
+﻿.dataTable > thead > tr > th {
+    color: sandybrown;
 }
 
 input[type="search"] {
-    background-color:wheat;
+    background-color: wheat;
 }
 
 dt-button {
     background-color: midnightblue;
-    color:white;
+    color: white;
 }
 
 .disabled {
@@ -22,7 +22,7 @@ dt-button {
     font-size: 18px;
 }
 
-#ActionLinkBar ul li a{
+#ActionLinkBar ul li a {
     font-size: 15.25px;
 }
 
@@ -30,16 +30,30 @@ dt-button {
     text-transform: uppercase;
 }
 
+.panel-default > .panel-heading {
+    color: white;
+    background-color: #006699;
+    border-color: #006699;
+}
+
 .footer-w3l {
     position: fixed;
-    height: 70px;
+    height: 4.7%;
     background-color: white;
-    color:#006699;
+    color: #006699;
     bottom: 0px;
     left: 0px;
     right: 0px;
     margin-bottom: 0px;
     text-align: center;
+}
+
+.footer-w3l img {
+    width: 3.5%;
+}
+
+.footer-w3l .foot{
+    font-size : 9px;
 }
 
 table.dataTable.stripe tbody tr.odd.selected {

@@ -47,9 +47,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -143,6 +143,7 @@
     <Compile Include="BLL\HSPBLL.cs" />
     <Compile Include="BLL\PeachBLL.cs" />
     <Compile Include="BLL\PrintBLL.cs" />
+    <Compile Include="BLL\QCBLL.cs" />
     <Compile Include="BLL\SingeingBLL.cs" />
     <Compile Include="BLL\StenterBLL.cs" />
     <Compile Include="BLL\WashingBLL.cs" />
@@ -171,31 +172,37 @@
     <Compile Include="Models\Compacting.cs" />
     <Compile Include="Models\CW.cs" />
     <Compile Include="Models\Dryer.cs" />
+    <Compile Include="Models\Fabric.cs" />
     <Compile Include="Models\HSP.cs" />
+    <Compile Include="Models\MasterReportModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MasterReportModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MasterReportModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MasterReportModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MasterReportModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MasterReportModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MasterReportView.cs">
+      <DependentUpon>MasterReportModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Peach.cs" />
     <Compile Include="Models\Print.cs" />
-    <Compile Include="Models\RemarksView.cs">
-      <DependentUpon>ReportModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ReportModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReportModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ReportModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReportModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ReportModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReportModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ReportView.cs">
-      <DependentUpon>ReportModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\QC.cs" />
+    <Compile Include="Models\Report.cs" />
     <Compile Include="Models\Singeing.cs" />
+    <Compile Include="Models\YarnDyedRepeat.cs">
+      <DependentUpon>MasterReportModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\YDView.cs">
+      <DependentUpon>MasterReportModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ReportDataset\GeneralReport.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -207,7 +214,6 @@
     </Compile>
     <Compile Include="Models\DbClass.cs" />
     <Compile Include="Models\Dyeing.cs" />
-    <Compile Include="Models\Fabric.cs" />
     <Compile Include="Models\Knitting.cs" />
     <Compile Include="Models\Members.cs" />
     <Compile Include="Models\Remarks.cs" />
@@ -254,15 +260,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\ReportModel.Context.tt">
+    <Content Include="Models\MasterReportModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ReportModel.edmx</DependentUpon>
-      <LastGenOutput>ReportModel.Context.cs</LastGenOutput>
+      <DependentUpon>MasterReportModel.edmx</DependentUpon>
+      <LastGenOutput>MasterReportModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\ReportModel.tt">
+    <Content Include="Models\MasterReportModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ReportModel.edmx</DependentUpon>
-      <LastGenOutput>ReportModel.cs</LastGenOutput>
+      <DependentUpon>MasterReportModel.edmx</DependentUpon>
+      <LastGenOutput>MasterReportModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
@@ -299,12 +305,12 @@
     <Content Include="Content\icomoon\fonts\icomoon.woff" />
     <Content Include="Content\_bootstrap-datetimepicker.less" />
     <Content Include="Content\bootstrap-datetimepicker-build.less" />
-    <EntityDeploy Include="Models\ReportModel.edmx">
+    <EntityDeploy Include="Models\MasterReportModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ReportModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>MasterReportModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\ReportModel.edmx.diagram">
-      <DependentUpon>ReportModel.edmx</DependentUpon>
+    <Content Include="Models\MasterReportModel.edmx.diagram">
+      <DependentUpon>MasterReportModel.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="ReportDataset\GeneralReport.xsc">
@@ -318,15 +324,17 @@
     <Content Include="ReportDataset\GeneralReport.xss">
       <DependentUpon>GeneralReport.xsd</DependentUpon>
     </Content>
-    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\daterangepicker.min.js" />
     <Content Include="Scripts\dropdowntree.js" />
+    <Content Include="Reporting\MasterReport.rpt" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.bootstrap.treeselect.css" />
     <Content Include="Scripts\jquery.bootstrap.treeselect.js" />
     <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery.modal.min.js" />
@@ -341,6 +349,9 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\pdfmake.min.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\typeahead.bundle.js" />
+    <Content Include="Scripts\UrmiPlugin.js" />
     <Content Include="Scripts\vfs_fonts.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -378,12 +389,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Reporting\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

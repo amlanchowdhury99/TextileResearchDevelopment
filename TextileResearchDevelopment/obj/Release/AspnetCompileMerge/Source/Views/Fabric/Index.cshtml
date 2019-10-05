@@ -1,0 +1,1608 @@
+﻿@{
+    if (Request.IsAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<head>
+    <script type="text/javascript" src="~/Scripts/bootstrap3-typeahead.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap-multiselect.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap-multiselect.css">
+    <style>
+        tfoot input {
+            width: 100%;
+            padding: 3px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<br />
+
+<div id="MainDiv">
+
+    <ul id="MainContextMenu" class="dropdown-menu" role="menu" style="display:none">
+        <li id="CDelete"><a tabindex="-1" href="#">Delete</a></li>
+        <li id="CReset"><a tabindex="-1" href="#">Reset</a></li>
+    </ul>
+
+    <div class="modal fade" id="modalBuyer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Add Buyer</div>
+                                <div class="panel-body">
+                                    <form id="BuyerForm">
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-12 form-inline">
+                                                <label for="BuyerMD" class="control-label" style="        width: 35%;">Buyer</label>
+                                                <div style="        display: inline;">
+                                                    <input type="text" class=" form-control" style="        width: 60%;" id="BuyerMD" placeholder="Buyer" required autofocus>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-12 form-inline">
+                                                <button class="btn btn-warning btn-sm" style="        width: 30%;" disabled id="editBuyerBtn">Update</button>
+                                                <button class="btn btn-danger btn-sm" style="        width: 30%;" disabled id="deleteBuyerBtn">Delete</button>
+                                                <div style="        display: inline;">
+                                                    <button type="submit" id="saveBuyerBtn" class="btn btn-primary btn-sm" style="        width: 30%;">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <table id="BuyerTable" class="display nowrap stripe hover order-column" style="        width: 550px;">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Buyer</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" id="resetBuyerBtn" class="btn btn-info">Reset</button>
+                    <button type="submit" id="okayBuyerBtn" class="btn btn-success">Okay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalFabricType" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Add FabricType</div>
+                                <div class="panel-body">
+                                    <form id="FabricTypeForm">
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-12 form-inline">
+                                                <label for="CompositionMD" class="control-label" style="        width: 35%;">FabricType</label>
+                                                <div style="        display: inline;">
+                                                    <input type="text" class=" form-control" style="        width: 60%;" id="FabricTypeMD" placeholder="FabricType" required autofocus>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-12 form-inline">
+                                                <button class="btn btn-warning btn-sm" style="        width: 30%;" disabled id="editFabricTypeBtn">Update</button>
+                                                <button class="btn btn-danger btn-sm" style="        width: 30%;" disabled id="deleteFabricTypeBtn">Delete</button>
+                                                <div style="        display: inline;">
+                                                    <button type="submit" id="saveFabricTypeBtn" class="btn btn-primary btn-sm" style="        width: 30%;">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <table id="FabricTypeTable" class="display nowrap stripe hover order-column" style="        width: 550px;">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>FabricType</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" id="resetFabricTypeBtn" class="btn btn-info">Reset</button>
+                    <button type="submit" id="okayFabricTypeBtn" class="btn btn-success">Okay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalComposition" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Add Composition</div>
+                                <div class="panel-body">
+                                    <form id="CompositionForm">
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-12 form-inline">
+                                                <label for="CompositionMD" class="control-label" style="        width: 35%;">Brand</label>
+                                                <div style="        display: inline;">
+                                                    <input type="text" class=" form-control" style="        width: 60%;" id="CompositionMD" placeholder="Composition" required autofocus>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" form-group">
+                                            <div class="form-group col-xs-12 form-inline">
+                                                <button class="btn btn-warning btn-sm" style="        width: 30%;" disabled id="editCompositionBtn">Update</button>
+                                                <button class="btn btn-danger btn-sm" style="        width: 30%;" disabled id="deleteCompositionBtn">Delete</button>
+                                                <div style="        display: inline;">
+                                                    <button type="submit" id="saveCompositionBtn" class="btn btn-primary btn-sm" style="        width: 30%;">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <table id="CompositionTable" class="display nowrap stripe hover order-column" style="        width: 550px;">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Composition</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" id="resetCompositionBtn" class="btn btn-info">Reset</button>
+                    <button type="submit" id="okayCompositionBtn" class="btn btn-success">Okay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ul id="contextMenu" class="dropdown-menu" role="menu" style="display:none">
+        <li><a tabindex="-1" href="#">Delete</a></li>
+    </ul>
+
+    <form id="FabicForm">
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+                <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Create Fabric Order</h5>
+            </div>
+            <div class="panel-body">
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="BuyerName" class="control-label" style="width:35%;">Buyer Name</label>
+                        <div style=" display: inline;">
+                            <select name="BuyerName" id="BuyerName" style="width:50%;" class="form-control input-sm" required autofocus></select>
+                            <a href="#" id="mdBuyer" class="btn-sm btn-info" style="width:10%;display:inline" data-toggle="modal" data-target="#modalBuyer">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="FabricType" class="control-label" style="width:35%;">Fabric Type</label>
+                        <div style="display: inline;">
+                            <select name="FabricType" id="FabricType" style="width:50%;" class="form-control input-sm" required autofocus></select>
+                            <a href="#" id="mdFabricType" class="btn-sm btn-info" style="width:10%;" data-toggle="modal" data-target="#modalFabricType">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="OrderNo" class="control-label" style="width:35%;">Order No</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" id="OrderNo" style="width:60%;" placeholder="Order No" required autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Color" class="control-label" style="width:35%;">Color</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="Color" placeholder="Color" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="RefNo" class="control-label" style="width:35%;">Ref No</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="RefNo" placeholder="Ref No">
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="BatchNo" class="control-label" style="width:35%;">Batch No</label>
+                        <div style="display: inline;">
+                            <input type="text" class="typeahead form-control" style="width:60%;" id="BatchNo" placeholder="Batch No" required autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="CompositionType" class="control-label" style="width:35%;">Composition</label>
+                        <div style="display: inline;">
+                            <select name="CompositionType" id="CompositionType" style="width:50%;" class="form-control input-sm" required autofocus></select>
+                            <a href="#" id="mdComposition" class="btn-sm btn-info" style="width:10%;" data-toggle="modal" data-target="#modalComposition">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Version" class="control-label" style="width:35%;">Version</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="Version" placeholder="Version" required autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Season" class="control-label" style="width:35%;">Season</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="Season" placeholder="Season" required autofocus>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-xs-4 form-inline ">
+                    <label for="FP" class="control-label" style="width: 35%;">Fabric Process</label>
+                    <div style="display: inline;">
+                        <select name="FP" id="FP" multiple="multiple" style="width: 60%;display: inline;" class="form-control" required autofocus></select>
+                    </div>
+                </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <button class="btn btn-warning btn-sm" style="width:32%;" id="resetBtn">Reset</button>
+                        <div style="display: inline;">
+                            <input type="submit" value="Update" class="btn btn-primary btn-sm" style="width:32%;" disabled="disabled" id="updateBtn">
+                        </div>
+                        <div style="display: inline;">
+                            <input type="submit" value="Save" class="btn btn-primary btn-sm" style="width:32%;" id="saveBtn">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table id="fabricTable" class="stripe hover order-column" style="width: 100%">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Id</th>
+                    <th>BuyerID</th>
+                    <th>FabricTypeID</th>
+                    <th>CompositionTypeID</th>
+                    <th>ua</th>
+                    <th>BarCode</th>
+                    <th>BuyerName</th>
+                    <th>FabricType</th>
+                    <th>Composition</th>
+                    <th>OrderNo</th>
+                    <th>Color</th>
+                    <th>RefNo</th>
+                    <th>BatchNo</th>
+                    <th>Season</th>
+                    <th>Version</th>
+                    <th>Status</th>
+                    <th>Create Time</th>
+                    <th>Create By</th>
+                    <th>Update Time</th>
+                    <th>Update By</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th style="visibility:hidden;"></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>BarCode</th>
+                    <th>BuyerName</th>
+                    <th>FabricType</th>
+                    <th>Composition</th>
+                    <th>OrderNo</th>
+                    <th>Color</th>
+                    <th>RefNo</th>
+                    <th>BatchNo</th>
+                    <th>Season</th>
+                    <th>Version</th>
+                    <th>Status</th>
+                    <th>Create Time</th>
+                    <th>Create By</th>
+                    <th>Update Time</th>
+                    <th>Update By</th>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+
+    <div class="footer-w3l">
+        <div class="content">
+            <img src='../Content/images/logo.png' ; style="width:71px; height:40px">
+            <p class="foot">2019 © URMI IT Department. All rights reserved.</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        var ColId = "";
+
+        var BuyerTable = $('#BuyerTable').DataTable({
+            buttons: [],
+            "ajax":
+            {
+                "url": "/Fabric/GetBuyerList",
+                "type": "GET",
+                "dataType": "JSON"
+            },
+            "dom": 'Bfrtip',
+            "scrollY": true,
+            "scrollX": true,
+            "Sorting": true,
+            "searching": true,
+            "destroy": true,
+            "autoWidth": false,
+            "select": {
+                style: 'single'
+            },
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "searchable": false,
+                    "orderable": false,
+                    "visible": false
+                }
+            ],
+            "columns": [
+                { "data": "Id" },
+                { "data": "BuyerName" }
+            ]
+        });
+        var FabricTypeTable = $('#FabricTypeTable').DataTable({
+            buttons: [],
+            "ajax":
+            {
+                "url": "/Fabric/GetFabricTypeList",
+                "type": "GET",
+                "dataType": "JSON"
+            },
+            "dom": 'Bfrtip',
+            "scrollY": true,
+            "scrollX": true,
+            "Sorting": true,
+            "searching": true,
+            "destroy": true,
+            "autoWidth": false,
+            "select": {
+                style: 'single'
+            },
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "searchable": false,
+                    "orderable": false,
+                    "visible": false
+                }
+            ],
+            "columns": [
+                { "data": "Id" },
+                { "data": "FabricTypeName" }
+            ]
+        });
+        var CompositionTable = $('#CompositionTable').DataTable({
+            buttons: [],
+            "ajax":
+            {
+                "url": "/Fabric/GetCompositionTypeList",
+                "type": "GET",
+                "dataType": "JSON"
+            },
+            "dom": 'Bfrtip',
+            "scrollY": true,
+            "scrollX": true,
+            "Sorting": true,
+            "searching": true,
+            "destroy": true,
+            "autoWidth": false,
+            "select": {
+                style: 'single'
+            },
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "searchable": false,
+                    "orderable": false,
+                    "visible": false
+                }
+            ],
+            "columns": [
+                { "data": "Id" },
+                { "data": "Composition" }
+            ]
+        });
+
+        (function ($, window) {
+
+            $.fn.contextMenu = function (settings) {
+
+                return this.each(function () {
+
+                    // Open context menu
+                    $(this).on("contextmenu", function (e) {
+                        // return native menu if pressing control
+                        if (e.ctrlKey) return;
+
+                        if ($('#fabricTable tbody tr').hasClass('selected') == false) return;
+
+                        //open menu
+                        var $menu = $(settings.menuSelector)
+                            .data("invokedOn", $(e.target))
+                            .show()
+                            .css({
+                                position: "absolute",
+                                left: getMenuPosition(e.clientX, 'width', 'scrollLeft'),
+                                top: getMenuPosition(e.clientY, 'height', 'scrollTop')
+                            })
+                            .off('click')
+                            .on('click', 'a', function (e) {
+                                $menu.hide();
+
+                                var $invokedOn = $menu.data("invokedOn");
+                                var $selectedMenu = $(e.target);
+
+                                settings.menuSelected.call(this, $invokedOn, $selectedMenu);
+                            });
+
+                        return false;
+                    });
+
+                    //make sure menu closes on any click
+                    $('body').click(function () {
+                        $(settings.menuSelector).hide();
+                    });
+                });
+
+                function getMenuPosition(mouse, direction, scrollDir) {
+                    var win = $(window)[direction](),
+                        scroll = $(window)[scrollDir](),
+                        menu = $(settings.menuSelector)[direction](),
+                        position = mouse + scroll;
+
+                    // opening menu would pass the side of the page
+                    if (mouse + menu > win && menu < mouse)
+                        position -= menu;
+
+                    return position;
+                }
+
+            };
+        })(jQuery, window);
+
+        SetRoles();
+
+        function loadFPList() {
+            var s = '';
+            for (var i = 1; i <= 12; i++) {
+                if (i == 1)
+                    s += '<option value="' + i + '">Knit</option>';
+                if (i == 2)
+                    s += '<option value="' + i + '">CW</option>';
+                if (i == 3)
+                    s += '<option value="' + i + '">HSP</option>';
+                if (i == 4)
+                    s += '<option value="' + i + '">Singeing</option>';
+                if (i == 5)
+                    s += '<option value="' + i + '">Dyeing</option>';
+                if (i == 6)
+                    s += '<option value="' + i + '">Dryer</option>';
+                if (i == 7)
+                    s += '<option value="' + i + '">Stenter</option>';
+                if (i == 8)
+                    s += '<option value="' + i + '">Compacting</option>';
+                if (i == 9)
+                    s += '<option value="' + i + '">Peach</option>';
+                if (i == 10)
+                    s += '<option value="' + i + '">Brush</option>';
+                if (i == 11)
+                    s += '<option value="' + i + '">PrintInfo</option>';
+                if (i == 12)
+                    s += '<option value="' + i + '">QC</option>';
+            }
+            $("#FP").html(s);
+            $('#FP').multiselect({
+                buttonWidth: '60%',
+                enableFiltering: true,
+                includeSelectAllOption: true
+            });
+            $('#FP').multiselect('refresh');
+            loadCompositionList();
+        }
+
+        function loadCompositionList() {
+            $.ajax({
+                type: "GET",
+                url: "/Fabric/GetCompositionTypeList",
+                data: "{}",
+                success: function (data) {
+                    debugger;
+                    var data = data.data;
+                    var s = '<option value="">Please Composition</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].Composition + '</option>';
+                    }
+                    $("#CompositionType").html(s);
+                    loadBuyerList();
+                }
+            });
+        }
+
+        function loadBuyerList() {
+            $.ajax({
+                type: "GET",
+                url: "/Fabric/GetBuyerList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Please Buyer</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].BuyerName + '</option>';
+                    }
+                    $("#BuyerName").html(s);
+                    loadFabricTypeList();
+                }
+            });
+        }
+
+        function loadFabricTypeList() {
+            $.ajax({
+                type: "GET",
+                url: "/Fabric/GetFabricTypeList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Please Sample Type</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].FabricTypeName + '</option>';
+                    }
+                    $("#FabricType").html(s);
+                }
+            });
+        }
+
+        function SetRoles() {
+            debugger;
+
+            var user = {
+                Name: "Fabric"
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/UserManagement/GetRoles",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(user),
+                success: function (response) {
+                    debugger;
+                    if (response != "" && response != null) {
+
+                        if (response.RolePermissionID == 0) {
+
+                            $('#CReset a').addClass('disabled');
+                            $('#CDelete a').addClass('disabled');
+
+                            if (response.Crud == 0) {
+                                $('#saveBtn').hide();
+                                $('#updateBtn').hide();
+                                $('#reviseBtn').hide();
+                            }
+                            if (response.LibrarySet == 0) {
+                                $('#mdBuyer').addClass('disabled');
+                                $('#mdFabricType').addClass('disabled');
+                                $('#mdComposition').addClass('disabled');
+                            }
+                        }
+                    }
+                    else {
+                        alert("Connection Error!!!");
+                        return;
+                    }
+                    loadFPList();
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        }
+
+        $("#mdBuyer").click(function () {
+            debugger;
+            $("#resetBuyerBtn").click();
+        });
+
+        $('#BuyerTable tbody').on('click', 'tr', function () {
+            if (BuyerTable.data().any()) {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                    $('#BuyerMD').val("");
+                    $('#editBuyerBtn').prop("disabled", true);
+                    $('#deleteBuyerBtn').prop("disabled", true);
+                    $('#saveBuyerBtn').prop("disabled", false);
+                }
+                else {
+                    BuyerTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                    var rowdata = BuyerTable.row(this).data();
+                    $('#BuyerMD').val(rowdata.BuyerName);
+                    $('#editBuyerBtn').prop("disabled", false);
+                    $('#deleteBuyerBtn').prop("disabled", false);
+                    $('#saveBuyerBtn').prop("disabled", true);
+                }
+            }
+        });
+
+        $('#BuyerForm').submit(function (e) {
+
+            event.preventDefault();
+            debugger
+            var Obj = {
+                Id: '0',
+                BuyerName: $("#BuyerMD").val()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Fabric/AddBuyerType",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(Obj),
+                success: function (response) {
+                    debugger
+                    if (response.data != "" && response.data != null) {
+                        BuyerTable.row.add(response.data).draw();
+                        $("#BuyerMD").val("");
+                    }
+                    else {
+                        alert("Failed to Save!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        });
+
+        $("#editBuyerBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#BuyerTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = BuyerTable.rows('.selected').data()[0];
+                var index = BuyerTable.row('.selected').index();
+
+                var Obj =
+                {
+                    Id: Row.Id,
+                    BuyerName: $("#BuyerMD").val()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Fabric/AddBuyerType",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(Obj),
+                    success: function (response) {
+                        debugger
+                        if (response.data != "" && response.data != null) {
+                            debugger
+                            BuyerTable.row(index).data(response.data).draw();
+                            $("#BuyerMD").val("");
+                        }
+                        else {
+                            alert("Failed to Update!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#deleteBuyerBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#BuyerTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = BuyerTable.rows('.selected').data()[0];
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Fabric/DeleteBuyerType",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify({ Id: Row.Id }),
+                    success: function (response) {
+                        debugger
+                        if (response == "Success") {
+                            BuyerTable.row('.selected').remove().draw(false);
+                            $("#BuyerMD").val("");
+                        }
+                        else {
+                            alert("Failed to Delete!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#resetBuyerBtn").click(function () {
+            $("#BuyerMD").val("");
+            $('#editBuyerBtn').prop("disabled", true);
+            $('#deleteBuyerBtn').prop("disabled", true);
+            $('#saveBuyerBtn').prop("disabled", false);
+            $('#BuyerTable tbody tr').removeClass('selected');
+        });
+
+        $("#okayBuyerBtn").click(function () {
+            $("#modalBuyer .close").click();
+            loadBuyerList();
+        });
+
+
+
+        $("#mdFabricType").click(function () {
+            debugger;
+            $("#resetFabricTypeBtn").click();
+        });
+
+        $('#FabricTypeTable tbody').on('click', 'tr', function () {
+
+            if (FabricTypeTable.data().any()) {
+
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                    $('#FabricTypeMD').val("");
+                    $('#editFabricTypeBtn').prop("disabled", true);
+                    $('#deleteFabricTypeBtn').prop("disabled", true);
+                    $('#saveFabricTypeBtn').prop("disabled", false);
+                }
+                else {
+                    FabricTypeTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                    var rowdata = FabricTypeTable.row(this).data();
+                    $('#FabricTypeMD').val(rowdata.FabricTypeName)
+                    $('#editFabricTypeBtn').prop("disabled", false);
+                    $('#deleteFabricTypeBtn').prop("disabled", false);
+                    $('#saveFabricTypeBtn').prop("disabled", true);
+                }
+            }
+        });
+
+        $('#FabricTypeForm').submit(function (e) {
+
+            event.preventDefault();
+            debugger
+            var Obj = {
+                Id: '0',
+                FabricTypeName: $("#FabricTypeMD").val()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Fabric/AddFabricType",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(Obj),
+                success: function (response) {
+                    debugger
+                    if (response.data != "" && response.data != null) {
+                        FabricTypeTable.row.add(response.data).draw();
+                        $("#FabricTypeMD").val("");
+                    }
+                    else {
+                        alert("Failed to Save!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        });
+
+        $("#editFabricTypeBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#FabricTypeTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = FabricTypeTable.rows('.selected').data()[0];
+                var index = FabricTypeTable.row('.selected').index();
+
+                var Obj =
+                {
+                    Id: Row.Id,
+                    FabricTypeName: $("#FabricTypeMD").val()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Fabric/AddFabricType",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(Obj),
+                    success: function (response) {
+                        debugger
+                        if (response.data != "" && response.data != null) {
+                            debugger
+                            FabricTypeTable.row(index).data(response.data).draw();
+                            $("#FabricTypeMD").val("");
+                        }
+                        else {
+                            alert("Failed to Update!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#deleteFabricTypeBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#FabricTypeTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = FabricTypeTable.rows('.selected').data()[0];
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Fabric/DeleteFabricType",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify({ Id: Row.Id }),
+                    success: function (response) {
+                        debugger
+                        if (response == "Success") {
+                            FabricTypeTable.row('.selected').remove().draw(false);
+                            $("#FabricTypeMD").val("");
+                        }
+                        else {
+                            alert("Failed to Delete!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#resetFabricTypeBtn").click(function () {
+            $("#FabricTypeMD").val("");
+            $('#editFabricTypeBtn').prop("disabled", true);
+            $('#deleteFabricTypeBtn').prop("disabled", true);
+            $('#saveFabricTypeBtn').prop("disabled", false);
+            $('#FabricTypeTable tbody tr').removeClass('selected');
+        });
+
+        $("#okayFabricTypeBtn").click(function () {
+            $("#modalFabricType .close").click();
+            loadFabricTypeList();
+        });
+
+
+
+        $("#mdComposition").click(function () {
+            debugger;
+            $("#resetCompositionBtn").click();
+        });
+
+        $('#CompositionTable tbody').on('click', 'tr', function () {
+
+            if (CompositionTable.data().any()) {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                    $('#CompositionMD').val("");
+                    $('#editCompositionBtn').prop("disabled", true);
+                    $('#deleteCompositionBtn').prop("disabled", true);
+                    $('#saveCompositionBtn').prop("disabled", false);
+                }
+                else {
+                    CompositionTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                    var rowdata = CompositionTable.row(this).data();
+                    $('#CompositionMD').val(rowdata.Composition)
+                    $('#editCompositionBtn').prop("disabled", false);
+                    $('#deleteCompositionBtn').prop("disabled", false);
+                    $('#saveCompositionBtn').prop("disabled", true);
+                }
+            }
+        });
+
+        $('#CompositionForm').submit(function (e) {
+
+            event.preventDefault();
+            debugger
+            var Obj = {
+                Id: '0',
+                Composition: $("#CompositionMD").val()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Fabric/AddCompositionType",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(Obj),
+                success: function (response) {
+                    debugger
+                    if (response.data != "" && response.data != null) {
+                        CompositionTable.row.add(response.data).draw();
+                        $("#CompositionMD").val("");
+                    }
+                    else {
+                        alert("Failed to Save!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        });
+
+        $("#editCompositionBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#CompositionTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = CompositionTable.rows('.selected').data()[0];
+                var index = CompositionTable.row('.selected').index();
+
+                var Obj =
+                {
+                    Id: Row.Id,
+                    Composition: $("#CompositionMD").val()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Fabric/AddCompositionType",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(Obj),
+                    success: function (response) {
+                        debugger
+                        if (response.data != "" && response.data != null) {
+                            debugger
+                            CompositionTable.row(index).data(response.data).draw();
+                            $("#CompositionMD").val("");
+                        }
+                        else {
+                            alert("Failed to Update!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#deleteCompositionBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#CompositionTable tbody tr').hasClass('selected')) {
+                debugger
+                var Row = CompositionTable.rows('.selected').data()[0];
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Fabric/DeleteCompositionType",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify({ Id: Row.Id }),
+                    success: function (response) {
+                        debugger
+                        if (response == "Success") {
+                            CompositionTable.row('.selected').remove().draw(false);
+                            $("#CompositionMD").val("");
+                        }
+                        else {
+                            alert("Failed to Delete!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        $("#resetCompositionBtn").click(function () {
+            $("#CompositionMD").val("");
+            $('#editCompositionBtn').prop("disabled", true);
+            $('#deleteCompositionBtn').prop("disabled", true);
+            $('#saveCompositionBtn').prop("disabled", false);
+            $('#CompositionTable tbody tr').removeClass('selected');
+        });
+
+        $("#okayCompositionBtn").click(function () {
+            $("#modalComposition .close").click();
+            loadCompositionList();
+        });
+
+        $('#fabricTable tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="Search" />');
+        });
+
+        var fabricTable = $('#fabricTable').DataTable({
+            dom: 'Bfrtip',
+            "ajax":
+            {
+                "url": "/Fabric/GetData",
+                "type": "GET",
+                "dataType": "JSON"
+            },
+            "autoWidth": false,
+            "scrollY": true,
+            "scrollX": true,
+            "Sorting": true,
+            "searching": true,
+            "destroy": true,
+            "select": {
+                style: 'single'
+            },
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "searchable": false,
+                    "orderable": false,
+                },
+                {
+                    "targets": [1, 2, 3, 4, 5],
+                    "visible": false,
+                    "searchable": false
+                }
+            ],
+            "columns": [
+                {
+                    "searchable": false,
+                    "render": function (data, type, full, meta) {
+                        return fabricTable.data().count();
+                    }
+                },
+                {
+                    "data": "Id"
+                },
+                {
+                    "data": "buyer.Id"
+                },
+                {
+                    "data": "fb.Id"
+                },
+                {
+                    "data": "cm.Id"
+                },
+                {
+                    "data": "ua"
+                },
+                { "data": "BarCode" },
+                { "data": "buyer.BuyerName" },
+                { "data": "fb.FabricTypeName" },
+                { "data": "cm.Composition" },
+                { "data": "OrderNo" },
+                { "data": "Color" },
+                { "data": "RefNo" },
+                { "data": "BatchNo" },
+                { "data": "Season" },
+                { "data": "Version" },
+                { "data": "Status" },
+                {
+                    data: "CreateTime",
+                    render: function (data, type, row) {
+                        return moment(data, "YYYY/MM/DD HH:mm").format("DD/MM/YYYY h:mm");
+                    }
+                },
+                { "data": "CreateBy" },
+                {
+                    data: "UpdateTime",
+                    render: function (data, type, row) {
+                        if (data != null)
+                            return moment(data, "YYYY/MM/DD HH:mm").format("DD/MM/YYYY h:mm");
+                        else
+                            return "N/A"
+                    }
+                },
+                {
+                    "data": "UpdateBy",
+                    render: function (data, type, row) {
+                        if (data != "")
+                            return data;
+                        else
+                            return "N/A"
+                    }
+                }
+            ]
+        });
+
+        $('#fabricTable tbody').on('click', 'tr', function () {
+            event.preventDefault();
+            debugger;
+            if (fabricTable.data().any()) {
+                if ($(this).hasClass('selected')) {
+                    $(this).removeClass('selected');
+                    Reset();
+                }
+                else {
+                    var rowdata = fabricTable.row(this).data();
+                    fabricTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                    Setvalue(rowdata);
+                    $('#saveBtn').prop("disabled", true);
+                    if (rowdata.Status != "Active") {
+                        $('#updateBtn').prop("disabled", false);
+                    }
+                }
+            }
+            else {
+                $('#saveBtn').prop("disabled", false);
+                $('#updateBtn').prop("disabled", true);
+            }
+        });
+
+        $("#fabricTable tbody").contextMenu({
+            menuSelector: "#MainContextMenu",
+            menuSelected: function (invokedOn, selectedMenu) {
+                debugger;
+
+                var Status = fabricTable.rows('.selected').data()[0].Status;
+
+                if (Status == "Active") {
+                    if (selectedMenu.text() == "Delete") {
+                        alert("First reset the Fabric!!!");
+                    }
+                    if (selectedMenu.text() == "Reset") {
+                        ResetFabric();
+                    }
+                }
+                else {
+                    if (Status == "Idle") {
+                        if (selectedMenu.text() == "Delete") {
+                            DeleteRow();
+                        }
+                    }
+                }
+            }
+        });
+
+        function ResetFabric() {
+            event.preventDefault();
+            debugger;
+            var Row = fabricTable.rows('.selected').data()[0];
+            var index = fabricTable.row('.selected').index();
+
+            var Obj =
+            {
+                Id: Row.Id,
+                BarCode: Row.BarCode,
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Fabric/ResetFabric",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(Obj),
+                success: function (response) {
+                    debugger
+                    if (response = "Success") {
+                        Reset();
+                    }
+                    else {
+                        alert("Failed to Reset Fabric!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        };
+
+        function DeleteRow() {
+            event.preventDefault();
+            var Row = fabricTable.rows('.selected').data()[0];
+
+            $.ajax({
+                type: "POST",
+                url: "/Fabric/Delete",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({ "Id": Row.Id, "BarCode": Row.BarCode }),
+                success: function (response) {
+                    debugger
+                    if (response = "Success") {
+                        fabricTable.row('.selected').remove().draw(false);
+                        Reset();
+                    }
+                    else {
+                        alert("Failed to Delete!!!");
+                        return;
+                    }
+                },
+                failure: function () {
+                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                }
+            });
+        };
+
+        fabricTable.columns().every(function () {
+            var that = this;
+
+            $('input', this.footer()).on('keyup change', function () {
+                if (that.search() !== this.value) {
+                    that.search(this.value).draw();
+                }
+            });
+        });
+
+        $('#FabicForm').submit(function (e) {
+            event.preventDefault();
+
+            debugger;
+
+            if (IsValid()) {
+                var buyer = {
+                    "Id": $("#BuyerName").val()
+                };
+                var fb = {
+                    "Id": $("#FabricType").val()
+                };
+                var cm = {
+                    "Id": $("#CompositionType").val()
+                };
+                var ua = {
+                    "Knit": $("#FP").val().includes("1") == false ? 0 : 1,
+                    "CW": $("#FP").val().includes("2") == false ? 0 : 1,
+                    "HSP": $("#FP").val().includes("3") == false ? 0 : 1,
+                    "Singeing": $("#FP").val().includes("4") == false ? 0 : 1,
+                    "Dyeing": $("#FP").val().includes("5") == false ? 0 : 1,
+                    "Dryer": $("#FP").val().includes("6") == false ? 0 : 1,
+                    "Stenter": $("#FP").val().includes("7") == false ? 0 : 1,
+                    "Compacting": $("#FP").val().includes("8") == false ? 0 : 1,
+                    "Peach": $("#FP").val().includes("9") == false ? 0 : 1,
+                    "Brush": $("#FP").val().includes("10") == false ? 0 : 1,
+                    "PrintInfo": $("#FP").val().includes("11") == false ? 0 : 1,
+                    "QC": $("#FP").val().includes("12") == false ? 0 : 1
+                };
+
+                var fabricObj = {
+                    Id: '0',
+                    buyer: buyer,
+                    fb: fb,
+                    cm: cm,
+                    OrderNo: $("#OrderNo").val(),
+                    Color: $("#Color").val(),
+                    RefNo: $("#RefNo").val(),
+                    BatchNo: $("#BatchNo").val(),
+                    Season: $("#Season").val(),
+                    Version: $("#Version").val(),
+                    ua: ua,
+
+                    //DeliveryDate: moment($("#DeliveryDateText").val()).format("YYYY/MM/DD")
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Fabric/IsFabricDuplicate",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(fabricObj),
+                    success: function (response) {
+                        debugger;
+                        if (response == false) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/Fabric/CRUD",
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                data: JSON.stringify(fabricObj),
+                                success: function (response) {
+                                    debugger;
+                                    if (response.data != "" && response.data != null) {
+                                        fabricTable.row.add(response.data);
+                                        fabricTable.draw();
+                                        Reset();
+                                    }
+                                    else {
+                                        alert("Failed to Save!!!");
+                                        return;
+                                    }
+                                },
+                                failure: function () {
+                                    $("#tblItems").append(" Error when fetching data please contact administrator");
+                                }
+                            });
+                        }
+                        else {
+                            alert("This record already exists!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+        });
+
+        $("#updateBtn").click(function () {
+            event.preventDefault();
+
+            if ($('#fabricTable tbody tr').hasClass('selected')) {
+                debugger;
+
+                if (IsValid()) {
+                    var buyer = {
+                        "Id": $("#BuyerName").val()
+                    };
+                    var fb = {
+                        "Id": $("#FabricType").val()
+                    };
+                    var cm = {
+                        "Id": $("#CompositionType").val()
+                    };
+                    var ua = {
+                        "Knit": $("#FP").val().includes("1") == false ? 0 : 1,
+                        "CW": $("#FP").val().includes("2") == false ? 0 : 1,
+                        "HSP": $("#FP").val().includes("3") == false ? 0 : 1,
+                        "Singeing": $("#FP").val().includes("4") == false ? 0 : 1,
+                        "Dyeing": $("#FP").val().includes("5") == false ? 0 : 1,
+                        "Dryer": $("#FP").val().includes("6") == false ? 0 : 1,
+                        "Stenter": $("#FP").val().includes("7") == false ? 0 : 1,
+                        "Compacting": $("#FP").val().includes("8") == false ? 0 : 1,
+                        "Peach": $("#FP").val().includes("9") == false ? 0 : 1,
+                        "Brush": $("#FP").val().includes("10") == false ? 0 : 1,
+                        "PrintInfo": $("#FP").val().includes("11") == false ? 0 : 1,
+                        "QC": $("#FP").val().includes("12") == false ? 0 : 1
+                    };
+
+                    var fabricObj = {
+                        Id: fabricTable.rows('.selected').data()[0].Id,
+                        buyer: buyer,
+                        fb: fb,
+                        cm: cm,
+                        OrderNo: $("#OrderNo").val(),
+                        Color: $("#Color").val(),
+                        RefNo: $("#RefNo").val(),
+                        BatchNo: $("#BatchNo").val(),
+                        Season: $("#Season").val(),
+                        Version: $("#Version").val(),
+                        ua: ua
+                    };
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Fabric/IsFabricDuplicate",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data: JSON.stringify(fabricObj),
+                        success: function (response) {
+                            debugger;
+                            if (response == false) {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/Fabric/CRUD",
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    data: JSON.stringify(fabricObj),
+                                    success: function (response) {
+                                        debugger
+                                        if (response.data != "" && response.data != null) {
+                                            fabricTable.row('.selected').data(response.data).draw();
+                                            Reset();
+                                        }
+                                        else {
+                                            alert("Failed to Update!!!");
+                                            return;
+                                        }
+                                    },
+                                    failure: function () {
+                                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                                    }
+                                });
+                            }
+                            else {
+                                alert("This record already exists!!!");
+                                return;
+                            }
+                        },
+                        failure: function () {
+                            $("#tblItems").append(" Error when fetching data please contact administrator");
+                        }
+                    });
+                }
+            }
+            else {
+                alert("Please Select A Row!!!");
+                return;
+            }
+        });
+
+        function Setvalue(rowdata) {
+            debugger;
+            $("#BuyerName").val(rowdata.buyer.Id);
+            $("#FabricType").val(rowdata.fb.Id);
+            $("#CompositionType").val(rowdata.cm.Id);
+            $("#OrderNo").val(rowdata.OrderNo);
+            $("#Color").val(rowdata.Color);
+            $("#RefNo").val(rowdata.RefNo);
+            $("#BatchNo").val(rowdata.BatchNo);
+            $("#Season").val(rowdata.Season);
+            $("#Version").val(rowdata.Version);
+            $("#FP").val("");
+            $('#FP').multiselect('refresh');
+
+            if (rowdata.ua.Knit == 1) {
+                $("#FP").multiselect('select', 1);
+            }
+            if (rowdata.ua.CW == 1) {
+                $("#FP").multiselect('select', 2);
+            }
+            if (rowdata.ua.HSP == 1) {
+                $("#FP").multiselect('select', 3);
+            }
+            if (rowdata.ua.Singeing == 1) {
+                $("#FP").multiselect('select', 4);
+            }
+            if (rowdata.ua.Dyeing == 1) {
+                $("#FP").multiselect('select', 5);
+            }
+            if (rowdata.ua.Dryer == 1) {
+                $("#FP").multiselect('select', 6);
+            }
+            if (rowdata.ua.Stenter == 1) {
+                $("#FP").multiselect('select', 7);
+            }
+            if (rowdata.ua.Compacting == 1) {
+                $("#FP").multiselect('select', 8);
+            }
+            if (rowdata.ua.Peach == 1) {
+                $("#FP").multiselect('select', 9);
+            }
+            if (rowdata.ua.Brush == 1) {
+                $("#FP").multiselect('select', 10);
+            }
+            if (rowdata.ua.PrintInfo == 1) {
+                $("#FP").multiselect('select', 11);
+            }
+            if (rowdata.ua.QC == 1) {
+                $("#FP").multiselect('select', 12);
+            }
+        }
+
+        function IsValid() {
+            if ($("#BuyerName").val() == "") {
+                alert("Please Select Buyer");
+                $("#BuyerName").focus();
+                return false;
+            }
+            if ($("#FabricType").val() == "") {
+                alert("Please Select Fabric");
+                $("#FabricType").focus();
+                return false;
+            }
+            if ($("#CompositionType").val() == "") {
+                alert("Please Select Composition");
+                $("#CompositionType").focus();
+                return false;
+            }
+            if ($("#FP").val() == "") {
+                alert("Please Choose Fabric Process");
+                $("#FP").focus();
+                return false;
+            }
+            return true;
+        }
+
+        $("#resetBtn").click(function () {
+            event.preventDefault();
+            Reset();
+        });
+
+        function Reset() {
+            $("#BuyerName").val("");
+            $("#FabricType").val("");
+            $("#CompositionType").val("");
+            $("#OrderNo").val("");
+            $("#Color").val("");
+            $("#RefNo").val("");
+            $("#BatchNo").val("");
+            $("#Season").val("");
+            $("#Version").val("");
+            $("#FP").val("");
+            $('#FP').multiselect('refresh');
+            $('#saveBtn').prop("disabled", false);
+            $('#updateBtn').prop("disabled", true);
+            $('#fabricTable tbody tr').removeClass('selected');
+        }
+
+        $('input.typeahead').keydown(function () {
+            ColId = $(this).attr('id');
+        });
+
+        $('input.typeahead').typeahead(
+            {
+                source: function (query, process) {
+                    return $.get('/Fabric/GetMatchingData', { query: query, col: ColId }, function (data) {
+                        return process(data);
+                    });
+                }
+            });
+
+    });
+</script>

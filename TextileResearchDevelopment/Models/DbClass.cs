@@ -113,19 +113,29 @@ namespace TextileResearchDevelopment.Models
     {
         public int Id { get; set; }
         public string BuyerName { get; set; }
-        
+        public int Status { get; set; }
+
     }
 
     public class FabricType
     {
         public int Id { get; set; }
         public string FabricTypeName { get; set; }
+        public int Status { get; set; }
     }
 
     public class CompositionType
     {
         public int Id { get; set; }
         public string Composition { get; set; }
+        public int Status { get; set; }
+    }
+
+    public class StatusType
+    {
+        public int Id { get; set; }
+        public string Status { get; set; }
+
     }
 
     public class McDiaGaugeType
@@ -135,6 +145,7 @@ namespace TextileResearchDevelopment.Models
         public string McDia { get; set; }
         public string McGauge { get; set; }
         public string McBrand { get; set; }
+        public int Status { get; set; }
     }
 
     public class YarnCountType

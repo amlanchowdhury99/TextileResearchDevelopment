@@ -5,13 +5,13 @@ namespace TextileResearchDevelopment
 {
     public class BundleConfig
     {
-        // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            BundleTable.EnableOptimizations = true;
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js",
+                        //"~/Scripts/jquery-3.3.1.js",
                         "~/Scripts/jquery.unobtrusive-ajax.min.js",
-                        "~/Scripts/jquery.dataTables.min.js",
                         "~/Scripts/jquery.treeSelector.js",
                         "~/Scripts/UrmiPlugin.js"));
 
@@ -19,18 +19,10 @@ namespace TextileResearchDevelopment
                         "~/Scripts/jquery.validate*",
                         "~/Scripts/jquery.validate.unobtrusive.min.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/dataTables").Include(
-                        "~/Scripts/dataTables.select.min.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/dx").Include(
-                        "~/Scripts/dx.all.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/moment").Include(
-                        "~/Scripts/moment.js",
-                        "~/Scripts/daterangepicker.min.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
+                       "~/Scripts/moment.js",
+                       "~/Scripts/daterangepicker.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
@@ -38,6 +30,16 @@ namespace TextileResearchDevelopment
                       "~/Scripts/bootstrap-datetimepicker.min.js",
                       "~/Scripts/bootstrap-multiselect.min.js",
                       "~/Scripts/typeahead.bundle.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/dataTables").Include(
+                        "~/Scripts/jquery.dataTables.min.js",
+                        "~/Scripts/dataTables.select.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/dx").Include(
+                        "~/Scripts/dx.all.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
+                        "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/fileExport").Include(
                         "~/Scripts/dataTables.buttons.min.js",
@@ -48,19 +50,19 @@ namespace TextileResearchDevelopment
                         "~/Scripts/buttons.html5.min.js",
                         "~/Scripts/buttons.colVis.min.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/bundles/css").Include(
+                      "~/Content/jquery.treeSelector.css",
                       "~/Content/bootstrap.css",
-                      "~/Content/Site.css",
+                      //"~/Content/bootstrapValidator.min.css",
+                      "~/Content/bootstrap-datetimepicker.min.css",
+                      "~/Content/bootstrap-multiselect.css",
                       "~/Content/dx.common.css",
                       "~/Content/dx.material.blue.light.css",
                       "~/Content/jquery.dataTables.min.css",
-                      "~/Content/buttons.dataTables.min.css",
-                      "~/Content/jquery.treeSelector.css",
                       "~/Content/select.dataTables.min.css",
-                      "~/Content/bootstrapValidator.min.css",
-                      "~/Content/bootstrap-datetimepicker.min.css",
+                      "~/Content/buttons.dataTables.min.css",
                       "~/Content/daterangepicker.css",
-                      "~/Content/bootstrap-multiselect.css",
+                      "~/Content/Site.css",
                       "~/Content/UrmiStyle.css"));
 
         }

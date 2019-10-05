@@ -14,7 +14,7 @@
   <xs:element name="GeneralReport" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="GeneralReport" msprop:Generator_UserDSName="GeneralReport">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="YarnDyedRepeat" msprop:Generator_TableClassName="YarnDyedRepeatDataTable" msprop:Generator_TableVarName="tableYarnDyedRepeat" msprop:Generator_TablePropName="YarnDyedRepeat" msprop:Generator_RowDeletingName="YarnDyedRepeatRowDeleting" msprop:Generator_RowChangingName="YarnDyedRepeatRowChanging" msprop:Generator_RowEvHandlerName="YarnDyedRepeatRowChangeEventHandler" msprop:Generator_RowDeletedName="YarnDyedRepeatRowDeleted" msprop:Generator_UserTableName="YarnDyedRepeat" msprop:Generator_RowChangedName="YarnDyedRepeatRowChanged" msprop:Generator_RowEvArgName="YarnDyedRepeatRowChangeEvent" msprop:Generator_RowClassName="YarnDyedRepeatRow">
+        <xs:element name="YarnDyedRepeat" msprop:Generator_TableClassName="YarnDyedRepeatDataTable" msprop:Generator_TableVarName="tableYarnDyedRepeat" msprop:Generator_RowChangedName="YarnDyedRepeatRowChanged" msprop:Generator_TablePropName="YarnDyedRepeat" msprop:Generator_RowDeletingName="YarnDyedRepeatRowDeleting" msprop:Generator_RowChangingName="YarnDyedRepeatRowChanging" msprop:Generator_RowEvHandlerName="YarnDyedRepeatRowChangeEventHandler" msprop:Generator_RowDeletedName="YarnDyedRepeatRowDeleted" msprop:Generator_RowClassName="YarnDyedRepeatRow" msprop:Generator_UserTableName="YarnDyedRepeat" msprop:Generator_RowEvArgName="YarnDyedRepeatRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="YDRRepeat" msprop:Generator_ColumnVarNameInTable="columnYDRRepeat" msprop:Generator_ColumnPropNameInRow="YDRRepeat" msprop:Generator_ColumnPropNameInTable="YDRRepeatColumn" msprop:Generator_UserColumnName="YDRRepeat">
@@ -69,7 +69,63 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="MasterReportView" msprop:Generator_TableClassName="MasterReportViewDataTable" msprop:Generator_TableVarName="tableMasterReportView" msprop:Generator_RowChangedName="MasterReportViewRowChanged" msprop:Generator_TablePropName="MasterReportView" msprop:Generator_RowDeletingName="MasterReportViewRowDeleting" msprop:Generator_RowChangingName="MasterReportViewRowChanging" msprop:Generator_RowEvHandlerName="MasterReportViewRowChangeEventHandler" msprop:Generator_RowDeletedName="MasterReportViewRowDeleted" msprop:Generator_RowClassName="MasterReportViewRow" msprop:Generator_UserTableName="MasterReportView" msprop:Generator_RowEvArgName="MasterReportViewRowChangeEvent">
+        <xs:element name="YDView" msprop:Generator_TableClassName="YDViewDataTable" msprop:Generator_TableVarName="tableYDView" msprop:Generator_TablePropName="YDView" msprop:Generator_RowDeletingName="YDViewRowDeleting" msprop:Generator_RowChangingName="YDViewRowChanging" msprop:Generator_RowEvHandlerName="YDViewRowChangeEventHandler" msprop:Generator_RowDeletedName="YDViewRowDeleted" msprop:Generator_UserTableName="YDView" msprop:Generator_RowChangedName="YDViewRowChanged" msprop:Generator_RowEvArgName="YDViewRowChangeEvent" msprop:Generator_RowClassName="YDViewRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Lot" msprop:Generator_ColumnVarNameInTable="columnLot" msprop:Generator_ColumnPropNameInRow="Lot" msprop:Generator_ColumnPropNameInTable="LotColumn" msprop:Generator_UserColumnName="Lot" type="xs:string" />
+              <xs:element name="TPI" msprop:Generator_ColumnVarNameInTable="columnTPI" msprop:Generator_ColumnPropNameInRow="TPI" msprop:Generator_ColumnPropNameInTable="TPIColumn" msprop:Generator_UserColumnName="TPI" type="xs:string" minOccurs="0" />
+              <xs:element name="YarnCount" msprop:Generator_ColumnVarNameInTable="columnYarnCount" msprop:Generator_ColumnPropNameInRow="YarnCount" msprop:Generator_ColumnPropNameInTable="YarnCountColumn" msprop:Generator_UserColumnName="YarnCount" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="YarnComposition" msprop:Generator_ColumnVarNameInTable="columnYarnComposition" msprop:Generator_ColumnPropNameInRow="YarnComposition" msprop:Generator_ColumnPropNameInTable="YarnCompositionColumn" msprop:Generator_UserColumnName="YarnComposition" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="YarnName" msprop:Generator_ColumnVarNameInTable="columnYarnName" msprop:Generator_ColumnPropNameInRow="YarnName" msprop:Generator_ColumnPropNameInTable="YarnNameColumn" msprop:Generator_UserColumnName="YarnName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="YarnSupplier" msprop:Generator_ColumnVarNameInTable="columnYarnSupplier" msprop:Generator_ColumnPropNameInRow="YarnSupplier" msprop:Generator_ColumnPropNameInTable="YarnSupplierColumn" msprop:Generator_UserColumnName="YarnSupplier" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="150" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="YarnColor" msprop:Generator_ColumnVarNameInTable="columnYarnColor" msprop:Generator_ColumnPropNameInRow="YarnColor" msprop:Generator_ColumnPropNameInTable="YarnColorColumn" msprop:Generator_UserColumnName="YarnColor" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="FabricProcess" msprop:Generator_TableClassName="FabricProcessDataTable" msprop:Generator_TableVarName="tableFabricProcess" msprop:Generator_TablePropName="FabricProcess" msprop:Generator_RowDeletingName="FabricProcessRowDeleting" msprop:Generator_RowChangingName="FabricProcessRowChanging" msprop:Generator_RowEvHandlerName="FabricProcessRowChangeEventHandler" msprop:Generator_RowDeletedName="FabricProcessRowDeleted" msprop:Generator_UserTableName="FabricProcess" msprop:Generator_RowChangedName="FabricProcessRowChanged" msprop:Generator_RowEvArgName="FabricProcessRowChangeEvent" msprop:Generator_RowClassName="FabricProcessRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="FabricProcessString" msdata:Caption="YDRRepeat" msprop:Generator_ColumnVarNameInTable="columnFabricProcessString" msprop:Generator_ColumnPropNameInRow="FabricProcessString" msprop:Generator_ColumnPropNameInTable="FabricProcessStringColumn" msprop:Generator_UserColumnName="FabricProcessString">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="MasterReportView" msprop:Generator_TableClassName="MasterReportViewDataTable" msprop:Generator_TableVarName="tableMasterReportView" msprop:Generator_TablePropName="MasterReportView" msprop:Generator_RowDeletingName="MasterReportViewRowDeleting" msprop:Generator_RowChangingName="MasterReportViewRowChanging" msprop:Generator_RowEvHandlerName="MasterReportViewRowChangeEventHandler" msprop:Generator_RowDeletedName="MasterReportViewRowDeleted" msprop:Generator_UserTableName="MasterReportView" msprop:Generator_RowChangedName="MasterReportViewRowChanged" msprop:Generator_RowEvArgName="MasterReportViewRowChangeEvent" msprop:Generator_RowClassName="MasterReportViewRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Id" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_UserColumnName="Id" type="xs:string" />
@@ -946,49 +1002,31 @@
               </xs:element>
               <xs:element name="KnitID" msprop:Generator_ColumnVarNameInTable="columnKnitID" msprop:Generator_ColumnPropNameInRow="KnitID" msprop:Generator_ColumnPropNameInTable="KnitIDColumn" msprop:Generator_UserColumnName="KnitID" type="xs:string" minOccurs="0" />
               <xs:element name="UpdateTime" msprop:Generator_ColumnVarNameInTable="columnUpdateTime" msprop:Generator_ColumnPropNameInRow="UpdateTime" msprop:Generator_ColumnPropNameInTable="UpdateTimeColumn" msprop:Generator_UserColumnName="UpdateTime" type="xs:string" minOccurs="0" />
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="YDView" msprop:Generator_TableClassName="YDViewDataTable" msprop:Generator_TableVarName="tableYDView" msprop:Generator_RowChangedName="YDViewRowChanged" msprop:Generator_TablePropName="YDView" msprop:Generator_RowDeletingName="YDViewRowDeleting" msprop:Generator_RowChangingName="YDViewRowChanging" msprop:Generator_RowEvHandlerName="YDViewRowChangeEventHandler" msprop:Generator_RowDeletedName="YDViewRowDeleted" msprop:Generator_RowClassName="YDViewRow" msprop:Generator_UserTableName="YDView" msprop:Generator_RowEvArgName="YDViewRowChangeEvent">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="Lot" msprop:Generator_ColumnVarNameInTable="columnLot" msprop:Generator_ColumnPropNameInRow="Lot" msprop:Generator_ColumnPropNameInTable="LotColumn" msprop:Generator_UserColumnName="Lot" type="xs:string" />
-              <xs:element name="TPI" msprop:Generator_ColumnVarNameInTable="columnTPI" msprop:Generator_ColumnPropNameInRow="TPI" msprop:Generator_ColumnPropNameInTable="TPIColumn" msprop:Generator_UserColumnName="TPI" type="xs:string" minOccurs="0" />
-              <xs:element name="YarnCount" msprop:Generator_ColumnVarNameInTable="columnYarnCount" msprop:Generator_ColumnPropNameInRow="YarnCount" msprop:Generator_ColumnPropNameInTable="YarnCountColumn" msprop:Generator_UserColumnName="YarnCount" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="50" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="YarnComposition" msprop:Generator_ColumnVarNameInTable="columnYarnComposition" msprop:Generator_ColumnPropNameInRow="YarnComposition" msprop:Generator_ColumnPropNameInTable="YarnCompositionColumn" msprop:Generator_UserColumnName="YarnComposition" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="50" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="YarnName" msprop:Generator_ColumnVarNameInTable="columnYarnName" msprop:Generator_ColumnPropNameInRow="YarnName" msprop:Generator_ColumnPropNameInTable="YarnNameColumn" msprop:Generator_UserColumnName="YarnName" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="50" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="YarnSupplier" msprop:Generator_ColumnVarNameInTable="columnYarnSupplier" msprop:Generator_ColumnPropNameInRow="YarnSupplier" msprop:Generator_ColumnPropNameInTable="YarnSupplierColumn" msprop:Generator_UserColumnName="YarnSupplier" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="150" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element name="YarnColor" msprop:Generator_ColumnVarNameInTable="columnYarnColor" msprop:Generator_ColumnPropNameInRow="YarnColor" msprop:Generator_ColumnPropNameInTable="YarnColorColumn" msprop:Generator_UserColumnName="YarnColor" minOccurs="0">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:maxLength value="50" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
+              <xs:element name="FinalApprovalStatus" msprop:Generator_ColumnVarNameInTable="columnFinalApprovalStatus" msprop:Generator_ColumnPropNameInRow="FinalApprovalStatus" msprop:Generator_ColumnPropNameInTable="FinalApprovalStatusColumn" msprop:Generator_UserColumnName="FinalApprovalStatus" type="xs:string" minOccurs="0" />
+              <xs:element name="BRRevise" msprop:Generator_ColumnVarNameInTable="columnBRRevise" msprop:Generator_ColumnPropNameInRow="BRRevise" msprop:Generator_ColumnPropNameInTable="BRReviseColumn" msprop:Generator_UserColumnName="BRRevise" type="xs:string" minOccurs="0" />
+              <xs:element name="BRCreateTime" msprop:Generator_ColumnVarNameInTable="columnBRCreateTime" msprop:Generator_ColumnPropNameInRow="BRCreateTime" msprop:Generator_ColumnPropNameInTable="BRCreateTimeColumn" msprop:Generator_UserColumnName="BRCreateTime" type="xs:string" minOccurs="0" />
+              <xs:element name="CompactRevise" msprop:Generator_ColumnVarNameInTable="columnCompactRevise" msprop:Generator_ColumnPropNameInRow="CompactRevise" msprop:Generator_ColumnPropNameInTable="CompactReviseColumn" msprop:Generator_UserColumnName="CompactRevise" type="xs:string" minOccurs="0" />
+              <xs:element name="CompactCreateTime" msprop:Generator_ColumnVarNameInTable="columnCompactCreateTime" msprop:Generator_ColumnPropNameInRow="CompactCreateTime" msprop:Generator_ColumnPropNameInTable="CompactCreateTimeColumn" msprop:Generator_UserColumnName="CompactCreateTime" type="xs:string" minOccurs="0" />
+              <xs:element name="PeachRevise" msprop:Generator_ColumnVarNameInTable="columnPeachRevise" msprop:Generator_ColumnPropNameInRow="PeachRevise" msprop:Generator_ColumnPropNameInTable="PeachReviseColumn" msprop:Generator_UserColumnName="PeachRevise" type="xs:string" minOccurs="0" />
+              <xs:element name="PeachCreateTime" msprop:Generator_ColumnVarNameInTable="columnPeachCreateTime" msprop:Generator_ColumnPropNameInRow="PeachCreateTime" msprop:Generator_ColumnPropNameInTable="PeachCreateTimeColumn" msprop:Generator_UserColumnName="PeachCreateTime" type="xs:string" minOccurs="0" />
+              <xs:element name="PRRevise" msprop:Generator_ColumnVarNameInTable="columnPRRevise" msprop:Generator_ColumnPropNameInRow="PRRevise" msprop:Generator_ColumnPropNameInTable="PRReviseColumn" msprop:Generator_UserColumnName="PRRevise" type="xs:string" minOccurs="0" />
+              <xs:element name="PRCreateTime" msprop:Generator_ColumnVarNameInTable="columnPRCreateTime" msprop:Generator_ColumnPropNameInRow="PRCreateTime" msprop:Generator_ColumnPropNameInTable="PRCreateTimeColumn" msprop:Generator_UserColumnName="PRCreateTime" type="xs:string" minOccurs="0" />
+              <xs:element name="QCCreateTime" msprop:Generator_ColumnVarNameInTable="columnQCCreateTime" msprop:Generator_ColumnPropNameInRow="QCCreateTime" msprop:Generator_ColumnPropNameInTable="QCCreateTimeColumn" msprop:Generator_UserColumnName="QCCreateTime" type="xs:string" minOccurs="0" />
+              <xs:element name="QCRevise" msprop:Generator_ColumnVarNameInTable="columnQCRevise" msprop:Generator_ColumnPropNameInRow="QCRevise" msprop:Generator_ColumnPropNameInTable="QCReviseColumn" msprop:Generator_UserColumnName="QCRevise" type="xs:string" minOccurs="0" />
+              <xs:element name="KnitCreateTime" msprop:Generator_ColumnVarNameInTable="columnKnitCreateTime" msprop:Generator_ColumnPropNameInRow="KnitCreateTime" msprop:Generator_ColumnPropNameInTable="KnitCreateTimeColumn" msprop:Generator_UserColumnName="KnitCreateTime" type="xs:string" minOccurs="0" />
+              <xs:element name="KnitRevise" msprop:Generator_ColumnVarNameInTable="columnKnitRevise" msprop:Generator_ColumnPropNameInRow="KnitRevise" msprop:Generator_ColumnPropNameInTable="KnitReviseColumn" msprop:Generator_UserColumnName="KnitRevise" type="xs:string" minOccurs="0" />
+              <xs:element name="CWCreateTime" msprop:Generator_ColumnVarNameInTable="columnCWCreateTime" msprop:Generator_ColumnPropNameInRow="CWCreateTime" msprop:Generator_ColumnPropNameInTable="CWCreateTimeColumn" msprop:Generator_UserColumnName="CWCreateTime" type="xs:string" minOccurs="0" />
+              <xs:element name="CWRevise" msprop:Generator_ColumnVarNameInTable="columnCWRevise" msprop:Generator_ColumnPropNameInRow="CWRevise" msprop:Generator_ColumnPropNameInTable="CWReviseColumn" msprop:Generator_UserColumnName="CWRevise" type="xs:string" minOccurs="0" />
+              <xs:element name="HSPCreateTime" msprop:Generator_ColumnVarNameInTable="columnHSPCreateTime" msprop:Generator_ColumnPropNameInRow="HSPCreateTime" msprop:Generator_ColumnPropNameInTable="HSPCreateTimeColumn" msprop:Generator_UserColumnName="HSPCreateTime" type="xs:string" minOccurs="0" />
+              <xs:element name="HSPRevise" msprop:Generator_ColumnVarNameInTable="columnHSPRevise" msprop:Generator_ColumnPropNameInRow="HSPRevise" msprop:Generator_ColumnPropNameInTable="HSPReviseColumn" msprop:Generator_UserColumnName="HSPRevise" type="xs:string" minOccurs="0" />
+              <xs:element name="SGCreateTime" msprop:Generator_ColumnVarNameInTable="columnSGCreateTime" msprop:Generator_ColumnPropNameInRow="SGCreateTime" msprop:Generator_ColumnPropNameInTable="SGCreateTimeColumn" msprop:Generator_UserColumnName="SGCreateTime" type="xs:string" minOccurs="0" />
+              <xs:element name="SGRevise" msprop:Generator_ColumnVarNameInTable="columnSGRevise" msprop:Generator_ColumnPropNameInRow="SGRevise" msprop:Generator_ColumnPropNameInTable="SGReviseColumn" msprop:Generator_UserColumnName="SGRevise" type="xs:string" minOccurs="0" />
+              <xs:element name="DyeingCreateTime" msprop:Generator_ColumnVarNameInTable="columnDyeingCreateTime" msprop:Generator_ColumnPropNameInRow="DyeingCreateTime" msprop:Generator_ColumnPropNameInTable="DyeingCreateTimeColumn" msprop:Generator_UserColumnName="DyeingCreateTime" type="xs:string" minOccurs="0" />
+              <xs:element name="DyeingRevise" msprop:Generator_ColumnVarNameInTable="columnDyeingRevise" msprop:Generator_ColumnPropNameInRow="DyeingRevise" msprop:Generator_ColumnPropNameInTable="DyeingReviseColumn" msprop:Generator_UserColumnName="DyeingRevise" type="xs:string" minOccurs="0" />
+              <xs:element name="DRCreateTime" msprop:Generator_ColumnVarNameInTable="columnDRCreateTime" msprop:Generator_ColumnPropNameInRow="DRCreateTime" msprop:Generator_ColumnPropNameInTable="DRCreateTimeColumn" msprop:Generator_UserColumnName="DRCreateTime" type="xs:string" minOccurs="0" />
+              <xs:element name="DRRevise" msprop:Generator_ColumnVarNameInTable="columnDRRevise" msprop:Generator_ColumnPropNameInRow="DRRevise" msprop:Generator_ColumnPropNameInTable="DRReviseColumn" msprop:Generator_UserColumnName="DRRevise" type="xs:string" minOccurs="0" />
+              <xs:element name="STCreateTime" msprop:Generator_ColumnVarNameInTable="columnSTCreateTime" msprop:Generator_ColumnPropNameInRow="STCreateTime" msprop:Generator_ColumnPropNameInTable="STCreateTimeColumn" msprop:Generator_UserColumnName="STCreateTime" type="xs:string" minOccurs="0" />
+              <xs:element name="STRevise" msprop:Generator_ColumnVarNameInTable="columnSTRevise" msprop:Generator_ColumnPropNameInRow="STRevise" msprop:Generator_ColumnPropNameInTable="STReviseColumn" msprop:Generator_UserColumnName="STRevise" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

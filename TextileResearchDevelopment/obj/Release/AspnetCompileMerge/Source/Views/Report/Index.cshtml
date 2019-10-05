@@ -1,0 +1,392 @@
+﻿@{
+    if (Request.IsAjaxRequest())
+    {
+        Layout = null;
+    }
+}
+
+<head>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+</head>
+
+<br />
+
+<div id="MainDiv">
+
+    <ul id="MainContextMenu" class="dropdown-menu" role="menu" style="display:none">
+        <li><a tabindex="-1" href="#">Print Report</a></li>
+    </ul>
+
+    <div class="panel panel-default ">
+        <div class="panel-heading">
+            <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Master Report</h5>
+        </div>
+        <div class="panel-body">
+            <div class=" form-group">
+                <div class="form-group col-xs-4 form-inline">
+                    <label for="BarCodeSL" class="control-label" style="width:35%;">BarCode</label>
+                    <div style="display: inline;">
+                        <input type="number" class=" form-control" style="width:60%;" id="BarCodeSL" min="0" step="1" data-bind="value:BarCodeSL" placeholder="Bar Code" autofocus>
+                    </div>
+                </div>
+                <div class="form-group col-xs-4 form-inline">
+                    <label for="BuyerSL" class="control-label" style="width:35%;">Buyer</label>
+                    <div style=" display: inline;">
+                        <select name="BuyerSL" id="BuyerSL" style="width:60%;font-size: 12px;" class="form-control" autofocus></select>
+                    </div>
+                </div>
+                <div class="form-group col-xs-4 form-inline">
+                    <label for="FabricSL" class="control-label" style="width:35%;">Fabric</label>
+                    <div style="display: inline;">
+                        <select name="FabricSL" id="FabricSL" style="width:60%;font-size: 12px;" class="form-control" autofocus></select>
+                    </div>
+                </div>
+            </div>
+            <div class=" form-group">
+                <div class="form-group col-xs-4 form-inline">
+                    <label for="CompositionSL" class="control-label" style="width:35%;">Composition</label>
+                    <div style="display: inline;">
+                        <select name="CompositionSL" id="CompositionSL" style="width:60%;font-size: 12px;" class="form-control" autofocus></select>
+                    </div>
+                </div>
+                <div class="form-group col-xs-4 form-inline ">
+                    <label for="OrderNoSL" class="control-label" style="width:35%;">Order No</label>
+                    <div style="display: inline;">
+                        <input type="text" class=" form-control" style="width:60%;" id="OrderNoSL" placeholder="Order No" autofocus>
+                    </div>
+                </div>
+                <div class="form-group col-xs-4 form-inline">
+                    <label for="RefNoSL" class="control-label" style="width:35%;">RefNo</label>
+                    <div style="display: inline;">
+                        <input type="text" class=" form-control" style="width:60%;" id="RefNoSL" placeholder="Color" autofocus>
+                    </div>
+                </div>
+            </div>
+            <div class=" form-group">
+                <div class="form-group col-xs-4 form-inline">
+                    <button class="btn btn-warning btn-sm" style="width:35%;" id="resetFabricBtn">Reset</button>
+                    <div style="display: inline;">
+                        <button type="submit" id="searchFabricBtn" class="btn btn-primary btn-sm" style="width:35%;">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table id="Reporttable" class="display nowrap stripe hover order-column" style="width: 100%">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Id</th>
+                <th>BarCode</th>
+                <th>BuyerName</th>
+                <th>FabricType</th>
+                <th>Composition</th>
+                <th>OrderNo</th>
+                <th>RefNo</th>
+            </tr>
+        </thead>
+    </table>
+
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        debugger;
+
+        var Reporttable = $('#Reporttable').DataTable({
+            dom: 'Bfrtip',
+            buttons: [],
+            "scrollY": true,
+            "scrollX": true,
+            "Sorting": true,
+            "searching": true,
+            "autoWidth": false,
+            "select": {
+                style: 'single'
+            },
+            "destroy": true,
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "searchable": false,
+                    "orderable": false
+                },
+                {
+                    "targets": [1],
+                    "visible": false,
+                    "searchable": false
+                }
+
+            ],
+            "columns": [
+                {
+                    "searchable": false,
+                    "render": function (data, type, full, meta) {
+                        return Reporttable.data().count();
+                    }
+                },
+                {
+                    "data": "Id"
+                },
+                { "data": "BarCode" },
+                { "data": "buyer.BuyerName" },
+                { "data": "fb.FabricTypeName" },
+                { "data": "cm.Composition" },
+                { "data": "OrderNo" },
+                { "data": "RefNo" }
+            ]
+        });
+
+        (function ($, window) {
+
+            $.fn.contextMenu = function (settings) {
+
+                return this.each(function () {
+
+                    // Open context menu
+                    $(this).on("contextmenu", function (e) {
+                        debugger;
+                        // return native menu if pressing control
+                        if (e.ctrlKey) return;
+
+                        if ($('#Reporttable tbody tr').hasClass('selected') == false) return;
+
+                        //open menu
+                        var $menu = $(settings.menuSelector)
+                            .data("invokedOn", $(e.target))
+                            .show()
+                            .css({
+                                position: "absolute",
+                                left: getMenuPosition(e.clientX, 'width', 'scrollLeft'),
+                                top: getMenuPosition(e.clientY, 'height', 'scrollTop')
+                            })
+                            .off('click')
+                            .on('click', 'a', function (e) {
+                                $menu.hide();
+                                var $invokedOn = $menu.data("invokedOn");
+                                var $selectedMenu = $(e.target);
+
+                                settings.menuSelected.call(this, $invokedOn, $selectedMenu);
+                            });
+
+                        return false;
+                    });
+
+                    //make sure menu closes on any click
+                    $('body').click(function () {
+                        $(settings.menuSelector).hide();
+                    });
+                });
+
+                function getMenuPosition(mouse, direction, scrollDir) {
+                    var win = $(window)[direction](),
+                        scroll = $(window)[scrollDir](),
+                        menu = $(settings.menuSelector)[direction](),
+                        position = mouse + scroll;
+
+                    // opening menu would pass the side of the page
+                    if (mouse + menu > win && menu < mouse)
+                        position -= menu;
+
+                    return position;
+                }
+
+            };
+        })(jQuery, window);
+
+        loadBuyerList();
+
+        function loadBuyerList() {
+            debugger;
+            $.ajax({
+                type: "GET",
+                url: "/Fabric/GetBuyerList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select Buyer</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].BuyerName + '</option>';
+                    }
+                    $("#BuyerSL").html(s);
+                    loadFabricTypeList();
+                }
+            });
+        }
+
+        function loadFabricTypeList() {
+            debugger;
+            $.ajax({
+                type: "GET",
+                url: "/Fabric/GetFabricTypeList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select Fabric</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].FabricTypeName + '</option>';
+                    }
+                    $("#FabricSL").html(s);
+                    loadCompositionList();
+                }
+            });
+        }
+
+        function loadCompositionList() {
+            debugger;
+            $.ajax({
+                type: "GET",
+                url: "/Knitting/GetCompositionTypeList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Select Composition</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].Composition + '</option>';
+                    }
+                    $("#CompositionSL").html(s);
+                }
+            });
+        }
+
+        $('#Reporttable tbody').on('click', 'tr', function () {
+            event.preventDefault();
+            debugger;
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            }
+            else {
+                Reporttable.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+
+        $("#searchFabricBtn").click(function () {
+            event.preventDefault();
+
+            debugger;
+            if (ValidateFabricForm() == true) {
+
+                var buyer = {
+                    Id: $("#BuyerSL option:selected").val()
+                }
+                var fb = {
+                    Id: $("#FabricSL option:selected").val()
+                }
+                var cm = {
+                    Id: $("#CompositionSL option:selected").val()
+                }
+
+                var fabricSearchObj = {
+                    BarCode: $("#BarCodeSL").val().toString(),
+                    buyer: buyer,
+                    fb: fb,
+                    cm: cm,
+                    OrderNo: $("#OrderNoSL").val().length > 0 ? $("#OrderNoSL").val().toString() : '',
+                    RefNo: $("#RefNoSL").val().length > 0 ? $("#ColorSL").val().toString() : '',
+                    Note: "Report"
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Fabric/FabricSearch",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(fabricSearchObj),
+                    success: function (response) {
+                        if (response != "" && response != null) {
+                            Reporttable.clear().draw();
+                            Reporttable.rows.add(response).draw();
+                        }
+                        else {
+                            alert("Failed to Search!!! No Data Found!!!");
+                            return;
+                        }
+                    },
+                    failure: function () {
+                        $("#tblItems").append(" Error when fetching data please contact administrator");
+                    }
+                });
+            }
+            else {
+                alert("Please Select Atleast One Searching Criteria!!!");
+                return;
+            }
+
+        });
+
+        $("#resetFabricBtn").click(function () {
+            ResetFabric();
+        });
+
+        function ResetFabric() {
+            event.preventDefault();
+            $("#BarCodeSL").val("");
+            $("#BuyerSL").val("");
+            $("#FabricSL").val("");
+            $("#CompositionSL").val("");
+            $("#OrderNoSL").val("");
+            $("#RefNoSL").val("");
+            $('#fabricSelectionTable tbody tr').removeClass('selected');
+        }
+
+        $("#Reporttable tbody").contextMenu({
+            menuSelector: "#MainContextMenu",
+            menuSelected: function (invokedOn, selectedMenu) {
+                ShowReport();
+            }
+        });
+
+        function ValidateFabricForm() {
+            debugger;
+            if ($("#BarCodeSL").val() == "" && $("#BuyerSL option:selected").val() == "" && $("#FabricSL option:selected").val() == "" && $("#CompositionSL option:selected").val() == "" && $("#OrderNoSL").val() == "" && $("#RefNoSL").val() == "") {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        $("#resetFabricBtn").click(function () {
+            event.preventDefault();
+            debugger;
+            var Row = Reporttable.rows('.selected').data()[0];
+
+            var fabric = {
+                BarCode: Row.BarCode
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Report/ShowReport",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(fabric),
+                success: function (data) {
+
+                }
+            });
+        });
+
+        function ShowReport() {
+            debugger;
+            var Row = Reporttable.rows('.selected').data()[0];
+
+            var fabric = {
+                Id: Row.Id,
+                BarCode: Row.BarCode
+            };
+
+            var actionUrl = '@Url.Action("ShowReport", "Report", new { @FabricID = "FabricParameter" })';
+            actionUrl = actionUrl.replace("FabricParameter", fabric.Id);
+
+            window.open(actionUrl, '_blank');
+        }
+
+    });
+
+</script>

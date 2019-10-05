@@ -6,8 +6,6 @@
 }
 
 <head>
-    <script type="text/javascript" src="~/Scripts/bootstrap.js"></script>
-    <script type="text/javascript" src="~/Scripts/bootstrap3-typeahead.min.js"></script>
     <style>
         tfoot input {
             width: 100%;
@@ -259,6 +257,8 @@
         </div>
     </div>
 
+    <p id="ProcessString" class="text-uppercase text-primary" style="font-weight:bold"></p>
+
     <table id="Compactingtable" class="display nowrap stripe hover order-column " style="width: 200px;">
         <thead>
             <tr>
@@ -267,12 +267,13 @@
                 <th>FabricID</th>
                 <th>McNoID</th>
                 <th>PrID</th>
+                <th>ProcessString</th>
+                <th>BarCode</th>
                 <th>Buyer</th>
                 <th>Fabric</th>
                 <th>Composition</th>
                 <th>OrderNo</th>
                 <th>RefNo</th>
-                <th>BarCode</th>
                 <th>McNo</th>
                 <th>Temp</th>
                 <th>Speed</th>
@@ -300,12 +301,13 @@
                 <th></th>
                 <th></th>
                 <th></th>
+                <th></th>
+                <th>BarCode</th>
                 <th>Buyer</th>
                 <th>Fabric</th>
                 <th>Composition</th>
                 <th>OrderNo</th>
                 <th>RefNo</th>
-                <th>BarCode</th>
                 <th>McNo</th>
                 <th>Temp</th>
                 <th>Speed</th>
@@ -330,7 +332,7 @@
 
     <div class="footer-w3l">
         <div class="content">
-            <img src='../Content/images/logo.png' ; style="width:71px; height:40px">
+            <img src='../Content/images/logo.png'>
             <p class="foot">2019 © URMI IT Department. All rights reserved.</p>
         </div>
     </div>
@@ -547,16 +549,7 @@
 
         var Compactingtable = $('#Compactingtable').DataTable({
             dom: 'Bfrtip',
-            buttons: [
-                {
-                    extend: 'excelHtml5',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                },
-
-                'colvis'
-            ],
+            buttons: [],
             "pageLength": 25,
             "ajax":
             {
@@ -564,8 +557,9 @@
                 "type": "GET",
                 "dataType": "JSON"
             },
+            "processing": true,
             "autoWidth": false,
-            "scrollY": true,
+            "scrollY": '20vh',
             "scrollX": true,
             "Sorting": true,
             "searching": true,
@@ -580,7 +574,7 @@
                     "orderable": false,
                 },
                 {
-                    "targets": [1, 2, 3, 4],
+                    "targets": [1, 2, 3, 4, 5],
                     "visible": false,
                     "searchable": false
                 },
@@ -602,12 +596,13 @@
                 { "data": "fabric.Id" },
                 { "data": "mc.Id" },
                 { "data": "pr.Id" },
+                { "data": "fabric.ProcessString" },
+                { "data": "fabric.BarCode" },
                 { "data": "fabric.buyer.BuyerName" },
                 { "data": "fabric.fb.FabricTypeName" },
                 { "data": "fabric.cm.Composition" },
                 { "data": "fabric.OrderNo" },
                 { "data": "fabric.RefNo" },
-                { "data": "fabric.BarCode" },
                 { "data": "mc.McNo" },
                 { "data": "Temp" },
                 { "data": "Speed" },
@@ -701,6 +696,7 @@
                     Reset();
                     $(this).addClass('selected');
                     var rowdata = Compactingtable.row(this).data();
+                    $('#ProcessString').text(rowdata.fabric.ProcessString);
                     if (rowdata.ApprovedStatus == 0) {
                         Setvalue(rowdata);
                         $('#saveBtn').prop("disabled", true);
@@ -1067,30 +1063,7 @@
                 }
                 else {
                     if (selectedMenu.text() == "Unapprove") {
-                        var knitObj =
-                        {
-                            Id: Compactingtable.rows('.selected').data()[0].Id
-                        };
-                        $.ajax({
-                            type: "POST",
-                            url: "/Knitting/CheckUnapproveEligibility",
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json",
-                            data: JSON.stringify(knitObj),
-                            success: function (response) {
-                                debugger
-                                if (response == "true") {
-                                    UnapproveRow();
-                                }
-                                else {
-                                    alert("This order is already used in Dyeing!!!");
-                                    return;
-                                }
-                            },
-                            failure: function () {
-                                $("#tblItems").append(" Error when fetching data please contact administrator");
-                            }
-                        });
+                        UnapproveRow();
                     }
                     else {
                         alert("This order is already approved!!!");
@@ -1142,19 +1115,40 @@
 
             $.ajax({
                 type: "POST",
-                url: "/Compacting/Approve",
+                url: "/Fabric/GetApprovedStatus",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify(Obj),
+                data: JSON.stringify({ "BarCode": Row.fabric.BarCode, "tableName": "Compacting" }),
                 success: function (response) {
                     debugger
-                    if (response.data != "" && response.data != null) {
-                        debugger
-                        Compactingtable.row(index).data(response.data).draw();
-                        Reset();
+                    if (response == true) {
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/Compacting/Approve",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(Obj),
+                            success: function (response) {
+                                debugger
+                                if (response.data != "" && response.data != null) {
+                                    debugger
+                                    Compactingtable.row(index).data(response.data).draw();
+                                    Reset();
+                                }
+                                else {
+                                    alert("Failed to Approve!!!");
+                                    return;
+                                }
+                            },
+                            failure: function () {
+                                $("#tblItems").append(" Error when fetching data please contact administrator");
+                            }
+                        });
+
                     }
                     else {
-                        alert("Failed to Approve!!!");
+                        alert("This Order is not approved in previous process!!!");
                         return;
                     }
                 },
@@ -1162,6 +1156,8 @@
                     $("#tblItems").append(" Error when fetching data please contact administrator");
                 }
             });
+
+
         }
 
         function UnapproveRow() {
@@ -1179,7 +1175,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/Fabric/GetApprovedStatus",
+                url: "/Fabric/GetUnApprovedStatus",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 data: JSON.stringify({ "BarCode": Row.fabric.BarCode, "tableName": "Compacting" }),
@@ -1238,6 +1234,7 @@
 
             selectedFabricRowId = 0;
 
+            $('#ProcessString').text('');
             $('#hidden').prop('checked', false);
             $('#saveBtn').prop("disabled", false);
             $('#updateBtn').prop("disabled", true);

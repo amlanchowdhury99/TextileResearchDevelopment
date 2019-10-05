@@ -28,6 +28,7 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.MasterReportView' d
       <PropertyRef Name="RefNo" />
       <PropertyRef Name="Season" />
       <PropertyRef Name="CompositionTypeID" />
+      <PropertyRef Name="FinalApprovalID" />
     </Key>
     <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="OrderNo" Type="varchar" MaxLength="150" Nullable="false" />
@@ -83,7 +84,6 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.MasterReportView' d
     <Property Name="SSpeed" Type="varchar" MaxLength="150" />
     <Property Name="SBurner" Type="varchar" MaxLength="150" />
     <Property Name="SFlamePosition" Type="varchar" MaxLength="150" />
-    <Property Name="DMC" Type="varchar" MaxLength="150" />
     <Property Name="DSpeed" Type="varchar" MaxLength="150" />
     <Property Name="DEnzy" Type="varchar" MaxLength="150" />
     <Property Name="Recipe" Type="varchar" MaxLength="350" />
@@ -165,6 +165,45 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.MasterReportView' d
     <Property Name="BSpeed" Type="varchar" MaxLength="50" />
     <Property Name="KnitID" Type="int" />
     <Property Name="UpdateTime" Type="datetime" />
+    <Property Name="FinalApprovalID" Type="int" Nullable="false" />
+    <Property Name="FinalApprovalStatus" Type="varchar" MaxLength="50" />
+    <Property Name="BRCreateByName" Type="varchar" MaxLength="100" />
+    <Property Name="BRCreateTime" Type="datetime" />
+    <Property Name="CompactCreateByName" Type="varchar" MaxLength="100" />
+    <Property Name="CompactCreateTime" Type="datetime" />
+    <Property Name="PeachCreateByName" Type="varchar" MaxLength="100" />
+    <Property Name="PeachCreateTime" Type="datetime" />
+    <Property Name="PRCreateByName" Type="varchar" MaxLength="100" />
+    <Property Name="PRCreateTime" Type="datetime" />
+    <Property Name="QCCreateTime" Type="datetime" />
+    <Property Name="QCCreateByName" Type="varchar" MaxLength="100" />
+    <Property Name="KnitCreateTime" Type="datetime" />
+    <Property Name="KnitCreateByName" Type="varchar" MaxLength="100" />
+    <Property Name="CWCreateTime" Type="datetime" />
+    <Property Name="CWCreateByName" Type="varchar" MaxLength="100" />
+    <Property Name="HSPCreateTime" Type="datetime" />
+    <Property Name="HSPCreateByName" Type="varchar" MaxLength="100" />
+    <Property Name="SGCreateTime" Type="datetime" />
+    <Property Name="SGCreateByName" Type="varchar" MaxLength="100" />
+    <Property Name="DyeingCreateTime" Type="datetime" />
+    <Property Name="DyeingCreateByName" Type="varchar" MaxLength="100" />
+    <Property Name="DRCreateTime" Type="datetime" />
+    <Property Name="DRCreateByName" Type="varchar" MaxLength="100" />
+    <Property Name="STCreateTime" Type="datetime" />
+    <Property Name="STCreateByName" Type="varchar" MaxLength="100" />
+    <Property Name="BRRevise" Type="int" />
+    <Property Name="CompactRevise" Type="int" />
+    <Property Name="PeachRevise" Type="int" />
+    <Property Name="QCRevise" Type="int" />
+    <Property Name="KnitRevise" Type="int" />
+    <Property Name="CWRevise" Type="int" />
+    <Property Name="HSPRevise" Type="int" />
+    <Property Name="SGRevise" Type="int" />
+    <Property Name="DyeingRevise" Type="int" />
+    <Property Name="DRRevise" Type="int" />
+    <Property Name="STRevise" Type="int" />
+    <Property Name="PRRevise" Type="int" />
+    <Property Name="DyeingMcNo" Type="varchar" MaxLength="150" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -252,7 +291,6 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
     [MasterReportView].[SSpeed] AS [SSpeed], 
     [MasterReportView].[SBurner] AS [SBurner], 
     [MasterReportView].[SFlamePosition] AS [SFlamePosition], 
-    [MasterReportView].[DMC] AS [DMC], 
     [MasterReportView].[DSpeed] AS [DSpeed], 
     [MasterReportView].[DEnzy] AS [DEnzy], 
     [MasterReportView].[Recipe] AS [Recipe], 
@@ -333,7 +371,46 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
     [MasterReportView].[QRecovery] AS [QRecovery], 
     [MasterReportView].[BSpeed] AS [BSpeed], 
     [MasterReportView].[KnitID] AS [KnitID], 
-    [MasterReportView].[UpdateTime] AS [UpdateTime]
+    [MasterReportView].[UpdateTime] AS [UpdateTime], 
+    [MasterReportView].[FinalApprovalID] AS [FinalApprovalID], 
+    [MasterReportView].[FinalApprovalStatus] AS [FinalApprovalStatus], 
+    [MasterReportView].[BRCreateByName] AS [BRCreateByName], 
+    [MasterReportView].[BRCreateTime] AS [BRCreateTime], 
+    [MasterReportView].[CompactCreateByName] AS [CompactCreateByName], 
+    [MasterReportView].[CompactCreateTime] AS [CompactCreateTime], 
+    [MasterReportView].[PeachCreateByName] AS [PeachCreateByName], 
+    [MasterReportView].[PeachCreateTime] AS [PeachCreateTime], 
+    [MasterReportView].[PRCreateByName] AS [PRCreateByName], 
+    [MasterReportView].[PRCreateTime] AS [PRCreateTime], 
+    [MasterReportView].[QCCreateTime] AS [QCCreateTime], 
+    [MasterReportView].[QCCreateByName] AS [QCCreateByName], 
+    [MasterReportView].[KnitCreateTime] AS [KnitCreateTime], 
+    [MasterReportView].[KnitCreateByName] AS [KnitCreateByName], 
+    [MasterReportView].[CWCreateTime] AS [CWCreateTime], 
+    [MasterReportView].[CWCreateByName] AS [CWCreateByName], 
+    [MasterReportView].[HSPCreateTime] AS [HSPCreateTime], 
+    [MasterReportView].[HSPCreateByName] AS [HSPCreateByName], 
+    [MasterReportView].[SGCreateTime] AS [SGCreateTime], 
+    [MasterReportView].[SGCreateByName] AS [SGCreateByName], 
+    [MasterReportView].[DyeingCreateTime] AS [DyeingCreateTime], 
+    [MasterReportView].[DyeingCreateByName] AS [DyeingCreateByName], 
+    [MasterReportView].[DRCreateTime] AS [DRCreateTime], 
+    [MasterReportView].[DRCreateByName] AS [DRCreateByName], 
+    [MasterReportView].[STCreateTime] AS [STCreateTime], 
+    [MasterReportView].[STCreateByName] AS [STCreateByName], 
+    [MasterReportView].[BRRevise] AS [BRRevise], 
+    [MasterReportView].[CompactRevise] AS [CompactRevise], 
+    [MasterReportView].[PeachRevise] AS [PeachRevise], 
+    [MasterReportView].[QCRevise] AS [QCRevise], 
+    [MasterReportView].[KnitRevise] AS [KnitRevise], 
+    [MasterReportView].[CWRevise] AS [CWRevise], 
+    [MasterReportView].[HSPRevise] AS [HSPRevise], 
+    [MasterReportView].[SGRevise] AS [SGRevise], 
+    [MasterReportView].[DyeingRevise] AS [DyeingRevise], 
+    [MasterReportView].[DRRevise] AS [DRRevise], 
+    [MasterReportView].[STRevise] AS [STRevise], 
+    [MasterReportView].[PRRevise] AS [PRRevise], 
+    [MasterReportView].[DyeingMcNo] AS [DyeingMcNo]
     FROM [dbo].[MasterReportView] AS [MasterReportView]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="YDView" EntityType="Self.YDView" store:Type="Views" store:Schema="dbo">

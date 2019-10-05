@@ -79,23 +79,22 @@ namespace TextileResearchDevelopment.Controllers
                     }
                     else
                     {
-                        //if(masterReport[0].CProductionTypeID == 6)
-                        //{
-                        //    masterReport[0].CProduction = "A. Brush(" + masterReport[0].CompactingMcNo+ ")";
-                        //}
-                        //if (masterReport[0].CProductionTypeID == 7)
-                        //{
-                        //    masterReport[0].CProduction = "A.Peach Finish(" + masterReport[0].CompactingMcNo + ")";
-                        //}
-                        //if (masterReport[0].CProductionTypeID == 8)
-                        //{
-                        //    masterReport[0].CProduction = "A AOP(" + masterReport[0].CompactingMcNo + ")";
-                        //}
-                        //if (masterReport[0].CProductionTypeID == 9)
-                        //{
-                        //    masterReport[0].CProduction = "SP. Chemical Finish(" + masterReport[0].CompactingMcNo + ")";
-                        //}
-                        masterReport[0].CProduction = "SP. Chemical Finish";
+                        if (masterReport[0].CProductionTypeID == 6)
+                        {
+                            masterReport[0].CProduction = "A. Brush(" + masterReport[0].CompactingMcNo + ")";
+                        }
+                        if (masterReport[0].CProductionTypeID == 7)
+                        {
+                            masterReport[0].CProduction = "A.Peach Finish(" + masterReport[0].CompactingMcNo + ")";
+                        }
+                        if (masterReport[0].CProductionTypeID == 8)
+                        {
+                            masterReport[0].CProduction = "A AOP(" + masterReport[0].CompactingMcNo + ")";
+                        }
+                        if (masterReport[0].CProductionTypeID == 9)
+                        {
+                            masterReport[0].CProduction = "SP. Chemical Finish(" + masterReport[0].CompactingMcNo + ")";
+                        }
                     }
                     if (masterReport[0].STProductionTypeID == null)
                     {
@@ -103,30 +102,53 @@ namespace TextileResearchDevelopment.Controllers
                     }
                     else
                     {
-                        //if (masterReport[0].STProductionTypeID == 1)
-                        //{
-                        //    masterReport[0].SProduction = "A. Brush(" + masterReport[0].StenterMcNo+ ")";
-                        //}
-                        //if (masterReport[0].STProductionTypeID == 2)
-                        //{
-                        //    masterReport[0].SProduction = "A.Peach Finish(" + masterReport[0].StenterMcNo + ")";
-                        //}
-                        //if (masterReport[0].STProductionTypeID == 3)
-                        //{
-                        //    masterReport[0].SProduction = "A AOP(" + masterReport[0].StenterMcNo + ")";
-                        //}
-                        //if (masterReport[0].STProductionTypeID == 4)
-                        //{
-                        //    masterReport[0].SProduction = "SP. Chemical Finish(" + masterReport[0].StenterMcNo + ")";
-                        //}
-
-                        masterReport[0].SProduction = "SP. Chemical Finish";
+                        if (masterReport[0].STProductionTypeID == 1)
+                        {
+                            masterReport[0].SProduction = "A. Brush(" + masterReport[0].StenterMcNo + ")";
+                        }
+                        if (masterReport[0].STProductionTypeID == 2)
+                        {
+                            masterReport[0].SProduction = "A.Peach Finish(" + masterReport[0].StenterMcNo + ")";
+                        }
+                        if (masterReport[0].STProductionTypeID == 3)
+                        {
+                            masterReport[0].SProduction = "A AOP(" + masterReport[0].StenterMcNo + ")";
+                        }
+                        if (masterReport[0].STProductionTypeID == 4)
+                        {
+                            masterReport[0].SProduction = "SP. Chemical Finish(" + masterReport[0].StenterMcNo + ")";
+                        }
 
                     }
                 }
 
-                //YD[0].YarnCount = "";
-                //YDR[0].YDRFeederNo = "";
+                foreach (var item in YD)
+                {
+                    YD[0].YarnCount = "";
+                }
+
+                string FabricBarCodeQuery = "SELECT BarCode FROM Fabric WHERE Id = " + FabricID;
+                var columnsName = "";
+                string query = " SELECT * FROM FabricProcess WHERE BarCode = (" + FabricBarCodeQuery + ")";
+                cm.CommandText = query;
+                cn.Open();
+                reader = cm.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            if (reader.GetValue(i).ToString() == "1")
+                            {
+                                columnsName = columnsName == "" ? reader.GetName(i).ToString() : columnsName + " -> " + reader.GetName(i).ToString();
+                            }
+                        }
+                    }
+                }
+                cn.Close();
+
+                ds.FabricProcess.AddFabricProcessRow(columnsName);
 
                 foreach (var item in masterReport)
                 {
@@ -185,7 +207,7 @@ namespace TextileResearchDevelopment.Controllers
                     item.SSpeed,
                     item.SBurner,
                     item.SFlamePosition,
-                    item.DMC,
+                    item.DyeingMcNo,
                     item.DSpeed,
                     item.DEnzy,
                     item.Recipe,
@@ -266,7 +288,32 @@ namespace TextileResearchDevelopment.Controllers
                     item.QRecovery,
                     item.BSpeed,
                     item.KnitID.ToString(),
-                    NullHelpers.DateToString(item.UpdateTime));
+                    NullHelpers.DateToString(item.UpdateTime),
+                    item.FinalApprovalStatus.ToString(),
+                    item.BRRevise.ToString(),
+                    NullHelpers.DateToString(item.BRCreateTime),
+                    item.CompactRevise.ToString(),
+                    NullHelpers.DateToString(item.CompactCreateTime),
+                    item.PeachRevise.ToString(),
+                    NullHelpers.DateToString(item.PeachCreateTime),
+                    item.PRRevise.ToString(),
+                    NullHelpers.DateToString(item.PRCreateTime),
+                    NullHelpers.DateToString(item.QCCreateTime),
+                    item.QCRevise.ToString(),
+                    NullHelpers.DateToString(item.KnitCreateTime),
+                    item.KnitRevise.ToString(),
+                    NullHelpers.DateToString(item.CWCreateTime),
+                    item.CWRevise.ToString(),
+                    NullHelpers.DateToString(item.HSPCreateTime),
+                    item.HSPRevise.ToString(),
+                    NullHelpers.DateToString(item.SGCreateTime),
+                    item.SGRevise.ToString(),
+                    NullHelpers.DateToString(item.DyeingCreateTime),
+                    item.DyeingRevise.ToString(),
+                    NullHelpers.DateToString(item.DRCreateTime),
+                    item.DRRevise.ToString(),
+                    NullHelpers.DateToString(item.STCreateTime),
+                    item.STRevise.ToString());
                 };
 
                 foreach (var item in YD)

@@ -140,6 +140,7 @@ namespace TextileResearchDevelopment.BLL
                 singeing.fabric.cm.Composition = reader["Composition"].ToString();
                 singeing.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 singeing.fabric.BarCode = reader["BarCode"].ToString();
+                singeing.fabric.ProcessString = FabricBLL.GetProcessString(reader["BarCode"].ToString());
 
                 singeing.HBurner1 = reader["SFHBurner1"].ToString();
                 singeing.HBurner2 = reader["SFHBurner2"].ToString();

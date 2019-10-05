@@ -26,7 +26,7 @@ namespace TextileResearchDevelopment.Models
         }
     
         public virtual DbSet<YarnDyedRepeat> YarnDyedRepeats { get; set; }
-        public virtual DbSet<MasterReportView> MasterReportViews { get; set; }
         public virtual DbSet<YDView> YDViews { get; set; }
+        public virtual DbSet<MasterReportView> MasterReportViews { get; set; }
     }
 }

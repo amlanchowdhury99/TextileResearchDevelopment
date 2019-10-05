@@ -6,13 +6,7 @@
 }
 
 <head>
-    @*<script type="text/javascript" src="~/Scripts/jquery3.3.1.js"></script>*@
-    <script type="text/javascript" src="~/Scripts/bootstrap.js"></script>
-    <script type="text/javascript" src="~/Scripts/bootstrap3-typeahead.min.js"></script>
     <style>
-
-
-
         tfoot input {
             width: 100%;
             padding: 3px;
@@ -29,6 +23,7 @@
 <br />
 
 <div id="MainDiv">
+
     <ul id="MainContextMenu" class="dropdown-menu" role="menu" style="        display: none">
         <li id="CDelete"><a tabindex="-1" href="#">Delete</a></li>
         <li id="CApprove"><a tabindex="-1" href="#">Approve</a></li>
@@ -86,6 +81,7 @@
                                 <thead>
                                     <tr>
                                         <th>Id</th>
+                                        <th>Status</th>
                                         <th>Machine No</th>
                                         <th>Dia</th>
                                         <th>Guage</th>
@@ -699,7 +695,7 @@
                     <div class="form-group col-xs-4 form-inline">
                         <label for="ErpNo" class="control-label required" style="        width: 35%;">ERP No</label>
                         <div style="        display: inline;">
-                            <input type="text" class="typeahead form-control" style="        width: 60%;" id="ErpNo" placeholder="ERP No" required autofocus>
+                            <input type="text" class=" form-control" style="        width: 60%;" id="ErpNo" placeholder="ERP No" required autofocus>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
@@ -808,6 +804,8 @@
         </div>
     </div>
 
+    <p id="ProcessString" class="text-uppercase text-primary" style="font-weight:bold"></p>
+
     <table id="knitTable" class="display nowrap stripe hover order-column " style="        width: 100%;">
         <thead>
             <tr>
@@ -815,12 +813,13 @@
                 <th>Id</th>
                 <th>FabricID</th>
                 <th>McNoID</th>
-                <th>Composition</th>
+                <th>ProcessString</th>
+                <th>BarCode</th>
+                <th>Buyer</th>
                 <th>Fabric</th>
                 <th>Composition</th>
                 <th>OrderNo</th>
                 <th>RefNo</th>
-                <th>BarCode</th>
                 <th>ErpNo</th>
                 <th>McNo</th>
                 <th>McBrand</th>
@@ -851,11 +850,12 @@
                 <th></th>
                 <th></th>
                 <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
                 <th>BarCode</th>
+                <th>Buyer</th>
+                <th>Fabric</th>
+                <th>Composition</th>
+                <th>OrderNo</th>
+                <th>RefNo</th>
                 <th>ErpNo</th>
                 <th>McNo</th>
                 <th>McBrand</th>
@@ -947,7 +947,7 @@
 
     <div class="footer-w3l">
         <div class="content">
-            <img src='../Content/images/logo.png' ; style="        width: 71px;
+            <img src='../Content/images/logo.png'>
         height: 40px">
             <p class="foot">2019 © URMI IT Department. All rights reserved.</p>
         </div>
@@ -1201,10 +1201,11 @@
                 style: 'single'
             },
             "columnDefs": [
-                { "searchable": false, "orderable": false, "visible": false, "targets": [0] }
+                { "searchable": false, "orderable": false, "visible": false, "targets": [0, 1] }
             ],
             "columns": [
                 { "data": "Id" },
+                { "data": "Status" },
                 { "data": "McNo" },
                 { "data": "McDia" },
                 { "data": "McGauge" },
@@ -2624,7 +2625,7 @@
                     debugger
                     var rowdata = McNoTable.row(this).data();
                     $('#McNoMD').val(rowdata.McNo);
-                    $('#BrandMD').val(rowdata.YarnSupplier);
+                    $('#BrandMD').val(rowdata.McBrand);
                     $('#DiaMD').val(rowdata.McDia);
                     $('#GaugeMD').val(rowdata.McGauge)
                     $('#editMcNoBtn').prop("disabled", false);
@@ -2681,6 +2682,11 @@
                 var Row = McNoTable.rows('.selected').data()[0];
                 var index = McNoTable.row('.selected').index();
 
+                if (Row.Status == 1) {
+                    alert("This Machine No is used already in Fabric!!!");
+                    return;
+                }
+
                 var mc =
                 {
                     Id: Row.Id,
@@ -2725,6 +2731,11 @@
             if ($('#McNoTable tbody tr').hasClass('selected')) {
                 debugger
                 var Row = McNoTable.rows('.selected').data()[0];
+
+                if (Row.Status == 1) {
+                    alert("This Machine No is used already in Fabric!!!");
+                    return;
+                }
 
                 $.ajax({
                     type: "POST",
@@ -2778,11 +2789,8 @@
 
         var knitTable = $('#knitTable').DataTable({
             dom: 'Bfrtip',
-            buttons: [
-                {
-                    extend: 'excelHtml5'
-                }
-            ],
+            "processing": true,
+            buttons: [],
             "ajax":
             {
                 "url": "/Knitting/GetData",
@@ -2791,7 +2799,7 @@
             },
             "pageLength": 25,
             "autoWidth": true,
-            "scrollY": true,
+            "scrollY": '20vh',
             "scrollX": true,
             "Sorting": true,
             "searching": true,
@@ -2806,7 +2814,7 @@
                     "orderable": false,
                 },
                 {
-                    "targets": [1, 2, 3, 4, 5, 6, 7, 8],
+                    "targets": [1, 2, 3, 4],
                     "visible": false,
                     "searchable": false
                 },
@@ -2827,12 +2835,13 @@
                 { "data": "Id" },
                 { "data": "fabric.Id" },
                 { "data": "mc.Id" },
+                { "data": "fabric.ProcessString" },
+                { "data": "BarCode" },
                 { "data": "fabric.buyer.BuyerName" },
                 { "data": "fabric.fb.FabricTypeName" },
                 { "data": "fabric.cm.Composition" },
                 { "data": "fabric.OrderNo" },
                 { "data": "fabric.RefNo" },
-                { "data": "BarCode" },
                 { "data": "ErpNo" },
                 { "data": "mc.McNo" },
                 { "data": "mc.McBrand" },
@@ -2929,6 +2938,7 @@
                     Reset();
                     $(this).addClass('selected');
                     var rowdata = knitTable.row(this).data();
+                    $('#ProcessString').text(rowdata.fabric.ProcessString);
                     SetChilds(rowdata);
                     if (rowdata.ApprovedStatus == 0) {
                         Setvalue(rowdata);
@@ -3385,19 +3395,40 @@
 
             $.ajax({
                 type: "POST",
-                url: "/Knitting/Approve",
+                url: "/Fabric/GetApprovedStatus",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify(knitObj),
+                data: JSON.stringify({ "BarCode": Row.fabric.BarCode, "tableName": "Knit" }),
                 success: function (response) {
                     debugger
-                    if (response.data != "" && response.data != null) {
-                        debugger
-                        knitTable.row(index).data(response.data).draw();
-                        Reset();
+                    if (response == true) {
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/Knitting/Approve",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(knitObj),
+                            success: function (response) {
+                                debugger
+                                if (response.data != "" && response.data != null) {
+                                    debugger
+                                    knitTable.row(index).data(response.data).draw();
+                                    Reset();
+                                }
+                                else {
+                                    alert("Failed to Approve!!!");
+                                    return;
+                                }
+                            },
+                            failure: function () {
+                                $("#tblItems").append(" Error when fetching data please contact administrator");
+                            }
+                        });
+
                     }
                     else {
-                        alert("Failed to Approve!!!");
+                        alert("This Order is not approved in previous process!!!");
                         return;
                     }
                 },
@@ -3405,58 +3436,6 @@
                     $("#tblItems").append(" Error when fetching data please contact administrator");
                 }
             });
-
-            //$.ajax({
-            //    type: "POST",
-            //    url: "/UserManagement/HasRight",
-            //    contentType: "application/json; charset=utf-8",
-            //    dataType: "json",
-            //    data: JSON.stringify({ text: "Knitting" }),
-            //    success: function (response) {
-            //        debugger
-            //        if (response == "true") {
-            //            debugger
-            //            var Row = knitTable.rows('.selected').data()[0];
-            //            var index = knitTable.row('.selected').index();
-
-            //            var knitObj =
-            //            {
-            //                Id: Row.Id,
-            //                ApprovedTime: moment(Date.now()).format("YYYY/MM/DD h:mm a"),
-            //            };
-
-            //            $.ajax({
-            //                type: "POST",
-            //                url: "/Knitting/Approve",
-            //                contentType: "application/json; charset=utf-8",
-            //                dataType: "json",
-            //                data: JSON.stringify(knitObj),
-            //                success: function (response) {
-            //                    debugger
-            //                    if (response.data != "" && response.data != null) {
-            //                        debugger
-            //                        knitTable.row(index).data(response.data).draw();
-            //                        Reset();
-            //                    }
-            //                    else {
-            //                        alert("Failed to Approve!!!");
-            //                        return;
-            //                    }
-            //                },
-            //                failure: function () {
-            //                    $("#tblItems").append(" Error when fetching data please contact administrator");
-            //                }
-            //            });
-            //        }
-            //        else {
-            //            alert("You are not authorized to approve!!!");
-            //            return;
-            //        }
-            //    },
-            //    failure: function () {
-            //        $("#tblItems").append(" Error when fetching data please contact administrator");
-            //    }
-            //});
         }
 
         function UnapproveRow() {
@@ -3474,7 +3453,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/Fabric/GetApprovedStatus",
+                url: "/Fabric/GetUnApprovedStatus",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 data: JSON.stringify({ "BarCode": Row.BarCode, "tableName": "Knit" }),
@@ -3532,7 +3511,7 @@
             YDtable.clear().draw();
             YDRtable.clear().draw();
             selectedFabricRowId = 0;
-
+            $('#ProcessString').text('');
             $('#hidden').prop('checked', false);
             $('#saveBtn').prop("disabled", false);
             $('#updateBtn').prop("disabled", true);
@@ -3674,30 +3653,7 @@
                 }
                 else {
                     if (selectedMenu.text() == "Unapprove") {
-                        var knitObj =
-                        {
-                            Id: knitTable.rows('.selected').data()[0].Id
-                        };
-                        $.ajax({
-                            type: "POST",
-                            url: "/Knitting/CheckUnapproveEligibility",
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json",
-                            data: JSON.stringify(knitObj),
-                            success: function (response) {
-                                debugger
-                                if (response == "true") {
-                                    UnapproveRow();
-                                }
-                                else {
-                                    alert("This order is already used in Dyeing!!!");
-                                    return;
-                                }
-                            },
-                            failure: function () {
-                                $("#tblItems").append(" Error when fetching data please contact administrator");
-                            }
-                        });
+                        UnapproveRow();
                     }
                     else {
                         alert("This order is already approved!!!");

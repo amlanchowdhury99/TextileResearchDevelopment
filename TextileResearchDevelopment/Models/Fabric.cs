@@ -16,6 +16,7 @@ namespace TextileResearchDevelopment.Models
             buyer = new Buyer();
             fb = new FabricType();
             cm = new CompositionType();
+            st = new StatusType();
         }
 
         public User ua { get; set; }
@@ -27,6 +28,10 @@ namespace TextileResearchDevelopment.Models
         public Buyer buyer { get; set; }
         public CompositionType cm { get; set; }
         public FabricType fb { get; set; }
+        public StatusType st { get; set; }
+        public string LastProcess { get; set; }
+
+        public string ProcessString { get; set; }
 
         private DateTime defaultDate = DateTime.Now;
         public int Id { get; set; }

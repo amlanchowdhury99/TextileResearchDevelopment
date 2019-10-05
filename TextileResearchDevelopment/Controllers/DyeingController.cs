@@ -53,6 +53,24 @@ namespace TextileResearchDevelopment.Controllers
         }
 
         [HttpGet]
+        public JsonResult GetMachineList()
+        {
+            JsonResult result = new JsonResult();
+            List<MachineType> mcList = new List<MachineType>();
+
+            try
+            {
+                mcList = DyeingBLL.GetMachineList();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { data = new List<MachineType>() }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { data = mcList }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
         public JsonResult GetRFTList()
         {
             JsonResult result = new JsonResult();

@@ -26,9 +26,11 @@ namespace TextileResearchDevelopment.ReportDataset {
         
         private YarnDyedRepeatDataTable tableYarnDyedRepeat;
         
-        private MasterReportViewDataTable tableMasterReportView;
-        
         private YDViewDataTable tableYDView;
+        
+        private FabricProcessDataTable tableFabricProcess;
+        
+        private MasterReportViewDataTable tableMasterReportView;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -61,11 +63,14 @@ namespace TextileResearchDevelopment.ReportDataset {
                 if ((ds.Tables["YarnDyedRepeat"] != null)) {
                     base.Tables.Add(new YarnDyedRepeatDataTable(ds.Tables["YarnDyedRepeat"]));
                 }
-                if ((ds.Tables["MasterReportView"] != null)) {
-                    base.Tables.Add(new MasterReportViewDataTable(ds.Tables["MasterReportView"]));
-                }
                 if ((ds.Tables["YDView"] != null)) {
                     base.Tables.Add(new YDViewDataTable(ds.Tables["YDView"]));
+                }
+                if ((ds.Tables["FabricProcess"] != null)) {
+                    base.Tables.Add(new FabricProcessDataTable(ds.Tables["FabricProcess"]));
+                }
+                if ((ds.Tables["MasterReportView"] != null)) {
+                    base.Tables.Add(new MasterReportViewDataTable(ds.Tables["MasterReportView"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -99,9 +104,9 @@ namespace TextileResearchDevelopment.ReportDataset {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public MasterReportViewDataTable MasterReportView {
+        public YDViewDataTable YDView {
             get {
-                return this.tableMasterReportView;
+                return this.tableYDView;
             }
         }
         
@@ -109,9 +114,19 @@ namespace TextileResearchDevelopment.ReportDataset {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public YDViewDataTable YDView {
+        public FabricProcessDataTable FabricProcess {
             get {
-                return this.tableYDView;
+                return this.tableFabricProcess;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public MasterReportViewDataTable MasterReportView {
+            get {
+                return this.tableMasterReportView;
             }
         }
         
@@ -185,11 +200,14 @@ namespace TextileResearchDevelopment.ReportDataset {
                 if ((ds.Tables["YarnDyedRepeat"] != null)) {
                     base.Tables.Add(new YarnDyedRepeatDataTable(ds.Tables["YarnDyedRepeat"]));
                 }
-                if ((ds.Tables["MasterReportView"] != null)) {
-                    base.Tables.Add(new MasterReportViewDataTable(ds.Tables["MasterReportView"]));
-                }
                 if ((ds.Tables["YDView"] != null)) {
                     base.Tables.Add(new YDViewDataTable(ds.Tables["YDView"]));
+                }
+                if ((ds.Tables["FabricProcess"] != null)) {
+                    base.Tables.Add(new FabricProcessDataTable(ds.Tables["FabricProcess"]));
+                }
+                if ((ds.Tables["MasterReportView"] != null)) {
+                    base.Tables.Add(new MasterReportViewDataTable(ds.Tables["MasterReportView"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -230,16 +248,22 @@ namespace TextileResearchDevelopment.ReportDataset {
                     this.tableYarnDyedRepeat.InitVars();
                 }
             }
-            this.tableMasterReportView = ((MasterReportViewDataTable)(base.Tables["MasterReportView"]));
-            if ((initTable == true)) {
-                if ((this.tableMasterReportView != null)) {
-                    this.tableMasterReportView.InitVars();
-                }
-            }
             this.tableYDView = ((YDViewDataTable)(base.Tables["YDView"]));
             if ((initTable == true)) {
                 if ((this.tableYDView != null)) {
                     this.tableYDView.InitVars();
+                }
+            }
+            this.tableFabricProcess = ((FabricProcessDataTable)(base.Tables["FabricProcess"]));
+            if ((initTable == true)) {
+                if ((this.tableFabricProcess != null)) {
+                    this.tableFabricProcess.InitVars();
+                }
+            }
+            this.tableMasterReportView = ((MasterReportViewDataTable)(base.Tables["MasterReportView"]));
+            if ((initTable == true)) {
+                if ((this.tableMasterReportView != null)) {
+                    this.tableMasterReportView.InitVars();
                 }
             }
         }
@@ -254,10 +278,12 @@ namespace TextileResearchDevelopment.ReportDataset {
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableYarnDyedRepeat = new YarnDyedRepeatDataTable();
             base.Tables.Add(this.tableYarnDyedRepeat);
-            this.tableMasterReportView = new MasterReportViewDataTable();
-            base.Tables.Add(this.tableMasterReportView);
             this.tableYDView = new YDViewDataTable();
             base.Tables.Add(this.tableYDView);
+            this.tableFabricProcess = new FabricProcessDataTable();
+            base.Tables.Add(this.tableFabricProcess);
+            this.tableMasterReportView = new MasterReportViewDataTable();
+            base.Tables.Add(this.tableMasterReportView);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -268,13 +294,19 @@ namespace TextileResearchDevelopment.ReportDataset {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializeMasterReportView() {
+        private bool ShouldSerializeYDView() {
             return false;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        private bool ShouldSerializeYDView() {
+        private bool ShouldSerializeFabricProcess() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeMasterReportView() {
             return false;
         }
         
@@ -337,10 +369,13 @@ namespace TextileResearchDevelopment.ReportDataset {
         public delegate void YarnDyedRepeatRowChangeEventHandler(object sender, YarnDyedRepeatRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void MasterReportViewRowChangeEventHandler(object sender, MasterReportViewRowChangeEvent e);
+        public delegate void YDViewRowChangeEventHandler(object sender, YDViewRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public delegate void YDViewRowChangeEventHandler(object sender, YDViewRowChangeEvent e);
+        public delegate void FabricProcessRowChangeEventHandler(object sender, FabricProcessRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void MasterReportViewRowChangeEventHandler(object sender, MasterReportViewRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -691,6 +726,593 @@ namespace TextileResearchDevelopment.ReportDataset {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class YDViewDataTable : global::System.Data.TypedTableBase<YDViewRow> {
+            
+            private global::System.Data.DataColumn columnLot;
+            
+            private global::System.Data.DataColumn columnTPI;
+            
+            private global::System.Data.DataColumn columnYarnCount;
+            
+            private global::System.Data.DataColumn columnYarnComposition;
+            
+            private global::System.Data.DataColumn columnYarnName;
+            
+            private global::System.Data.DataColumn columnYarnSupplier;
+            
+            private global::System.Data.DataColumn columnYarnColor;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public YDViewDataTable() {
+                this.TableName = "YDView";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal YDViewDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected YDViewDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn LotColumn {
+                get {
+                    return this.columnLot;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn TPIColumn {
+                get {
+                    return this.columnTPI;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn YarnCountColumn {
+                get {
+                    return this.columnYarnCount;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn YarnCompositionColumn {
+                get {
+                    return this.columnYarnComposition;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn YarnNameColumn {
+                get {
+                    return this.columnYarnName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn YarnSupplierColumn {
+                get {
+                    return this.columnYarnSupplier;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn YarnColorColumn {
+                get {
+                    return this.columnYarnColor;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public YDViewRow this[int index] {
+                get {
+                    return ((YDViewRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event YDViewRowChangeEventHandler YDViewRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event YDViewRowChangeEventHandler YDViewRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event YDViewRowChangeEventHandler YDViewRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event YDViewRowChangeEventHandler YDViewRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddYDViewRow(YDViewRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public YDViewRow AddYDViewRow(string Lot, string TPI, string YarnCount, string YarnComposition, string YarnName, string YarnSupplier, string YarnColor) {
+                YDViewRow rowYDViewRow = ((YDViewRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        Lot,
+                        TPI,
+                        YarnCount,
+                        YarnComposition,
+                        YarnName,
+                        YarnSupplier,
+                        YarnColor};
+                rowYDViewRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowYDViewRow);
+                return rowYDViewRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                YDViewDataTable cln = ((YDViewDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new YDViewDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnLot = base.Columns["Lot"];
+                this.columnTPI = base.Columns["TPI"];
+                this.columnYarnCount = base.Columns["YarnCount"];
+                this.columnYarnComposition = base.Columns["YarnComposition"];
+                this.columnYarnName = base.Columns["YarnName"];
+                this.columnYarnSupplier = base.Columns["YarnSupplier"];
+                this.columnYarnColor = base.Columns["YarnColor"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnLot = new global::System.Data.DataColumn("Lot", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLot);
+                this.columnTPI = new global::System.Data.DataColumn("TPI", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTPI);
+                this.columnYarnCount = new global::System.Data.DataColumn("YarnCount", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnYarnCount);
+                this.columnYarnComposition = new global::System.Data.DataColumn("YarnComposition", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnYarnComposition);
+                this.columnYarnName = new global::System.Data.DataColumn("YarnName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnYarnName);
+                this.columnYarnSupplier = new global::System.Data.DataColumn("YarnSupplier", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnYarnSupplier);
+                this.columnYarnColor = new global::System.Data.DataColumn("YarnColor", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnYarnColor);
+                this.columnLot.AllowDBNull = false;
+                this.columnYarnCount.MaxLength = 50;
+                this.columnYarnComposition.MaxLength = 50;
+                this.columnYarnName.MaxLength = 50;
+                this.columnYarnSupplier.MaxLength = 150;
+                this.columnYarnColor.MaxLength = 50;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public YDViewRow NewYDViewRow() {
+                return ((YDViewRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new YDViewRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(YDViewRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.YDViewRowChanged != null)) {
+                    this.YDViewRowChanged(this, new YDViewRowChangeEvent(((YDViewRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.YDViewRowChanging != null)) {
+                    this.YDViewRowChanging(this, new YDViewRowChangeEvent(((YDViewRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.YDViewRowDeleted != null)) {
+                    this.YDViewRowDeleted(this, new YDViewRowChangeEvent(((YDViewRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.YDViewRowDeleting != null)) {
+                    this.YDViewRowDeleting(this, new YDViewRowChangeEvent(((YDViewRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveYDViewRow(YDViewRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                GeneralReport ds = new GeneralReport();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "YDViewDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class FabricProcessDataTable : global::System.Data.TypedTableBase<FabricProcessRow> {
+            
+            private global::System.Data.DataColumn columnFabricProcessString;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public FabricProcessDataTable() {
+                this.TableName = "FabricProcess";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal FabricProcessDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected FabricProcessDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn FabricProcessStringColumn {
+                get {
+                    return this.columnFabricProcessString;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public FabricProcessRow this[int index] {
+                get {
+                    return ((FabricProcessRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event FabricProcessRowChangeEventHandler FabricProcessRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event FabricProcessRowChangeEventHandler FabricProcessRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event FabricProcessRowChangeEventHandler FabricProcessRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event FabricProcessRowChangeEventHandler FabricProcessRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddFabricProcessRow(FabricProcessRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public FabricProcessRow AddFabricProcessRow(string FabricProcessString) {
+                FabricProcessRow rowFabricProcessRow = ((FabricProcessRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        FabricProcessString};
+                rowFabricProcessRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowFabricProcessRow);
+                return rowFabricProcessRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                FabricProcessDataTable cln = ((FabricProcessDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new FabricProcessDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnFabricProcessString = base.Columns["FabricProcessString"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnFabricProcessString = new global::System.Data.DataColumn("FabricProcessString", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFabricProcessString);
+                this.columnFabricProcessString.AllowDBNull = false;
+                this.columnFabricProcessString.Caption = "YDRRepeat";
+                this.columnFabricProcessString.MaxLength = 50;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public FabricProcessRow NewFabricProcessRow() {
+                return ((FabricProcessRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new FabricProcessRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(FabricProcessRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.FabricProcessRowChanged != null)) {
+                    this.FabricProcessRowChanged(this, new FabricProcessRowChangeEvent(((FabricProcessRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.FabricProcessRowChanging != null)) {
+                    this.FabricProcessRowChanging(this, new FabricProcessRowChangeEvent(((FabricProcessRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.FabricProcessRowDeleted != null)) {
+                    this.FabricProcessRowDeleted(this, new FabricProcessRowChangeEvent(((FabricProcessRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.FabricProcessRowDeleting != null)) {
+                    this.FabricProcessRowDeleting(this, new FabricProcessRowChangeEvent(((FabricProcessRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveFabricProcessRow(FabricProcessRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                GeneralReport ds = new GeneralReport();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "FabricProcessDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class MasterReportViewDataTable : global::System.Data.TypedTableBase<MasterReportViewRow> {
             
             private global::System.Data.DataColumn columnId;
@@ -964,6 +1586,56 @@ namespace TextileResearchDevelopment.ReportDataset {
             private global::System.Data.DataColumn columnKnitID;
             
             private global::System.Data.DataColumn columnUpdateTime;
+            
+            private global::System.Data.DataColumn columnFinalApprovalStatus;
+            
+            private global::System.Data.DataColumn columnBRRevise;
+            
+            private global::System.Data.DataColumn columnBRCreateTime;
+            
+            private global::System.Data.DataColumn columnCompactRevise;
+            
+            private global::System.Data.DataColumn columnCompactCreateTime;
+            
+            private global::System.Data.DataColumn columnPeachRevise;
+            
+            private global::System.Data.DataColumn columnPeachCreateTime;
+            
+            private global::System.Data.DataColumn columnPRRevise;
+            
+            private global::System.Data.DataColumn columnPRCreateTime;
+            
+            private global::System.Data.DataColumn columnQCCreateTime;
+            
+            private global::System.Data.DataColumn columnQCRevise;
+            
+            private global::System.Data.DataColumn columnKnitCreateTime;
+            
+            private global::System.Data.DataColumn columnKnitRevise;
+            
+            private global::System.Data.DataColumn columnCWCreateTime;
+            
+            private global::System.Data.DataColumn columnCWRevise;
+            
+            private global::System.Data.DataColumn columnHSPCreateTime;
+            
+            private global::System.Data.DataColumn columnHSPRevise;
+            
+            private global::System.Data.DataColumn columnSGCreateTime;
+            
+            private global::System.Data.DataColumn columnSGRevise;
+            
+            private global::System.Data.DataColumn columnDyeingCreateTime;
+            
+            private global::System.Data.DataColumn columnDyeingRevise;
+            
+            private global::System.Data.DataColumn columnDRCreateTime;
+            
+            private global::System.Data.DataColumn columnDRRevise;
+            
+            private global::System.Data.DataColumn columnSTCreateTime;
+            
+            private global::System.Data.DataColumn columnSTRevise;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -2088,6 +2760,206 @@ namespace TextileResearchDevelopment.ReportDataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn FinalApprovalStatusColumn {
+                get {
+                    return this.columnFinalApprovalStatus;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn BRReviseColumn {
+                get {
+                    return this.columnBRRevise;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn BRCreateTimeColumn {
+                get {
+                    return this.columnBRCreateTime;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn CompactReviseColumn {
+                get {
+                    return this.columnCompactRevise;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn CompactCreateTimeColumn {
+                get {
+                    return this.columnCompactCreateTime;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PeachReviseColumn {
+                get {
+                    return this.columnPeachRevise;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PeachCreateTimeColumn {
+                get {
+                    return this.columnPeachCreateTime;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PRReviseColumn {
+                get {
+                    return this.columnPRRevise;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn PRCreateTimeColumn {
+                get {
+                    return this.columnPRCreateTime;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn QCCreateTimeColumn {
+                get {
+                    return this.columnQCCreateTime;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn QCReviseColumn {
+                get {
+                    return this.columnQCRevise;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn KnitCreateTimeColumn {
+                get {
+                    return this.columnKnitCreateTime;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn KnitReviseColumn {
+                get {
+                    return this.columnKnitRevise;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn CWCreateTimeColumn {
+                get {
+                    return this.columnCWCreateTime;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn CWReviseColumn {
+                get {
+                    return this.columnCWRevise;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn HSPCreateTimeColumn {
+                get {
+                    return this.columnHSPCreateTime;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn HSPReviseColumn {
+                get {
+                    return this.columnHSPRevise;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn SGCreateTimeColumn {
+                get {
+                    return this.columnSGCreateTime;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn SGReviseColumn {
+                get {
+                    return this.columnSGRevise;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn DyeingCreateTimeColumn {
+                get {
+                    return this.columnDyeingCreateTime;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn DyeingReviseColumn {
+                get {
+                    return this.columnDyeingRevise;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn DRCreateTimeColumn {
+                get {
+                    return this.columnDRCreateTime;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn DRReviseColumn {
+                get {
+                    return this.columnDRRevise;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn STCreateTimeColumn {
+                get {
+                    return this.columnSTCreateTime;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn STReviseColumn {
+                get {
+                    return this.columnSTRevise;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2259,7 +3131,32 @@ namespace TextileResearchDevelopment.ReportDataset {
                         string QRecovery, 
                         string BSpeed, 
                         string KnitID, 
-                        string UpdateTime) {
+                        string UpdateTime, 
+                        string FinalApprovalStatus, 
+                        string BRRevise, 
+                        string BRCreateTime, 
+                        string CompactRevise, 
+                        string CompactCreateTime, 
+                        string PeachRevise, 
+                        string PeachCreateTime, 
+                        string PRRevise, 
+                        string PRCreateTime, 
+                        string QCCreateTime, 
+                        string QCRevise, 
+                        string KnitCreateTime, 
+                        string KnitRevise, 
+                        string CWCreateTime, 
+                        string CWRevise, 
+                        string HSPCreateTime, 
+                        string HSPRevise, 
+                        string SGCreateTime, 
+                        string SGRevise, 
+                        string DyeingCreateTime, 
+                        string DyeingRevise, 
+                        string DRCreateTime, 
+                        string DRRevise, 
+                        string STCreateTime, 
+                        string STRevise) {
                 MasterReportViewRow rowMasterReportViewRow = ((MasterReportViewRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Id,
@@ -2397,7 +3294,32 @@ namespace TextileResearchDevelopment.ReportDataset {
                         QRecovery,
                         BSpeed,
                         KnitID,
-                        UpdateTime};
+                        UpdateTime,
+                        FinalApprovalStatus,
+                        BRRevise,
+                        BRCreateTime,
+                        CompactRevise,
+                        CompactCreateTime,
+                        PeachRevise,
+                        PeachCreateTime,
+                        PRRevise,
+                        PRCreateTime,
+                        QCCreateTime,
+                        QCRevise,
+                        KnitCreateTime,
+                        KnitRevise,
+                        CWCreateTime,
+                        CWRevise,
+                        HSPCreateTime,
+                        HSPRevise,
+                        SGCreateTime,
+                        SGRevise,
+                        DyeingCreateTime,
+                        DyeingRevise,
+                        DRCreateTime,
+                        DRRevise,
+                        STCreateTime,
+                        STRevise};
                 rowMasterReportViewRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMasterReportViewRow);
                 return rowMasterReportViewRow;
@@ -2556,6 +3478,31 @@ namespace TextileResearchDevelopment.ReportDataset {
                 this.columnBSpeed = base.Columns["BSpeed"];
                 this.columnKnitID = base.Columns["KnitID"];
                 this.columnUpdateTime = base.Columns["UpdateTime"];
+                this.columnFinalApprovalStatus = base.Columns["FinalApprovalStatus"];
+                this.columnBRRevise = base.Columns["BRRevise"];
+                this.columnBRCreateTime = base.Columns["BRCreateTime"];
+                this.columnCompactRevise = base.Columns["CompactRevise"];
+                this.columnCompactCreateTime = base.Columns["CompactCreateTime"];
+                this.columnPeachRevise = base.Columns["PeachRevise"];
+                this.columnPeachCreateTime = base.Columns["PeachCreateTime"];
+                this.columnPRRevise = base.Columns["PRRevise"];
+                this.columnPRCreateTime = base.Columns["PRCreateTime"];
+                this.columnQCCreateTime = base.Columns["QCCreateTime"];
+                this.columnQCRevise = base.Columns["QCRevise"];
+                this.columnKnitCreateTime = base.Columns["KnitCreateTime"];
+                this.columnKnitRevise = base.Columns["KnitRevise"];
+                this.columnCWCreateTime = base.Columns["CWCreateTime"];
+                this.columnCWRevise = base.Columns["CWRevise"];
+                this.columnHSPCreateTime = base.Columns["HSPCreateTime"];
+                this.columnHSPRevise = base.Columns["HSPRevise"];
+                this.columnSGCreateTime = base.Columns["SGCreateTime"];
+                this.columnSGRevise = base.Columns["SGRevise"];
+                this.columnDyeingCreateTime = base.Columns["DyeingCreateTime"];
+                this.columnDyeingRevise = base.Columns["DyeingRevise"];
+                this.columnDRCreateTime = base.Columns["DRCreateTime"];
+                this.columnDRRevise = base.Columns["DRRevise"];
+                this.columnSTCreateTime = base.Columns["STCreateTime"];
+                this.columnSTRevise = base.Columns["STRevise"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2833,6 +3780,56 @@ namespace TextileResearchDevelopment.ReportDataset {
                 base.Columns.Add(this.columnKnitID);
                 this.columnUpdateTime = new global::System.Data.DataColumn("UpdateTime", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnUpdateTime);
+                this.columnFinalApprovalStatus = new global::System.Data.DataColumn("FinalApprovalStatus", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFinalApprovalStatus);
+                this.columnBRRevise = new global::System.Data.DataColumn("BRRevise", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBRRevise);
+                this.columnBRCreateTime = new global::System.Data.DataColumn("BRCreateTime", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBRCreateTime);
+                this.columnCompactRevise = new global::System.Data.DataColumn("CompactRevise", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCompactRevise);
+                this.columnCompactCreateTime = new global::System.Data.DataColumn("CompactCreateTime", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCompactCreateTime);
+                this.columnPeachRevise = new global::System.Data.DataColumn("PeachRevise", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPeachRevise);
+                this.columnPeachCreateTime = new global::System.Data.DataColumn("PeachCreateTime", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPeachCreateTime);
+                this.columnPRRevise = new global::System.Data.DataColumn("PRRevise", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPRRevise);
+                this.columnPRCreateTime = new global::System.Data.DataColumn("PRCreateTime", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPRCreateTime);
+                this.columnQCCreateTime = new global::System.Data.DataColumn("QCCreateTime", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnQCCreateTime);
+                this.columnQCRevise = new global::System.Data.DataColumn("QCRevise", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnQCRevise);
+                this.columnKnitCreateTime = new global::System.Data.DataColumn("KnitCreateTime", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnKnitCreateTime);
+                this.columnKnitRevise = new global::System.Data.DataColumn("KnitRevise", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnKnitRevise);
+                this.columnCWCreateTime = new global::System.Data.DataColumn("CWCreateTime", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCWCreateTime);
+                this.columnCWRevise = new global::System.Data.DataColumn("CWRevise", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCWRevise);
+                this.columnHSPCreateTime = new global::System.Data.DataColumn("HSPCreateTime", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnHSPCreateTime);
+                this.columnHSPRevise = new global::System.Data.DataColumn("HSPRevise", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnHSPRevise);
+                this.columnSGCreateTime = new global::System.Data.DataColumn("SGCreateTime", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSGCreateTime);
+                this.columnSGRevise = new global::System.Data.DataColumn("SGRevise", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSGRevise);
+                this.columnDyeingCreateTime = new global::System.Data.DataColumn("DyeingCreateTime", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDyeingCreateTime);
+                this.columnDyeingRevise = new global::System.Data.DataColumn("DyeingRevise", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDyeingRevise);
+                this.columnDRCreateTime = new global::System.Data.DataColumn("DRCreateTime", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDRCreateTime);
+                this.columnDRRevise = new global::System.Data.DataColumn("DRRevise", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDRRevise);
+                this.columnSTCreateTime = new global::System.Data.DataColumn("STCreateTime", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSTCreateTime);
+                this.columnSTRevise = new global::System.Data.DataColumn("STRevise", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSTRevise);
                 this.columnId.AllowDBNull = false;
                 this.columnOrderNo.AllowDBNull = false;
                 this.columnOrderNo.MaxLength = 150;
@@ -3093,343 +4090,6 @@ namespace TextileResearchDevelopment.ReportDataset {
         }
         
         /// <summary>
-        ///Represents the strongly named DataTable class.
-        ///</summary>
-        [global::System.Serializable()]
-        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class YDViewDataTable : global::System.Data.TypedTableBase<YDViewRow> {
-            
-            private global::System.Data.DataColumn columnLot;
-            
-            private global::System.Data.DataColumn columnTPI;
-            
-            private global::System.Data.DataColumn columnYarnCount;
-            
-            private global::System.Data.DataColumn columnYarnComposition;
-            
-            private global::System.Data.DataColumn columnYarnName;
-            
-            private global::System.Data.DataColumn columnYarnSupplier;
-            
-            private global::System.Data.DataColumn columnYarnColor;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public YDViewDataTable() {
-                this.TableName = "YDView";
-                this.BeginInit();
-                this.InitClass();
-                this.EndInit();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal YDViewDataTable(global::System.Data.DataTable table) {
-                this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
-                    this.CaseSensitive = table.CaseSensitive;
-                }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
-                    this.Locale = table.Locale;
-                }
-                if ((table.Namespace != table.DataSet.Namespace)) {
-                    this.Namespace = table.Namespace;
-                }
-                this.Prefix = table.Prefix;
-                this.MinimumCapacity = table.MinimumCapacity;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected YDViewDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
-                this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn LotColumn {
-                get {
-                    return this.columnLot;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn TPIColumn {
-                get {
-                    return this.columnTPI;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn YarnCountColumn {
-                get {
-                    return this.columnYarnCount;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn YarnCompositionColumn {
-                get {
-                    return this.columnYarnComposition;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn YarnNameColumn {
-                get {
-                    return this.columnYarnName;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn YarnSupplierColumn {
-                get {
-                    return this.columnYarnSupplier;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn YarnColorColumn {
-                get {
-                    return this.columnYarnColor;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            [global::System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
-                    return this.Rows.Count;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public YDViewRow this[int index] {
-                get {
-                    return ((YDViewRow)(this.Rows[index]));
-                }
-            }
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event YDViewRowChangeEventHandler YDViewRowChanging;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event YDViewRowChangeEventHandler YDViewRowChanged;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event YDViewRowChangeEventHandler YDViewRowDeleting;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public event YDViewRowChangeEventHandler YDViewRowDeleted;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void AddYDViewRow(YDViewRow row) {
-                this.Rows.Add(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public YDViewRow AddYDViewRow(string Lot, string TPI, string YarnCount, string YarnComposition, string YarnName, string YarnSupplier, string YarnColor) {
-                YDViewRow rowYDViewRow = ((YDViewRow)(this.NewRow()));
-                object[] columnValuesArray = new object[] {
-                        Lot,
-                        TPI,
-                        YarnCount,
-                        YarnComposition,
-                        YarnName,
-                        YarnSupplier,
-                        YarnColor};
-                rowYDViewRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowYDViewRow);
-                return rowYDViewRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public override global::System.Data.DataTable Clone() {
-                YDViewDataTable cln = ((YDViewDataTable)(base.Clone()));
-                cln.InitVars();
-                return cln;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override global::System.Data.DataTable CreateInstance() {
-                return new YDViewDataTable();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal void InitVars() {
-                this.columnLot = base.Columns["Lot"];
-                this.columnTPI = base.Columns["TPI"];
-                this.columnYarnCount = base.Columns["YarnCount"];
-                this.columnYarnComposition = base.Columns["YarnComposition"];
-                this.columnYarnName = base.Columns["YarnName"];
-                this.columnYarnSupplier = base.Columns["YarnSupplier"];
-                this.columnYarnColor = base.Columns["YarnColor"];
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            private void InitClass() {
-                this.columnLot = new global::System.Data.DataColumn("Lot", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnLot);
-                this.columnTPI = new global::System.Data.DataColumn("TPI", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTPI);
-                this.columnYarnCount = new global::System.Data.DataColumn("YarnCount", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnYarnCount);
-                this.columnYarnComposition = new global::System.Data.DataColumn("YarnComposition", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnYarnComposition);
-                this.columnYarnName = new global::System.Data.DataColumn("YarnName", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnYarnName);
-                this.columnYarnSupplier = new global::System.Data.DataColumn("YarnSupplier", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnYarnSupplier);
-                this.columnYarnColor = new global::System.Data.DataColumn("YarnColor", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnYarnColor);
-                this.columnLot.AllowDBNull = false;
-                this.columnYarnCount.MaxLength = 50;
-                this.columnYarnComposition.MaxLength = 50;
-                this.columnYarnName.MaxLength = 50;
-                this.columnYarnSupplier.MaxLength = 150;
-                this.columnYarnColor.MaxLength = 50;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public YDViewRow NewYDViewRow() {
-                return ((YDViewRow)(this.NewRow()));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new YDViewRow(builder);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override global::System.Type GetRowType() {
-                return typeof(YDViewRow);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanged(e);
-                if ((this.YDViewRowChanged != null)) {
-                    this.YDViewRowChanged(this, new YDViewRowChangeEvent(((YDViewRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanging(e);
-                if ((this.YDViewRowChanging != null)) {
-                    this.YDViewRowChanging(this, new YDViewRowChangeEvent(((YDViewRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleted(e);
-                if ((this.YDViewRowDeleted != null)) {
-                    this.YDViewRowDeleted(this, new YDViewRowChangeEvent(((YDViewRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleting(e);
-                if ((this.YDViewRowDeleting != null)) {
-                    this.YDViewRowDeleting(this, new YDViewRowChangeEvent(((YDViewRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void RemoveYDViewRow(YDViewRow row) {
-                this.Rows.Remove(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
-                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                GeneralReport ds = new GeneralReport();
-                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
-                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
-                any1.MinOccurs = new decimal(0);
-                any1.MaxOccurs = decimal.MaxValue;
-                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any1);
-                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
-                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
-                any2.MinOccurs = new decimal(1);
-                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any2);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute1.Name = "namespace";
-                attribute1.FixedValue = ds.Namespace;
-                type.Attributes.Add(attribute1);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "YDViewDataTable";
-                type.Attributes.Add(attribute2);
-                type.Particle = sequence;
-                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
-                if (xs.Contains(dsSchema.TargetNamespace)) {
-                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
-                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
-                    try {
-                        global::System.Xml.Schema.XmlSchema schema = null;
-                        dsSchema.Write(s1);
-                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
-                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
-                            s2.SetLength(0);
-                            schema.Write(s2);
-                            if ((s1.Length == s2.Length)) {
-                                s1.Position = 0;
-                                s2.Position = 0;
-                                for (; ((s1.Position != s1.Length) 
-                                            && (s1.ReadByte() == s2.ReadByte())); ) {
-                                    ;
-                                }
-                                if ((s1.Position == s1.Length)) {
-                                    return type;
-                                }
-                            }
-                        }
-                    }
-                    finally {
-                        if ((s1 != null)) {
-                            s1.Close();
-                        }
-                        if ((s2 != null)) {
-                            s2.Close();
-                        }
-                    }
-                }
-                xs.Add(dsSchema);
-                return type;
-            }
-        }
-        
-        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class YarnDyedRepeatRow : global::System.Data.DataRow {
@@ -3535,6 +4195,226 @@ namespace TextileResearchDevelopment.ReportDataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetYDRUOMNull() {
                 this[this.tableYarnDyedRepeat.YDRUOMColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class YDViewRow : global::System.Data.DataRow {
+            
+            private YDViewDataTable tableYDView;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal YDViewRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableYDView = ((YDViewDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Lot {
+                get {
+                    return ((string)(this[this.tableYDView.LotColumn]));
+                }
+                set {
+                    this[this.tableYDView.LotColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string TPI {
+                get {
+                    try {
+                        return ((string)(this[this.tableYDView.TPIColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TPI\' in table \'YDView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableYDView.TPIColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string YarnCount {
+                get {
+                    try {
+                        return ((string)(this[this.tableYDView.YarnCountColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'YarnCount\' in table \'YDView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableYDView.YarnCountColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string YarnComposition {
+                get {
+                    try {
+                        return ((string)(this[this.tableYDView.YarnCompositionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'YarnComposition\' in table \'YDView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableYDView.YarnCompositionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string YarnName {
+                get {
+                    try {
+                        return ((string)(this[this.tableYDView.YarnNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'YarnName\' in table \'YDView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableYDView.YarnNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string YarnSupplier {
+                get {
+                    try {
+                        return ((string)(this[this.tableYDView.YarnSupplierColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'YarnSupplier\' in table \'YDView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableYDView.YarnSupplierColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string YarnColor {
+                get {
+                    try {
+                        return ((string)(this[this.tableYDView.YarnColorColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'YarnColor\' in table \'YDView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableYDView.YarnColorColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsTPINull() {
+                return this.IsNull(this.tableYDView.TPIColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetTPINull() {
+                this[this.tableYDView.TPIColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsYarnCountNull() {
+                return this.IsNull(this.tableYDView.YarnCountColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetYarnCountNull() {
+                this[this.tableYDView.YarnCountColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsYarnCompositionNull() {
+                return this.IsNull(this.tableYDView.YarnCompositionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetYarnCompositionNull() {
+                this[this.tableYDView.YarnCompositionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsYarnNameNull() {
+                return this.IsNull(this.tableYDView.YarnNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetYarnNameNull() {
+                this[this.tableYDView.YarnNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsYarnSupplierNull() {
+                return this.IsNull(this.tableYDView.YarnSupplierColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetYarnSupplierNull() {
+                this[this.tableYDView.YarnSupplierColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsYarnColorNull() {
+                return this.IsNull(this.tableYDView.YarnColorColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetYarnColorNull() {
+                this[this.tableYDView.YarnColorColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class FabricProcessRow : global::System.Data.DataRow {
+            
+            private FabricProcessDataTable tableFabricProcess;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal FabricProcessRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableFabricProcess = ((FabricProcessDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string FabricProcessString {
+                get {
+                    return ((string)(this[this.tableFabricProcess.FabricProcessStringColumn]));
+                }
+                set {
+                    this[this.tableFabricProcess.FabricProcessStringColumn] = value;
+                }
             }
         }
         
@@ -5680,6 +6560,407 @@ namespace TextileResearchDevelopment.ReportDataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string FinalApprovalStatus {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.FinalApprovalStatusColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'FinalApprovalStatus\' in table \'MasterReportView\' is DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.FinalApprovalStatusColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string BRRevise {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.BRReviseColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'BRRevise\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.BRReviseColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string BRCreateTime {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.BRCreateTimeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'BRCreateTime\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.BRCreateTimeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string CompactRevise {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.CompactReviseColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CompactRevise\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.CompactReviseColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string CompactCreateTime {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.CompactCreateTimeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CompactCreateTime\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.CompactCreateTimeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string PeachRevise {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.PeachReviseColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PeachRevise\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.PeachReviseColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string PeachCreateTime {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.PeachCreateTimeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PeachCreateTime\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.PeachCreateTimeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string PRRevise {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.PRReviseColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PRRevise\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.PRReviseColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string PRCreateTime {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.PRCreateTimeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'PRCreateTime\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.PRCreateTimeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string QCCreateTime {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.QCCreateTimeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'QCCreateTime\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.QCCreateTimeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string QCRevise {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.QCReviseColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'QCRevise\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.QCReviseColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string KnitCreateTime {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.KnitCreateTimeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'KnitCreateTime\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.KnitCreateTimeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string KnitRevise {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.KnitReviseColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'KnitRevise\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.KnitReviseColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string CWCreateTime {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.CWCreateTimeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CWCreateTime\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.CWCreateTimeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string CWRevise {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.CWReviseColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CWRevise\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.CWReviseColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string HSPCreateTime {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.HSPCreateTimeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'HSPCreateTime\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.HSPCreateTimeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string HSPRevise {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.HSPReviseColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'HSPRevise\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.HSPReviseColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string SGCreateTime {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.SGCreateTimeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SGCreateTime\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.SGCreateTimeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string SGRevise {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.SGReviseColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SGRevise\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.SGReviseColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string DyeingCreateTime {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.DyeingCreateTimeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DyeingCreateTime\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.DyeingCreateTimeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string DyeingRevise {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.DyeingReviseColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DyeingRevise\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.DyeingReviseColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string DRCreateTime {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.DRCreateTimeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DRCreateTime\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.DRCreateTimeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string DRRevise {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.DRReviseColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DRRevise\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.DRReviseColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string STCreateTime {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.STCreateTimeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'STCreateTime\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.STCreateTimeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string STRevise {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.STReviseColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'STRevise\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.STReviseColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsBuyerNameNull() {
                 return this.IsNull(this.tableMasterReportView.BuyerNameColumn);
             }
@@ -7189,199 +8470,305 @@ namespace TextileResearchDevelopment.ReportDataset {
             public void SetUpdateTimeNull() {
                 this[this.tableMasterReportView.UpdateTimeColumn] = global::System.Convert.DBNull;
             }
-        }
-        
-        /// <summary>
-        ///Represents strongly named DataRow class.
-        ///</summary>
-        public partial class YDViewRow : global::System.Data.DataRow {
-            
-            private YDViewDataTable tableYDView;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            internal YDViewRow(global::System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tableYDView = ((YDViewDataTable)(this.Table));
+            public bool IsFinalApprovalStatusNull() {
+                return this.IsNull(this.tableMasterReportView.FinalApprovalStatusColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string Lot {
-                get {
-                    return ((string)(this[this.tableYDView.LotColumn]));
-                }
-                set {
-                    this[this.tableYDView.LotColumn] = value;
-                }
+            public void SetFinalApprovalStatusNull() {
+                this[this.tableMasterReportView.FinalApprovalStatusColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string TPI {
-                get {
-                    try {
-                        return ((string)(this[this.tableYDView.TPIColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'TPI\' in table \'YDView\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableYDView.TPIColumn] = value;
-                }
+            public bool IsBRReviseNull() {
+                return this.IsNull(this.tableMasterReportView.BRReviseColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string YarnCount {
-                get {
-                    try {
-                        return ((string)(this[this.tableYDView.YarnCountColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'YarnCount\' in table \'YDView\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableYDView.YarnCountColumn] = value;
-                }
+            public void SetBRReviseNull() {
+                this[this.tableMasterReportView.BRReviseColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string YarnComposition {
-                get {
-                    try {
-                        return ((string)(this[this.tableYDView.YarnCompositionColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'YarnComposition\' in table \'YDView\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableYDView.YarnCompositionColumn] = value;
-                }
+            public bool IsBRCreateTimeNull() {
+                return this.IsNull(this.tableMasterReportView.BRCreateTimeColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string YarnName {
-                get {
-                    try {
-                        return ((string)(this[this.tableYDView.YarnNameColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'YarnName\' in table \'YDView\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableYDView.YarnNameColumn] = value;
-                }
+            public void SetBRCreateTimeNull() {
+                this[this.tableMasterReportView.BRCreateTimeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string YarnSupplier {
-                get {
-                    try {
-                        return ((string)(this[this.tableYDView.YarnSupplierColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'YarnSupplier\' in table \'YDView\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableYDView.YarnSupplierColumn] = value;
-                }
+            public bool IsCompactReviseNull() {
+                return this.IsNull(this.tableMasterReportView.CompactReviseColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string YarnColor {
-                get {
-                    try {
-                        return ((string)(this[this.tableYDView.YarnColorColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'YarnColor\' in table \'YDView\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableYDView.YarnColorColumn] = value;
-                }
+            public void SetCompactReviseNull() {
+                this[this.tableMasterReportView.CompactReviseColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsTPINull() {
-                return this.IsNull(this.tableYDView.TPIColumn);
+            public bool IsCompactCreateTimeNull() {
+                return this.IsNull(this.tableMasterReportView.CompactCreateTimeColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetTPINull() {
-                this[this.tableYDView.TPIColumn] = global::System.Convert.DBNull;
+            public void SetCompactCreateTimeNull() {
+                this[this.tableMasterReportView.CompactCreateTimeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsYarnCountNull() {
-                return this.IsNull(this.tableYDView.YarnCountColumn);
+            public bool IsPeachReviseNull() {
+                return this.IsNull(this.tableMasterReportView.PeachReviseColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetYarnCountNull() {
-                this[this.tableYDView.YarnCountColumn] = global::System.Convert.DBNull;
+            public void SetPeachReviseNull() {
+                this[this.tableMasterReportView.PeachReviseColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsYarnCompositionNull() {
-                return this.IsNull(this.tableYDView.YarnCompositionColumn);
+            public bool IsPeachCreateTimeNull() {
+                return this.IsNull(this.tableMasterReportView.PeachCreateTimeColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetYarnCompositionNull() {
-                this[this.tableYDView.YarnCompositionColumn] = global::System.Convert.DBNull;
+            public void SetPeachCreateTimeNull() {
+                this[this.tableMasterReportView.PeachCreateTimeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsYarnNameNull() {
-                return this.IsNull(this.tableYDView.YarnNameColumn);
+            public bool IsPRReviseNull() {
+                return this.IsNull(this.tableMasterReportView.PRReviseColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetYarnNameNull() {
-                this[this.tableYDView.YarnNameColumn] = global::System.Convert.DBNull;
+            public void SetPRReviseNull() {
+                this[this.tableMasterReportView.PRReviseColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsYarnSupplierNull() {
-                return this.IsNull(this.tableYDView.YarnSupplierColumn);
+            public bool IsPRCreateTimeNull() {
+                return this.IsNull(this.tableMasterReportView.PRCreateTimeColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetYarnSupplierNull() {
-                this[this.tableYDView.YarnSupplierColumn] = global::System.Convert.DBNull;
+            public void SetPRCreateTimeNull() {
+                this[this.tableMasterReportView.PRCreateTimeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsYarnColorNull() {
-                return this.IsNull(this.tableYDView.YarnColorColumn);
+            public bool IsQCCreateTimeNull() {
+                return this.IsNull(this.tableMasterReportView.QCCreateTimeColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetYarnColorNull() {
-                this[this.tableYDView.YarnColorColumn] = global::System.Convert.DBNull;
+            public void SetQCCreateTimeNull() {
+                this[this.tableMasterReportView.QCCreateTimeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsQCReviseNull() {
+                return this.IsNull(this.tableMasterReportView.QCReviseColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetQCReviseNull() {
+                this[this.tableMasterReportView.QCReviseColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsKnitCreateTimeNull() {
+                return this.IsNull(this.tableMasterReportView.KnitCreateTimeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetKnitCreateTimeNull() {
+                this[this.tableMasterReportView.KnitCreateTimeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsKnitReviseNull() {
+                return this.IsNull(this.tableMasterReportView.KnitReviseColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetKnitReviseNull() {
+                this[this.tableMasterReportView.KnitReviseColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsCWCreateTimeNull() {
+                return this.IsNull(this.tableMasterReportView.CWCreateTimeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetCWCreateTimeNull() {
+                this[this.tableMasterReportView.CWCreateTimeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsCWReviseNull() {
+                return this.IsNull(this.tableMasterReportView.CWReviseColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetCWReviseNull() {
+                this[this.tableMasterReportView.CWReviseColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsHSPCreateTimeNull() {
+                return this.IsNull(this.tableMasterReportView.HSPCreateTimeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetHSPCreateTimeNull() {
+                this[this.tableMasterReportView.HSPCreateTimeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsHSPReviseNull() {
+                return this.IsNull(this.tableMasterReportView.HSPReviseColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetHSPReviseNull() {
+                this[this.tableMasterReportView.HSPReviseColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsSGCreateTimeNull() {
+                return this.IsNull(this.tableMasterReportView.SGCreateTimeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetSGCreateTimeNull() {
+                this[this.tableMasterReportView.SGCreateTimeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsSGReviseNull() {
+                return this.IsNull(this.tableMasterReportView.SGReviseColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetSGReviseNull() {
+                this[this.tableMasterReportView.SGReviseColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsDyeingCreateTimeNull() {
+                return this.IsNull(this.tableMasterReportView.DyeingCreateTimeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetDyeingCreateTimeNull() {
+                this[this.tableMasterReportView.DyeingCreateTimeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsDyeingReviseNull() {
+                return this.IsNull(this.tableMasterReportView.DyeingReviseColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetDyeingReviseNull() {
+                this[this.tableMasterReportView.DyeingReviseColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsDRCreateTimeNull() {
+                return this.IsNull(this.tableMasterReportView.DRCreateTimeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetDRCreateTimeNull() {
+                this[this.tableMasterReportView.DRCreateTimeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsDRReviseNull() {
+                return this.IsNull(this.tableMasterReportView.DRReviseColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetDRReviseNull() {
+                this[this.tableMasterReportView.DRReviseColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsSTCreateTimeNull() {
+                return this.IsNull(this.tableMasterReportView.STCreateTimeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetSTCreateTimeNull() {
+                this[this.tableMasterReportView.STCreateTimeColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsSTReviseNull() {
+                return this.IsNull(this.tableMasterReportView.STReviseColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetSTReviseNull() {
+                this[this.tableMasterReportView.STReviseColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -7423,22 +8810,22 @@ namespace TextileResearchDevelopment.ReportDataset {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class MasterReportViewRowChangeEvent : global::System.EventArgs {
+        public class YDViewRowChangeEvent : global::System.EventArgs {
             
-            private MasterReportViewRow eventRow;
+            private YDViewRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public MasterReportViewRowChangeEvent(MasterReportViewRow row, global::System.Data.DataRowAction action) {
+            public YDViewRowChangeEvent(YDViewRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public MasterReportViewRow Row {
+            public YDViewRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -7457,22 +8844,56 @@ namespace TextileResearchDevelopment.ReportDataset {
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-        public class YDViewRowChangeEvent : global::System.EventArgs {
+        public class FabricProcessRowChangeEvent : global::System.EventArgs {
             
-            private YDViewRow eventRow;
+            private FabricProcessRow eventRow;
             
             private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public YDViewRowChangeEvent(YDViewRow row, global::System.Data.DataRowAction action) {
+            public FabricProcessRowChangeEvent(FabricProcessRow row, global::System.Data.DataRowAction action) {
                 this.eventRow = row;
                 this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public YDViewRow Row {
+            public FabricProcessRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class MasterReportViewRowChangeEvent : global::System.EventArgs {
+            
+            private MasterReportViewRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public MasterReportViewRowChangeEvent(MasterReportViewRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public MasterReportViewRow Row {
                 get {
                     return this.eventRow;
                 }
