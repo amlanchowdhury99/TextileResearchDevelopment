@@ -105,7 +105,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 cws = new List<Peach>();
-                string query = "SELECT * FROM PeachView";
+                string query = "SELECT * FROM PeachView Order By Id desc";
                 cm.CommandText = query;
                 reader = cm.ExecuteReader();
                 if (reader.HasRows)
@@ -141,7 +141,9 @@ namespace TextileResearchDevelopment.BLL
                 peach.fabric.cm.Composition = reader["Composition"].ToString();
                 peach.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 peach.fabric.BarCode = reader["BarCode"].ToString();
-                peach.fabric.ProcessString = FabricBLL.GetProcessString(reader["BarCode"].ToString());
+                peach.fabric.ProcessString = reader["ProcessString"] == DBNull.Value ? "" : reader["ProcessString"].ToString();
+                peach.fabric.ProcessText = reader["ProcessText"] == DBNull.Value ? "" : reader["ProcessText"].ToString();
+                peach.fabric.ColorString = FabricBLL.GetColorString(peach.fabric.Id, peach.fabric.ProcessString);
 
                 peach.Taker = reader["PTaker"].ToString();
                 peach.Plaiter = reader["PPlaiter"].ToString();

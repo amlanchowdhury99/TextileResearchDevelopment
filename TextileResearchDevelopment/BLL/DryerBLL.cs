@@ -139,7 +139,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 cws = new List<Dryer>();
-                string query = "SELECT * FROM DryerView";
+                string query = "SELECT * FROM DryerView Order By Id desc";
                 cm.CommandText = query;
                 reader = cm.ExecuteReader();
                 if (reader.HasRows)
@@ -175,7 +175,9 @@ namespace TextileResearchDevelopment.BLL
                 dryer.fabric.cm.Composition = reader["Composition"].ToString();
                 dryer.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 dryer.fabric.BarCode = reader["BarCode"].ToString();
-                dryer.fabric.ProcessString = FabricBLL.GetProcessString(reader["BarCode"].ToString());
+                dryer.fabric.ProcessString = reader["ProcessString"] == DBNull.Value ? "" : reader["ProcessString"].ToString();
+                dryer.fabric.ProcessText = reader["ProcessText"] == DBNull.Value ? "" : reader["ProcessText"].ToString();
+                dryer.fabric.ColorString = FabricBLL.GetColorString(dryer.fabric.Id, dryer.fabric.ProcessString);
 
                 dryer.mc.Id = Convert.ToInt32(reader["DRMcNoID"]);
                 dryer.mc.McNo = reader["DryerMcNo"].ToString();

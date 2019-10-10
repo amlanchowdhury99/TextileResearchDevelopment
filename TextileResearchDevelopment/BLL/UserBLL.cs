@@ -406,26 +406,22 @@ namespace TextileResearchDevelopment.BLL
             return PermissionString;
         }
 
-        internal static Boolean DeleteUser(int Id)
+        internal static bool DeleteUser(int Id)
         {
             try
             {
                 if (DBGateway.recordExist("SELECT * FROM UserInfo WHERE Id = " + Id))
                 {
                     int count = 0;
-                    SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader; cm.Connection = cn; cn.Open();
-                    string query = "DELETE UserInfo WHERE Id = " + Id;
-                    cm.CommandText = query;
-                    count = cm.ExecuteNonQuery();
+                    SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); cm.Connection = cn; cn.Open();
+                    cm.CommandText = "DELETE FROM UserRole WHERE UserPermissionID IN (SELECT Id FROM UserPermission WHERE UserName = (SELECT UserName FROM UserInfo WHERE Id = " + Id + "))";
+                    cm.ExecuteNonQuery();
+                    cm.CommandText = "DELETE FROM UserPermission WHERE UserName = (SELECT UserName FROM UserInfo WHERE Id = " + Id + ")";
+                    cm.ExecuteNonQuery();
+                    cm.CommandText = "DELETE UserInfo WHERE Id = " + Id;
+                    cm.ExecuteNonQuery();
                     cn.Close();
-                    if (count > 0)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return true;
                 }
                 else
                 {
@@ -434,7 +430,7 @@ namespace TextileResearchDevelopment.BLL
             }
             catch (Exception ex)
             {
-                return false;
+                return true;
             }
         }
 

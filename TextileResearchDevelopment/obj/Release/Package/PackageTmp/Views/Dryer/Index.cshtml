@@ -267,6 +267,8 @@
                 <th>FabricID</th>
                 <th>McNoID</th>
                 <th>ProcessString</th>
+                <th>ProcessText</th>
+                <th>ColorString</th>
                 <th>BarCode</th>
                 <th>Buyer</th>
                 <th>Fabric</th>
@@ -296,6 +298,8 @@
         <tfoot>
             <tr>
                 <th style="visibility:hidden;"></th>
+                <th></th>
+                <th></th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -554,7 +558,7 @@
                     "orderable": false,
                 },
                 {
-                    "targets": [1, 2, 3, 4],
+                    "targets": [1, 2, 3, 4, 5, 6],
                     "visible": false,
                     "searchable": false
                 },
@@ -576,6 +580,8 @@
                 { "data": "fabric.Id" },
                 { "data": "mc.Id" },
                 { "data": "fabric.ProcessString" },
+                { "data": "fabric.ProcessText" },
+                { "data": "fabric.ColorString" },
                 { "data": "fabric.BarCode" },
                 { "data": "fabric.buyer.BuyerName" },
                 { "data": "fabric.fb.FabricTypeName" },
@@ -676,7 +682,29 @@
                     Reset();
                     $(this).addClass('selected');
                     var rowdata = DRtable.row(this).data();
-                    $('#ProcessString').text(rowdata.fabric.ProcessString);
+                    if (rowdata.ProcessString != "") {
+                        var res = "";
+                        var split_ProcessString = rowdata.fabric.ProcessString.split(",");
+                        var split_ProcessText = rowdata.fabric.ProcessText.split("->");
+                        var split_ColorString = rowdata.fabric.ColorString.split(",");
+
+                        for (var i = 0; i < split_ProcessString.length; i++) {
+                            if (split_ColorString[i] == "0") {
+                                if (res == "")
+                                    res += "<span class='blue'>" + split_ProcessText[i] + "</span>";
+                                else
+                                    res += "<span class='blue'>->" + split_ProcessText[i] + "</span>";
+                            }
+                            else {
+                                if (res == "")
+                                    res += "<span class='green'>" + split_ProcessText[i] + "</span>";
+                                else
+                                    res += "<span class='green'>->" + split_ProcessText[i] + "</span>";
+                            }
+                        }
+
+                        $('#ProcessString').html(res);
+                    }
                     if (rowdata.ApprovedStatus == 0) {
                         Setvalue(rowdata);
                         $('#saveBtn').prop("disabled", true);
@@ -1015,7 +1043,7 @@
                         DeleteRow();
                     if (selectedMenu.text() == "Approve") {
 
-                        var BarCode = DRtable.rows('.selected').data()[0].BarCode;
+                        var BarCode = DRtable.rows('.selected').data()[0].fabric.BarCode;
                         var rows = DRtable.rows(function (idx, data, node) {
                             return data.BarCode === BarCode && data.ApprovedStatus == 1 ?
                                 true : false;

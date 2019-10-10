@@ -208,7 +208,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 cws = new List<Dyeing>();
-                string query = "SELECT * FROM DyeingView";
+                string query = "SELECT * FROM DyeingView Order By Id desc";
                 cm.CommandText = query;
                 reader = cm.ExecuteReader();
                 if (reader.HasRows)
@@ -244,7 +244,9 @@ namespace TextileResearchDevelopment.BLL
                 dyeing.fabric.cm.Composition = reader["Composition"].ToString();
                 dyeing.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 dyeing.fabric.BarCode = reader["BarCode"].ToString();
-                dyeing.fabric.ProcessString = FabricBLL.GetProcessString(reader["BarCode"].ToString());
+                dyeing.fabric.ProcessString = reader["ProcessString"] == DBNull.Value ? "" : reader["ProcessString"].ToString();
+                dyeing.fabric.ProcessText = reader["ProcessText"] == DBNull.Value ? "" : reader["ProcessText"].ToString();
+                dyeing.fabric.ColorString = FabricBLL.GetColorString(dyeing.fabric.Id, dyeing.fabric.ProcessString);
 
                 dyeing.rft.Id = Convert.ToInt32(reader["RFTNoID"]);
                 dyeing.rft.RFT = reader["RFT"].ToString();

@@ -105,7 +105,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 cws = new List<Brush>();
-                string query = "SELECT * FROM BrushView";
+                string query = "SELECT * FROM BrushView Order By Id desc";
                 cm.CommandText = query;
                 reader = cm.ExecuteReader();
                 if (reader.HasRows)
@@ -141,7 +141,9 @@ namespace TextileResearchDevelopment.BLL
                 brush.fabric.cm.Composition = reader["Composition"].ToString();
                 brush.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 brush.fabric.BarCode = reader["BarCode"].ToString();
-                brush.fabric.ProcessString = FabricBLL.GetProcessString(reader["BarCode"].ToString());
+                brush.fabric.ProcessString = reader["ProcessString"] == DBNull.Value ? "" : reader["ProcessString"].ToString();
+                brush.fabric.ProcessText = reader["ProcessText"] == DBNull.Value ? "" : reader["ProcessText"].ToString();
+                brush.fabric.ColorString = FabricBLL.GetColorString(brush.fabric.Id, brush.fabric.ProcessString);
 
                 brush.UPile = reader["BUpperPile"].ToString();
                 brush.UCounterPile = reader["BUpperCounterPile"].ToString();

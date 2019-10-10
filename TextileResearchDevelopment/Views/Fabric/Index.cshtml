@@ -265,6 +265,26 @@
                         </div>
                     </div>
                 </div>
+                <div class=" form-group">
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Rate" class="control-label" style="width:35%;">Rate</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="Rate" placeholder="Rate" autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="FabricUnitType" class="control-label" style="width:35%;">Unit</label>
+                        <div style="display: inline;">
+                            <select name="FabricUnitType" id="FabricUnitType" style="width:60%;" class="form-control input-sm" autofocus></select>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-4 form-inline">
+                        <label for="Merchandiser" class="control-label" style="width:35%;">Merchandiser</label>
+                        <div style="display: inline;">
+                            <input type="text" class="form-control" style="width:60%;" id="Merchandiser" placeholder="Merchandiser Name" autofocus>
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group col-xs-4 form-inline ">
                     <label for="FP" class="control-label" style="width: 35%;">Fabric Process</label>
                     <div style="display: inline;">
@@ -284,6 +304,9 @@
                 </div>
             </div>
         </div>
+
+        <p id="ProcessString" class="text-uppercase text-primary" style="font-weight:bold"></p>
+
         <table id="fabricTable" class="stripe hover order-column" style="width: 100%">
             <thead>
                 <tr>
@@ -292,7 +315,10 @@
                     <th>BuyerID</th>
                     <th>FabricTypeID</th>
                     <th>CompositionTypeID</th>
-                    <th>ua</th>
+                    <th>ProcessString</th>
+                    <th>ProcessText</th>
+                    <th>ColorString</th>
+                    <th>FabricUnitTypeID</th>
                     <th>BarCode</th>
                     <th>BuyerName</th>
                     <th>FabricType</th>
@@ -303,6 +329,9 @@
                     <th>BatchNo</th>
                     <th>Season</th>
                     <th>Version</th>
+                    <th>Rate</th>
+                    <th>FabricUnit</th>
+                    <th>Merchandiser</th>
                     <th>Status</th>
                     <th>FinalApproval</th>
                     <th>Create Time</th>
@@ -319,6 +348,9 @@
                     <th></th>
                     <th></th>
                     <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                     <th>BarCode</th>
                     <th>BuyerName</th>
                     <th>FabricType</th>
@@ -329,6 +361,9 @@
                     <th>BatchNo</th>
                     <th>Season</th>
                     <th>Version</th>
+                    <th>Rate</th>
+                    <th>FabricUnit</th>
+                    <th>Merchandiser</th>
                     <th>Status</th>
                     <th>FinalApproval</th>
                     <th>Create Time</th>
@@ -353,6 +388,7 @@
 
     $(document).ready(function () {
 
+        var selected = []; var selectedFPText = ""; var orderCount = 0; var selectedFPValue = "";
         var BuyerTable = $('#BuyerTable').DataTable({
             buttons: [],
             "ajax":
@@ -560,11 +596,11 @@
             var s = '';
             for (var i = 1; i <= 12; i++) {
                 if (i == 1)
-                    s += '<option value="' + i + '">Knit</option>';
+                    s += '<option value="' + i + '">Knitting</option>';
                 if (i == 2)
-                    s += '<option value="' + i + '">CW</option>';
+                    s += '<option value="' + i + '">Continue Washing</option>';
                 if (i == 3)
-                    s += '<option value="' + i + '">HSP</option>';
+                    s += '<option value="' + i + '">Heat Setting Parameters</option>';
                 if (i == 4)
                     s += '<option value="' + i + '">Singeing</option>';
                 if (i == 5)
@@ -588,7 +624,59 @@
             $('#FP').multiselect({
                 buttonWidth: '60%',
                 enableFiltering: true,
-                includeSelectAllOption: true
+                includeSelectAllOption: true,
+                onChange: function (option, checked) {
+                    if (checked) {
+                        debugger;
+                        if ($('#FP').val().length > 0) {
+                            orderCount = $('#FP').val().length;
+                        }
+                        else {
+                            orderCount++;
+                        }
+
+                    }
+                    else {
+                        debugger;
+                        orderCount--;
+                        $(option).data('order', orderCount);
+                    }
+                    selected = []; selectedFPText = ''; selectedFPValue = ''; var i = 1;
+                    $(option).data('order', orderCount);
+                    $('#FP option:selected').each(function () {
+                        //if ($(this).data('order') == undefined) {
+                        //    selected.push([$(this).text(), i, $(this).val()]);
+                        //    i++;
+                        //}
+                        //else {
+                        //    selected.push([$(this).text(), $(this).data('order'), $(this).val()]);
+                        //}
+                        selected.push([$(this).text(), $(this).data('order'), $(this).val()]);
+                    });
+
+                    selected.sort(function (a, b) {
+                        if (a[1] == b[1]) {
+                            return 0;
+                        }
+                        else {
+                            if (a[1] == undefined)
+                                return -1;
+                            if (b[1] == undefined)
+                                return 1;
+                            else
+                                return a[1] - b[1];
+                        }
+
+                    });
+
+                    for (var i = 0; i < selected.length; i++) {
+                        selectedFPText += selected[i][0] + '->';
+                        selectedFPValue += selected[i][2] + ',';
+                    }
+                    selectedFPText = selectedFPText.substring(0, selectedFPText.length - 2);
+                    selectedFPValue = selectedFPValue.substring(0, selectedFPValue.length - 1);
+                    $('#ProcessString').text(selectedFPText);
+                }
             });
             $('#FP').multiselect('refresh');
             loadCompositionList();
@@ -642,6 +730,23 @@
                         s += '<option value="' + data[i].Id + '">' + data[i].FabricTypeName + '</option>';
                     }
                     $("#FabricType").html(s);
+                    loadFabricUnitTypeList();
+                }
+            });
+        }
+
+        function loadFabricUnitTypeList() {
+            $.ajax({
+                type: "GET",
+                url: "/Fabric/GetFabricUnitTypeList",
+                data: "{}",
+                success: function (data) {
+                    var data = data.data;
+                    var s = '<option value="">Please Unit Type</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].Id + '">' + data[i].FabricUnit + '</option>';
+                    }
+                    $("#FabricUnitType").html(s);
                 }
             });
         }
@@ -1162,7 +1267,7 @@
                     "orderable": false,
                 },
                 {
-                    "targets": [1, 2, 3, 4, 5],
+                    "targets": [1, 2, 3, 4, 5, 6, 7, 8],
                     "visible": false,
                     "searchable": false
                 }
@@ -1187,8 +1292,15 @@
                     "data": "cm.Id"
                 },
                 {
-                    "data": "ua"
+                    "data": "ProcessString"
                 },
+                {
+                    "data": "ProcessText"
+                },
+                {
+                    "data": "ColorString"
+                },
+                { "data": "fut.Id" },
                 { "data": "BarCode" },
                 { "data": "buyer.BuyerName" },
                 { "data": "fb.FabricTypeName" },
@@ -1199,12 +1311,15 @@
                 { "data": "BatchNo" },
                 { "data": "Season" },
                 { "data": "Version" },
+                { "data": "Rate" },
+                { "data": "fut.FabricUnit" },
+                { "data": "Merchandiser" },
                 { "data": "Status" },
                 { "data": "st.Status" },
                 {
                     data: "CreateTime",
                     render: function (data, type, row) {
-                        return moment(data, "YYYY/MM/DD HH:mm").format("DD/MM/YYYY h:mm");
+                        return moment(data).format("DD/MM/YYYY h:mm a");
                     }
                 },
                 { "data": "CreateBy" },
@@ -1212,7 +1327,7 @@
                     data: "UpdateTime",
                     render: function (data, type, row) {
                         if (data != null)
-                            return moment(data, "YYYY/MM/DD HH:mm").format("DD/MM/YYYY h:mm");
+                            return moment(data).format("DD/MM/YYYY h:mm a");
                         else
                             return "N/A"
                     }
@@ -1368,20 +1483,23 @@
                 var cm = {
                     "Id": $("#CompositionType").val()
                 };
-                var ua = {
-                    "Knit": $("#FP").val().includes("1") == false ? 0 : 1,
-                    "CW": $("#FP").val().includes("2") == false ? 0 : 1,
-                    "HSP": $("#FP").val().includes("3") == false ? 0 : 1,
-                    "Singeing": $("#FP").val().includes("4") == false ? 0 : 1,
-                    "Dyeing": $("#FP").val().includes("5") == false ? 0 : 1,
-                    "Dryer": $("#FP").val().includes("6") == false ? 0 : 1,
-                    "Stenter": $("#FP").val().includes("7") == false ? 0 : 1,
-                    "Compacting": $("#FP").val().includes("8") == false ? 0 : 1,
-                    "Peach": $("#FP").val().includes("9") == false ? 0 : 1,
-                    "Brush": $("#FP").val().includes("10") == false ? 0 : 1,
-                    "PrintInfo": $("#FP").val().includes("11") == false ? 0 : 1,
-                    "QC": $("#FP").val().includes("12") == false ? 0 : 1
+                var fut = {
+                    "Id": $("#FabricUnitType").val()
                 };
+                //var ua = {
+                //    "Knit": $("#FP").val().includes("1") == false ? 0 : 1,
+                //    "CW": $("#FP").val().includes("2") == false ? 0 : 1,
+                //    "HSP": $("#FP").val().includes("3") == false ? 0 : 1,
+                //    "Singeing": $("#FP").val().includes("4") == false ? 0 : 1,
+                //    "Dyeing": $("#FP").val().includes("5") == false ? 0 : 1,
+                //    "Dryer": $("#FP").val().includes("6") == false ? 0 : 1,
+                //    "Stenter": $("#FP").val().includes("7") == false ? 0 : 1,
+                //    "Compacting": $("#FP").val().includes("8") == false ? 0 : 1,
+                //    "Peach": $("#FP").val().includes("9") == false ? 0 : 1,
+                //    "Brush": $("#FP").val().includes("10") == false ? 0 : 1,
+                //    "PrintInfo": $("#FP").val().includes("11") == false ? 0 : 1,
+                //    "QC": $("#FP").val().includes("12") == false ? 0 : 1
+                //};
 
                 var fabricObj = {
                     Id: '0',
@@ -1394,14 +1512,16 @@
                     BatchNo: $("#BatchNo").val(),
                     Season: $("#Season").val(),
                     Version: $("#Version").val(),
-                    ua: ua,
-
-                    //DeliveryDate: moment($("#DeliveryDateText").val()).format("YYYY/MM/DD")
+                    ProcessString: selectedFPValue,
+                    ProcessText: selectedFPText,
+                    Rate: $("#Rate").val(),
+                    fut: fut,
+                    Merchandiser: $("#Merchandiser").val()
                 };
 
                 $.ajax({
                     type: "POST",
-                    url: "/Fabric/IsFabricDuplicate",
+                    url: "/Fabric/IsDuplicate",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     data: JSON.stringify(fabricObj),
@@ -1459,20 +1579,23 @@
                     var cm = {
                         "Id": $("#CompositionType").val()
                     };
-                    var ua = {
-                        "Knit": $("#FP").val().includes("1") == false ? 0 : 1,
-                        "CW": $("#FP").val().includes("2") == false ? 0 : 1,
-                        "HSP": $("#FP").val().includes("3") == false ? 0 : 1,
-                        "Singeing": $("#FP").val().includes("4") == false ? 0 : 1,
-                        "Dyeing": $("#FP").val().includes("5") == false ? 0 : 1,
-                        "Dryer": $("#FP").val().includes("6") == false ? 0 : 1,
-                        "Stenter": $("#FP").val().includes("7") == false ? 0 : 1,
-                        "Compacting": $("#FP").val().includes("8") == false ? 0 : 1,
-                        "Peach": $("#FP").val().includes("9") == false ? 0 : 1,
-                        "Brush": $("#FP").val().includes("10") == false ? 0 : 1,
-                        "PrintInfo": $("#FP").val().includes("11") == false ? 0 : 1,
-                        "QC": $("#FP").val().includes("12") == false ? 0 : 1
+                    var fut = {
+                        "Id": $("#FabricUnitType").val()
                     };
+                    //var ua = {
+                    //    "Knit": $("#FP").val().includes("1") == false ? 0 : 1,
+                    //    "CW": $("#FP").val().includes("2") == false ? 0 : 1,
+                    //    "HSP": $("#FP").val().includes("3") == false ? 0 : 1,
+                    //    "Singeing": $("#FP").val().includes("4") == false ? 0 : 1,
+                    //    "Dyeing": $("#FP").val().includes("5") == false ? 0 : 1,
+                    //    "Dryer": $("#FP").val().includes("6") == false ? 0 : 1,
+                    //    "Stenter": $("#FP").val().includes("7") == false ? 0 : 1,
+                    //    "Compacting": $("#FP").val().includes("8") == false ? 0 : 1,
+                    //    "Peach": $("#FP").val().includes("9") == false ? 0 : 1,
+                    //    "Brush": $("#FP").val().includes("10") == false ? 0 : 1,
+                    //    "PrintInfo": $("#FP").val().includes("11") == false ? 0 : 1,
+                    //    "QC": $("#FP").val().includes("12") == false ? 0 : 1
+                    //};
 
                     var fabricObj = {
                         Id: fabricTable.rows('.selected').data()[0].Id,
@@ -1485,12 +1608,16 @@
                         BatchNo: $("#BatchNo").val(),
                         Season: $("#Season").val(),
                         Version: $("#Version").val(),
-                        ua: ua
+                        ProcessString: selectedFPValue,
+                        ProcessText: selectedFPText,
+                        Rate: $("#Rate").val(),
+                        fut: fut,
+                        Merchandiser: $("#Merchandiser").val()
                     };
 
                     $.ajax({
                         type: "POST",
-                        url: "/Fabric/IsFabricDuplicate",
+                        url: "/Fabric/IsDuplicate",
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         data: JSON.stringify(fabricObj),
@@ -1549,42 +1676,41 @@
             $("#Version").val(rowdata.Version);
             $("#FP").val("");
             $('#FP').multiselect('refresh');
+            $("#Rate").val(rowdata.Rate);
+            if (rowdata.fut.Id == 0) {
+                $("#FabricUnitType").val('');
+            }
+            else {
+                $("#FabricUnitType").val(rowdata.fut.Id);
+            }
+            $("#Merchandiser").val(rowdata.Merchandiser);
 
-            if (rowdata.ua.Knit == 1) {
-                $("#FP").multiselect('select', 1);
-            }
-            if (rowdata.ua.CW == 1) {
-                $("#FP").multiselect('select', 2);
-            }
-            if (rowdata.ua.HSP == 1) {
-                $("#FP").multiselect('select', 3);
-            }
-            if (rowdata.ua.Singeing == 1) {
-                $("#FP").multiselect('select', 4);
-            }
-            if (rowdata.ua.Dyeing == 1) {
-                $("#FP").multiselect('select', 5);
-            }
-            if (rowdata.ua.Dryer == 1) {
-                $("#FP").multiselect('select', 6);
-            }
-            if (rowdata.ua.Stenter == 1) {
-                $("#FP").multiselect('select', 7);
-            }
-            if (rowdata.ua.Compacting == 1) {
-                $("#FP").multiselect('select', 8);
-            }
-            if (rowdata.ua.Peach == 1) {
-                $("#FP").multiselect('select', 9);
-            }
-            if (rowdata.ua.Brush == 1) {
-                $("#FP").multiselect('select', 10);
-            }
-            if (rowdata.ua.PrintInfo == 1) {
-                $("#FP").multiselect('select', 11);
-            }
-            if (rowdata.ua.QC == 1) {
-                $("#FP").multiselect('select', 12);
+            if (rowdata.ProcessString != "") {
+                var res = "";
+                var split_ProcessString = rowdata.ProcessString.split(",");
+                var split_ProcessText = rowdata.ProcessText.split("->");
+                var split_ColorString = rowdata.ColorString.split(",");
+
+                for (var i = 0; i < split_ProcessString.length; i++) {
+                    if (split_ColorString[i] == "0") {
+                        if (res == "")
+                            res += "<span class='blue'>" + split_ProcessText[i] + "</span>";
+                        else
+                            res += "<span class='blue'>->" + split_ProcessText[i] + "</span>";
+                    }
+                    else {
+                        if (res == "")
+                            res += "<span class='green'>" + split_ProcessText[i] + "</span>";
+                        else
+                            res += "<span class='green'>->" + split_ProcessText[i] + "</span>";
+                    }
+                    $("#FP").multiselect('select', split_ProcessString[i]);
+                }
+                $('#FP option:selected').each(function () {
+                    $(this).data('order', split_ProcessString.indexOf($(this).val()) + 1);
+                });
+
+                $('#ProcessString').html(res);
             }
         }
 
@@ -1618,6 +1744,7 @@
         });
 
         function Reset() {
+            $('#ProcessString').text("");
             $("#BuyerName").val("");
             $("#FabricType").val("");
             $("#CompositionType").val("");
@@ -1628,6 +1755,9 @@
             $("#Season").val("");
             $("#Version").val("");
             $("#FP").val("");
+            $("#Rate").val("");
+            $("#FabricUnitType").val("");
+            $("#Merchandiser").val("");
             $('#FP').multiselect('refresh');
             $('#saveBtn').prop("disabled", false);
             $('#updateBtn').prop("disabled", true);

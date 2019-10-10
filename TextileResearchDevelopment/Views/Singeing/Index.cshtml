@@ -211,7 +211,7 @@
                     <div class="form-group col-xs-4 form-inline">
                         <label for="Position" class="control-label required" style="width:35%;">Position</label>
                         <div style="display: inline;">
-                            <input type="text" class=" form-control" style="width:60%;" id="GSM" placeholder="Flame Position" required autofocus>
+                            <input type="text" class=" form-control" style="width:60%;" id="Position" placeholder="Flame Position" required autofocus>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
@@ -246,6 +246,8 @@
                 <th>Id</th>
                 <th>FabricID</th>
                 <th>ProcessString</th>
+                <th>ProcessText</th>
+                <th>ColorString</th>
                 <th>BarCode</th>
                 <th>Buyer</th>
                 <th>Fabric</th>
@@ -272,6 +274,8 @@
         <tfoot>
             <tr>
                 <th style="visibility:hidden;"></th>
+                <th></th>
+                <th></th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -508,7 +512,7 @@
                     "orderable": false,
                 },
                 {
-                    "targets": [1, 2, 3],
+                    "targets": [1, 2, 3, 4, 5],
                     "visible": false,
                     "searchable": false
                 },
@@ -529,6 +533,8 @@
                 { "data": "Id" },
                 { "data": "fabric.Id" },
                 { "data": "fabric.ProcessString" },
+                { "data": "fabric.ProcessText" },
+                { "data": "fabric.ColorString" },
                 { "data": "fabric.BarCode" },
                 { "data": "fabric.buyer.BuyerName" },
                 { "data": "fabric.fb.FabricTypeName" },
@@ -626,7 +632,29 @@
                     Reset();
                     $(this).addClass('selected');
                     var rowdata = SGtable.row(this).data();
-                    $('#ProcessString').text(rowdata.fabric.ProcessString);
+                    if (rowdata.ProcessString != "") {
+                        var res = "";
+                        var split_ProcessString = rowdata.fabric.ProcessString.split(",");
+                        var split_ProcessText = rowdata.fabric.ProcessText.split("->");
+                        var split_ColorString = rowdata.fabric.ColorString.split(",");
+
+                        for (var i = 0; i < split_ProcessString.length; i++) {
+                            if (split_ColorString[i] == "0") {
+                                if (res == "")
+                                    res += "<span class='blue'>" + split_ProcessText[i] + "</span>";
+                                else
+                                    res += "<span class='blue'>->" + split_ProcessText[i] + "</span>";
+                            }
+                            else {
+                                if (res == "")
+                                    res += "<span class='green'>" + split_ProcessText[i] + "</span>";
+                                else
+                                    res += "<span class='green'>->" + split_ProcessText[i] + "</span>";
+                            }
+                        }
+
+                        $('#ProcessString').html(res);
+                    }
                     if (rowdata.ApprovedStatus == 0) {
                         Setvalue(rowdata);
                         $('#saveBtn').prop("disabled", true);
@@ -943,7 +971,7 @@
                         DeleteRow();
                     if (selectedMenu.text() == "Approve") {
 
-                        var BarCode = SGtable.rows('.selected').data()[0].BarCode;
+                        var BarCode = SGtable.rows('.selected').data()[0].fabric.BarCode;
                         var rows = SGtable.rows(function (idx, data, node) {
                             return data.BarCode === BarCode && data.ApprovedStatus == 1 ?
                                 true : false;

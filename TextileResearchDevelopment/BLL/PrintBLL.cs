@@ -208,7 +208,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 cws = new List<Print>();
-                string query = "SELECT * FROM PrintView";
+                string query = "SELECT * FROM PrintView Order By Id desc";
                 cm.CommandText = query;
                 reader = cm.ExecuteReader();
                 if (reader.HasRows)
@@ -244,7 +244,9 @@ namespace TextileResearchDevelopment.BLL
                 print.fabric.cm.Composition = reader["Composition"].ToString();
                 print.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 print.fabric.BarCode = reader["BarCode"].ToString();
-                print.fabric.ProcessString = FabricBLL.GetProcessString(reader["BarCode"].ToString());
+                print.fabric.ProcessString = reader["ProcessString"] == DBNull.Value ? "" : reader["ProcessString"].ToString();
+                print.fabric.ProcessText = reader["ProcessText"] == DBNull.Value ? "" : reader["ProcessText"].ToString();
+                print.fabric.ColorString = FabricBLL.GetColorString(print.fabric.Id, print.fabric.ProcessString);
 
                 print.mc.Id = Convert.ToInt32(reader["MachineTypeID"]);
                 print.mc.McNo = reader["PrintMcNo"].ToString();

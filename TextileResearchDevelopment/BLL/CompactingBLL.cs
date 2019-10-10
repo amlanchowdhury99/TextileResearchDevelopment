@@ -173,7 +173,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 cws = new List<Compacting>();
-                string query = "SELECT * FROM CompactingView";
+                string query = "SELECT * FROM CompactingView Order By Id desc";
                 cm.CommandText = query;
                 reader = cm.ExecuteReader();
                 if (reader.HasRows)
@@ -209,7 +209,9 @@ namespace TextileResearchDevelopment.BLL
                 compacting.fabric.cm.Composition = reader["Composition"].ToString();
                 compacting.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 compacting.fabric.BarCode = reader["BarCode"].ToString();
-                compacting.fabric.ProcessString = FabricBLL.GetProcessString(reader["BarCode"].ToString());
+                compacting.fabric.ProcessString = reader["ProcessString"] == DBNull.Value ? "" : reader["ProcessString"].ToString();
+                compacting.fabric.ProcessText = reader["ProcessText"] == DBNull.Value ? "" : reader["ProcessText"].ToString();
+                compacting.fabric.ColorString = FabricBLL.GetColorString(compacting.fabric.Id, compacting.fabric.ProcessString);
 
                 compacting.mc.Id = Convert.ToInt32(reader["CMcNoID"]);
                 compacting.mc.McNo = reader["CompactingMcNo"].ToString();

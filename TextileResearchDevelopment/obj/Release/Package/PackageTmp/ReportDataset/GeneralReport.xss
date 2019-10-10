@@ -8,8 +8,8 @@
   <Shapes>
     <Shape ID="DesignTable:YarnDyedRepeat" ZOrder="3" X="565" Y="150" Height="162" Width="163" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="23" SplitterPosition="158" />
     <Shape ID="DesignTable:YDView" ZOrder="4" X="747" Y="149" Height="162" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="23" SplitterPosition="158" />
-    <Shape ID="DesignTable:FabricProcess" ZOrder="2" X="934" Y="198" Height="49" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="45" />
-    <Shape ID="DesignTable:MasterReportView" ZOrder="1" X="326" Y="107" Height="769" Width="174" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="23" SplitterPosition="765" />
+    <Shape ID="DesignTable:FabricProcess" ZOrder="2" X="934" Y="198" Height="48" Width="150" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="63" />
+    <Shape ID="DesignTable:MasterReportView" ZOrder="1" X="326" Y="107" Height="768" Width="174" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="23" SplitterPosition="765" />
   </Shapes>
   <Connectors />
 </DiagramLayout>

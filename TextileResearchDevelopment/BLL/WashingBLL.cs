@@ -139,7 +139,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 cws = new List<CW>();
-                string query = "SELECT * FROM CWView";
+                string query = "SELECT * FROM CWView Order By Id desc";
                 cm.CommandText = query;
                 reader = cm.ExecuteReader();
                 if (reader.HasRows)
@@ -175,7 +175,9 @@ namespace TextileResearchDevelopment.BLL
                 cw.fabric.cm.Composition = reader["Composition"].ToString();
                 cw.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 cw.fabric.BarCode = reader["BarCode"].ToString();
-                cw.fabric.ProcessString = FabricBLL.GetProcessString(reader["BarCode"].ToString());
+                cw.fabric.ProcessString = reader["ProcessString"] == DBNull.Value ? "" : reader["ProcessString"].ToString();
+                cw.fabric.ProcessText = reader["ProcessText"] == DBNull.Value ? "" : reader["ProcessText"].ToString();
+                cw.fabric.ColorString = FabricBLL.GetColorString(cw.fabric.Id, cw.fabric.ProcessString);
 
                 cw.mc.Id = Convert.ToInt32(reader["CWMcNoId"]);
                 cw.mc.McNo = reader["CWMcNo"].ToString();

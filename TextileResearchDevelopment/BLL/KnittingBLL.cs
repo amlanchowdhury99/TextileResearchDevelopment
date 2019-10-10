@@ -438,7 +438,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 knittings = new List<Knitting>();
-                string query = "SELECT * FROM KnitView";
+                string query = "SELECT * FROM KnitView Order By Id desc";
                 cm.CommandText = query;
                 reader = cm.ExecuteReader();
                 if (reader.HasRows)
@@ -1359,7 +1359,9 @@ namespace TextileResearchDevelopment.BLL
                 knit.fabric.cm.Composition = reader["Composition"].ToString();
                 knit.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 knit.BarCode = reader["BarCode"].ToString();
-                knit.fabric.ProcessString = FabricBLL.GetProcessString(reader["BarCode"].ToString());
+                knit.fabric.ProcessString = reader["ProcessString"] == DBNull.Value ? "" : reader["ProcessString"].ToString();
+                knit.fabric.ProcessText = reader["ProcessText"] == DBNull.Value ? "" : reader["ProcessText"].ToString();
+                knit.fabric.ColorString = FabricBLL.GetColorString(knit.fabric.Id, knit.fabric.ProcessString);
 
                 knit.ydList = GetYDList(knit.Id);
                 knit.ydrList = GetYDRList(knit.Id);

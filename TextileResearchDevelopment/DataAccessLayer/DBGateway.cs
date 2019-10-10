@@ -96,6 +96,45 @@ namespace TextileResearchDevelopment.DataAccessLayer
             }
         }
 
+        public static int GetNumberRows(string query)
+        {
+            try
+            {
+                rowsCount = -1;
+                if (DBGateway.connection.State != ConnectionState.Open)
+                {
+                    connection.Open();
+                }
+                cmd = new SqlCommand(query, connection);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        rowsCount = Convert.ToInt32(reader["count"]);
+                    }
+                }
+                else
+                {
+                    rowsCount = -1;
+                }
+            }
+            catch (System.Exception e)
+            {
+                rowsCount = -1;
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+            return rowsCount;
+        }
+
         public static bool IsDate(string sdate)
         {
             DateTime dt;
@@ -205,6 +244,28 @@ namespace TextileResearchDevelopment.DataAccessLayer
             }
         }
 
+        public static SqlDataReader GetFromDB(string query)
+        {
+            try
+            {
+                if (DBGateway.connection.State != ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                    DBGateway.connection.Open();
+                }
+
+                cmd = new SqlCommand(query, connection);
+
+                reader = cmd.ExecuteReader();
+                return reader;
+
+            }
+            catch (System.Exception e)
+            {
+                return reader;
+            }
+        }
+
         public static bool GetNumberForRows(string query)
         {
             try
@@ -261,28 +322,6 @@ namespace TextileResearchDevelopment.DataAccessLayer
                 {
                     DBGateway.connection.Close();
                 }
-            }
-        }
-
-        public static SqlDataReader GetFromDB(string query)
-        {
-            try
-            {
-                if (DBGateway.connection.State != ConnectionState.Open)
-                {
-                    DBGateway.connection.Close();
-                    DBGateway.connection.Open();
-                }
-
-                cmd = new SqlCommand(query, connection);
-
-                reader = cmd.ExecuteReader();
-                return reader;
-
-            }
-            catch (System.Exception e)
-            {
-                return reader;
             }
         }
 

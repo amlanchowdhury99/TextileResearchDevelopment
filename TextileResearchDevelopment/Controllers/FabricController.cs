@@ -56,6 +56,24 @@ namespace TextileResearchDevelopment.Controllers
         }
 
         [HttpGet]
+        public JsonResult GetFabricUnitTypeList()
+        {
+            JsonResult result = new JsonResult();
+            List<FabricUnitType> fabricUnitTypes = new List<FabricUnitType>();
+
+            try
+            {
+                fabricUnitTypes = FabricBLL.GetFabricUnitTypeList();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { data = new List<FabricUnitType>() }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { data = fabricUnitTypes }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
         public JsonResult GetCompositionTypeList()
         {
             JsonResult result = new JsonResult();
@@ -267,6 +285,23 @@ namespace TextileResearchDevelopment.Controllers
             }
 
             return Json("Failed", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult IsDuplicate(Fabric fabric)
+        {
+            Boolean result = true;
+
+            try
+            {
+                result = FabricBLL.IsDuplicate(fabric);
+            }
+            catch (Exception ex)
+            {
+                result = true;
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

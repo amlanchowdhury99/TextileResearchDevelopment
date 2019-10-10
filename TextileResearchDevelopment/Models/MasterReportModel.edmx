@@ -39,7 +39,7 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.MasterReportView' d
           <Property Name="OrderNo" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="Color" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="BarCode" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="BuyerName" Type="varchar" MaxLength="50" />
+          <Property Name="BuyerName" Type="varchar" MaxLength="150" />
           <Property Name="FabricTypeID" Type="int" Nullable="false" />
           <Property Name="BuyerID" Type="int" Nullable="false" />
           <Property Name="BatchNo" Type="varchar" MaxLength="150" Nullable="false" />
@@ -65,7 +65,7 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.MasterReportView' d
           <Property Name="McGauge" Type="int" />
           <Property Name="McBrand" Type="varchar" MaxLength="50" />
           <Property Name="McNo" Type="int" />
-          <Property Name="CWMcNo" Type="varchar" MaxLength="50" />
+          <Property Name="CWMcNo" Type="varchar" MaxLength="150" />
           <Property Name="CWSEWidth" Type="varchar" MaxLength="150" />
           <Property Name="CWWashDia" Type="varchar" MaxLength="150" />
           <Property Name="CWWELength" Type="varchar" MaxLength="150" />
@@ -119,7 +119,7 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.MasterReportView' d
           <Property Name="DRGSM" Type="varchar" MaxLength="150" />
           <Property Name="DRShrinkage" Type="varchar" MaxLength="150" />
           <Property Name="Remarks" Type="varchar" MaxLength="150" />
-          <Property Name="DryerMcNo" Type="varchar" MaxLength="50" />
+          <Property Name="DryerMcNo" Type="varchar" MaxLength="150" />
           <Property Name="CTemp" Type="varchar" MaxLength="150" />
           <Property Name="CFeed" Type="varchar" MaxLength="150" />
           <Property Name="CSpeed" Type="varchar" MaxLength="150" />
@@ -128,8 +128,8 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.MasterReportView' d
           <Property Name="CGSM" Type="varchar" MaxLength="150" />
           <Property Name="CRemarks" Type="varchar" MaxLength="150" />
           <Property Name="CCompaction" Type="varchar" MaxLength="150" />
-          <Property Name="CProduction" Type="varchar" MaxLength="50" />
-          <Property Name="CompactingMcNo" Type="varchar" MaxLength="50" />
+          <Property Name="CProduction" Type="varchar" MaxLength="150" />
+          <Property Name="CompactingMcNo" Type="varchar" MaxLength="150" />
           <Property Name="PTaker" Type="varchar" MaxLength="150" />
           <Property Name="PPlaiter" Type="varchar" MaxLength="150" />
           <Property Name="PReturn" Type="varchar" MaxLength="150" />
@@ -148,7 +148,7 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.MasterReportView' d
           <Property Name="BLowerCounterPile" Type="varchar" MaxLength="150" />
           <Property Name="BLowerDrumTension" Type="varchar" MaxLength="150" />
           <Property Name="BLowerDrumRPM" Type="varchar" MaxLength="150" />
-          <Property Name="BRemarks" Type="nchar" MaxLength="10" />
+          <Property Name="BRemarks" Type="varchar" MaxLength="150" />
           <Property Name="STProductionTypeID" Type="int" />
           <Property Name="CProductionTypeID" Type="int" />
           <Property Name="PrintCoverage" Type="varchar" MaxLength="150" />
@@ -167,7 +167,7 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.MasterReportView' d
           <Property Name="QPilling" Type="varchar" MaxLength="100" />
           <Property Name="QStrech" Type="varchar" MaxLength="100" />
           <Property Name="QRecovery" Type="varchar" MaxLength="100" />
-          <Property Name="BSpeed" Type="varchar" MaxLength="50" />
+          <Property Name="BSpeed" Type="varchar" MaxLength="150" />
           <Property Name="KnitID" Type="int" />
           <Property Name="UpdateTime" Type="datetime" />
           <Property Name="FinalApprovalID" Type="int" Nullable="false" />
@@ -209,6 +209,12 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.MasterReportView' d
           <Property Name="STRevise" Type="int" />
           <Property Name="PRRevise" Type="int" />
           <Property Name="DyeingMcNo" Type="varchar" MaxLength="150" />
+          <Property Name="ProcessString" Type="varchar" MaxLength="500" />
+          <Property Name="ProcessText" Type="varchar" MaxLength="500" />
+          <Property Name="Rate" Type="varchar" MaxLength="150" />
+          <Property Name="Merchandiser" Type="varchar" MaxLength="150" />
+          <Property Name="FabricUnitTypeID" Type="int" />
+          <Property Name="FabricUnit" Type="varchar" MaxLength="150" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -415,7 +421,13 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
     [MasterReportView].[DRRevise] AS [DRRevise], 
     [MasterReportView].[STRevise] AS [STRevise], 
     [MasterReportView].[PRRevise] AS [PRRevise], 
-    [MasterReportView].[DyeingMcNo] AS [DyeingMcNo]
+    [MasterReportView].[DyeingMcNo] AS [DyeingMcNo], 
+    [MasterReportView].[ProcessString] AS [ProcessString], 
+    [MasterReportView].[ProcessText] AS [ProcessText], 
+    [MasterReportView].[Rate] AS [Rate], 
+    [MasterReportView].[Merchandiser] AS [Merchandiser], 
+    [MasterReportView].[FabricUnitTypeID] AS [FabricUnitTypeID], 
+    [MasterReportView].[FabricUnit] AS [FabricUnit]
     FROM [dbo].[MasterReportView] AS [MasterReportView]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="YDView" EntityType="Self.YDView" store:Type="Views" store:Schema="dbo">
@@ -504,7 +516,7 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
           <Property Name="OrderNo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="Color" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="BarCode" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="BuyerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BuyerName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="FabricTypeID" Type="Int32" Nullable="false" />
           <Property Name="BuyerID" Type="Int32" Nullable="false" />
           <Property Name="BatchNo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
@@ -530,7 +542,7 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
           <Property Name="McGauge" Type="Int32" />
           <Property Name="McBrand" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="McNo" Type="Int32" />
-          <Property Name="CWMcNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CWMcNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="CWSEWidth" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="CWWashDia" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="CWWELength" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
@@ -584,7 +596,7 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
           <Property Name="DRGSM" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="DRShrinkage" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="Remarks" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="DryerMcNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DryerMcNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="CTemp" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="CFeed" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="CSpeed" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
@@ -593,8 +605,8 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
           <Property Name="CGSM" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="CRemarks" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="CCompaction" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="CProduction" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CompactingMcNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CProduction" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="CompactingMcNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="PTaker" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="PPlaiter" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="PReturn" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
@@ -613,7 +625,7 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
           <Property Name="BLowerCounterPile" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="BLowerDrumTension" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="BLowerDrumRPM" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="BRemarks" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="BRemarks" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="STProductionTypeID" Type="Int32" />
           <Property Name="CProductionTypeID" Type="Int32" />
           <Property Name="PrintCoverage" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
@@ -632,7 +644,7 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
           <Property Name="QPilling" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="QStrech" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="QRecovery" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="BSpeed" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BSpeed" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="KnitID" Type="Int32" />
           <Property Name="UpdateTime" Type="DateTime" Precision="3" />
           <Property Name="FinalApprovalID" Type="Int32" Nullable="false" />
@@ -674,6 +686,12 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
           <Property Name="STRevise" Type="Int32" />
           <Property Name="PRRevise" Type="Int32" />
           <Property Name="DyeingMcNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ProcessString" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ProcessText" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Rate" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Merchandiser" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="FabricUnitTypeID" Type="Int32" />
+          <Property Name="FabricUnit" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -719,6 +737,12 @@ warning 6002: The table/view 'TextileResearchDevelopment.dbo.YDView' does not ha
           <EntitySetMapping Name="MasterReportViews">
             <EntityTypeMapping TypeName="TextileResearchDevelopmentModel.MasterReportView">
               <MappingFragment StoreEntitySet="MasterReportView">
+                <ScalarProperty Name="FabricUnit" ColumnName="FabricUnit" />
+                <ScalarProperty Name="FabricUnitTypeID" ColumnName="FabricUnitTypeID" />
+                <ScalarProperty Name="Merchandiser" ColumnName="Merchandiser" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="ProcessText" ColumnName="ProcessText" />
+                <ScalarProperty Name="ProcessString" ColumnName="ProcessString" />
                 <ScalarProperty Name="DyeingMcNo" ColumnName="DyeingMcNo" />
                 <ScalarProperty Name="PRRevise" ColumnName="PRRevise" />
                 <ScalarProperty Name="STRevise" ColumnName="STRevise" />

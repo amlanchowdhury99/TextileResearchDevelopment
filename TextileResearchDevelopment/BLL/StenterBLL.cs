@@ -173,7 +173,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 cws = new List<Stenter>();
-                string query = "SELECT * FROM StenterView";
+                string query = "SELECT * FROM StenterView Order By Id desc";
                 cm.CommandText = query;
                 reader = cm.ExecuteReader();
                 if (reader.HasRows)
@@ -209,7 +209,9 @@ namespace TextileResearchDevelopment.BLL
                 stenter.fabric.cm.Composition = reader["Composition"].ToString();
                 stenter.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 stenter.fabric.BarCode = reader["BarCode"].ToString();
-                stenter.fabric.ProcessString = FabricBLL.GetProcessString(reader["BarCode"].ToString());
+                stenter.fabric.ProcessString = reader["ProcessString"] == DBNull.Value ? "" : reader["ProcessString"].ToString();
+                stenter.fabric.ProcessText = reader["ProcessText"] == DBNull.Value ? "" : reader["ProcessText"].ToString();
+                stenter.fabric.ColorString = FabricBLL.GetColorString(stenter.fabric.Id, stenter.fabric.ProcessString);
 
                 stenter.mc.Id = Convert.ToInt32(reader["SMcNoID"]);
                 stenter.mc.McNo = reader["StenterMcNo"].ToString();

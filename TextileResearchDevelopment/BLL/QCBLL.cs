@@ -104,7 +104,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 peachList = new List<QC>();
-                string query = "SELECT * FROM QCView";
+                string query = "SELECT * FROM QCView Order By Id desc";
                 cm.CommandText = query;
                 reader = cm.ExecuteReader();
                 if (reader.HasRows)
@@ -140,7 +140,9 @@ namespace TextileResearchDevelopment.BLL
                 qc.fabric.cm.Composition = reader["Composition"].ToString();
                 qc.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 qc.fabric.BarCode = reader["BarCode"].ToString();
-                qc.fabric.ProcessString = FabricBLL.GetProcessString(reader["BarCode"].ToString());
+                qc.fabric.ProcessString = reader["ProcessString"] == DBNull.Value ? "" : reader["ProcessString"].ToString();
+                qc.fabric.ProcessText = reader["ProcessText"] == DBNull.Value ? "" : reader["ProcessText"].ToString();
+                qc.fabric.ColorString = FabricBLL.GetColorString(qc.fabric.Id, qc.fabric.ProcessString);
 
                 qc.Dia = reader["QDia"].ToString();
                 qc.GSM = reader["QGSM"].ToString();

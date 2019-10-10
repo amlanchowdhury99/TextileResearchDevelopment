@@ -116,12 +116,18 @@ namespace TextileResearchDevelopment.Models
         public int Status { get; set; }
 
     }
-
+    
     public class FabricType
     {
         public int Id { get; set; }
         public string FabricTypeName { get; set; }
         public int Status { get; set; }
+    }
+
+    public class FabricUnitType
+    {
+        public int Id { get; set; }
+        public string FabricUnit { get; set; }
     }
 
     public class CompositionType

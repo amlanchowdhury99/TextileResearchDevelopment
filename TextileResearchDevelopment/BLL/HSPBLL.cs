@@ -138,7 +138,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 cws = new List<HSP>();
-                string query = "SELECT * FROM HSPView";
+                string query = "SELECT * FROM HSPView Order By Id desc";
                 cm.CommandText = query;
                 reader = cm.ExecuteReader();
                 if (reader.HasRows)
@@ -174,7 +174,9 @@ namespace TextileResearchDevelopment.BLL
                 hsp.fabric.cm.Composition = reader["Composition"].ToString();
                 hsp.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 hsp.fabric.BarCode = reader["BarCode"].ToString();
-                hsp.fabric.ProcessString = FabricBLL.GetProcessString(reader["BarCode"].ToString());
+                hsp.fabric.ProcessString = reader["ProcessString"] == DBNull.Value ? "" : reader["ProcessString"].ToString();
+                hsp.fabric.ProcessText = reader["ProcessText"] == DBNull.Value ? "" : reader["ProcessText"].ToString();
+                hsp.fabric.ColorString = FabricBLL.GetColorString(hsp.fabric.Id, hsp.fabric.ProcessString);
 
                 hsp.mc.Id = Convert.ToInt32(reader["HPMcNoId"]);
                 hsp.mc.McNo = reader["HSPMcNo"].ToString();

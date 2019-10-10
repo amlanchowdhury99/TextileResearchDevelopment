@@ -17,6 +17,7 @@ namespace TextileResearchDevelopment.BLL
         public static List<Buyer> buyers = new List<Buyer>();
         public static List<StatusType> statusTypes = new List<StatusType>();
         public static List<FabricType> FabricTypes = new List<FabricType>();
+        public static List<FabricUnitType> FabricUnitTypes = new List<FabricUnitType>();
         public static List<CompositionType> compositionTypes = new List<CompositionType>();
 
         static string connectionStr = DBGateway.connectionString;
@@ -28,7 +29,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 fabrics = new List<Fabric>();
-                string query = "SELECT * FROM FabricView";
+                string query = "SELECT * FROM FabricView Order By Id desc";
                 cm.CommandText = query;
                 reader = cm.ExecuteReader();
                 if (reader.HasRows)
@@ -153,7 +154,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 var columnsName = new List<string>();
-                string query = "SELECT * FROM Fabric WHERE "+ colName + " = " + Id;
+                string query = "SELECT * FROM Fabric WHERE " + colName + " = " + Id;
                 cm.CommandText = query;
                 reader1 = cm.ExecuteReader();
                 if (reader1.Read())
@@ -290,6 +291,39 @@ namespace TextileResearchDevelopment.BLL
             }
 
             return FabricTypes;
+        }
+
+        public static List<FabricUnitType> GetFabricUnitTypeList()
+        {
+            try
+            {
+                FabricUnitTypes = new List<FabricUnitType>();
+                string query = "SELECT * FROM FabricUnitType";
+                SqlDataReader reader = DBGateway.GetFromDB(query);
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        FabricUnitType fabricUnitType = new FabricUnitType();
+                        fabricUnitType.Id = Convert.ToInt32(reader["Id"]);
+                        fabricUnitType.FabricUnit = reader["FabricUnit"].ToString();
+                        FabricUnitTypes.Add(fabricUnitType);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
+            finally
+            {
+                if (DBGateway.connection.State == ConnectionState.Open)
+                {
+                    DBGateway.connection.Close();
+                }
+            }
+
+            return FabricUnitTypes;
         }
 
         public static List<CompositionType> GetCompositionTypeList()
@@ -446,43 +480,47 @@ namespace TextileResearchDevelopment.BLL
             SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); cm.Connection = cn; cn.Open();
             try
             {
-                string query = " SELECT * FROM FabricProcess WHERE BarCode = '" + fabric.BarCode + "'";
+                string query = " SELECT * FROM Fabric WHERE BarCode = '" + fabric.BarCode + "'";
+                string tableName = "";
+                List<int> ProcessStringList = new List<int>();
                 SqlDataReader reader = DBGateway.GetFromDB(query);
 
                 if (reader.HasRows)
                 {
                     while (reader.Read())
                     {
-                        var columnsName = Enumerable.Range(0, reader.FieldCount).Select(reader.GetName).ToList();
-                        columnsName.RemoveRange(0, 2);
-
-                        foreach (var i in columnsName)
-                        {
-                            if (i.ToString() == "Knit")
-                            {
-                                cm.CommandText = "UPDATE Knitting SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE FabricID = " + fabric.Id;
-                                cm.ExecuteNonQuery();
-                            }
-                            else if (i.ToString() == "CW")
-                            {
-                                cm.CommandText = "UPDATE ContinueWashing SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE FabricID = " + fabric.Id;
-                                cm.ExecuteNonQuery();
-                            }
-                            else if (i.ToString() == "Print")
-                            {
-                                cm.CommandText = "UPDATE PrintInfo SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE FabricID = " + fabric.Id;
-                                cm.ExecuteNonQuery();
-                            }
-                            else
-                            {
-                                cm.CommandText = "UPDATE " + i.ToString() + " SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE FabricID = " + fabric.Id;
-                                cm.ExecuteNonQuery();
-                            }
-                        }
-                        cm.CommandText = "UPDATE Fabric SET FinalApprovalID = 1 WHERE BarCode = '" + fabric.BarCode + "'";
-                        cm.ExecuteNonQuery();
+                        ProcessStringList = reader["ProcessString"].ToString().Split(',').Select(int.Parse).ToList();
                     }
                 }
+                if (ProcessStringList.Count > 0)
+                {
+                    foreach (var i in ProcessStringList)
+                    {
+                        tableName = new User().Sectors[(i + 1).ToString()];
+                        if (tableName == "Knit")
+                        {
+                            cm.CommandText = "UPDATE Knitting SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE FabricID = " + fabric.Id;
+                            cm.ExecuteNonQuery();
+                        }
+                        else if (tableName == "CW")
+                        {
+                            cm.CommandText = "UPDATE ContinueWashing SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE FabricID = " + fabric.Id;
+                            cm.ExecuteNonQuery();
+                        }
+                        else if (tableName == "Print")
+                        {
+                            cm.CommandText = "UPDATE PrintInfo SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE FabricID = " + fabric.Id;
+                            cm.ExecuteNonQuery();
+                        }
+                        else
+                        {
+                            cm.CommandText = "UPDATE " + tableName + " SET ApprovedStatus = 0, ApprovedBy = 0, ApprovedTime = NULL WHERE FabricID = " + fabric.Id;
+                            cm.ExecuteNonQuery();
+                        }
+                    }
+                }
+                cm.CommandText = "UPDATE Fabric SET FinalApprovalID = 1 WHERE BarCode = '" + fabric.BarCode + "'";
+                cm.ExecuteNonQuery();
             }
             catch (Exception ex)
             {
@@ -620,11 +658,11 @@ namespace TextileResearchDevelopment.BLL
                 if (fabric.Id > 0)
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE Fabric SET BuyerID = '" + fabric.buyer.Id + "', FabricTypeID = '" + fabric.fb.Id + "', CompositionTypeID = '" + fabric.cm.Id + "', OrderNo = '" + fabric.OrderNo + "', Color = '" + fabric.Color + "', RefNo = '" + fabric.RefNo + "', BatchNo = '" + fabric.BatchNo + "', Season = '" + fabric.Season + "', UpdateBy = (" + GetCreateByQuery + "), Version = '" + fabric.Version + "', UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "'";
+                    query = "UPDATE Fabric SET BuyerID = '" + fabric.buyer.Id + "', FabricTypeID = '" + fabric.fb.Id + "', CompositionTypeID = '" + fabric.cm.Id + "', OrderNo = '" + fabric.OrderNo + "', Color = '" + fabric.Color + "', RefNo = '" + fabric.RefNo + "', BatchNo = '" + fabric.BatchNo + "', Season = '" + fabric.Season + "', UpdateBy = (" + GetCreateByQuery + "), Version = '" + fabric.Version + "', ProcessString = '" + fabric.ProcessString + "', ProcessText = '" + fabric.ProcessText + "', UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "', Rate = '" + fabric.Rate + "', FabricUnitTypeID = " + fabric.fut.Id + ", Merchandiser = '" + fabric.Merchandiser + "' WHERE Id = "+ fabric.Id;
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
-                        AddFabricProcess(fabric);
+                        //AddFabricProcess(fabric);
                         query = "SELECT * FROM FabricView WHERE Id = " + fabric.Id;
                         SqlDataReader reader = DBGateway.GetFromDB(query);
                         if (reader.HasRows)
@@ -639,10 +677,10 @@ namespace TextileResearchDevelopment.BLL
                 else
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "INSERT INTO Fabric (BuyerID, FabricTypeID, CompositionTypeID, OrderNo, Color, RefNo, BatchNo, Season, Status, CreateBy, CreateTime, UpdateTime, Barcode, Version, FinalApprovalID) VALUES(" + fabric.buyer.Id + "," + fabric.fb.Id + "," + fabric.cm.Id + ",'" + fabric.OrderNo + "','" + fabric.Color + "','" + fabric.RefNo + "','" + fabric.BatchNo + "','" + fabric.Season + "', 0 ,(" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "','" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "','" + fabric.BarCode + "', '" + fabric.Version + "', 1)";
+                    query = "INSERT INTO Fabric (BuyerID, FabricTypeID, CompositionTypeID, OrderNo, Color, RefNo, BatchNo, Season, Status, CreateBy, CreateTime, UpdateTime, Barcode, Version, FinalApprovalID, ProcessString, ProcessText, Rate, FabricUnitTypeID, Merchandiser) VALUES(" + fabric.buyer.Id + "," + fabric.fb.Id + "," + fabric.cm.Id + ",'" + fabric.OrderNo + "','" + fabric.Color + "','" + fabric.RefNo + "','" + fabric.BatchNo + "','" + fabric.Season + "', 0 ,(" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "','" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "','" + fabric.BarCode + "', '" + fabric.Version + "', 1, '" + fabric.ProcessString + "', '" + fabric.ProcessText + "', '" + fabric.Rate + "', " + fabric.fut.Id + ", '" + fabric.Merchandiser + "')";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
-                        AddFabricProcess(fabric);
+                        //AddFabricProcess(fabric);
                         query = "SELECT TOP 1 * FROM FabricView order by Id desc";
                         SqlDataReader reader = DBGateway.GetFromDB(query);
                         if (reader.HasRows)
@@ -715,13 +753,19 @@ namespace TextileResearchDevelopment.BLL
                 fabric.Id = Convert.ToInt32(reader["Id"]);
                 fabric.BarCode = reader["BarCode"].ToString();
 
-                fabric.ua = GetFabricProcessObject(reader);
-
+                //fabric.ua = GetFabricProcessObject(reader);
+                fabric.ProcessString = reader["ProcessString"] == DBNull.Value ? "" : reader["ProcessString"].ToString();
+                fabric.ProcessText = reader["ProcessText"] == DBNull.Value ? "" : reader["ProcessText"].ToString();
+                fabric.ColorString = GetColorString(fabric.Id, fabric.ProcessString);
                 fabric.buyer.Id = Convert.ToInt32(reader["BuyerID"]);
                 fabric.fb.Id = Convert.ToInt32(reader["FabricTypeID"]);
                 fabric.cm.Id = Convert.ToInt32(reader["CompositionTypeID"]);
                 fabric.st.Id = Convert.ToInt32(reader["FinalApprovalID"]);
                 fabric.st.Status = reader["FinalApprovalStatus"].ToString();
+                fabric.Rate = reader["Rate"] == DBNull.Value ? "" : reader["Rate"].ToString();
+                fabric.Merchandiser = reader["Merchandiser"] == DBNull.Value ? "" : reader["Merchandiser"].ToString();
+                fabric.fut.Id = reader["FabricUnitTypeID"] == DBNull.Value ? 0 : Convert.ToInt32(reader["FabricUnitTypeID"]);
+                fabric.fut.FabricUnit = reader["FabricUnit"] == DBNull.Value ? "" : reader["FabricUnit"].ToString();
                 fabric.buyer.BuyerName = reader["BuyerName"].ToString();
                 fabric.fb.FabricTypeName = reader["FabricTypeName"].ToString();
                 fabric.cm.Composition = reader["Composition"].ToString();
@@ -736,12 +780,67 @@ namespace TextileResearchDevelopment.BLL
                 fabric.CreateTime = reader["CreateTime"].ToString();
                 fabric.UpdateBy = reader["UpdateByName"].ToString();
                 fabric.UpdateTime = reader["UpdateTime"].ToString();
+
             }
             catch (Exception ex)
             {
                 return new Fabric();
             }
             return fabric;
+        }
+
+        public static string GetColorString(int Id, string processString)
+        {
+            SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader1; cm.Connection = cn;
+            string query = ""; var ColorString = "";
+            try
+            {
+                var ProcessStringList = new List<int>();
+                ProcessStringList = processString.ToString().Split(',').Select(int.Parse).ToList();
+
+                if (ProcessStringList.Count > 0)
+                {
+                    foreach (var i in ProcessStringList)
+                    {
+                        string tableName = new User().Sectors[(i + 1).ToString()];
+                        if (tableName == "Knit")
+                        {
+                            tableName = "Knitting";
+                        }
+                        else if (tableName == "CW")
+                        {
+                            tableName = "ContinueWashing";
+                        }
+                        else if (tableName == "Print")
+                        {
+                            tableName = "PrintInfo";
+                        }
+
+                        query = " SELECT * FROM " + tableName + " WHERE FabricID = " + Id + " AND ApprovedStatus = 1";
+                        cm.CommandText = query;
+                        cn.Open();
+                        reader1 = cm.ExecuteReader();
+                        if (reader1.Read())
+                        {
+                            ColorString = ColorString == "" ? "1" : ColorString + ",1";
+                        }
+                        else
+                        {
+                            ColorString = ColorString == "" ? "0" : ColorString + ",0";
+                        }
+                        cn.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+            finally
+            {
+                cn.Close();
+            }
+            return ColorString;
         }
 
         private static User GetFabricProcessObject(SqlDataReader reader)
@@ -778,43 +877,35 @@ namespace TextileResearchDevelopment.BLL
                 string query = "DELETE FROM Fabric WHERE Id = " + Id;
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
-                    query = " SELECT * FROM FabricProcess WHERE BarCode = '" + BarCode + "'";
-                    SqlDataReader reader = DBGateway.GetFromDB(query);
-                    if (reader.HasRows)
+                    var columnsName = new User().Sectors.Values.ToList();
+                    columnsName.RemoveRange(0, 2);
+
+                    foreach (var i in columnsName)
                     {
-                        while (reader.Read())
+                        if (i.ToString() == "Knit")
                         {
-                            var columnsName = Enumerable.Range(0, reader.FieldCount).Select(reader.GetName).ToList();
-                            columnsName.RemoveRange(0, 2);
+                            cm.CommandText = "DELETE YarnDetails WHERE KnitID = (SELECT TOP 1(Id) FROM Knitting WHERE FabricID = " + Id + ")";
+                            cm.ExecuteNonQuery();
+                            cm.CommandText = "DELETE YarnDyedRepeat WHERE KnitID = (SELECT TOP 1(Id) FROM Knitting WHERE FabricID = " + Id + ")";
+                            cm.ExecuteNonQuery();
+                            cm.CommandText = "DELETE Knitting WHERE FabricID = " + Id;
+                            cm.ExecuteNonQuery();
 
-                            foreach (var i in columnsName)
-                            {
-                                if (i.ToString() == "Knit")
-                                {
-                                    cm.CommandText = "DELETE YarnDetails WHERE KnitID = (SELECT TOP 1(Id) FROM Knitting WHERE FabricID = " + Id + ")";
-                                    cm.ExecuteNonQuery();
-                                    cm.CommandText = "DELETE YarnDyedRepeat WHERE KnitID = (SELECT TOP 1(Id) FROM Knitting WHERE FabricID = " + Id + ")";
-                                    cm.ExecuteNonQuery();
-                                    cm.CommandText = "DELETE Knitting WHERE FabricID = " + Id;
-                                    cm.ExecuteNonQuery();
-
-                                }
-                                else if (i.ToString() == "CW")
-                                {
-                                    cm.CommandText = "DELETE ContinueWashing WHERE FabricID = " + Id;
-                                    cm.ExecuteNonQuery();
-                                }
-                                else if (i.ToString() == "Print")
-                                {
-                                    cm.CommandText = "DELETE PrintInfo WHERE FabricID = " + Id;
-                                    cm.ExecuteNonQuery();
-                                }
-                                else
-                                {
-                                    cm.CommandText = "DELETE " + i.ToString() + " WHERE FabricID = " + Id;
-                                    cm.ExecuteNonQuery();
-                                }
-                            }
+                        }
+                        else if (i.ToString() == "CW")
+                        {
+                            cm.CommandText = "DELETE ContinueWashing WHERE FabricID = " + Id;
+                            cm.ExecuteNonQuery();
+                        }
+                        else if (i.ToString() == "Print")
+                        {
+                            cm.CommandText = "DELETE PrintInfo WHERE FabricID = " + Id;
+                            cm.ExecuteNonQuery();
+                        }
+                        else
+                        {
+                            cm.CommandText = "DELETE " + i.ToString() + " WHERE FabricID = " + Id;
+                            cm.ExecuteNonQuery();
                         }
                     }
                     cm.CommandText = "DELETE FabricProcess WHERE BarCode = '" + BarCode + "'";
@@ -938,12 +1029,13 @@ namespace TextileResearchDevelopment.BLL
                             fabric.cm.Composition = reader["Composition"].ToString();
                             fabric.OrderNo = reader["OrderNo"].ToString();
                             fabric.RefNo = reader["RefNo"].ToString();
+                            fabric.CreateTime = reader["CreateTime"].ToString();
 
-                            if(fabricearchObj.Note == "Report")
+                            if (fabricearchObj.Note == "Report")
                             {
-                                if(fabricearchObj.st.Id > 0)
+                                if (fabricearchObj.st.Id > 0)
                                 {
-                                    if(fabricearchObj.st.Id == fabric.st.Id)
+                                    if (fabricearchObj.st.Id == fabric.st.Id)
                                     {
                                         fabrics.Add(fabric);
                                     }
@@ -982,25 +1074,18 @@ namespace TextileResearchDevelopment.BLL
             SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader1; cm.Connection = cn; cn.Open();
             try
             {
-                var columnsName = new Dictionary<int, string>();
-                string FabricBarCodeQuery = "SELECT BarCode FROM Fabric WHERE Id = " + Id;
-                string query = " SELECT * FROM FabricProcess WHERE BarCode = (" + FabricBarCodeQuery + ")";
+                var ProcessStringList = new List<int>();
+                string query = "SELECT * FROM Fabric WHERE Id = " + Id;
                 cm.CommandText = query; reader1 = cm.ExecuteReader();
                 if (reader1.HasRows)
                 {
                     while (reader1.Read())
                     {
-                        for (int i = 0; i < reader1.FieldCount; i++)
-                        {
-                            if (reader1.GetValue(i).ToString() == "1")
-                            {
-                                columnsName.Add(columnsName.Count, reader1.GetName(i).ToString());
-                            }
-                        }
+                        ProcessStringList = reader1["ProcessString"].ToString().Split(',').Select(int.Parse).ToList();
                     }
                 }
                 cn.Close();
-                string LastSectorName = columnsName[columnsName.Count - 1];
+                string LastSectorName = new User().Sectors[(ProcessStringList[ProcessStringList.Count - 1] + 1).ToString()];
                 if (LastSectorName == "Knit")
                 {
                     LastSectorName = "Knitting";
@@ -1013,11 +1098,11 @@ namespace TextileResearchDevelopment.BLL
                 {
                     LastSectorName = "PrintInfo";
                 }
-                
+
                 query = "SELECT * FROM " + LastSectorName + " WHERE FabricID = " + Id + " AND ApprovedStatus = 1";
                 cm.CommandText = query;
                 cn.Open();
-                if(cm.ExecuteReader().Read())
+                if (cm.ExecuteReader().Read())
                 {
                     return true;
                 }
@@ -1033,6 +1118,43 @@ namespace TextileResearchDevelopment.BLL
             finally
             {
                 cn.Close();
+            }
+        }
+
+        internal static bool IsDuplicate(Fabric fabric)
+        {
+            try
+            {
+                string query = "";
+
+                query = " SELECT Count(*) AS count FROM Fabric WHERE BuyerID = " + fabric.buyer.Id + " AND FabricTypeID = " + fabric.fb.Id + " AND CompositionTypeID = " + fabric.cm.Id + " AND OrderNo = '" + fabric.OrderNo + "' AND RefNo = '" + fabric.RefNo + "'";
+
+                int rowsCount = DBGateway.GetNumberRows(query);
+
+                if (fabric.Id > 0)
+                {
+                    if (rowsCount == 1)
+                    {
+                        int Id = fabric.Id;
+                        query = " SELECT Id FROM Fabric WHERE BuyerID = " + fabric.buyer.Id + " AND FabricTypeID = " + fabric.fb.Id + " AND CompositionTypeID = " + fabric.cm.Id + " AND OrderNo = '" + fabric.OrderNo + "' AND RefNo = '" + fabric.RefNo + "'";
+                        SqlDataReader reader = DBGateway.GetFromDB(query);
+                        if (reader.Read())
+                        {
+                            Id = Convert.ToInt32(reader["Id"]);
+                        }
+                        DBGateway.connection.Close();
+                        if (Id != fabric.Id)
+                        {
+                            return true;
+                        }
+                    }
+                }
+
+                return rowsCount > -1 ? fabric.Id > 0 ? rowsCount > 1 ? true : false : rowsCount > 0 ? true : false : true;
+            }
+            catch (Exception ex)
+            {
+                return true;
             }
         }
 
@@ -1096,6 +1218,14 @@ namespace TextileResearchDevelopment.BLL
                         query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
                         query = query + " OrderNo = '" + fabricearchObj.OrderNo + "'";
                     }
+                    if (fabricearchObj.Note == "Report")
+                    {
+                        if (fabricearchObj.DateStart != DateTime.MaxValue && fabricearchObj.DateEnd != DateTime.MaxValue)
+                        {
+                            query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
+                            query = query + " convert(varchar, CreateTime, 111) BETWEEN '" + fabricearchObj.DateStart.ToString("yyyy/MM/dd") + "' AND '" + fabricearchObj.DateEnd.ToString("yyyy/MM/dd") + "'";
+                        }
+                    }
                     if (fabricearchObj.RefNo != "" && fabricearchObj.RefNo != null)
                     {
                         query = query.Contains("WHERE") == true ? query + " AND " : query + " WHERE ";
@@ -1122,47 +1252,65 @@ namespace TextileResearchDevelopment.BLL
                 if (fabricearchObj.Note != "Report")
                 {
                     var BarCodeList = new List<string>();
-                    SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader; cm.Connection = cn; cn.Open();
-                    int key = Convert.ToInt32(new User().Sectors.FirstOrDefault(x => x.Value == fabricearchObj.Note).Key) - 1;
-                    string firstQuery = " SELECT * FROM FPView WHERE BarCode IN (SELECT BarCode FROM FPView WHERE Seq_Val = 1 AND Seq_No = " + key + ") ";
-                    string query = "SELECT distinct BarCode, (select Top 1 Seq_Val FROM FPView where BarCode = a.BarCode and Seq_Val = 1 AND  Seq_No < " + key + " order by Seq_No desc) as Seq_Val," +
-                                   "(select Top 1 Seq_No FROM FPView where BarCode = a.BarCode and Seq_Val = 1 AND  Seq_No < " + key + " order by Seq_No desc) as Seq_No from (" + firstQuery + ") as a";
-                    cm.CommandText = query;
-                    reader = cm.ExecuteReader();
+                    SqlCommand cm = new SqlCommand(); SqlConnection cn = new SqlConnection(connectionStr); SqlDataReader reader1; cm.Connection = cn; cn.Open();
+                    string tableName = "";
+
+                    if (fabricearchObj.Note == "Knit")
+                    {
+                        tableName = "Knitting";
+                    }
+                    else if (fabricearchObj.Note == "CW")
+                    {
+                        tableName = "Continue Washing";
+                    }
+                    else if (fabricearchObj.Note == "HSP")
+                    {
+                        tableName = "Heat Setting Parameters";
+                    }
+                    else if (fabricearchObj.Note == "Print")
+                    {
+                        tableName = "PrintInfo";
+                    }
+                    else
+                    {
+                        tableName = fabricearchObj.Note;
+                    }
+
+                    string query = " SELECT * FROM Fabric WHERE ProcessText LIKE '%" + tableName.ToUpper() + "%'";
+                    SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            string tableName = "";
+                            List<int> ProcessStringList = reader["ProcessString"].ToString().Split(',').Select(int.Parse).ToList();
+                            int key = Convert.ToInt32(new User().Sectors.FirstOrDefault(x => x.Value == fabricearchObj.Note).Key) - 1;
 
-                            if (reader["Seq_No"] == DBNull.Value)
+                            if (ProcessStringList.IndexOf(key) == 0)
                             {
-                                if (!BarCodeList.Contains(reader["BarCode"].ToString()))
-                                {
-                                    BarCodeList.Add(reader["BarCode"].ToString());
-                                }
+                                BarCodeList.Add(reader["BarCode"].ToString());
                             }
                             else
                             {
-                                if (Convert.ToInt32(reader["Seq_No"]) == 1)
+                                int prevFPVal = ProcessStringList[ProcessStringList.IndexOf(key) - 1] + 1;
+                                tableName = new User().Sectors[prevFPVal.ToString()];
+
+                                if (tableName == "Knit")
                                 {
                                     tableName = "Knitting";
                                 }
-                                else if (Convert.ToInt32(reader["Seq_No"]) == 2)
+                                else if (tableName == "CW")
                                 {
                                     tableName = "ContinueWashing";
                                 }
-                                else if (Convert.ToInt32(reader["Seq_No"]) == 11)
+                                else if (tableName == "Print")
                                 {
                                     tableName = "PrintInfo";
                                 }
-                                else
-                                {
-                                    tableName = new User().Sectors[((int)reader["Seq_No"] + 1).ToString()];
-                                }
                                 string FabricQuery = "SELECT Id FROM Fabric WHERE BarCode = '" + reader["BarCode"].ToString() + "'";
-                                query = "SELECT * FROM " + tableName + " WHERE FabricID = (" + FabricQuery + ") AND ApprovedStatus != 0";
-                                if (DBGateway.recordExist(query))
+                                string query1 = "SELECT * FROM " + tableName + " WHERE FabricID = (" + FabricQuery + ") AND ApprovedStatus != 0";
+                                cm.CommandText = query1;
+                                reader1 = cm.ExecuteReader();
+                                if (reader1.Read())
                                 {
                                     if (!BarCodeList.Contains(reader["BarCode"].ToString()))
                                     {
@@ -1174,14 +1322,7 @@ namespace TextileResearchDevelopment.BLL
                     }
                     else
                     {
-                        if (DBGateway.recordExist(firstQuery))
-                        {
-                            mainQuery = "(SELECT * FROM FabricView) AS A";
-                        }
-                        else
-                        {
-                            mainQuery = "";
-                        }
+                        mainQuery = "";
                     }
                     if (BarCodeList.Count > 0)
                     {
@@ -1215,75 +1356,76 @@ namespace TextileResearchDevelopment.BLL
             var count = 0;
             try
             {
-                var columnsName = new List<string>();
-                string FabricBarCodeQuery = "SELECT BarCode FROM Fabric WHERE Id = " + Id;
-                string query = " SELECT * FROM FabricProcess WHERE BarCode = (" + FabricBarCodeQuery + ")";
+                var ProcessStringList = new List<int>();
+                string query = "SELECT * FROM Fabric WHERE Id = " + Id;
                 reader1 = DBGateway.GetFromDB(query);
                 if (reader1.HasRows)
                 {
                     while (reader1.Read())
                     {
-                        columnsName = Enumerable.Range(0, reader1.FieldCount).Select(reader1.GetName).ToList();
-                        columnsName.RemoveRange(0, 2);
+                        ProcessStringList = reader1["ProcessString"].ToString().Split(',').Select(int.Parse).ToList();
                     }
                 }
                 cn.Close();
-                int i = 0;
-                while (i < columnsName.Count)
+
+                if (ProcessStringList.Count > 0)
                 {
-                    if (columnsName[i].ToString() == "Knit")
+                    foreach (var i in ProcessStringList)
                     {
-                        query = " SELECT * FROM Knitting WHERE FabricID = " + Id + " AND ApprovedStatus = 1";
-                        cm.CommandText = query;
-                        cn.Open();
-                        reader1 = cm.ExecuteReader();
-                        if (reader1.Read())
+                        string tableName = new User().Sectors[(i + 1).ToString()];
+                        if (tableName == "Knit")
                         {
-                            count++;
-                            break;
+                            query = " SELECT * FROM Knitting WHERE FabricID = " + Id;
+                            cm.CommandText = query;
+                            cn.Open();
+                            reader1 = cm.ExecuteReader();
+                            if (reader1.Read())
+                            {
+                                count++;
+                                break;
+                            }
+                            cn.Close();
                         }
-                        cn.Close();
-                    }
-                    else if (columnsName[i].ToString() == "CW")
-                    {
-                        query = " SELECT * FROM ContinueWashing WHERE FabricID = " + Id + " AND ApprovedStatus = 1";
-                        cm.CommandText = query;
-                        cn.Open();
-                        reader1 = cm.ExecuteReader();
-                        if (reader1.Read())
+                        else if (tableName == "CW")
                         {
-                            count++;
-                            break;
+                            query = " SELECT * FROM ContinueWashing WHERE FabricID = " + Id;
+                            cm.CommandText = query;
+                            cn.Open();
+                            reader1 = cm.ExecuteReader();
+                            if (reader1.Read())
+                            {
+                                count++;
+                                break;
+                            }
+                            cn.Close();
                         }
-                        cn.Close();
-                    }
-                    else if (columnsName[i].ToString() == "Print")
-                    {
-                        query = " SELECT * FROM PrintInfo WHERE FabricID = " + Id + " AND ApprovedStatus = 1";
-                        cm.CommandText = query;
-                        cn.Open();
-                        reader1 = cm.ExecuteReader();
-                        if (reader1.Read())
+                        else if (tableName == "Print")
                         {
-                            count++;
-                            break;
+                            query = " SELECT * FROM PrintInfo WHERE FabricID = " + Id;
+                            cm.CommandText = query;
+                            cn.Open();
+                            reader1 = cm.ExecuteReader();
+                            if (reader1.Read())
+                            {
+                                count++;
+                                break;
+                            }
+                            cn.Close();
                         }
-                        cn.Close();
-                    }
-                    else
-                    {
-                        query = " SELECT * FROM " + i.ToString() + " WHERE FabricID = " + Id + " AND ApprovedStatus = 1";
-                        cm.CommandText = query;
-                        cn.Open();
-                        reader1 = cm.ExecuteReader();
-                        if (reader1.Read())
+                        else
                         {
-                            count++;
-                            break;
+                            query = " SELECT * FROM " + tableName + " WHERE FabricID = " + Id;
+                            cm.CommandText = query;
+                            cn.Open();
+                            reader1 = cm.ExecuteReader();
+                            if (reader1.Read())
+                            {
+                                count++;
+                                break;
+                            }
+                            cn.Close();
                         }
-                        cn.Close();
                     }
-                    i++;
                 }
             }
             catch (Exception ex)
@@ -1349,7 +1491,8 @@ namespace TextileResearchDevelopment.BLL
 
         public static bool GetUnApprovedStatus(string BarCode, string tableName)
         {
-            Boolean result = false;
+            Boolean result = false; var ProcessStringList = new List<int>();
+            int key = Convert.ToInt32(new User().Sectors.FirstOrDefault(x => x.Value == tableName).Key) - 1;
             try
             {
                 string query = "SELECT * FROM Fabric WHERE BarCode = '" + BarCode + "' AND FinalApprovalID = 2 ";
@@ -1359,31 +1502,23 @@ namespace TextileResearchDevelopment.BLL
                 }
                 else
                 {
-                    var columnsName = new Dictionary<int, string>();
-                    query = " SELECT * FROM FabricProcess WHERE BarCode = '" + BarCode + "'";
-
+                    query = " SELECT * FROM Fabric WHERE BarCode = '" + BarCode + "'";
                     SqlDataReader reader = DBGateway.GetFromDB(query);
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            for (int i = 0; i < reader.FieldCount; i++)
-                            {
-                                if (reader.GetValue(i).ToString() == "1")
-                                {
-                                    columnsName.Add(columnsName.Count, reader.GetName(i).ToString());
-                                }
-                            }
+                            ProcessStringList = reader["ProcessString"].ToString().Split(',').Select(int.Parse).ToList();
                         }
                     }
 
-                    if (columnsName.FirstOrDefault(x => x.Value == tableName).Key == columnsName.Count - 1)
+                    if (ProcessStringList.IndexOf(key) == ProcessStringList.Count - 1)
                     {
                         result = true;
                     }
                     else
                     {
-                        string nextSectorName = columnsName[columnsName.FirstOrDefault(x => x.Value == tableName).Key + 1];
+                        string nextSectorName = new User().Sectors[((ProcessStringList[ProcessStringList.IndexOf(key) + 1]) + 1).ToString()];
                         string FabricIDQuery = "SELECT Id FROM Fabric WHERE BarCode = '" + BarCode + "'";
                         if (nextSectorName == "Knit")
                         {
@@ -1433,34 +1568,28 @@ namespace TextileResearchDevelopment.BLL
 
         public static bool GetApprovedStatus(string BarCode, string tableName)
         {
-            Boolean result = false;
+            Boolean result = false; var ProcessStringList = new List<int>();
+            int key = Convert.ToInt32(new User().Sectors.FirstOrDefault(x => x.Value == tableName).Key) - 1;
             try
             {
-                var columnsName = new Dictionary<int, string>();
-                string query = " SELECT * FROM FabricProcess WHERE BarCode = '" + BarCode + "'";
+                string query = " SELECT * FROM Fabric WHERE BarCode = '" + BarCode + "'";
 
                 SqlDataReader reader = DBGateway.GetFromDB(query);
                 if (reader.HasRows)
                 {
                     while (reader.Read())
                     {
-                        for (int i = 0; i < reader.FieldCount; i++)
-                        {
-                            if (reader.GetValue(i).ToString() == "1")
-                            {
-                                columnsName.Add(columnsName.Count, reader.GetName(i).ToString());
-                            }
-                        }
+                        ProcessStringList = reader["ProcessString"].ToString().Split(',').Select(int.Parse).ToList();
                     }
                 }
 
-                if (columnsName.FirstOrDefault(x => x.Value == tableName).Key == 0)
+                if (ProcessStringList.IndexOf(key) == 0)
                 {
                     result = true;
                 }
                 else
                 {
-                    string prevSectorName = columnsName[columnsName.FirstOrDefault(x => x.Value == tableName).Key - 1];
+                    string prevSectorName = new User().Sectors[((ProcessStringList[ProcessStringList.IndexOf(key) - 1]) + 1).ToString()];
                     string FabricIDQuery = "SELECT Id FROM Fabric WHERE BarCode = '" + BarCode + "'";
                     if (prevSectorName == "Knit")
                     {

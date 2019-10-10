@@ -229,9 +229,9 @@
                 </div>
                 <div class=" form-group">
                     <div class="form-group col-xs-4 form-inline">
-                        <label for="ProductionType" class="control-label required" style="width:35%;">Production Type</label>
+                        <label for="ProductionType" class="control-label" style="width:35%;">Production Type</label>
                         <div style="display: inline;">
-                            <select name="ProductionType" id="ProductionType" style="width:60%;" class="form-control input-sm" autofocus></select>
+                            <select name="ProductionType" id="ProductionType" style="width:60%;" class="form-control" autofocus></select>
                         </div>
                     </div>
                     <div class="form-group col-xs-4 form-inline">
@@ -276,6 +276,8 @@
                 <th>McNoID</th>
                 <th>PrID</th>
                 <th>ProcessString</th>
+                <th>ProcessText</th>
+                <th>ColorString</th>
                 <th>BarCode</th>
                 <th>Buyer</th>
                 <th>Fabric</th>
@@ -306,6 +308,8 @@
         <tfoot>
             <tr>
                 <th style="visibility:hidden;"></th>
+                <th></th>
+                <th></th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -584,7 +588,7 @@
                     "orderable": false,
                 },
                 {
-                    "targets": [1, 2, 3, 4, 5],
+                    "targets": [1, 2, 3, 4, 5, 6, 7],
                     "visible": false,
                     "searchable": false
                 },
@@ -607,6 +611,8 @@
                 { "data": "mc.Id" },
                 { "data": "pr.Id" },
                 { "data": "fabric.ProcessString" },
+                { "data": "fabric.ProcessText" },
+                { "data": "fabric.ColorString" },
                 { "data": "fabric.BarCode" },
                 { "data": "fabric.buyer.BuyerName" },
                 { "data": "fabric.fb.FabricTypeName" },
@@ -707,7 +713,29 @@
                     Reset();
                     $(this).addClass('selected');
                     var rowdata = Stentertable.row(this).data();
-                    $('#ProcessString').text(rowdata.fabric.ProcessString);
+                    if (rowdata.ProcessString != "") {
+                        var res = "";
+                        var split_ProcessString = rowdata.fabric.ProcessString.split(",");
+                        var split_ProcessText = rowdata.fabric.ProcessText.split("->");
+                        var split_ColorString = rowdata.fabric.ColorString.split(",");
+
+                        for (var i = 0; i < split_ProcessString.length; i++) {
+                            if (split_ColorString[i] == "0") {
+                                if (res == "")
+                                    res += "<span class='blue'>" + split_ProcessText[i] + "</span>";
+                                else
+                                    res += "<span class='blue'>->" + split_ProcessText[i] + "</span>";
+                            }
+                            else {
+                                if (res == "")
+                                    res += "<span class='green'>" + split_ProcessText[i] + "</span>";
+                                else
+                                    res += "<span class='green'>->" + split_ProcessText[i] + "</span>";
+                            }
+                        }
+
+                        $('#ProcessString').html(res);
+                    }
                     if (rowdata.ApprovedStatus == 0) {
                         Setvalue(rowdata);
                         $('#saveBtn').prop("disabled", true);
@@ -1060,7 +1088,7 @@
                         DeleteRow();
                     if (selectedMenu.text() == "Approve") {
 
-                        var BarCode = Stentertable.rows('.selected').data()[0].BarCode;
+                        var BarCode = Stentertable.rows('.selected').data()[0].fabric.BarCode;
                         var rows = Stentertable.rows(function (idx, data, node) {
                             return data.BarCode === BarCode && data.ApprovedStatus == 1 ?
                                 true : false;
@@ -1286,6 +1314,7 @@
         }
 
         function Setvalue(rowdata) {
+            debugger;
             $("#BarCode").val(rowdata.fabric.BarCode);
             $("#BuyerName").val(rowdata.fabric.buyer.BuyerName);
             $("#FabricTypeName").val(rowdata.fabric.fb.FabricTypeName);
@@ -1293,7 +1322,13 @@
             $("#OrderNo").val(rowdata.fabric.OrderNo);
             $("#RefNo").val(rowdata.fabric.RefNo);
             $("#McNoType").val(rowdata.mc.Id);
-            $("#ProductionType").val(rowdata.pr.Id);
+            if (rowdata.pr.Id == 0) {
+                $("#ProductionType").val('');
+            }
+            else {
+                $("#ProductionType").val(rowdata.pr.Id);
+            }
+
             $("#Temp").val(rowdata.Temp);
             $("#Remarks").val(rowdata.Remarks);
             $("#Feed").val(rowdata.Feed);

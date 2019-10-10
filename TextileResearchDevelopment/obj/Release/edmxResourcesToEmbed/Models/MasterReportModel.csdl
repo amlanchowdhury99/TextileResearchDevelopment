@@ -63,7 +63,7 @@
     <Property Name="OrderNo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="Color" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="BarCode" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="BuyerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BuyerName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="FabricTypeID" Type="Int32" Nullable="false" />
     <Property Name="BuyerID" Type="Int32" Nullable="false" />
     <Property Name="BatchNo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
@@ -89,7 +89,7 @@
     <Property Name="McGauge" Type="Int32" />
     <Property Name="McBrand" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="McNo" Type="Int32" />
-    <Property Name="CWMcNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CWMcNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="CWSEWidth" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="CWWashDia" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="CWWELength" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
@@ -143,7 +143,7 @@
     <Property Name="DRGSM" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="DRShrinkage" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="Remarks" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-    <Property Name="DryerMcNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DryerMcNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="CTemp" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="CFeed" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="CSpeed" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
@@ -152,8 +152,8 @@
     <Property Name="CGSM" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="CRemarks" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="CCompaction" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-    <Property Name="CProduction" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="CompactingMcNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CProduction" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="CompactingMcNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="PTaker" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="PPlaiter" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="PReturn" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
@@ -172,7 +172,7 @@
     <Property Name="BLowerCounterPile" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="BLowerDrumTension" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="BLowerDrumRPM" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-    <Property Name="BRemarks" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="BRemarks" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="STProductionTypeID" Type="Int32" />
     <Property Name="CProductionTypeID" Type="Int32" />
     <Property Name="PrintCoverage" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
@@ -191,7 +191,7 @@
     <Property Name="QPilling" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="QStrech" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="QRecovery" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="BSpeed" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BSpeed" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <Property Name="KnitID" Type="Int32" />
     <Property Name="UpdateTime" Type="DateTime" Precision="3" />
     <Property Name="FinalApprovalID" Type="Int32" Nullable="false" />
@@ -233,5 +233,11 @@
     <Property Name="STRevise" Type="Int32" />
     <Property Name="PRRevise" Type="Int32" />
     <Property Name="DyeingMcNo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="ProcessString" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ProcessText" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Rate" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="Merchandiser" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="FabricUnitTypeID" Type="Int32" />
+    <Property Name="FabricUnit" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

@@ -104,7 +104,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 cws = new List<Singeing>();
-                string query = "SELECT * FROM SingeingView";
+                string query = "SELECT * FROM SingeingView Order By Id desc";
                 cm.CommandText = query;
                 reader = cm.ExecuteReader();
                 if (reader.HasRows)
@@ -140,7 +140,9 @@ namespace TextileResearchDevelopment.BLL
                 singeing.fabric.cm.Composition = reader["Composition"].ToString();
                 singeing.fabric.Id = Convert.ToInt32(reader["FabricID"]);
                 singeing.fabric.BarCode = reader["BarCode"].ToString();
-                singeing.fabric.ProcessString = FabricBLL.GetProcessString(reader["BarCode"].ToString());
+                singeing.fabric.ProcessString = reader["ProcessString"] == DBNull.Value ? "" : reader["ProcessString"].ToString();
+                singeing.fabric.ProcessText = reader["ProcessText"] == DBNull.Value ? "" : reader["ProcessText"].ToString();
+                singeing.fabric.ColorString = FabricBLL.GetColorString(singeing.fabric.Id, singeing.fabric.ProcessString);
 
                 singeing.HBurner1 = reader["SFHBurner1"].ToString();
                 singeing.HBurner2 = reader["SFHBurner2"].ToString();

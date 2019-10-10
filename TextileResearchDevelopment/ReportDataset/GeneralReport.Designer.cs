@@ -583,18 +583,18 @@ namespace TextileResearchDevelopment.ReportDataset {
                 this.columnYDRCK = new global::System.Data.DataColumn("YDRCK", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnYDRCK);
                 this.columnYDRRepeat.AllowDBNull = false;
-                this.columnYDRRepeat.MaxLength = 50;
+                this.columnYDRRepeat.MaxLength = 200;
                 this.columnYDRColor.AllowDBNull = false;
-                this.columnYDRColor.MaxLength = 50;
+                this.columnYDRColor.MaxLength = 200;
                 this.columnYDRFeederNo.AllowDBNull = false;
-                this.columnYDRFeederNo.MaxLength = 50;
+                this.columnYDRFeederNo.MaxLength = 200;
                 this.columnYDRMeasurement.AllowDBNull = false;
-                this.columnYDRMeasurement.MaxLength = 50;
-                this.columnYDRUOM.MaxLength = 50;
+                this.columnYDRMeasurement.MaxLength = 200;
+                this.columnYDRUOM.MaxLength = 200;
                 this.columnYDRBatchNo.AllowDBNull = false;
-                this.columnYDRBatchNo.MaxLength = 100;
+                this.columnYDRBatchNo.MaxLength = 200;
                 this.columnYDRCK.AllowDBNull = false;
-                this.columnYDRCK.MaxLength = 50;
+                this.columnYDRCK.MaxLength = 200;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -927,11 +927,13 @@ namespace TextileResearchDevelopment.ReportDataset {
                 this.columnYarnColor = new global::System.Data.DataColumn("YarnColor", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnYarnColor);
                 this.columnLot.AllowDBNull = false;
-                this.columnYarnCount.MaxLength = 50;
-                this.columnYarnComposition.MaxLength = 50;
-                this.columnYarnName.MaxLength = 50;
-                this.columnYarnSupplier.MaxLength = 150;
-                this.columnYarnColor.MaxLength = 50;
+                this.columnLot.MaxLength = 200;
+                this.columnTPI.MaxLength = 200;
+                this.columnYarnCount.MaxLength = 200;
+                this.columnYarnComposition.MaxLength = 200;
+                this.columnYarnName.MaxLength = 200;
+                this.columnYarnSupplier.MaxLength = 200;
+                this.columnYarnColor.MaxLength = 200;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1181,7 +1183,7 @@ namespace TextileResearchDevelopment.ReportDataset {
                 base.Columns.Add(this.columnFabricProcessString);
                 this.columnFabricProcessString.AllowDBNull = false;
                 this.columnFabricProcessString.Caption = "YDRRepeat";
-                this.columnFabricProcessString.MaxLength = 50;
+                this.columnFabricProcessString.MaxLength = 500;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1636,6 +1638,16 @@ namespace TextileResearchDevelopment.ReportDataset {
             private global::System.Data.DataColumn columnSTCreateTime;
             
             private global::System.Data.DataColumn columnSTRevise;
+            
+            private global::System.Data.DataColumn columnProcessString;
+            
+            private global::System.Data.DataColumn columnProcessText;
+            
+            private global::System.Data.DataColumn columnRate;
+            
+            private global::System.Data.DataColumn columnMerchandiser;
+            
+            private global::System.Data.DataColumn columnFabricUnit;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -2960,6 +2972,46 @@ namespace TextileResearchDevelopment.ReportDataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ProcessStringColumn {
+                get {
+                    return this.columnProcessString;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ProcessTextColumn {
+                get {
+                    return this.columnProcessText;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn RateColumn {
+                get {
+                    return this.columnRate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn MerchandiserColumn {
+                get {
+                    return this.columnMerchandiser;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn FabricUnitColumn {
+                get {
+                    return this.columnFabricUnit;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -3156,7 +3208,12 @@ namespace TextileResearchDevelopment.ReportDataset {
                         string DRCreateTime, 
                         string DRRevise, 
                         string STCreateTime, 
-                        string STRevise) {
+                        string STRevise, 
+                        string ProcessString, 
+                        string ProcessText, 
+                        string Rate, 
+                        string Merchandiser, 
+                        string FabricUnit) {
                 MasterReportViewRow rowMasterReportViewRow = ((MasterReportViewRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Id,
@@ -3319,7 +3376,12 @@ namespace TextileResearchDevelopment.ReportDataset {
                         DRCreateTime,
                         DRRevise,
                         STCreateTime,
-                        STRevise};
+                        STRevise,
+                        ProcessString,
+                        ProcessText,
+                        Rate,
+                        Merchandiser,
+                        FabricUnit};
                 rowMasterReportViewRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMasterReportViewRow);
                 return rowMasterReportViewRow;
@@ -3503,6 +3565,11 @@ namespace TextileResearchDevelopment.ReportDataset {
                 this.columnDRRevise = base.Columns["DRRevise"];
                 this.columnSTCreateTime = base.Columns["STCreateTime"];
                 this.columnSTRevise = base.Columns["STRevise"];
+                this.columnProcessString = base.Columns["ProcessString"];
+                this.columnProcessText = base.Columns["ProcessText"];
+                this.columnRate = base.Columns["Rate"];
+                this.columnMerchandiser = base.Columns["Merchandiser"];
+                this.columnFabricUnit = base.Columns["FabricUnit"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3830,6 +3897,16 @@ namespace TextileResearchDevelopment.ReportDataset {
                 base.Columns.Add(this.columnSTCreateTime);
                 this.columnSTRevise = new global::System.Data.DataColumn("STRevise", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSTRevise);
+                this.columnProcessString = new global::System.Data.DataColumn("ProcessString", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnProcessString);
+                this.columnProcessText = new global::System.Data.DataColumn("ProcessText", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnProcessText);
+                this.columnRate = new global::System.Data.DataColumn("Rate", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRate);
+                this.columnMerchandiser = new global::System.Data.DataColumn("Merchandiser", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMerchandiser);
+                this.columnFabricUnit = new global::System.Data.DataColumn("FabricUnit", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFabricUnit);
                 this.columnId.AllowDBNull = false;
                 this.columnOrderNo.AllowDBNull = false;
                 this.columnOrderNo.MaxLength = 150;
@@ -3837,7 +3914,7 @@ namespace TextileResearchDevelopment.ReportDataset {
                 this.columnColor.MaxLength = 150;
                 this.columnBarCode.AllowDBNull = false;
                 this.columnBarCode.MaxLength = 200;
-                this.columnBuyerName.MaxLength = 50;
+                this.columnBuyerName.MaxLength = 250;
                 this.columnFabricTypeID.AllowDBNull = false;
                 this.columnBuyerID.AllowDBNull = false;
                 this.columnBatchNo.AllowDBNull = false;
@@ -3847,10 +3924,10 @@ namespace TextileResearchDevelopment.ReportDataset {
                 this.columnSeason.AllowDBNull = false;
                 this.columnSeason.MaxLength = 150;
                 this.columnCompositionTypeID.AllowDBNull = false;
-                this.columnCreateByName.MaxLength = 100;
+                this.columnCreateByName.MaxLength = 150;
                 this.columnComposition.MaxLength = 150;
                 this.columnUpdateByName.MaxLength = 100;
-                this.columnFabricTypeName.MaxLength = 50;
+                this.columnFabricTypeName.MaxLength = 150;
                 this.columnVersion.MaxLength = 150;
                 this.columnGreyGSM.MaxLength = 200;
                 this.columnYarnTension.MaxLength = 200;
@@ -3861,7 +3938,7 @@ namespace TextileResearchDevelopment.ReportDataset {
                 this.columnSL.MaxLength = 200;
                 this.columnMcSpeed.MaxLength = 200;
                 this.columnErpNo.MaxLength = 150;
-                this.columnMcBrand.MaxLength = 50;
+                this.columnMcBrand.MaxLength = 150;
                 this.columnCWMcNo.MaxLength = 50;
                 this.columnCWSEWidth.MaxLength = 150;
                 this.columnCWWashDia.MaxLength = 150;
@@ -3894,8 +3971,8 @@ namespace TextileResearchDevelopment.ReportDataset {
                 this.columnDyeingTime.MaxLength = 150;
                 this.columnDyebath.MaxLength = 150;
                 this.columnWhiteness.MaxLength = 150;
-                this.columnRFT.MaxLength = 50;
-                this.columnHistory.MaxLength = 50;
+                this.columnRFT.MaxLength = 150;
+                this.columnHistory.MaxLength = 150;
                 this.columnSTTemp.MaxLength = 150;
                 this.columnSTFeed.MaxLength = 150;
                 this.columnSTSpeed.MaxLength = 150;
@@ -3906,7 +3983,7 @@ namespace TextileResearchDevelopment.ReportDataset {
                 this.columnSTShrinkage.MaxLength = 150;
                 this.columnSTRemarks.MaxLength = 150;
                 this.columnStenterMcNo.MaxLength = 50;
-                this.columnSProduction.MaxLength = 50;
+                this.columnSProduction.MaxLength = 150;
                 this.columnDRTemp.MaxLength = 150;
                 this.columnDRFeed.MaxLength = 150;
                 this.columnDRSpeed.MaxLength = 150;
@@ -3925,7 +4002,7 @@ namespace TextileResearchDevelopment.ReportDataset {
                 this.columnCGSM.MaxLength = 150;
                 this.columnCRemarks.MaxLength = 150;
                 this.columnCCompaction.MaxLength = 150;
-                this.columnCProduction.MaxLength = 50;
+                this.columnCProduction.MaxLength = 150;
                 this.columnCompactingMcNo.MaxLength = 50;
                 this.columnPTaker.MaxLength = 150;
                 this.columnPPlaiter.MaxLength = 150;
@@ -3945,11 +4022,11 @@ namespace TextileResearchDevelopment.ReportDataset {
                 this.columnBLowerCounterPile.MaxLength = 150;
                 this.columnBLowerDrumTension.MaxLength = 150;
                 this.columnBLowerDrumRPM.MaxLength = 150;
-                this.columnBRemarks.MaxLength = 10;
+                this.columnBRemarks.MaxLength = 150;
                 this.columnPrintCoverage.MaxLength = 150;
                 this.columnOtherInfo.MaxLength = 150;
                 this.columnPrintMcNo.MaxLength = 50;
-                this.columnPrintFactory.MaxLength = 50;
+                this.columnPrintFactory.MaxLength = 150;
                 this.columnPrintName.MaxLength = 150;
                 this.columnQDia.MaxLength = 100;
                 this.columnQGSM.MaxLength = 100;
@@ -3962,7 +4039,12 @@ namespace TextileResearchDevelopment.ReportDataset {
                 this.columnQPilling.MaxLength = 100;
                 this.columnQStrech.MaxLength = 100;
                 this.columnQRecovery.MaxLength = 100;
-                this.columnBSpeed.MaxLength = 50;
+                this.columnBSpeed.MaxLength = 150;
+                this.columnProcessString.MaxLength = 500;
+                this.columnProcessText.MaxLength = 500;
+                this.columnRate.MaxLength = 150;
+                this.columnMerchandiser.MaxLength = 150;
+                this.columnFabricUnit.MaxLength = 150;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6961,6 +7043,86 @@ namespace TextileResearchDevelopment.ReportDataset {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string ProcessString {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.ProcessStringColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ProcessString\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.ProcessStringColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string ProcessText {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.ProcessTextColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ProcessText\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.ProcessTextColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Rate {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.RateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Rate\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.RateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Merchandiser {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.MerchandiserColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Merchandiser\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.MerchandiserColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string FabricUnit {
+                get {
+                    try {
+                        return ((string)(this[this.tableMasterReportView.FabricUnitColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'FabricUnit\' in table \'MasterReportView\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMasterReportView.FabricUnitColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsBuyerNameNull() {
                 return this.IsNull(this.tableMasterReportView.BuyerNameColumn);
             }
@@ -8769,6 +8931,66 @@ namespace TextileResearchDevelopment.ReportDataset {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetSTReviseNull() {
                 this[this.tableMasterReportView.STReviseColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsProcessStringNull() {
+                return this.IsNull(this.tableMasterReportView.ProcessStringColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetProcessStringNull() {
+                this[this.tableMasterReportView.ProcessStringColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsProcessTextNull() {
+                return this.IsNull(this.tableMasterReportView.ProcessTextColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetProcessTextNull() {
+                this[this.tableMasterReportView.ProcessTextColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsRateNull() {
+                return this.IsNull(this.tableMasterReportView.RateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetRateNull() {
+                this[this.tableMasterReportView.RateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsMerchandiserNull() {
+                return this.IsNull(this.tableMasterReportView.MerchandiserColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetMerchandiserNull() {
+                this[this.tableMasterReportView.MerchandiserColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsFabricUnitNull() {
+                return this.IsNull(this.tableMasterReportView.FabricUnitColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetFabricUnitNull() {
+                this[this.tableMasterReportView.FabricUnitColumn] = global::System.Convert.DBNull;
             }
         }
         

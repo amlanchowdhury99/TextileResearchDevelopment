@@ -39,6 +39,12 @@
     <EntitySetMapping Name="MasterReportViews">
       <EntityTypeMapping TypeName="TextileResearchDevelopmentModel.MasterReportView">
         <MappingFragment StoreEntitySet="MasterReportView">
+          <ScalarProperty Name="FabricUnit" ColumnName="FabricUnit" />
+          <ScalarProperty Name="FabricUnitTypeID" ColumnName="FabricUnitTypeID" />
+          <ScalarProperty Name="Merchandiser" ColumnName="Merchandiser" />
+          <ScalarProperty Name="Rate" ColumnName="Rate" />
+          <ScalarProperty Name="ProcessText" ColumnName="ProcessText" />
+          <ScalarProperty Name="ProcessString" ColumnName="ProcessString" />
           <ScalarProperty Name="DyeingMcNo" ColumnName="DyeingMcNo" />
           <ScalarProperty Name="PRRevise" ColumnName="PRRevise" />
           <ScalarProperty Name="STRevise" ColumnName="STRevise" />

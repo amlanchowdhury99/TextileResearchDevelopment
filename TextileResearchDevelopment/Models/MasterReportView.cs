@@ -188,5 +188,11 @@ namespace TextileResearchDevelopment.Models
         public Nullable<int> STRevise { get; set; }
         public Nullable<int> PRRevise { get; set; }
         public string DyeingMcNo { get; set; }
+        public string ProcessString { get; set; }
+        public string ProcessText { get; set; }
+        public string Rate { get; set; }
+        public string Merchandiser { get; set; }
+        public Nullable<int> FabricUnitTypeID { get; set; }
+        public string FabricUnit { get; set; }
     }
 }

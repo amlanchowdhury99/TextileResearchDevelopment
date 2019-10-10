@@ -67,7 +67,7 @@ namespace TextileResearchDevelopment.Controllers
                     }
                     cn.Close();
                     masterReport = db.MasterReportViews.Where(a => a.Id == FabricID).ToList();
-                    if(KnitID != 0)
+                    if (KnitID != 0)
                     {
                         YD = db.YDViews.Where(a => a.KnitID == KnitID).ToList();
                         YDR = db.YarnDyedRepeats.Where(a => a.KnitID == KnitID).ToList();
@@ -127,9 +127,8 @@ namespace TextileResearchDevelopment.Controllers
                     YD[0].YarnCount = "";
                 }
 
-                string FabricBarCodeQuery = "SELECT BarCode FROM Fabric WHERE Id = " + FabricID;
-                var columnsName = "";
-                string query = " SELECT * FROM FabricProcess WHERE BarCode = (" + FabricBarCodeQuery + ")";
+                var columnsName = ""; var ProcessStringList = new List<int>();
+                string query = " SELECT * FROM Fabric WHERE Id = " + FabricID;
                 cm.CommandText = query;
                 cn.Open();
                 reader = cm.ExecuteReader();
@@ -137,13 +136,19 @@ namespace TextileResearchDevelopment.Controllers
                 {
                     while (reader.Read())
                     {
-                        for (int i = 0; i < reader.FieldCount; i++)
+                        ProcessStringList = reader["ProcessString"] == "" ? new List<int>() : reader["ProcessString"].ToString().Split(',').Select(int.Parse).ToList();
+                    }
+
+                    if(ProcessStringList.Count > 0)
+                    {
+                        foreach (var i in ProcessStringList)
                         {
-                            if (reader.GetValue(i).ToString() == "1")
-                            {
-                                columnsName = columnsName == "" ? reader.GetName(i).ToString() : columnsName + " -> " + reader.GetName(i).ToString();
-                            }
+                            columnsName = columnsName == "" ? new User().Sectors[(i + 1).ToString()] : columnsName + "->" + new User().Sectors[(i + 1).ToString()];
                         }
+                    }
+                    else
+                    {
+                        columnsName = "No Set Process Setup";
                     }
                 }
                 cn.Close();
@@ -313,7 +318,12 @@ namespace TextileResearchDevelopment.Controllers
                     NullHelpers.DateToString(item.DRCreateTime),
                     item.DRRevise.ToString(),
                     NullHelpers.DateToString(item.STCreateTime),
-                    item.STRevise.ToString());
+                    item.STRevise.ToString(),
+                    item.ProcessString,
+                    item.ProcessText,
+                    item.Rate,
+                    item.Merchandiser,
+                    item.FabricUnit);
                 };
 
                 foreach (var item in YD)
@@ -321,7 +331,7 @@ namespace TextileResearchDevelopment.Controllers
                     ds.YDView.AddYDViewRow(
                     item.Lot.ToString(),
                     item.TPI.ToString(),
-                    item.YarnCount,
+                    "",
                     item.YarnComposition,
                     item.YarnName,
                     item.YarnSupplier,
@@ -334,8 +344,8 @@ namespace TextileResearchDevelopment.Controllers
                     item.YDRRepeat,
                     item.YDRColor,
                     item.YDRFeederNo,
-                    item.YDRMeasurement,
-                    item.YDRUOM,
+                    "",
+                    "",
                     item.YDRBatchNo,
                     item.YDRCK);
                 };
@@ -356,7 +366,7 @@ namespace TextileResearchDevelopment.Controllers
                 Response.BinaryWrite(fileBuffer);
                 return null;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return null;
             }

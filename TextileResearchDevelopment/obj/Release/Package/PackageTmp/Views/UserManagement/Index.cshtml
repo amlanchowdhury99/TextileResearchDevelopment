@@ -82,10 +82,8 @@
 <script>
 
     $(document).ready(function () {
-
         debugger;
         var PermissionString = ""; var vals = [];
-
         var rootNode = [
             {
                 "Id": "1",
@@ -97,14 +95,14 @@
                         "Id": "1_1",
                         "ParentID": 1,
                         "title": "Crud",
-                        "value": 11,
+                        "value": 17,
                         "val": 0,
                         "children": []
                     },
                     {
                         "Id": "1_2",
                         "ParentID": 1,
-                        "value": 12,
+                        "value": 18,
                         "val": 0,
                         "title": "LibrarySet",
                         "children": []
@@ -112,7 +110,7 @@
                     {
                         "Id": "1_3",
                         "ParentID": 1,
-                        "value": 13,
+                        "value": 19,
                         "val": 0,
                         "title": "Approval",
                         "children": []
@@ -504,20 +502,16 @@
                 ]
             }
         ];
-
         $('div.treeSelector').treeSelector(rootNode, [], function (e, values) {
             debugger;
             vals = values;
         }, {
-
                 checkWithParent: false,
                 titleWithParent: true,
                 notViewClickParentTitle: false,
                 disabled: false,
                 emptyOptonPlaceholder: 'asd'
-
             });
-
         var UserTable = $('#UserTable').DataTable({
             buttons: [],
             "ajax":
@@ -542,7 +536,6 @@
                     "orderable": false,
                 }
             ],
-
             "columns": [
                 {
                     "searchable": false,
@@ -554,13 +547,11 @@
                 { "data": "UserName" },
                 { "data": "Password" },
                 {
-
                     "visible": false,
                     "data": "Report"
                 }
             ]
         }).columns.adjust().draw();
-
         function IsValid() {
             if ($('#Fabric').is(':checked')) {
                 PermissionString = PermissionString + "1,";
@@ -582,12 +573,10 @@
             }
             if ($('#Test').is(':checked')) {
                 PermissionString = PermissionString + "7,";
-
             }
             if ($('#Remarks').is(':checked')) {
                 PermissionString = PermissionString + "8,";
             }
-
             if (PermissionString != "") {
                 PermissionString = PermissionString.replace(/,\s*$/, "");
                 return true;
@@ -596,7 +585,6 @@
                 return false;
             }
         }
-
         function Reset() {
             event.preventDefault();
             debugger;
@@ -606,7 +594,6 @@
             $("#UserName").val("");
             $("#Password").val("");
             $('#Report').prop('checked', false);
-
             $('div.treeSelector').treeSelector(rootNode, [], function (e, values) {
                 debugger;
                 vals = [];
@@ -616,13 +603,10 @@
                     notViewClickParentTitle: false,
                     disabled: false,
                     emptyOptonPlaceholder: 'asd'
-
                 });
-
             PermissionString = "";
             vals = [];
         }
-
         function findValueInArray(value, vals) {
             var result = false;
             for (var i = 0; i < vals.length; i++) {
@@ -633,11 +617,9 @@
             }
             return result;
         }
-
         $('#UserForm').submit(function (e) {
             debugger;
             event.preventDefault();
-
             rootNode.forEach(function (item, i) {
                 if (findValueInArray(item["value"], vals) == true) {
                     item["val"] = 1;
@@ -654,7 +636,6 @@
                     };
                 });
             });
-
             var user = {
                 Id: '0',
                 Name: $("#Name").val(),
@@ -665,7 +646,6 @@
                 Report: $("#Report").prop("checked") == false ? 0 : 1,
                 CreateDate: moment(Date.now()).format("DD/MM/YYYY")
             };
-
             $.ajax({
                 type: "POST",
                 url: "/UserManagement/Create",
@@ -687,9 +667,7 @@
                     $("#tblItems").append(" Error when fetching data please contact administrator");
                 }
             });
-
         });
-
         $("#deleteBtn").click(function () {
             event.preventDefault();
             if ($('#UserTable tbody tr').hasClass('selected')) {
@@ -719,19 +697,14 @@
                 alert("Please Select A Row!!!");
                 return;
             }
-
         });
-
         $("#resetBtn").click(function () {
             event.preventDefault();
             debugger;
             Reset();
-
         });
-
         $('#UserTable tbody').on('click', 'tr', function () {
             debugger;
-
             if ($(this).hasClass('selected')) {
                 Reset();
                 $(this).removeClass('selected');
@@ -741,10 +714,8 @@
                 UserTable.$('tr.selected').removeClass('selected');
                 $(this).addClass('selected');
                 Setvalue(rowdata);
-
             }
         });
-
         function GetSelectedNode(Nodes) {
             debugger;
             var arr = [];
@@ -760,7 +731,6 @@
             });
             return arr;
         }
-
         function Setvalue(rowdata) {
             debugger;
             Reset();
@@ -776,11 +746,9 @@
             else {
                 $('#Report').prop('checked', true);
             }
-
             var user = {
                 UserName: rowdata.UserName
             };
-
             $.ajax({
                 type: "POST",
                 url: "/UserManagement/Details",
@@ -799,7 +767,6 @@
                                 notViewClickParentTitle: true,
                                 disabled: false,
                                 emptyOptonPlaceholder: 'asd'
-
                             });
                     }
                     else {
@@ -811,18 +778,14 @@
                     $("#tblItems").append(" Error when fetching data please contact administrator");
                 }
             });
-
         }
-
         $("#updateBtn").click(function () {
             event.preventDefault();
-
             debugger
             if ($('#UserTable tbody tr').hasClass('selected')) {
                 debugger
                 var Row = UserTable.rows('.selected').data()[0];
                 var index = UserTable.row('.selected').index();
-
                 rootNode.forEach(function (item, i) {
                     if (findValueInArray(item["value"], vals) == true) {
                         item["val"] = 1;
@@ -839,7 +802,6 @@
                         };
                     });
                 });
-
                 var user = {
                     Id: '0',
                     Name: $("#Name").val(),
@@ -848,7 +810,6 @@
                     Report: $("#Report").prop("checked") == false ? 0 : 1,
                     rootNode: rootNode
                 };
-
                 $.ajax({
                     type: "POST",
                     url: "/UserManagement/Update",
@@ -876,10 +837,7 @@
                 alert("Please Select A Row!!!");
                 return;
             }
-
         });
-
     });
-
 
 </script>

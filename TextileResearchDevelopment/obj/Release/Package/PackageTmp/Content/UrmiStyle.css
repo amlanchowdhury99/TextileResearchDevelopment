@@ -6,6 +6,14 @@ input[type="search"] {
     background-color: wheat;
 }
 
+.blue {
+    color: #337ab7;
+}
+
+.green {
+    color: forestgreen;
+}
+
 dt-button {
     background-color: midnightblue;
     color: white;
