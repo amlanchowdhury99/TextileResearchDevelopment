@@ -28,7 +28,7 @@ namespace TextileResearchDevelopment.BLL
                 if (brush.Id > 0)
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE Brush SET FabricID = '" + brush.fabric.Id + "', BUpperPile = '" + brush.UPile + "', BUpperCounterPile = '" + brush.UCounterPile + "', BUpperDrumTension = '" + brush.UTension + "', BUpperDrumRPM = '" + brush.URPM + "', BLowerPile = '" + brush.LPile + "', BLowerCounterPile = '" + brush.LCounterPile + "',  BLowerDrumTension = '" + brush.LTension + "', BLowerDrumRPM = '" + brush.LRPM + "', BSpeed = '" + brush.BSpeed + "', BRemarks = '" + brush.Remarks + "', UpdateBy = (" + GetCreateByQuery + "), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "'";
+                    query = "UPDATE Brush SET FabricID = '" + brush.fabric.Id + "', BUpperPile = '" + brush.UPile + "', BUpperCounterPile = '" + brush.UCounterPile + "', BUpperDrumTension = '" + brush.UTension + "', BUpperDrumRPM = '" + brush.URPM + "', BLowerPile = '" + brush.LPile + "', BLowerCounterPile = '" + brush.LCounterPile + "',  BLowerDrumTension = '" + brush.LTension + "', BLowerDrumRPM = '" + brush.LRPM + "', BSpeed = '" + brush.BSpeed + "', BRemarks = '" + brush.Remarks + "', UpdateBy = (" + GetCreateByQuery + "), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "'";
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
@@ -46,7 +46,7 @@ namespace TextileResearchDevelopment.BLL
                 else
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "INSERT INTO Brush (FabricID, BUpperPile, BUpperCounterPile, BUpperDrumTension, BUpperDrumRPM, BLowerPile, BLowerCounterPile, BLowerDrumTension, BLowerDrumRPM, BSpeed, BRemarks, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + brush.fabric.Id + ",'" + brush.UPile + "','" + brush.UCounterPile + "','" + brush.UTension + "','" + brush.URPM + "','" + brush.LPile + "','" + brush.LCounterPile + "','" + brush.LTension + "','" + brush.LRPM + "','" + brush.BSpeed + "','" + brush.Remarks + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                    query = "INSERT INTO Brush (FabricID, BUpperPile, BUpperCounterPile, BUpperDrumTension, BUpperDrumRPM, BLowerPile, BLowerCounterPile, BLowerDrumTension, BLowerDrumRPM, BSpeed, BRemarks, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + brush.fabric.Id + ",'" + brush.UPile + "','" + brush.UCounterPile + "','" + brush.UTension + "','" + brush.URPM + "','" + brush.LPile + "','" + brush.LCounterPile + "','" + brush.LTension + "','" + brush.LRPM + "','" + brush.BSpeed + "','" + brush.Remarks + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "')";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
                         query = "SELECT TOP 1 * FROM BrushView order by Id desc";
@@ -182,7 +182,7 @@ namespace TextileResearchDevelopment.BLL
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
                 string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM BrushView WHERE BarCode = '" + brush.fabric.BarCode + "'";
                 
-                string query = "INSERT INTO Brush (FabricID, BUpperPile, BUpperCounterPile, BUpperDrumTension, BUpperDrumRPM, BLowerPile, BLowerCounterPile, BLowerDrumTension, BLowerDrumRPM, BSpeed, BRemarks, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + brush.fabric.Id + ",'" + brush.UPile + "','" + brush.UCounterPile + "','" + brush.UTension + "','" + brush.URPM + "','" + brush.LPile + "','" + brush.LCounterPile + "','" + brush.LTension + "','" + brush.LRPM + "','" + brush.BSpeed + "','" + brush.Remarks + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                string query = "INSERT INTO Brush (FabricID, BUpperPile, BUpperCounterPile, BUpperDrumTension, BUpperDrumRPM, BLowerPile, BLowerCounterPile, BLowerDrumTension, BLowerDrumRPM, BSpeed, BRemarks, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + brush.fabric.Id + ",'" + brush.UPile + "','" + brush.UCounterPile + "','" + brush.UTension + "','" + brush.URPM + "','" + brush.LPile + "','" + brush.LCounterPile + "','" + brush.LTension + "','" + brush.LRPM + "','" + brush.BSpeed + "','" + brush.Remarks + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "')";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
@@ -217,7 +217,7 @@ namespace TextileResearchDevelopment.BLL
             {
                 string GetApproveByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
 
-                string query = " UPDATE Brush SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + brush.Id + " AND ApprovedStatus = 0 ";
+                string query = " UPDATE Brush SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "' WHERE Id = " + brush.Id + " AND ApprovedStatus = 0 ";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {

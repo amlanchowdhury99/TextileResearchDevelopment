@@ -62,7 +62,7 @@ namespace TextileResearchDevelopment.BLL
                 if (cw.Id > 0)
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE ContinueWashing SET FabricID = '" + cw.fabric.Id + "', CWMcNoId = '" + cw.mc.Id + "', CWTemp = '" + cw.Temp + "', CWChemical = '" + cw.Chemical + "', CWSpeed = '" + cw.Speed + "', CWWELength = '" + cw.ElognationLength + "', CWSEWidth = '" + cw.ElognationWidth + "', CWWashDia = '" + cw.Dia + "', UpdateBy = (" + GetCreateByQuery + "), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "'";
+                    query = "UPDATE ContinueWashing SET FabricID = '" + cw.fabric.Id + "', CWMcNoId = '" + cw.mc.Id + "', CWTemp = '" + cw.Temp + "', CWChemical = '" + cw.Chemical + "', CWSpeed = '" + cw.Speed + "', CWWELength = '" + cw.ElognationLength + "', CWSEWidth = '" + cw.ElognationWidth + "', CWWashDia = '" + cw.Dia + "', UpdateBy = (" + GetCreateByQuery + "), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "'";
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
@@ -80,7 +80,7 @@ namespace TextileResearchDevelopment.BLL
                 else
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "INSERT INTO ContinueWashing (FabricID, CWMcNoId, CWTemp, CWChemical, CWSpeed, CWWELength, CWSEWidth, CWWashDia, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + cw.fabric.Id + "," + cw.mc.Id + ",'" + cw.Temp + "','" + cw.Chemical + "','" + cw.Speed + "','" + cw.ElognationLength + "','" + cw.ElognationWidth + "','" + cw.Dia + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                    query = "INSERT INTO ContinueWashing (FabricID, CWMcNoId, CWTemp, CWChemical, CWSpeed, CWWELength, CWSEWidth, CWWashDia, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + cw.fabric.Id + "," + cw.mc.Id + ",'" + cw.Temp + "','" + cw.Chemical + "','" + cw.Speed + "','" + cw.ElognationLength + "','" + cw.ElognationWidth + "','" + cw.Dia + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "')";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
                         query = "SELECT TOP 1 * FROM CWView order by Id desc";
@@ -214,7 +214,7 @@ namespace TextileResearchDevelopment.BLL
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
                 string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM CWView WHERE BarCode = '" + cw.fabric.BarCode + "'";
 
-                string query = "INSERT INTO ContinueWashing (FabricID, CWMcNoId, CWTemp, CWChemical, CWSpeed, CWWELength, CWSEWidth, CWWashDia, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + cw.fabric.Id + "," + cw.mc.Id + ",'" + cw.Temp + "','" + cw.Chemical + "','" + cw.Speed + "','" + cw.ElognationLength + "','" + cw.ElognationWidth + "','" + cw.Dia + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                string query = "INSERT INTO ContinueWashing (FabricID, CWMcNoId, CWTemp, CWChemical, CWSpeed, CWWELength, CWSEWidth, CWWashDia, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + cw.fabric.Id + "," + cw.mc.Id + ",'" + cw.Temp + "','" + cw.Chemical + "','" + cw.Speed + "','" + cw.ElognationLength + "','" + cw.ElognationWidth + "','" + cw.Dia + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "')";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
@@ -248,7 +248,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string GetApproveByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " UPDATE ContinueWashing SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + cw.Id + " AND ApprovedStatus = 0 ";
+                string query = " UPDATE ContinueWashing SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "' WHERE Id = " + cw.Id + " AND ApprovedStatus = 0 ";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {

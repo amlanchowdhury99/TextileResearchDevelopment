@@ -187,7 +187,7 @@ namespace TextileResearchDevelopment.BLL
                                 string UserPermissionQuery = "(SELECT Id FROM UserPermission WHERE UserName = '" + user.UserName + "' AND Sector = '" + key + "')";
                                 if (!DBGateway.recordExist("SELECT Id FROM UserRole WHERE UserPermissionID = " + UserPermissionQuery + ""))
                                 {
-                                    query = " INSERT INTO UserRole (UserPermissionID, Crud, Approval, LibrarySet, CValue, LValue, AValue) VALUES(" + UserPermissionQuery + "," + i.role.Crud + ", " + i.role.LibrarySet + ", " + i.role.Approval + ", " + i.role.CValue + ", " + i.role.LValue + ", " + i.role.AValue + ")";
+                                    query = " INSERT INTO UserRole (UserPermissionID, Crud, LibrarySet, Approval, CValue, LValue, AValue) VALUES(" + UserPermissionQuery + "," + i.role.Crud + ", " + i.role.LibrarySet + ", " + i.role.Approval + ", " + i.role.CValue + ", " + i.role.LValue + ", " + i.role.AValue + ")";
                                     result = DBGateway.ExecutionToDB(query, 1);
                                 }
                                 else
@@ -372,7 +372,7 @@ namespace TextileResearchDevelopment.BLL
             string PermissionString = "";
             try
             {
-                string query = "SELECT Sector FROM UserPermission WHERE UserName = '" + UserName + "' ORDER BY Sector";
+                string query = "SELECT * FROM UserPermission WHERE UserName = '" + UserName + "' ORDER BY Sector";
                 SqlDataReader reader = DBGateway.GetFromDB(query);
                 if (reader.HasRows)
                 {
@@ -386,9 +386,17 @@ namespace TextileResearchDevelopment.BLL
                     PermissionString = "";
                 }
 
-                if(UserName == "SuperAdmin@gmail.com")
+                if(UserName != "SuperAdmin@gmail.com")
                 {
-                    PermissionString = PermissionString == "" ? "1,2,3,4,5,6,7,8,9,10,11,12,13,14" : PermissionString + "," + "14";
+                    query = "SELECT * FROM UserInfo WHERE UserName = '" + UserName + "' AND Report = 1";
+                    if (DBGateway.recordExist(query))
+                    {
+                        PermissionString = PermissionString + "," + 0;
+                    }
+                }
+                else
+                {
+                    PermissionString = PermissionString == "" ? "1,2,3,4,5,6,7,8,9,10,11,12,13,14,0" : PermissionString + "," + "14,0";
                 }
 
             }

@@ -96,7 +96,7 @@ namespace TextileResearchDevelopment.BLL
                 if (compacting.Id > 0)
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE Compacting SET FabricID = '" + compacting.fabric.Id + "', CMcNoID = " + compacting.mc.Id + ", CProductionTypeID = " + compacting.pr.Id + ", CTemp = '" + compacting.Temp + "', CSpeed = '" + compacting.Speed + "', CFeed = '" + compacting.Feed + "', CSteam = '" + compacting.Steam + "', CCompaction = '" + compacting.Compaction + "', CDia = '" + compacting.Dia + "', CGSM = '" + compacting.GSM + "', CRemarks = '" + compacting.Remarks + "', UpdateBy = (" + GetCreateByQuery + "), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm")+"'";
+                    query = "UPDATE Compacting SET FabricID = '" + compacting.fabric.Id + "', CMcNoID = " + compacting.mc.Id + ", CProductionTypeID = " + compacting.pr.Id + ", CTemp = '" + compacting.Temp + "', CSpeed = '" + compacting.Speed + "', CFeed = '" + compacting.Feed + "', CSteam = '" + compacting.Steam + "', CCompaction = '" + compacting.Compaction + "', CDia = '" + compacting.Dia + "', CGSM = '" + compacting.GSM + "', CRemarks = '" + compacting.Remarks + "', UpdateBy = (" + GetCreateByQuery + "), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd hh:mm")+"'";
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
@@ -114,7 +114,7 @@ namespace TextileResearchDevelopment.BLL
                 else
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "INSERT INTO Compacting (FabricID, CMcNoID, CProductionTypeID, CTemp, CFeed, CSpeed, CSteam, CCompaction, CDia, CGSM, CRemarks, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + compacting.fabric.Id + "," + compacting.mc.Id + "," + compacting.pr.Id + ",'" + compacting.Temp + "','" + compacting.Feed + "','" + compacting.Speed + "','" + compacting.Steam + "','" + compacting.Compaction + "','" + compacting.Dia + "','" + compacting.GSM + "','" + compacting.Remarks + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                    query = "INSERT INTO Compacting (FabricID, CMcNoID, CProductionTypeID, CTemp, CFeed, CSpeed, CSteam, CCompaction, CDia, CGSM, CRemarks, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + compacting.fabric.Id + "," + compacting.mc.Id + "," + compacting.pr.Id + ",'" + compacting.Temp + "','" + compacting.Feed + "','" + compacting.Speed + "','" + compacting.Steam + "','" + compacting.Compaction + "','" + compacting.Dia + "','" + compacting.GSM + "','" + compacting.Remarks + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "')";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
                         query = "SELECT TOP 1 * FROM CompactingView order by Id desc";
@@ -253,7 +253,7 @@ namespace TextileResearchDevelopment.BLL
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
                 string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM CompactingView WHERE BarCode = '" + compacting.fabric.BarCode + "'";
                 
-                string query = "INSERT INTO Compacting (FabricID, CMcNoID, CProductionTypeID, CTemp, CFeed, CSpeed, CSteam, CCompaction, CDia, CGSM, CRemarks, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + compacting.fabric.Id + "," + compacting.mc.Id + "," + compacting.pr.Id + ",'" + compacting.Temp + "','" + compacting.Feed + "','" + compacting.Speed + "','" + compacting.Steam + "','" + compacting.Compaction + "','" + compacting.Dia + "','" + compacting.GSM + "','" + compacting.Remarks + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                string query = "INSERT INTO Compacting (FabricID, CMcNoID, CProductionTypeID, CTemp, CFeed, CSpeed, CSteam, CCompaction, CDia, CGSM, CRemarks, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + compacting.fabric.Id + "," + compacting.mc.Id + "," + compacting.pr.Id + ",'" + compacting.Temp + "','" + compacting.Feed + "','" + compacting.Speed + "','" + compacting.Steam + "','" + compacting.Compaction + "','" + compacting.Dia + "','" + compacting.GSM + "','" + compacting.Remarks + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "')";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
@@ -287,7 +287,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string GetApproveByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " UPDATE Compacting SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + compacting.Id + " AND ApprovedStatus = 0 ";
+                string query = " UPDATE Compacting SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "' WHERE Id = " + compacting.Id + " AND ApprovedStatus = 0 ";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {

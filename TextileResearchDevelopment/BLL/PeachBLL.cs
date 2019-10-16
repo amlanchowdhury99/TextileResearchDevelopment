@@ -28,7 +28,7 @@ namespace TextileResearchDevelopment.BLL
                 if (peach.Id > 0)
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE Peach SET FabricID = '" + peach.fabric.Id + "', PTaker = '" + peach.Taker + "', PPlaiter = '" + peach.Plaiter + "', PReturn = '" + peach.Return + "', PTension = '" + peach.Tension + "', PRPM = '" + peach.RPM + "', PBrush = '" + peach.Brush + "', PSpeed = '" + peach.Speed + "',  PDia = '" + peach.Dia + "', PGSM = '" + peach.GSM + "', PRemarks = '" + peach.Remarks + "', UpdateBy = (" + GetCreateByQuery + "), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "'";
+                    query = "UPDATE Peach SET FabricID = '" + peach.fabric.Id + "', PTaker = '" + peach.Taker + "', PPlaiter = '" + peach.Plaiter + "', PReturn = '" + peach.Return + "', PTension = '" + peach.Tension + "', PRPM = '" + peach.RPM + "', PBrush = '" + peach.Brush + "', PSpeed = '" + peach.Speed + "',  PDia = '" + peach.Dia + "', PGSM = '" + peach.GSM + "', PRemarks = '" + peach.Remarks + "', UpdateBy = (" + GetCreateByQuery + "), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "'";
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
@@ -46,7 +46,7 @@ namespace TextileResearchDevelopment.BLL
                 else
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "INSERT INTO Peach (FabricID, PTaker, PPlaiter, PReturn, PTension, PRPM, PBrush, PSpeed, PDia, PGSM, PRemarks, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + peach.fabric.Id + ",'" + peach.Taker + "','" + peach.Plaiter + "','" + peach.Return + "','" + peach.Tension + "','" + peach.RPM + "','" + peach.Brush + "','" + peach.Speed + "','" + peach.Dia + "','" + peach.GSM + "','" + peach.Remarks + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                    query = "INSERT INTO Peach (FabricID, PTaker, PPlaiter, PReturn, PTension, PRPM, PBrush, PSpeed, PDia, PGSM, PRemarks, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + peach.fabric.Id + ",'" + peach.Taker + "','" + peach.Plaiter + "','" + peach.Return + "','" + peach.Tension + "','" + peach.RPM + "','" + peach.Brush + "','" + peach.Speed + "','" + peach.Dia + "','" + peach.GSM + "','" + peach.Remarks + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "')";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
                         query = "SELECT TOP 1 * FROM PeachView order by Id desc";
@@ -182,7 +182,7 @@ namespace TextileResearchDevelopment.BLL
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
                 string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM PeachView WHERE BarCode = '" + peach.fabric.BarCode + "'";
                 
-                string query = "INSERT INTO Peach (FabricID, PTaker, PPlaiter, PReturn, PTension, PRPM, PBrush, PSpeed, PDia, PGSM, PRemarks, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + peach.fabric.Id + ",'" + peach.Taker + "','" + peach.Plaiter + "','" + peach.Return + "','" + peach.Tension + "','" + peach.RPM + "','" + peach.Brush + "','" + peach.Speed + "','" + peach.Dia + "','" + peach.GSM + "','" + peach.Remarks + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                string query = "INSERT INTO Peach (FabricID, PTaker, PPlaiter, PReturn, PTension, PRPM, PBrush, PSpeed, PDia, PGSM, PRemarks, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + peach.fabric.Id + ",'" + peach.Taker + "','" + peach.Plaiter + "','" + peach.Return + "','" + peach.Tension + "','" + peach.RPM + "','" + peach.Brush + "','" + peach.Speed + "','" + peach.Dia + "','" + peach.GSM + "','" + peach.Remarks + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "')";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
@@ -216,7 +216,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string GetApproveByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " UPDATE Peach SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + peach.Id + " AND ApprovedStatus = 0 ";
+                string query = " UPDATE Peach SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "' WHERE Id = " + peach.Id + " AND ApprovedStatus = 0 ";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {

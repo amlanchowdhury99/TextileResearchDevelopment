@@ -27,7 +27,7 @@ namespace TextileResearchDevelopment.BLL
                 if (qc.Id > 0)
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE QC SET FabricID = '" + qc.fabric.Id + "', QDia = '" + qc.Dia + "', QGSM = '" + qc.GSM + "', QShrinkage = '" + qc.Shrinkage + "', QWash = '" + qc.Wash + "', QWater = '" + qc.Water + "', QAcid = '" + qc.Acid + "', QAlkhali = '" + qc.Alkhali + "',  QBursting = '" + qc.Bursting + "', QPilling = '" + qc.Pilling + "', QStrech = '" + qc.Strech + "', QRecovery = '" + qc.Recovery + "', UpdateBy = (" + GetCreateByQuery + "), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "'";
+                    query = "UPDATE QC SET FabricID = '" + qc.fabric.Id + "', QDia = '" + qc.Dia + "', QGSM = '" + qc.GSM + "', QShrinkage = '" + qc.Shrinkage + "', QWash = '" + qc.Wash + "', QWater = '" + qc.Water + "', QAcid = '" + qc.Acid + "', QAlkhali = '" + qc.Alkhali + "',  QBursting = '" + qc.Bursting + "', QPilling = '" + qc.Pilling + "', QStrech = '" + qc.Strech + "', QRecovery = '" + qc.Recovery + "', UpdateBy = (" + GetCreateByQuery + "), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "'";
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
@@ -45,7 +45,7 @@ namespace TextileResearchDevelopment.BLL
                 else
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "INSERT INTO QC (FabricID, QDia, QGSM, QShrinkage, QWash, QWater, QAcid, QAlkhali, QBursting, QPilling, QStrech, QRecovery, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + qc.fabric.Id + ",'" + qc.Dia + "','" + qc.GSM + "','" + qc.Shrinkage + "','" + qc.Wash + "','" + qc.Water + "','" + qc.Acid + "','" + qc.Alkhali + "','" + qc.Bursting + "','" + qc.Pilling + "','" + qc.Strech + "','" + qc.Recovery + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                    query = "INSERT INTO QC (FabricID, QDia, QGSM, QShrinkage, QWash, QWater, QAcid, QAlkhali, QBursting, QPilling, QStrech, QRecovery, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + qc.fabric.Id + ",'" + qc.Dia + "','" + qc.GSM + "','" + qc.Shrinkage + "','" + qc.Wash + "','" + qc.Water + "','" + qc.Acid + "','" + qc.Alkhali + "','" + qc.Bursting + "','" + qc.Pilling + "','" + qc.Strech + "','" + qc.Recovery + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "')";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
                         query = "SELECT TOP 1 * FROM QCView order by Id desc";
@@ -182,7 +182,7 @@ namespace TextileResearchDevelopment.BLL
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
                 string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM QCView WHERE BarCode = '" + qc.fabric.BarCode + "'";
                 
-                string query = "INSERT INTO QC (FabricID, QDia, QGSM, QShrinkage, QWash, QWater, QAcid, QAlkhali, QBursting, QPilling, QStrech, QRecovery, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + qc.fabric.Id + ",'" + qc.Dia + "','" + qc.GSM + "','" + qc.Shrinkage + "','" + qc.Wash + "','" + qc.Water + "','" + qc.Acid + "','" + qc.Alkhali + "','" + qc.Bursting + "','" + qc.Pilling + "','" + qc.Strech + "','" + qc.Recovery + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                string query = "INSERT INTO QC (FabricID, QDia, QGSM, QShrinkage, QWash, QWater, QAcid, QAlkhali, QBursting, QPilling, QStrech, QRecovery, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + qc.fabric.Id + ",'" + qc.Dia + "','" + qc.GSM + "','" + qc.Shrinkage + "','" + qc.Wash + "','" + qc.Water + "','" + qc.Acid + "','" + qc.Alkhali + "','" + qc.Bursting + "','" + qc.Pilling + "','" + qc.Strech + "','" + qc.Recovery + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "')";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
@@ -216,7 +216,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string GetApproveByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " UPDATE QC SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + qc.Id + " AND ApprovedStatus = 0 ";
+                string query = " UPDATE QC SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "' WHERE Id = " + qc.Id + " AND ApprovedStatus = 0 ";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {

@@ -27,7 +27,7 @@ namespace TextileResearchDevelopment.BLL
                 if (singeing.Id > 0)
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE Singeing SET FabricID = '" + singeing.fabric.Id + "',  SFHBurner1 = '" + singeing.HBurner1 + "', SFHBurner2 = '" + singeing.HBurner2 + "', SFWBurner1 = '" + singeing.WBurner1 + "', SFWBurner2 = '" + singeing.WBurner2 + "', SSpeed = '" + singeing.Speed + "', SBurner = '" + singeing.Burner + "', SFlamePosition = '" + singeing.Position + "', UpdateBy = (" + GetCreateByQuery + "), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "'";
+                    query = "UPDATE Singeing SET FabricID = '" + singeing.fabric.Id + "',  SFHBurner1 = '" + singeing.HBurner1 + "', SFHBurner2 = '" + singeing.HBurner2 + "', SFWBurner1 = '" + singeing.WBurner1 + "', SFWBurner2 = '" + singeing.WBurner2 + "', SSpeed = '" + singeing.Speed + "', SBurner = '" + singeing.Burner + "', SFlamePosition = '" + singeing.Position + "', UpdateBy = (" + GetCreateByQuery + "), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "'";
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
@@ -45,7 +45,7 @@ namespace TextileResearchDevelopment.BLL
                 else
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "INSERT INTO Singeing (FabricID, SFHBurner1, SFHBurner2, SFWBurner1, SFWBurner2, SSpeed, SBurner, SFlamePosition, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + singeing.fabric.Id + ",'" + singeing.HBurner1 + "','" + singeing.HBurner2 + "','" + singeing.WBurner1 + "','" + singeing.WBurner2 + "','" + singeing.Speed + "','" + singeing.Burner + "','" + singeing.Position + "',  0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                    query = "INSERT INTO Singeing (FabricID, SFHBurner1, SFHBurner2, SFWBurner1, SFWBurner2, SSpeed, SBurner, SFlamePosition, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + singeing.fabric.Id + ",'" + singeing.HBurner1 + "','" + singeing.HBurner2 + "','" + singeing.WBurner1 + "','" + singeing.WBurner2 + "','" + singeing.Speed + "','" + singeing.Burner + "','" + singeing.Position + "',  0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "')";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
                         query = "SELECT TOP 1 * FROM SingeingView order by Id desc";
@@ -177,7 +177,7 @@ namespace TextileResearchDevelopment.BLL
             {
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
                 string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM SingeingView WHERE BarCode = '" + singeing.fabric.BarCode + "'";
-                string query = "INSERT INTO Singeing (FabricID, SFHBurner1, SFHBurner2, SFWBurner1, SFWBurner2, SSpeed, SBurner, SFlamePosition, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + singeing.fabric.Id + ",'" + singeing.HBurner1 + "','" + singeing.HBurner2 + "','" + singeing.WBurner1 + "','" + singeing.WBurner2 + "','" + singeing.Speed + "','" + singeing.Burner + "','" + singeing.Position + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                string query = "INSERT INTO Singeing (FabricID, SFHBurner1, SFHBurner2, SFWBurner1, SFWBurner2, SSpeed, SBurner, SFlamePosition, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + singeing.fabric.Id + ",'" + singeing.HBurner1 + "','" + singeing.HBurner2 + "','" + singeing.WBurner1 + "','" + singeing.WBurner2 + "','" + singeing.Speed + "','" + singeing.Burner + "','" + singeing.Position + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "')";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
@@ -211,7 +211,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string GetApproveByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " UPDATE Singeing SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + singeing.Id + " AND ApprovedStatus = 0 ";
+                string query = " UPDATE Singeing SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "' WHERE Id = " + singeing.Id + " AND ApprovedStatus = 0 ";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {

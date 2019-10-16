@@ -61,7 +61,7 @@ namespace TextileResearchDevelopment.BLL
                 if (hsp.Id > 0)
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "UPDATE HSP SET FabricID = '" + hsp.fabric.Id + "', HPMcNoId = " + hsp.mc.Id + ", HPTemp = '" + hsp.Temp + "', HPSpeed = '" + hsp.Speed + "', HPTime = '" + hsp.Time + "', HPFeed = '" + hsp.Feed + "', HPStrech = '" + hsp.Streching + "', HPChemical = '" + hsp.Chemical + "', HPDia = '" + hsp.Dia + "', HPGSM = '" + hsp.GSM + "', HPShrinkage = '" + hsp.Shrinkage + "', UpdateBy = (" + GetCreateByQuery + "), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") +"'";
+                    query = "UPDATE HSP SET FabricID = '" + hsp.fabric.Id + "', HPMcNoId = " + hsp.mc.Id + ", HPTemp = '" + hsp.Temp + "', HPSpeed = '" + hsp.Speed + "', HPTime = '" + hsp.Time + "', HPFeed = '" + hsp.Feed + "', HPStrech = '" + hsp.Streching + "', HPChemical = '" + hsp.Chemical + "', HPDia = '" + hsp.Dia + "', HPGSM = '" + hsp.GSM + "', HPShrinkage = '" + hsp.Shrinkage + "', UpdateBy = (" + GetCreateByQuery + "), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") +"'";
 
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
@@ -79,7 +79,7 @@ namespace TextileResearchDevelopment.BLL
                 else
                 {
                     string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                    query = "INSERT INTO HSP (FabricID, HPMcNoId, HPTemp, HPSpeed, HPTime, HPFeed, HPStrech, HPChemical, HPDia, HPGSM, HPShrinkage, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + hsp.fabric.Id + "," + hsp.mc.Id + ",'" + hsp.Temp + "','" + hsp.Speed + "','" + hsp.Time + "','" + hsp.Feed + "','" + hsp.Streching + "','" + hsp.Chemical + "','" + hsp.Dia + "','" + hsp.GSM + "','" + hsp.Shrinkage + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                    query = "INSERT INTO HSP (FabricID, HPMcNoId, HPTemp, HPSpeed, HPTime, HPFeed, HPStrech, HPChemical, HPDia, HPGSM, HPShrinkage, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + hsp.fabric.Id + "," + hsp.mc.Id + ",'" + hsp.Temp + "','" + hsp.Speed + "','" + hsp.Time + "','" + hsp.Feed + "','" + hsp.Streching + "','" + hsp.Chemical + "','" + hsp.Dia + "','" + hsp.GSM + "','" + hsp.Shrinkage + "', 0, 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "')";
                     if (DBGateway.ExecutionToDB(query, 1))
                     {
                         query = "SELECT TOP 1 * FROM HSPView order by Id desc";
@@ -216,7 +216,7 @@ namespace TextileResearchDevelopment.BLL
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
                 string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM HSPView WHERE BarCode = '" + hsp.fabric.BarCode + "'";
 
-                string query = "INSERT INTO HSP (FabricID, HPMcNoId, HPTemp, HPSpeed, HPTime, HPFeed, HPStrech, HPChemical, HPDia, HPGSM, HPShrinkage, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + hsp.fabric.Id + "," + hsp.mc.Id + ",'" + hsp.Temp + "','" + hsp.Speed + "','" + hsp.Time + "','" + hsp.Feed + "','" + hsp.Streching + "','" + hsp.Chemical + "','" + hsp.Dia + "','" + hsp.GSM + "','" + hsp.Shrinkage + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "')";
+                string query = "INSERT INTO HSP (FabricID, HPMcNoId, HPTemp, HPSpeed, HPTime, HPFeed, HPStrech, HPChemical, HPDia, HPGSM, HPShrinkage, ReviseStatus, ApprovedStatus, CreateBy, CreateTime) VALUES(" + hsp.fabric.Id + "," + hsp.mc.Id + ",'" + hsp.Temp + "','" + hsp.Speed + "','" + hsp.Time + "','" + hsp.Feed + "','" + hsp.Streching + "','" + hsp.Chemical + "','" + hsp.Dia + "','" + hsp.GSM + "','" + hsp.Shrinkage + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "),'" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "')";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
@@ -250,7 +250,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string GetApproveByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " UPDATE HSP SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + hsp.Id + " AND ApprovedStatus = 0 ";
+                string query = " UPDATE HSP SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "' WHERE Id = " + hsp.Id + " AND ApprovedStatus = 0 ";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {

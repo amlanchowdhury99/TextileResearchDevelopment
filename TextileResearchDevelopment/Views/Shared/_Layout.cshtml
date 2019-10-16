@@ -66,6 +66,10 @@
                             var result = result.split(',');
                             for (let i = 0; i < result.length; i++)
                             {
+                                if (parseInt(result[i]) == 0)
+                                {
+                                    $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Report", "Index", "Report", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
+                                }
                                 if (parseInt(result[i]) == 1)
                                 {
                                     $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Fabric", "Index", "Fabric", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
@@ -124,8 +128,6 @@
                                 }
                             }
                         }
-
-                        $("#ActionLinkBar ul").append('<li>@Ajax.ActionLink("Report", "Index", "Report", new AjaxOptions { UpdateTargetId = "MainDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" })</li>');
                     }
                     else
                     {

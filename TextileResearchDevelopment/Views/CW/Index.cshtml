@@ -83,7 +83,7 @@
                                         <div class="form-group col-xs-4 form-inline">
                                             <label for="RefNoSL" class="control-label" style="width:35%;">RefNo</label>
                                             <div style="display: inline;">
-                                                <input type="text" class=" form-control" style="width:60%;" id="RefNoSL" placeholder="Color" autofocus>
+                                                <input type="text" class=" form-control" style="width:60%;" id="RefNoSL" placeholder="Ref No" autofocus>
                                             </div>
                                         </div>
                                     </div>
@@ -723,7 +723,7 @@
                     fb: fb,
                     cm: cm,
                     OrderNo: $("#OrderNoSL").val().length > 0 ? $("#OrderNoSL").val().toString() : '',
-                    RefNo: $("#RefNoSL").val().length > 0 ? $("#ColorSL").val().toString() : '',
+                    RefNo: $("#RefNoSL").val().length > 0 ? $("#RefNoSL").val().toString() : '',
                     Note: "CW"
                 };
 
@@ -1021,7 +1021,7 @@
 
                         var BarCode = CWtable.rows('.selected').data()[0].fabric.BarCode;
                         var rows = CWtable.rows(function (idx, data, node) {
-                            return data.BarCode === BarCode && data.ApprovedStatus == 1 ?
+                            return data.fabric.BarCode === BarCode && data.ApprovedStatus == 1 ?
                                 true : false;
                         }).data();
 
@@ -1202,6 +1202,7 @@
         }
 
         function Reset() {
+            debugger;
             event.preventDefault();
             $('#CWtable tbody tr').removeClass('selected')
 

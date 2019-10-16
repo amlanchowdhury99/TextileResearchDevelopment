@@ -14,7 +14,7 @@
 <div id="MainDiv" class="panel panel-default ">
     <div class="panel panel-default ">
         <div class="panel-heading">
-            <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Create Knitting Order</h5>
+            <h5 class="panel-title"><i class="icon-stack-plus position-left"></i>Create User</h5>
         </div>
         <div class="panel-body">
             <form id="UserForm">
@@ -607,7 +607,7 @@
             PermissionString = "";
             vals = [];
         }
-        function findValueInArray(value, vals) {
+        function findValueInArray(val, value, vals) {
             var result = false;
             for (var i = 0; i < vals.length; i++) {
                 if (vals[i] == value) {
@@ -615,20 +615,22 @@
                     break;
                 }
             }
+            if (val == 1 && vals.length == 0)
+                result = true;
             return result;
         }
         $('#UserForm').submit(function (e) {
             debugger;
             event.preventDefault();
             rootNode.forEach(function (item, i) {
-                if (findValueInArray(item["value"], vals) == true) {
+                if (findValueInArray(item["val"], item["value"], vals) == true) {
                     item["val"] = 1;
                 }
                 else {
                     item["val"] = 0;
                 };
                 item.children.forEach(function (a, j) {
-                    if (findValueInArray(a["value"], vals) == true) {
+                    if (findValueInArray(a["val"], a["value"], vals) == true) {
                         item["val"] = 1; a["val"] = 1;
                     }
                     else {
@@ -758,6 +760,7 @@
                 success: function (response) {
                     debugger;
                     if (response.data != "" && response.data != null) {
+                        vals = GetSelectedNode(response.data.rootNode);
                         $('div.treeSelector').treeSelector(rootNode, GetSelectedNode(response.data.rootNode), function (e, values) {
                             debugger;
                             vals = values;
@@ -787,14 +790,14 @@
                 var Row = UserTable.rows('.selected').data()[0];
                 var index = UserTable.row('.selected').index();
                 rootNode.forEach(function (item, i) {
-                    if (findValueInArray(item["value"], vals) == true) {
+                    if (findValueInArray(item["val"], item["value"], vals) == true) {
                         item["val"] = 1;
                     }
                     else {
                         item["val"] = 0;
                     };
                     item.children.forEach(function (a, j) {
-                        if (findValueInArray(a["value"], vals) == true) {
+                        if (findValueInArray(a["val"], a["value"], vals) == true) {
                             item["val"] = 1; a["val"] = 1;
                         }
                         else {

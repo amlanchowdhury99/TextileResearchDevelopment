@@ -244,7 +244,7 @@ namespace TextileResearchDevelopment.BLL
             {
                 string GetCreateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
                 string query = " INSERT INTO Knitting (FabricID, BarCode, ErpNo, McNoID, McSpeed, SL, YarnTension, LycraTension, GreyDia, GreyGSM, ReqDia, ReqGSM, ReviseStatus, ApprovedStatus, CreateBy, CreateTime, ApprovedBy, UpdateBy) " +
-                               " VALUES(" + knit.fabric.Id + ",'" + knit.BarCode + "','" + knit.ErpNo + "'," + knit.mc.Id + ",'" + knit.McSpeed + "','" + knit.SL + "','" + knit.YT + "','" + knit.LT + "','" + knit.GreyDia + "','" + knit.GreyGSM + "','" + knit.ReqDia + "','" + knit.ReqGSM + "', 0, 0, (" + GetCreateByQuery + "), '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "', 0, 0)";
+                               " VALUES(" + knit.fabric.Id + ",'" + knit.BarCode + "','" + knit.ErpNo + "'," + knit.mc.Id + ",'" + knit.McSpeed + "','" + knit.SL + "','" + knit.YT + "','" + knit.LT + "','" + knit.GreyDia + "','" + knit.GreyGSM + "','" + knit.ReqDia + "','" + knit.ReqGSM + "', 0, 0, (" + GetCreateByQuery + "), '" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "', 0, 0)";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT TOP 1* FROM KnitView order by Id desc";
@@ -277,7 +277,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string GetApproveByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " UPDATE Knitting SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + knit.Id + " AND ApprovedStatus = 0 ";
+                string query = " UPDATE Knitting SET ApprovedStatus = 1, ApprovedBy = (" + GetApproveByQuery + "), ApprovedTime = '" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "' WHERE Id = " + knit.Id + " AND ApprovedStatus = 0 ";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT * FROM KnitView WHERE Id = " + knit.Id;
@@ -367,7 +367,7 @@ namespace TextileResearchDevelopment.BLL
             try
             {
                 string GetUpdateByQuery = "SELECT Id FROM UserInfo WHERE UserName = '" + HttpContext.Current.Session[System.Web.HttpContext.Current.Session.SessionID] + "'";
-                string query = " UPDATE Knitting SET FabricID = " + knit.fabric.Id + ", ErpNo = '" + knit.ErpNo + "', McNoID = " + knit.mc.Id + ", McSpeed = '" + knit.McSpeed + "', SL = '" + knit.SL + "', YarnTension = '" + knit.YT + "', LycraTension = '" + knit.LT + "', GreyDia = '" + knit.GreyDia + "', GreyGSM = '" + knit.GreyGSM + "', ReqDia = '" + knit.ReqDia + "', ReqGSM = '" + knit.ReqGSM + "', UpdateBy = (" + GetUpdateByQuery + "), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "' WHERE Id = " + knit.Id + " AND ApprovedStatus = 0";
+                string query = " UPDATE Knitting SET FabricID = " + knit.fabric.Id + ", ErpNo = '" + knit.ErpNo + "', McNoID = " + knit.mc.Id + ", McSpeed = '" + knit.McSpeed + "', SL = '" + knit.SL + "', YarnTension = '" + knit.YT + "', LycraTension = '" + knit.LT + "', GreyDia = '" + knit.GreyDia + "', GreyGSM = '" + knit.GreyGSM + "', ReqDia = '" + knit.ReqDia + "', ReqGSM = '" + knit.ReqGSM + "', UpdateBy = (" + GetUpdateByQuery + "), UpdateTime = '" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "' WHERE Id = " + knit.Id + " AND ApprovedStatus = 0";
                 if (DBGateway.ExecutionToDB(query, 1))
                 {
                     query = "SELECT * FROM KnitView WHERE Id = " + knit.Id;
@@ -403,7 +403,7 @@ namespace TextileResearchDevelopment.BLL
                 string GetReviseQuery = "SELECT Count(Id)-1 AS ReviseStatus FROM Knitting WHERE BarCode = '" + knit.BarCode + "'";
 
                 string query = " INSERT INTO Knitting (FabricID, BarCode, ErpNo, McNoID, McSpeed, SL, YarnTension, LycraTension, GreyDia, GreyGSM, ReqDia, ReqGSM, ReviseStatus, ApprovedStatus, CreateBy, CreateTime, ApprovedBy, UpdateBy) " +
-                               " VALUES(" + knit.fabric.Id + ",'" + knit.BarCode + "','" + knit.ErpNo + "'," + knit.mc.Id + ",'" + knit.McSpeed + "','" + knit.SL + "','" + knit.YT + "','" + knit.LT + "','" + knit.GreyDia + "','" + knit.GreyGSM + "','" + knit.ReqDia + "','" + knit.ReqGSM + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "), '" + DateTime.Now.ToString("yyyy/MM/dd HH:mm") + "', 0, 0)";
+                               " VALUES(" + knit.fabric.Id + ",'" + knit.BarCode + "','" + knit.ErpNo + "'," + knit.mc.Id + ",'" + knit.McSpeed + "','" + knit.SL + "','" + knit.YT + "','" + knit.LT + "','" + knit.GreyDia + "','" + knit.GreyGSM + "','" + knit.ReqDia + "','" + knit.ReqGSM + "', ((" + GetReviseQuery + ") + 1), 0, (" + GetCreateByQuery + "), '" + DateTime.Now.ToString("yyyy/MM/dd hh:mm") + "', 0, 0)";
 
                 if (DBGateway.ExecutionToDB(query, 1))
                 {

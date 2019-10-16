@@ -59,7 +59,7 @@
                 <div class="form-group col-xs-4 form-inline">
                     <label for="RefNoSL" class="control-label" style="width:35%;">RefNo</label>
                     <div style="display: inline;">
-                        <input type="text" class=" form-control" style="width:60%;" id="RefNoSL" placeholder="Color" autofocus>
+                        <input type="text" class=" form-control" style="width:60%;" id="RefNoSL" placeholder="Ref No" autofocus>
                     </div>
                 </div>
             </div>
@@ -157,7 +157,7 @@
                 {
                     data: "CreateTime",
                     render: function (data, type, row) {
-                        return moment(data, "YYYY/MM/DD HH:mm").format("DD/MM/YYYY h:mm");
+                        return moment(data, "YYYY/MM/DD hh:mm").format("DD/MM/YYYY h:mm a");
                     }
                 },
                 { "data": "BarCode" },
@@ -340,7 +340,7 @@
                     cm: cm,
                     st: st,
                     OrderNo: $("#OrderNoSL").val().length > 0 ? $("#OrderNoSL").val().toString() : '',
-                    RefNo: $("#RefNoSL").val().length > 0 ? $("#ColorSL").val().toString() : '',
+                    RefNo: $("#RefNoSL").val().length > 0 ? $("#RefNoSL").val().toString() : '',
                     DateStart: $('#DateText').data('daterangepicker').startDate.format('DD/MM/YYYY'),
                     DateEnd: $('#DateText').data('daterangepicker').endDate.format('DD/MM/YYYY'),
                     Note: "Report"

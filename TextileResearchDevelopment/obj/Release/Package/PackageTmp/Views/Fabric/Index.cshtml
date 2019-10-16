@@ -1319,7 +1319,7 @@
                 {
                     data: "CreateTime",
                     render: function (data, type, row) {
-                        return moment(data).format("DD/MM/YYYY h:mm a");
+                        return moment(data, "YYYY/MM/DD h:mm").format("DD/MM/YYYY hh:mm a");
                     }
                 },
                 { "data": "CreateBy" },
@@ -1327,7 +1327,7 @@
                     data: "UpdateTime",
                     render: function (data, type, row) {
                         if (data != null)
-                            return moment(data).format("DD/MM/YYYY h:mm a");
+                            return moment(data, "YYYY/MM/DD h:mm").format("DD/MM/YYYY hh:mm a");
                         else
                             return "N/A"
                     }
@@ -1356,6 +1356,7 @@
                     var rowdata = fabricTable.row(this).data();
                     fabricTable.$('tr.selected').removeClass('selected');
                     $(this).addClass('selected');
+                    $('#ProcessString').text("");
                     Setvalue(rowdata);
                     $('#saveBtn').prop("disabled", true);
                     if (rowdata.Status != "Active") {
@@ -1512,8 +1513,8 @@
                     BatchNo: $("#BatchNo").val(),
                     Season: $("#Season").val(),
                     Version: $("#Version").val(),
-                    ProcessString: selectedFPValue,
-                    ProcessText: selectedFPText,
+                    ProcessString: selectedFPValue == "" ? fabricTable.rows('.selected').data()[0].ProcessString : selectedFPValue,
+                    ProcessText: selectedFPText == "" ? fabricTable.rows('.selected').data()[0].ProcessText : selectedFPText,
                     Rate: $("#Rate").val(),
                     fut: fut,
                     Merchandiser: $("#Merchandiser").val()
@@ -1608,8 +1609,8 @@
                         BatchNo: $("#BatchNo").val(),
                         Season: $("#Season").val(),
                         Version: $("#Version").val(),
-                        ProcessString: selectedFPValue,
-                        ProcessText: selectedFPText,
+                        ProcessString: selectedFPValue == "" ? fabricTable.rows('.selected').data()[0].ProcessString : selectedFPValue,
+                        ProcessText: selectedFPText == "" ? fabricTable.rows('.selected').data()[0].ProcessText : selectedFPText,
                         Rate: $("#Rate").val(),
                         fut: fut,
                         Merchandiser: $("#Merchandiser").val()
@@ -1744,6 +1745,7 @@
         });
 
         function Reset() {
+            debugger;
             $('#ProcessString').text("");
             $("#BuyerName").val("");
             $("#FabricType").val("");

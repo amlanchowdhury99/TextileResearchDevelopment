@@ -2197,10 +2197,10 @@
 
     // iso time formats and regexes
     var isoTimes = [
-        ['HH:mm:ss.SSSS', /\d\d:\d\d:\d\d\.\d+/],
-        ['HH:mm:ss,SSSS', /\d\d:\d\d:\d\d,\d+/],
-        ['HH:mm:ss', /\d\d:\d\d:\d\d/],
-        ['HH:mm', /\d\d:\d\d/],
+        ['hh:mm a:ss.SSSS', /\d\d:\d\d:\d\d\.\d+/],
+        ['hh:mm a:ss,SSSS', /\d\d:\d\d:\d\d,\d+/],
+        ['hh:mm a:ss', /\d\d:\d\d:\d\d/],
+        ['hh:mm a', /\d\d:\d\d/],
         ['HHmmss.SSSS', /\d\d\d\d\d\d\.\d+/],
         ['HHmmss,SSSS', /\d\d\d\d\d\d,\d+/],
         ['HHmmss', /\d\d\d\d\d\d/],
@@ -3321,7 +3321,7 @@
     hooks.defaultFormatUtc = 'YYYY-MM-DDTHH:mm:ss[Z]';
 
     function toString () {
-        return this.clone().locale('en').format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');
+        return this.clone().locale('en').format('ddd MMM DD YYYY hh:mm a:ss [GMT]ZZ');
     }
 
     function toISOString(keepOffset) {
@@ -3331,7 +3331,7 @@
         var utc = keepOffset !== true;
         var m = utc ? this.clone().utc() : this;
         if (m.year() < 0 || m.year() > 9999) {
-            return formatMoment(m, utc ? 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYYYY-MM-DD[T]HH:mm:ss.SSSZ');
+            return formatMoment(m, utc ? 'YYYYYY-MM-DD[T]hh:mm a:ss.SSS[Z]' : 'YYYYYY-MM-DD[T]hh:mm a:ss.SSSZ');
         }
         if (isFunction(Date.prototype.toISOString)) {
             // native implementation is ~50x faster, use it when we can
@@ -3341,7 +3341,7 @@
                 return new Date(this.valueOf() + this.utcOffset() * 60 * 1000).toISOString().replace('Z', formatMoment(m, 'Z'));
             }
         }
-        return formatMoment(m, utc ? 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYY-MM-DD[T]HH:mm:ss.SSSZ');
+        return formatMoment(m, utc ? 'YYYY-MM-DD[T]hh:mm a:ss.SSS[Z]' : 'YYYY-MM-DD[T]hh:mm a:ss.SSSZ');
     }
 
     /**
@@ -3362,7 +3362,7 @@
         }
         var prefix = '[' + func + '("]';
         var year = (0 <= this.year() && this.year() <= 9999) ? 'YYYY' : 'YYYYYY';
-        var datetime = '-MM-DD[T]HH:mm:ss.SSS';
+        var datetime = '-MM-DD[T]hh:mm a:ss.SSS';
         var suffix = zone + '[")]';
 
         return this.format(prefix + year + datetime + suffix);
@@ -4590,9 +4590,9 @@
         DATETIME_LOCAL_SECONDS: 'YYYY-MM-DDTHH:mm:ss',  // <input type="datetime-local" step="1" />
         DATETIME_LOCAL_MS: 'YYYY-MM-DDTHH:mm:ss.SSS',   // <input type="datetime-local" step="0.001" />
         DATE: 'YYYY-MM-DD',                             // <input type="date" />
-        TIME: 'HH:mm',                                  // <input type="time" />
-        TIME_SECONDS: 'HH:mm:ss',                       // <input type="time" step="1" />
-        TIME_MS: 'HH:mm:ss.SSS',                        // <input type="time" step="0.001" />
+        TIME: 'hh:mm a',                                  // <input type="time" />
+        TIME_SECONDS: 'hh:mm a:ss',                       // <input type="time" step="1" />
+        TIME_MS: 'hh:mm a:ss.SSS',                        // <input type="time" step="0.001" />
         WEEK: 'GGGG-[W]WW',                             // <input type="week" />
         MONTH: 'YYYY-MM'                                // <input type="month" />
     };
